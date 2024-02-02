@@ -16,13 +16,14 @@
     in
       with pkgs; {
         devShells.default = pkgs.mkShell {
-          nativeBuildInputs = [
-            pkgs.pkg-config
-          ];
+          # nativeBuildInputs = [
+          #   pkgs.pkg-config
+          # ];
           buildInputs = [
             typst
             typstfmt
             typst-lsp
+            hayagriva
             graphviz
             python3
             just
