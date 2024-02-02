@@ -1,8 +1,7 @@
 #let kristoffer(what) = {
- let c = color.orange
- block(fill: c.lighten(50%), stroke: c, inset: 5pt, radius: 50%, what)
+  let c = color.orange
+  block(fill: c.lighten(50%), stroke: c, inset: 1em, radius: 1em, what)
 }
-
 
 = Journal
 
@@ -15,11 +14,7 @@
 == #day.display()
 
 #kristoffer[
- Read these papers:
- - 
+  Read these papers:
+  -
 ]
-
-
-
-
 
