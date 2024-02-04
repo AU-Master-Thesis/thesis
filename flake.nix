@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.inputs.flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
@@ -16,9 +16,6 @@
     in
       with pkgs; {
         devShells.default = pkgs.mkShell {
-          # nativeBuildInputs = [
-          #   pkgs.pkg-config
-          # ];
           buildInputs = [
             typst
             typstfmt
@@ -27,6 +24,7 @@
             graphviz
             python3
             just
+            ltex-ls # languagetool lsp
           ];
         };
       });

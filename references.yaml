@@ -1,0 +1,30 @@
+gbp-visual-introduction:
+  type: article
+  title: A visual introduction to Gaussian Belief Propagation
+  author:
+  - Ortiz, Joseph
+  - Evans, Talfan
+  - Davison, Andrew J.
+  date: 2021
+  parent:
+    type: periodical
+    title: arXiv preprint arXiv:2107.02308
+
+gbpplanner:
+  type: article
+  title: Distributing Collaborative Multi-Robot Planning With Gaussian Belief Propagation
+  author:
+  - Patwardhan, Aalok
+  - Murai, Riku
+  - Davison, Andrew J.
+  date: 2023
+  page-range: 552–559
+  serial-number:
+    doi: 10.1109/LRA.2022.3227858
+  parent:
+    type: periodical
+    title: IEEE Robotics and Automation Letters
+    issue: 2
+    volume: 8
+
+
