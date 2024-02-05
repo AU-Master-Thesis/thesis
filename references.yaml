@@ -30,6 +30,7 @@ gbpplanner:
 
 # TODO: use repository category
 # TODO: update date
+# https://github.com/bevyengine/bevy/discussions/8098
 bevyengine:
   type: misc
   title: Bevy Engine
@@ -38,5 +39,24 @@ bevyengine:
   serial-number:
     version: 0.12.1
   note: https://github.com/bevyengine/bevy/releases/tag/v0.12.1
+
+
+multi-robot-path-planning-review:
+  type: article
+  title: A comprehensive review of the latest path planning developments for multi-robot formation systems
+  author:
+  - Abujabal, Nour
+  - Fareh, Raouf
+  - Sinan, Saif
+  - Baziyad, Mohammed
+  - Bettayeb, Maamar
+  date: 2023
+  page-range: 1–26
+  serial-number:
+    doi: 10.1017/S0263574723000322
+  parent:
+    type: periodical
+    title: Robotica
+    volume: 41
 
 

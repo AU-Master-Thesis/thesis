@@ -38,6 +38,8 @@
   website: link("https://gaussianbp.github.io/"),
 )
 
+#let gbp = [Gaussian Belief Propagation]
+
 #show link: it => underline(text(blue, it))
 #set page(numbering: "1 / 1")
 
@@ -105,6 +107,20 @@
     our Rust codebase.
     - Jens wrote the code, while we both discussed how to port the Python code to
       Rust.
+]
+
+#day(datetime(day: 5, month: 02, year: 2024))
+#kristoffer[
+  - At Beumer
+  - Read recent survey paper from 2023 @multi-robot-path-planning-review.
+    - No mention of any paper/approach using #gbp.
+    - Many newer paper use AI methodologies.
+      - Neural Network based
+      - Genetic Algorithms
+        - Ant Colony
+        - artificial bee colony algorithm
+    - Lin–Kernighan–Helsgaun heuristic algorithm (dunno, names sounds interesting #emoji.face.think)
+    - Dynamic Particle Swarm Optimization (PSO) [ref: 126,128]
 ]
 
 #bibliography(

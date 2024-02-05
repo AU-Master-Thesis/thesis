@@ -25,6 +25,8 @@
             python3
             just
             ltex-ls # languagetool lsp
+            yq
+            jq
           ];
         };
       });
