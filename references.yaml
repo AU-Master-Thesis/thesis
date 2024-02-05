@@ -28,3 +28,15 @@ gbpplanner:
     volume: 8
 
 
+# TODO: use repository category
+# TODO: update date
+bevyengine:
+  type: misc
+  title: Bevy Engine
+  author: Contributors, Bevy
+  date: 2023-03-06
+  serial-number:
+    version: 0.12.1
+  note: https://github.com/bevyengine/bevy/releases/tag/v0.12.1
+
+
