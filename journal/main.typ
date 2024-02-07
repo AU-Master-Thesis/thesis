@@ -60,6 +60,17 @@
   - Tried compiling examples from #gbpplanner.code but faced issues with missing X11
     headers, even though they were installed on my system.
 ]
+#jens[
+  At Beumer \
+  - Starting with a meeting all three (Kristoffer, Jens, Jonas)
+  - Read papers:
+    - #gbp-visual-introduction.paper @gbp-visual-introduction
+    - #gbpplanner.paper @gbpplanner
+
+  - Successful compilation and run of examples from #gbpplanner.code.
+    - Successfully created custom environment to attempt to highlight weaknesses of
+      the current implementation.
+]
 
 #day(datetime(day: 30, month: 01, year: 2024))
 
@@ -76,6 +87,14 @@
   - We read through the introduction book for bevy, to learn the core concepts
     behind the ECS paradigm and how applications are structured in bevy.
 ]
+#jens[
+  From home \
+  - Set up Rust project structure
+  - Looked at the visualisation tools with Kristoffer, discussing which to go with.
+  - Learned Bevy and ran some examples
+    - Wrote some of the examples out and mix-matched some of it to learn how it all
+      fit together.
+]
 
 #day(datetime(day: 31, month: 01, year: 2024))
 
@@ -88,6 +107,12 @@
 - Create a `flake.nix` for both our Rust port and `gbpplanner` to create a
   reproducible environment, where we can compile and run the code without issue.
 ]
+#jens[
+  At OrbitLab \
+  - Re-flash OS to NixOS
+    - Learn NixOS and contemplated using hyprland
+  -
+]
 
 #day(datetime(day: 1, month: 02, year: 2024))
 
@@ -98,6 +123,11 @@
   - Spent some time trying to port the code from #gbp-visual-introduction.notebook to
     our Rust implementation.
 ]
+#jens[
+  At OrbitLab \
+  - Setting up NixOS and hyprland
+  - Migrating gbpplanner to Rust
+]
 
 #day(datetime(day: 2, month: 02, year: 2024))
 
@@ -107,6 +137,10 @@
     our Rust codebase.
     - Jens wrote the code, while we both discussed how to port the Python code to
       Rust.
+]
+#jens[
+  From home
+  - Rust migration
 ]
 
 #day(datetime(day: 5, month: 02, year: 2024))
@@ -121,6 +155,19 @@
         - artificial bee colony algorithm
     - Lin–Kernighan–Helsgaun heuristic algorithm (dunno, names sounds interesting #emoji.face.think)
     - Dynamic Particle Swarm Optimization (PSO) [ref: 126,128]
+]
+
+#jens[
+  At Beumer \
+  - Struggling to set up hyprland with displaylink
+  - Ended the struggle, and joined Kristoffer in continueing the Rust migration.
+]
+
+#day(datetime(day: 6, month: 02, year: 2024))
+#jens[
+  From home \
+  - Collaborative coding to migrate to Rust
+    - Fixed a lot of compiler errors
 ]
 
 #bibliography(
