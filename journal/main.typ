@@ -170,6 +170,17 @@
     - Fixed a lot of compiler errors
 ]
 
+#day(datetime(day: 7, month: 02, year: 2024))
+#jens[
+  At 5124-139 \
+  - Attempted to continue for a while with the generic factor-graph gbp library we
+    have been attempting to make, however, it had become too much of a headache so:
+    - Started over, in a much simpler fashion
+    - Supported with chatGPT
+    - Supported as sparring partner, and made sure to understand things more precisely
+    - Also added journal entries for all my previous weeks
+]
+
 #bibliography(
   "../references.yaml",
   style: "institute-of-electrical-and-electronics-engineers",
