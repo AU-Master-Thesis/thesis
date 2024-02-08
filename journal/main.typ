@@ -181,6 +181,8 @@
     - Also added journal entries for all my previous weeks
 ]
 
+#day(datetime(day: 8, month: 02, year: 2024))
+
 #kristoffer[
   At 5124-139 \
   - Continued working on the rewrite of gbpplanner in rust.
@@ -188,6 +190,19 @@
     variaous matrix operations and matrix slicing work, to correctly port them to
     rust.
   - Reread parts of the methodology section, to better understand some of the math.
+]
+
+#jens[
+  At 5124-139 \
+  - Working with Kristoffer to continue translation to Rust.
+  - Decided to split the work load.
+    - I looked at Bevy, and learned further how to work it.
+    - Implemented an input-manager, such that the user can press keys on the keyboard
+      or gamepad to interact with the simulation.
+    - Applied some keybinds like movement, boost to change movement speed, and
+      toggling of a dynamic unknown object in the simulation.
+      - The toggling is currently only done by setting alpha to 0/1, which should later
+        also disable/enable the actor's hitbox.
 ]
 
 #bibliography(
