@@ -181,6 +181,15 @@
     - Also added journal entries for all my previous weeks
 ]
 
+#kristoffer[
+  At 5124-139 \
+  - Continued working on the rewrite of gbpplanner in rust.
+  - Spent some time playning around with the C++ Eigen library, to confirm how
+    variaous matrix operations and matrix slicing work, to correctly port them to
+    rust.
+  - Reread parts of the methodology section, to better understand some of the math.
+]
+
 #bibliography(
   "../references.yaml",
   style: "institute-of-electrical-and-electronics-engineers",
