@@ -60,3 +60,19 @@ multi-robot-path-planning-review:
     volume: 41
 
 
+robotweb:
+  type: article
+  title: A robot web for distributed many-device localisation
+  author:
+  - Murai, Riku
+  - Ortiz, Joseph
+  - Saeedi, Sajad
+  - Kelly, Paul HJ
+  - Davison, Andrew J
+  date: 2023
+  parent:
+    type: periodical
+    title: IEEE Transactions on Robotics
+    publisher: IEEE
+
+
