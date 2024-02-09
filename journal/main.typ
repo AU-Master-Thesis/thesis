@@ -1,10 +1,26 @@
+#let important-datetimes = (project: (
+  start: datetime(day: 29, month: 01, year: 2024),
+  end: datetime(day: 04, month: 06, year: 2024),
+))
+
+#let datetime-display-format = "[weekday] (week [week_number padding:space]) [day]-[month]-[year]"
+
+#let project-week-number(date) = {
+  let dur = date - important-datetimes.project.start
+  calc.ceil(dur.weeks())
+}
+
 #let datetime-display-format = "[weekday] (week [week_number padding:space]) [day]-[month]-[year]"
 
 #let hr = line(length: 100%)
-#let day(dt) = [
-  == #dt.display(datetime-display-format)
-  #hr
-]
+#let day(dt) = {
+  let weekday = dt.display("[weekday]")
+  let date = dt.display("[day]-[month]-[year]")
+  [
+    == #weekday #date (project week #project-week-number(dt))
+    #hr
+  ]
+}
 
 #let journal-entry(what, c: none, author: none) = {
   block(
@@ -204,6 +220,54 @@
       - The toggling is currently only done by setting alpha to 0/1, which should later
         also disable/enable the actor's hitbox.
 ]
+
+#let deadline-countdown() = {
+  let today = datetime.today()
+
+  let dur = important-datetimes.project.end - today
+  let floor = calc.floor
+  let weeks = floor(dur.weeks())
+  let days = floor(dur.days()) - weeks * 7
+  // let hours = floor(dur.hours()) - weeks * 7 * 24 - days * 24
+
+  let weeks-postfix = if weeks == 1 {
+    "week"
+  } else {
+    "weeks"
+  }
+
+  let days-postfix = if days == 1 {
+    "day"
+  } else {
+    "days"
+  }
+
+  set align(center)
+  set text(size: 18pt)
+  if 0 < weeks {
+    [#text(color.red, [#weeks]) #weeks-postfix ]
+  }
+  if 0 < days {
+    [#text(color.red, [#days]) #days-postfix ]
+  }
+
+  let emojies = (
+    emoji.face.goofy,
+    emoji.face.devil,
+    emoji.face.explode,
+    emoji.face.cry,
+    emoji.face.frust,
+    emoji.face.grin,
+    emoji.face.angry,
+  )
+  assert(emojies.len() == 7)
+
+  let daily-emoji = emojies.at(calc.rem(floor(dur.days()), emojies.len()))
+
+  [left to hand-in deadline #daily-emoji]
+}
+
+#deadline-countdown()
 
 #bibliography(
   "../references.yaml",
