@@ -22,6 +22,52 @@
   ]
 }
 
+#let deadline-countdown() = {
+  let today = datetime.today()
+
+  let dur = important-datetimes.project.end - today
+  let floor = calc.floor
+  let weeks = floor(dur.weeks())
+  let days = floor(dur.days()) - weeks * 7
+  // let hours = floor(dur.hours()) - weeks * 7 * 24 - days * 24
+
+  let weeks-postfix = if weeks == 1 {
+    "week"
+  } else {
+    "weeks"
+  }
+
+  let days-postfix = if days == 1 {
+    "day"
+  } else {
+    "days"
+  }
+
+  set align(center)
+  set text(size: 18pt)
+  if 0 < weeks {
+    [#text(color.red, [#weeks]) #weeks-postfix ]
+  }
+  if 0 < days {
+    [#text(color.red, [#days]) #days-postfix ]
+  }
+
+  let emojies = (
+    emoji.face.goofy,
+    emoji.face.devil,
+    emoji.face.explode,
+    emoji.face.cry,
+    emoji.face.frust,
+    emoji.face.grin,
+    emoji.face.angry,
+  )
+  assert(emojies.len() == 7)
+
+  let daily-emoji = emojies.at(calc.rem(floor(dur.days()), emojies.len()))
+
+  [left to hand-in deadline #daily-emoji]
+}
+
 #let journal-entry(what, c: none, author: none) = {
   block(
     fill: c.lighten(50%),
@@ -221,51 +267,25 @@
         also disable/enable the actor's hitbox.
 ]
 
-#let deadline-countdown() = {
-  let today = datetime.today()
+#day(datetime(day: 9, month: 02, year: 2024))
 
-  let dur = important-datetimes.project.end - today
-  let floor = calc.floor
-  let weeks = floor(dur.weeks())
-  let days = floor(dur.days()) - weeks * 7
-  // let hours = floor(dur.hours()) - weeks * 7 * 24 - days * 24
+#kristoffer[
+From home \
+- Found a similar paper to the @gbpplanner called Robot Web @robotweb, that had
+some interesting demo videos on their #link("https://rmurai.co.uk/projects/RobotWeb/", [website]).
+- My intention is to read it over the weekend or next week, to see how it differs
+  from @gbpplanner.
+- Continued working on the port to Rust.
+  - Abstracted the robot radius into a trait `BoundingBox`, where i am right now
+    creating a impl for a `BoundingBox2d`
+  - Created an abstraction for the `CommunicationMedia`
+  - Tried using Julia to verify some of the math, but had issues getting the
+    `Distributions` package to compile on `NixOS`
+- Still need to figure out how Messages are exchanged between robots, in a way
+  that it is decoupled from running the simulation in a single thread with the
+  same address space to a multiprocess system.
 
-  let weeks-postfix = if weeks == 1 {
-    "week"
-  } else {
-    "weeks"
-  }
-
-  let days-postfix = if days == 1 {
-    "day"
-  } else {
-    "days"
-  }
-
-  set align(center)
-  set text(size: 18pt)
-  if 0 < weeks {
-    [#text(color.red, [#weeks]) #weeks-postfix ]
-  }
-  if 0 < days {
-    [#text(color.red, [#days]) #days-postfix ]
-  }
-
-  let emojies = (
-    emoji.face.goofy,
-    emoji.face.devil,
-    emoji.face.explode,
-    emoji.face.cry,
-    emoji.face.frust,
-    emoji.face.grin,
-    emoji.face.angry,
-  )
-  assert(emojies.len() == 7)
-
-  let daily-emoji = emojies.at(calc.rem(floor(dur.days()), emojies.len()))
-
-  [left to hand-in deadline #daily-emoji]
-}
+]
 
 #deadline-countdown()
 
