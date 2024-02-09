@@ -76,3 +76,12 @@ robotweb:
     publisher: IEEE
 
 
+zymartu_games_bevy_2023:
+  type: misc
+  title: Bevy 0.12 {Beginner} {Tutorial} {Series} - {Ep} 1 - {ECS} & {Core} {Concepts}
+  author: Zymartu Games
+  date: 2023-11
+  url:
+    value: https://www.youtube.com/watch?v=B6ZFuYYZCSY
+    date: 2024-02-09
+

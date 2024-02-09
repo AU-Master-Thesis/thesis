@@ -221,6 +221,18 @@
         also disable/enable the actor's hitbox.
 ]
 
+#day(datetime(day: 9, month: 02, year: 2024))
+#jens[
+  At home \
+  - Decomposed input and objects in the Bevy ECS architecture.
+  - Watches episodes 1, 2, and 3 of the Bevy tutorial series.
+  - Decomposed the system even further to have movement handled by itself.
+    - This introduced a bug where movement of objects don't stop.
+  - Reworked the project with a 3D scene and 3D camera.
+  - Created and asset loader, to handle the loading of the 3D models.
+  - Changed the moveable object to be a 3D model.
+]
+
 #let deadline-countdown() = {
   let today = datetime.today()
 
