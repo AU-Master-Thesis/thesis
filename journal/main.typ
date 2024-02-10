@@ -297,6 +297,17 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 ]
 
+#day(datetime(day: 10, month: 02, year: 2024))
+#jens[
+  From home \
+  - Fixed the movement bug from yesterday, such that velocity is reset when the
+    movement stops.
+  - Extended the `MovementPlugin` to handle rotation as well in a similar fashion to the
+    movement.
+    - Consider decomposing the rotation into its own plugin.
+  - Changed the moveable object to a box instead of the roomba.
+]
+
 #deadline-countdown()
 
 #bibliography(
