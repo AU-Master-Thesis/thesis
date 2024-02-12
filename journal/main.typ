@@ -299,13 +299,27 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 10, month: 02, year: 2024))
 #jens[
-  From home \
-  - Fixed the movement bug from yesterday, such that velocity is reset when the
-    movement stops.
-  - Extended the `MovementPlugin` to handle rotation as well in a similar fashion to the
-    movement.
-    - Consider decomposing the rotation into its own plugin.
-  - Changed the moveable object to a box instead of the roomba.
+From home \
+- Fixed the movement bug from yesterday, such that velocity is reset when the
+  movement stops.
+- Extended the `MovementPlugin` to handle rotation as well in a similar fashion to
+  the movement.
+  - Consider decomposing the rotation into its own plugin.
+- Changed the moveable object to a box instead of the roomba.
+]
+
+#day(datetime(day: 12, month: 02, year: 2024))
+
+#kristoffer[
+From Home \
+- Continued working on porting gbpplanner factorgraph to Rust.
+- Spend some time figuring out how to map Eigen operations to Rust nalgebra crate.
+- Unsure about current design with every Variable have `Vec<Rc<Factor>>` and
+  Factors having `Vec<Rc<Variable>>` makes the abstraction kinda akward.
+  - Thinking about restructuring and using a proper graph structure.
+  - For this I think we can use the `petgraph` library.
+- Also considered ways to abstract the connection with other robots/factorgraphs
+  such that the library can be used in both simulation and real world setup.
 ]
 
 #deadline-countdown()
@@ -314,4 +328,3 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   "../references.yaml",
   style: "institute-of-electrical-and-electronics-engineers",
 )
-

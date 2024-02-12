@@ -15,7 +15,7 @@
       pkgs = import nixpkgs {inherit system;};
     in
       with pkgs; {
-        devShells.default = pkgs.mkShell {
+        devShells.default = mkShell {
           buildInputs = [
             typst
             typstfmt
@@ -25,8 +25,9 @@
             python3
             just
             ltex-ls # languagetool lsp
-            yq
+            yq-go
             jq
+            taplo
           ];
         };
       });
