@@ -105,6 +105,9 @@
 #show link: it => underline(text(blue, it))
 #set page(numbering: "1 / 1")
 
+// #include "../acronyms.typ": *
+// #import "../acronyms.typ": *
+
 = Journal
 
 #outline()
@@ -321,6 +324,40 @@ From Home \
 - Also considered ways to abstract the connection with other robots/factorgraphs
   such that the library can be used in both simulation and real world setup.
 ]
+
+#day(datetime(day: 13, month: 02, year: 2024))
+
+#kristoffer[
+  At 5124-139
+
+  - Meeting with Andriy and Jonas.
+    - Showcased and discussed what we had been doing for the first two weeks.
+    - Talked about some of the shortcomings we had identified with gbpplanner, and
+      which were relevant to pursue.
+      - Try and incorporate a global planner with the GBP algorithm.
+      - Use a scheme to only communicate with the robots most uncertain about, to reduce
+        number of messages being communicated in areas with a lot of robots. Avoid $O(n^2)$ complexity
+    - Focus on first making a rewrite that reproduces the results of @gbpplanner,
+      before applying the software design decisions that we think would be better.
+    - Focus on not only record what we do in text (in this journal), but also take
+      pictures and video recordings of when things work and don't. Because they might
+      be difficult to recreate later.
+
+  - Read "A Robot Web for Distributed Many-Device Localisation" @robotweb.
+    - Very similar to @gbpplanner, I think some of the authors are the same.
+    - They exchange messages using HTTP. Where each robot host a web server that the
+      other robots can send POST requests to.
+    - Similar results and findings as @gbpplanner.
+      - Some of their conclusions
+        - "While increasing the communication radius improves the performance, 30m
+          onwards, the difference is negligible."
+        - "Retain low ATE up to 50% message loss"
+        - "Demonstrates its resilience to large initialisation errors up to (0.2m, 0.2m,
+          0.2rad) after which it explodes"
+    // - Robust factors
+]
+
+// #acr("GBP")
 
 #deadline-countdown()
 
