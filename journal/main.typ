@@ -3,6 +3,8 @@
   end: datetime(day: 04, month: 06, year: 2024),
 ))
 
+#let locations = (beumer: [Beumer], au: [AU 5124 139], home: [From Home])
+
 #let datetime-display-format = "[weekday] (week [week_number padding:space]) [day]-[month]-[year]"
 
 #let project-week-number(date) = {
@@ -358,6 +360,23 @@ From Home \
 ]
 
 // #acr("GBP")
+
+#day(datetime(day: 14, month: 02, year: 2024))
+
+#kristoffer[
+  #locations.au
+
+  - Finished reading paper @robotweb.
+  - Worked on porting @gbpplanner C++ code to our Rust version.
+]
+
+#day(datetime(day: 15, month: 02, year: 2024))
+
+#kristoffer[
+#locations.au
+
+- Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
+]
 
 #deadline-countdown()
 
