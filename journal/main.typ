@@ -325,6 +325,12 @@ From Home \
   such that the library can be used in both simulation and real world setup.
 ]
 
+#jens[
+  From Home \
+  - Finished initial camera controls.
+  - Set up an infite grid to visualize the environment.
+]
+
 #day(datetime(day: 13, month: 02, year: 2024))
 
 #kristoffer[
@@ -355,6 +361,28 @@ From Home \
         - "Demonstrates its resilience to large initialisation errors up to (0.2m, 0.2m,
           0.2rad) after which it explodes"
     // - Robust factors
+]
+
+#jens[
+  At 5124-139 \
+  - Meeting with Andriy and Jonas.
+  - Added zoom functionality to the camera with button bindings.
+  - Fixed object not visible from the beginning. Due to normilization of zero-vector.
+  - Same problem with moving the camera, everything would vanish after a while because of normilization of zero-vector.
+  - Read half of "A Robot Web for Distributed Many-Device Localisation" @robotweb.
+]
+
+#day(datetime(day: 14, month: 02, year: 2024))
+#jens[
+  At 5124-139 \
+  - Set up mouse/touchpad keybindings for camera movement in simulation.
+]
+
+#day(datetime(day: 15, month: 02, year: 2024))
+#jens[
+  At 5124-139 \
+  - Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
+  - Made the follow camera work quite reliably and almost not laggy.
 ]
 
 // #acr("GBP")
