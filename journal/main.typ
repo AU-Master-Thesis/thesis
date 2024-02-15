@@ -380,17 +380,6 @@ From Home \
   - Set up mouse/touchpad keybindings for camera movement in simulation.
 ]
 
-#day(datetime(day: 15, month: 02, year: 2024))
-#jens[
-  At 5124-139 \
-  - Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
-  - Made the follow camera work quite reliably and almost not laggy.
-]
-
-// #acr("GBP")
-
-#day(datetime(day: 14, month: 02, year: 2024))
-
 #kristoffer[
   #locations.au
 
@@ -399,12 +388,19 @@ From Home \
 ]
 
 #day(datetime(day: 15, month: 02, year: 2024))
+#jens[
+  At 5124-139 \
+  - Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
+  - Made the follow camera work quite reliably and almost not laggy.
+]
 
 #kristoffer[
 #locations.au
 
 - Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
 ]
+
+// #acr("GBP")
 
 #deadline-countdown()
 
