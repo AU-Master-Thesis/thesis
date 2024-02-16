@@ -369,8 +369,10 @@ From Home \
   At 5124-139 \
   - Meeting with Andriy and Jonas.
   - Added zoom functionality to the camera with button bindings.
-  - Fixed object not visible from the beginning. Due to normilization of zero-vector.
-  - Same problem with moving the camera, everything would vanish after a while because of normilization of zero-vector.
+  - Fixed object not visible from the beginning. Due to normilization of
+    zero-vector.
+  - Same problem with moving the camera, everything would vanish after a while
+    because of normilization of zero-vector.
   - Read half of "A Robot Web for Distributed Many-Device Localisation" @robotweb.
 ]
 
@@ -389,9 +391,9 @@ From Home \
 
 #day(datetime(day: 15, month: 02, year: 2024))
 #jens[
-  At 5124-139 \
-  - Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
-  - Made the follow camera work quite reliably and almost not laggy.
+At 5124-139 \
+- Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
+- Made the follow camera work quite reliably and almost not laggy.
 ]
 
 #kristoffer[
@@ -400,7 +402,12 @@ From Home \
 - Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
 ]
 
-// #acr("GBP")
+#day(datetime(day: 16, month: 02, year: 2024))
+#kristoffer[
+#locations.home
+
+- Continued port of `gbpplanner` to Rust.
+]
 
 #deadline-countdown()
 
