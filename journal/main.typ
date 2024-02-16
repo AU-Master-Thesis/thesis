@@ -227,7 +227,7 @@
 #jens[
   At Beumer \
   - Struggling to set up hyprland with displaylink
-  - Ended the struggle, and joined Kristoffer in continueing the Rust migration.
+  - Ended the struggle, and joined Kristoffer in continuing the Rust migration.
 ]
 
 #day(datetime(day: 6, month: 02, year: 2024))

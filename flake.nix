@@ -25,6 +25,7 @@
             python3
             just
             ltex-ls # languagetool lsp
+            typos
             yq-go
             jq
             taplo
