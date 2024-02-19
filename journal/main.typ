@@ -3,7 +3,7 @@
   end: datetime(day: 04, month: 06, year: 2024),
 ))
 
-#let locations = (beumer: [Beumer], au: [AU 5124 139], home: [From Home])
+#let locations = (beumer: [Beumer], au: [AU 5124 139], home: [From Home], ol: [OrbitLab])
 
 #let datetime-display-format = "[weekday] (week [week_number padding:space]) [day]-[month]-[year]"
 
@@ -117,7 +117,8 @@
 #day(datetime(day: 29, month: 01, year: 2024))
 
 #kristoffer[
-  - At Beumer
+  #locations.beumer
+
   - Started project
   - Had meeting with Jonas discussing what to start with the first 2 weeks
   - Read these papers:
@@ -128,7 +129,8 @@
     headers, even though they were installed on my system.
 ]
 #jens[
-  At Beumer \
+  #locations.beumer
+
   - Starting with a meeting all three (Kristoffer, Jens, Jonas)
   - Read papers:
     - #gbp-visual-introduction.paper @gbp-visual-introduction
@@ -142,7 +144,8 @@
 #day(datetime(day: 30, month: 01, year: 2024))
 
 #kristoffer[
-  - Worked from home.
+  #locations.home
+  
   - Created GitHub repository #link("https://github.com/AU-Master-Thesis/gbp-rs") as
     we want to rewrite the #gbpplanner.code in Rust.
   - Looked at different Rust simulation/visualization tools to use.
@@ -155,7 +158,8 @@
     behind the ECS paradigm and how applications are structured in bevy.
 ]
 #jens[
-  From home \
+    #locations.home
+
   - Set up Rust project structure
   - Looked at the visualisation tools with Kristoffer, discussing which to go with.
   - Learned Bevy and ran some examples
@@ -166,7 +170,8 @@
 #day(datetime(day: 31, month: 01, year: 2024))
 
 #kristoffer[
-- At OrbitLab
+  #locations.ol
+
 - Continued to have issues compiling the code for #gbpplanner.code.
 - We both decided to re-flash our OS with NixOS.
 - Spent some getting acquainted with the terminology and methodology of how to do
@@ -175,7 +180,8 @@
   reproducible environment, where we can compile and run the code without issue.
 ]
 #jens[
-  At OrbitLab \
+  #locations.ol
+
   - Re-flash OS to NixOS
     - Learn NixOS and contemplated using hyprland
   -
@@ -184,14 +190,16 @@
 #day(datetime(day: 1, month: 02, year: 2024))
 
 #kristoffer[
-  - At OrbitLab
+  #locations.ol
+
   - Continued learning about NixOS and setting up our development environment, with
     the tools we like to use.
   - Spent some time trying to port the code from #gbp-visual-introduction.notebook to
     our Rust implementation.
 ]
 #jens[
-  At OrbitLab \
+  #locations.ol
+  
   - Setting up NixOS and hyprland
   - Migrating gbpplanner to Rust
 ]
@@ -199,20 +207,23 @@
 #day(datetime(day: 2, month: 02, year: 2024))
 
 #kristoffer[
-  - Worked from home.
+  #locations.home
+
   - Continued our attempt to port the code from #gbp-visual-introduction.notebook to
     our Rust codebase.
     - Jens wrote the code, while we both discussed how to port the Python code to
       Rust.
 ]
 #jens[
-  From home
+  #locations.home
+
   - Rust migration
 ]
 
 #day(datetime(day: 5, month: 02, year: 2024))
 #kristoffer[
-  - At Beumer
+  #locations.beumer
+
   - Read recent survey paper from 2023 @multi-robot-path-planning-review.
     - No mention of any paper/approach using #gbp.
     - Many newer paper use AI methodologies.
@@ -232,14 +243,16 @@
 
 #day(datetime(day: 6, month: 02, year: 2024))
 #jens[
-  From home \
+    #locations.home
+
   - Collaborative coding to migrate to Rust
     - Fixed a lot of compiler errors
 ]
 
 #day(datetime(day: 7, month: 02, year: 2024))
 #jens[
-  At 5124-139 \
+  #locations.au
+
   - Attempted to continue for a while with the generic factor-graph gbp library we
     have been attempting to make, however, it had become too much of a headache so:
     - Started over, in a much simpler fashion
@@ -251,7 +264,8 @@
 #day(datetime(day: 8, month: 02, year: 2024))
 
 #kristoffer[
-  At 5124-139 \
+  #locations.au
+
   - Continued working on the rewrite of gbpplanner in rust.
   - Spent some time playning around with the C++ Eigen library, to confirm how
     variaous matrix operations and matrix slicing work, to correctly port them to
@@ -260,7 +274,8 @@
 ]
 
 #jens[
-  At 5124-139 \
+  #locations.au
+
   - Working with Kristoffer to continue translation to Rust.
   - Decided to split the work load.
     - I looked at Bevy, and learned further how to work it.
@@ -274,7 +289,8 @@
 
 #day(datetime(day: 9, month: 02, year: 2024))
 #jens[
-  At home \
+  #locations.home
+
   - Decomposed input and objects in the Bevy ECS architecture.
   - Watches episodes 1, 2, and 3 of the Bevy tutorial series.
   - Decomposed the system even further to have movement handled by itself.
@@ -285,7 +301,8 @@
 ]
 
 #kristoffer[
-From home \
+  #locations.home
+
 - Found a similar paper to the @gbpplanner called Robot Web @robotweb, that had
 some interesting demo videos on their #link("https://rmurai.co.uk/projects/RobotWeb/", [website]).
 - My intention is to read it over the weekend or next week, to see how it differs
@@ -304,7 +321,8 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 10, month: 02, year: 2024))
 #jens[
-From home \
+  #locations.home
+
 - Fixed the movement bug from yesterday, such that velocity is reset when the
   movement stops.
 - Extended the `MovementPlugin` to handle rotation as well in a similar fashion to
@@ -316,7 +334,8 @@ From home \
 #day(datetime(day: 12, month: 02, year: 2024))
 
 #kristoffer[
-From Home \
+  #locations.home
+
 - Continued working on porting gbpplanner factorgraph to Rust.
 - Spend some time figuring out how to map Eigen operations to Rust nalgebra crate.
 - Unsure about current design with every Variable have `Vec<Rc<Factor>>` and
@@ -328,7 +347,8 @@ From Home \
 ]
 
 #jens[
-  From Home \
+    #locations.home
+
   - Finished initial camera controls.
   - Set up an infite grid to visualize the environment.
 ]
@@ -336,7 +356,7 @@ From Home \
 #day(datetime(day: 13, month: 02, year: 2024))
 
 #kristoffer[
-  At 5124-139
+  #locations.au
 
   - Meeting with Andriy and Jonas.
     - Showcased and discussed what we had been doing for the first two weeks.
@@ -366,7 +386,8 @@ From Home \
 ]
 
 #jens[
-  At 5124-139 \
+  #locations.au
+
   - Meeting with Andriy and Jonas.
   - Added zoom functionality to the camera with button bindings.
   - Fixed object not visible from the beginning. Due to normilization of zero-vector.
@@ -376,7 +397,8 @@ From Home \
 
 #day(datetime(day: 14, month: 02, year: 2024))
 #jens[
-  At 5124-139 \
+  #locations.au
+
   - Set up mouse/touchpad keybindings for camera movement in simulation.
 ]
 
@@ -389,15 +411,16 @@ From Home \
 
 #day(datetime(day: 15, month: 02, year: 2024))
 #jens[
-  At 5124-139 \
+  #locations.au
+
   - Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
   - Made the follow camera work quite reliably and almost not laggy.
 ]
 
 #kristoffer[
-#locations.au
+  #locations.au
 
-- Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
+  - Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
 ]
 
 // #acr("GBP")
