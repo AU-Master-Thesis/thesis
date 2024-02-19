@@ -199,7 +199,7 @@
 ]
 #jens[
   #locations.ol
-  
+
   - Setting up NixOS and hyprland
   - Migrating gbpplanner to Rust
 ]
@@ -238,7 +238,7 @@
 #jens[
   At Beumer \
   - Struggling to set up hyprland with displaylink
-  - Ended the struggle, and joined Kristoffer in continueing the Rust migration.
+  - Ended the struggle, and joined Kristoffer in continuing the Rust migration.
 ]
 
 #day(datetime(day: 6, month: 02, year: 2024))
@@ -390,8 +390,10 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
   - Meeting with Andriy and Jonas.
   - Added zoom functionality to the camera with button bindings.
-  - Fixed object not visible from the beginning. Due to normilization of zero-vector.
-  - Same problem with moving the camera, everything would vanish after a while because of normilization of zero-vector.
+  - Fixed object not visible from the beginning. Due to normilization of
+    zero-vector.
+  - Same problem with moving the camera, everything would vanish after a while
+    because of normilization of zero-vector.
   - Read half of "A Robot Web for Distributed Many-Device Localisation" @robotweb.
 ]
 
@@ -423,7 +425,12 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   - Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
 ]
 
-// #acr("GBP")
+#day(datetime(day: 16, month: 02, year: 2024))
+#kristoffer[
+#locations.home
+
+- Continued port of `gbpplanner` to Rust.
+]
 
 #deadline-countdown()
 
