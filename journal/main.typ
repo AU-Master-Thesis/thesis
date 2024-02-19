@@ -145,7 +145,7 @@
 
 #kristoffer[
   #locations.home
-  
+
   - Created GitHub repository #link("https://github.com/AU-Master-Thesis/gbp-rs") as
     we want to rewrite the #gbpplanner.code in Rust.
   - Looked at different Rust simulation/visualization tools to use.
@@ -158,7 +158,7 @@
     behind the ECS paradigm and how applications are structured in bevy.
 ]
 #jens[
-    #locations.home
+  #locations.home
 
   - Set up Rust project structure
   - Looked at the visualisation tools with Kristoffer, discussing which to go with.
@@ -170,7 +170,7 @@
 #day(datetime(day: 31, month: 01, year: 2024))
 
 #kristoffer[
-  #locations.ol
+#locations.ol
 
 - Continued to have issues compiling the code for #gbpplanner.code.
 - We both decided to re-flash our OS with NixOS.
@@ -243,7 +243,7 @@
 
 #day(datetime(day: 6, month: 02, year: 2024))
 #jens[
-    #locations.home
+  #locations.home
 
   - Collaborative coding to migrate to Rust
     - Fixed a lot of compiler errors
@@ -301,7 +301,7 @@
 ]
 
 #kristoffer[
-  #locations.home
+#locations.home
 
 - Found a similar paper to the @gbpplanner called Robot Web @robotweb, that had
 some interesting demo videos on their #link("https://rmurai.co.uk/projects/RobotWeb/", [website]).
@@ -321,7 +321,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 10, month: 02, year: 2024))
 #jens[
-  #locations.home
+#locations.home
 
 - Fixed the movement bug from yesterday, such that velocity is reset when the
   movement stops.
@@ -334,7 +334,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 12, month: 02, year: 2024))
 
 #kristoffer[
-  #locations.home
+#locations.home
 
 - Continued working on porting gbpplanner factorgraph to Rust.
 - Spend some time figuring out how to map Eigen operations to Rust nalgebra crate.
@@ -347,7 +347,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 ]
 
 #jens[
-    #locations.home
+  #locations.home
 
   - Finished initial camera controls.
   - Set up an infite grid to visualize the environment.
@@ -413,16 +413,16 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 15, month: 02, year: 2024))
 #jens[
-  #locations.au
+#locations.au
 
-  - Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
-  - Made the follow camera work quite reliably and almost not laggy.
+- Made a system to add follow cameras to each robot tagged with `FollowCameraMe`.
+- Made the follow camera work quite reliably and almost not laggy.
 ]
 
 #kristoffer[
-  #locations.au
+#locations.au
 
-  - Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
+- Ported most of `Robot`, `FactorGraph` and `Variable` class to Rust.
 ]
 
 #day(datetime(day: 16, month: 02, year: 2024))
@@ -437,17 +437,28 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
   - Meshified the environment heightmap from greyscale PNG.
     - Tested first with a perlin noise with normal vectors
-    - Wasn't able to make the heightmap work with the normal vectors, due to an extra triangle being created.
+    - Wasn't able to make the heightmap work with the normal vectors, due to an extra
+      triangle being created.
 ]
 
 #day(datetime(day: 17, month: 02, year: 2024))
 #jens[
   #locations.beumer
 
-  - Fixed the heightmap to work with normal vectors, solving the extra triangle issue.
+  - Fixed the heightmap to work with normal vectors, solving the extra triangle
+    issue.
   - Started to work on how to visualise the eventual factor graph.
     - Spheres for variables, cubes for factors.
-    - Spent too much time trying to make a line between the two with thickness. It works, but it is currently 2D. I wonder if it is too performance intensive just to make the 2D mesh real-time, so it might not be worth to make 3D.
+    - Spent too much time trying to make a line between the two with thickness. It
+      works, but it is currently 2D. I wonder if it is too performance intensive just
+      to make the 2D mesh real-time, so it might not be worth to make 3D.
+]
+
+#kristoffer[
+#locations.beumer
+
+- Finished transcribing the `Robot` class to Rust.
+- Wrote some unit tests for some of the utility functions
 ]
 
 #deadline-countdown()
