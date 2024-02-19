@@ -432,6 +432,24 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 - Continued port of `gbpplanner` to Rust.
 ]
 
+#jens[
+  #locations.home
+
+  - Meshified the environment heightmap from greyscale PNG.
+    - Tested first with a perlin noise with normal vectors
+    - Wasn't able to make the heightmap work with the normal vectors, due to an extra triangle being created.
+]
+
+#day(datetime(day: 17, month: 02, year: 2024))
+#jens[
+  #locations.beumer
+
+  - Fixed the heightmap to work with normal vectors, solving the extra triangle issue.
+  - Started to work on how to visualise the eventual factor graph.
+    - Spheres for variables, cubes for factors.
+    - Spent too much time trying to make a line between the two with thickness. It works, but it is currently 2D. I wonder if it is too performance intensive just to make the 2D mesh real-time, so it might not be worth to make 3D.
+]
+
 #deadline-countdown()
 
 #bibliography(
