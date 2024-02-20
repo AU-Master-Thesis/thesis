@@ -463,18 +463,31 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 20, month: 02, year: 2024))
 #jens[
-  #locations.au
+#locations.au
 
-  - A lot of fiddling to get Fusion360 working on NixOS #sym.arrow.r.long No success #emoji.face.cry.
-    - Wanted to export simple meshes for the Beumer robot. This might breach NDA? #emoji.face.think
-  - Change factor graph visualisation, such that lines are drawn live.
-    - Destroyed then remade every `Update`.
-    - Might be too performance intensive, but we will see later
-  - Wanted to delve into WGSL for a bit to learn shaders
-    - Thus I could make the lines thicker, but this lead me into wanting a WGSL language server, which would significantly speed up my learning, but it never worked, so I gave up.
-  - Fixed line kinking factor with proper trigonometry, to make it exact.
-    - Was initially taken from #link("https://github.com/Pervasive-Computing/flutter_app/blob/main/lib/misc/network_utils.dart", [`Pervasive-Computing/flutter_app`])
-  - Thought maybe I could occlude the lines using the depth in a shader, and I asked ChatGPT for help, but it was a bit too much to ask for.
+- A lot of fiddling to get Fusion360 working on NixOS #sym.arrow.r.long No success #emoji.face.cry.
+  - Wanted to export simple meshes for the Beumer robot. This might breach NDA? #emoji.face.think
+- Change factor graph visualisation, such that lines are drawn live.
+  - Destroyed then remade every `Update`.
+  - Might be too performance intensive, but we will see later
+- Wanted to delve into WGSL for a bit to learn shaders
+  - Thus I could make the lines thicker, but this lead me into wanting a WGSL
+    language server, which would significantly speed up my learning, but it never
+    worked, so I gave up.
+- Fixed line kinking factor with proper trigonometry, to make it exact.
+  - Was initially taken from #link(
+      "https://github.com/Pervasive-Computing/flutter_app/blob/main/lib/misc/network_utils.dart",
+      [`Pervasive-Computing/flutter_app`],
+    )
+- Thought maybe I could occlude the lines using the depth in a shader, and I asked
+  ChatGPT for help, but it was a bit too much to ask for.
+]
+
+#kristoffer[
+#locations.au
+
+- Continued porting code to Rust.
+- Wrote some unit tests for the `MultiVariateNormal` struct.
 ]
 
 #deadline-countdown()
