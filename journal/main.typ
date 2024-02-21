@@ -490,6 +490,20 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 - Wrote some unit tests for the `MultiVariateNormal` struct.
 ]
 
+#day(datetime(day: 21, month: 02, year: 2024))
+#jens[
+#locations.au
+
+- Major decomposition of `InputPlugin`, into several plugins for each input
+  context.
+- Started a `ThemePlugin`, to empower the user to be able to control the theme.
+- Override some defaults of the Bevy `WindowPlugin` as part of the
+  `DefaultPlugin`.
+- Started integrating the translated gbpplanner with the Bevy simulation with
+  Kristoffer.
+  - Standardised configuration interface.
+]
+
 #deadline-countdown()
 
 #bibliography(
