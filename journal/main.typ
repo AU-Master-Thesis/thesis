@@ -490,6 +490,27 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 - Wrote some unit tests for the `MultiVariateNormal` struct.
 ]
 
+#day(datetime(day: 21, month: 02, year: 2024))
+#jens[
+#locations.au
+
+- Major decomposition of `InputPlugin`, into several plugins for each input
+  context.
+- Started a `ThemePlugin`, to empower the user to be able to control the theme.
+- Override some defaults of the Bevy `WindowPlugin` as part of the
+  `DefaultPlugin`.
+- Started integrating the translated gbpplanner with the Bevy simulation with
+  Kristoffer.
+  - Standardised configuration interface.
+  - Developed an expressive, declarative formation configuration interface.
+- Put some thought into the possible environment layouts with three levels of
+  complexity:
+  - Low: Micro-scenarios focused on single intersections/junctions.
+  - Medium: Macro-scenarios imitating the complexity of a real-world case from
+    BEUEMR.
+  - High: Macro-scenario imitating a maze-like structure.
+]
+
 #deadline-countdown()
 
 #bibliography(
