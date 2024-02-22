@@ -511,6 +511,17 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   - High: Macro-scenario imitating a maze-like structure.
 ]
 
+#day(datetime(day: 22, month: 02, year: 2024))
+#jens[
+  #locations.au
+
+  Working in pair all day.
+  - Continued with the formation configuration interface.
+    - We were missing a way to expression waypoints for groups of robots indirectly.
+  - Seriously started integrating, by making decisions on what should be Bevy components/entities. And what should be left.
+    - And furthermore; which concepts could be handed over and handled by the Bevy ECS.
+]
+
 #deadline-countdown()
 
 #bibliography(
