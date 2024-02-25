@@ -518,12 +518,21 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   Working in pair all day.
   - Continued with the formation configuration interface.
     - We were missing a way to expression waypoints for groups of robots indirectly.
-  - Seriously started integrating, by making decisions on what should be Bevy components/entities. And what should be left.
-    - And furthermore; which concepts could be handed over and handled by the Bevy ECS.
-  
+  - Seriously started integrating, by making decisions on what should be Bevy
+    components/entities. And what should be left.
+    - And furthermore; which concepts could be handed over and handled by the Bevy
+      ECS.
+
   #locations.home
 
   - Dynamic theming to change dark/light mode during runtime.
+]
+
+#kristoffer[
+#locations.au
+
+- Refactored graph representation to use `petgraph` instead of `Vec<Rc<>>` and
+  `Rc<Weak<>>`
 ]
 
 #day(datetime(day: 23, month: 02, year: 2024))
@@ -532,6 +541,12 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
   - Continued conversion to Bevy ECS.
     - Endless fighting with the borrow checker.
+]
+
+#kristoffer[
+  #locations.home
+
+  - Continued conversion to Bevy ECS.
 ]
 
 #deadline-countdown()
