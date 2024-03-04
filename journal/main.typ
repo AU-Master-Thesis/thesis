@@ -549,6 +549,16 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   - Continued conversion to Bevy ECS.
 ]
 
+#day(datetime(day: 04, month: 03, year: 2024))
+
+#kristoffer[
+#location.home
+
+- Refactored `MultiVariateNormal` into its own crate `gbp_multivariate_normal`
+- Continued work on implementing the `Formation` system
+
+]
+
 #deadline-countdown()
 
 #bibliography(
