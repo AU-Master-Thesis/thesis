@@ -559,6 +559,15 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 ]
 
+#day(datetime(day: 06, month: 03, year: 2024))
+#jens[
+  #location.au
+
+  - Collaborated with Kristoffer to get the Bevy/Factorgraph integration to finally run.
+  - Made some improvements to the settings panel.
+    - Incorporated the `DrawSection` of the `config.toml`, to toggle elements to draw.
+]
+
 #deadline-countdown()
 
 #bibliography(
