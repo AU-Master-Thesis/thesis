@@ -561,11 +561,20 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 06, month: 03, year: 2024))
 #jens[
-  #location.au
+#location.au
 
-  - Collaborated with Kristoffer to get the Bevy/Factorgraph integration to finally run.
-  - Made some improvements to the settings panel.
-    - Incorporated the `DrawSection` of the `config.toml`, to toggle elements to draw.
+- Collaborated with Kristoffer to get the Bevy/Factorgraph integration to finally
+  run.
+- Made some improvements to the settings panel.
+  - Incorporated the `DrawSection` of the `config.toml`, to toggle elements to draw.
+]
+
+#kristoffer[
+#location.au
+
+- Collaborated with Jens to get the Bevy/Factorgraph integration to finally run.
+- Made compilation of factorgraphs.dot with `dot` asysc using `bevy::tasks`
+- Tested proof of concept for loading `factorgraphs.png` into bevy UI
 ]
 
 #deadline-countdown()
