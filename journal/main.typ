@@ -589,6 +589,15 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   - Made these visualisations toggleable in the settings panel
 ]
 
+#kristoffer[
+  #location.au
+
+  - Spent all day trying to chase down why each robots factor graph almost
+    immediately converges to their own position, i.e. they end up not moving at all.
+    - Found some issues, but I have not figured it out completely. Will continue
+      tomorrow.
+]
+
 #deadline-countdown()
 
 #bibliography(
