@@ -577,6 +577,18 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 - Tested proof of concept for loading `factorgraphs.png` into bevy UI
 ]
 
+#day(datetime(day: 07, month: 03, year: 2024))
+#jens[
+  #location.au
+
+  - Visualisation plugin
+    - Made visualisation of waypoints
+    - Made visualisation of predicted trajectories
+      - Including Variables
+      - Lines between variables
+  - Made these visualisations toggleable in the settings panel
+]
+
 #deadline-countdown()
 
 #bibliography(
