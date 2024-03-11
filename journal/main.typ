@@ -598,6 +598,17 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
       tomorrow.
 ]
 
+#day(datetime(day: 11, month: 03, year: 2024))
+
+#kristoffer[
+#location.home
+
+- Have been sick today, so I have not done a whole lot.
+- Improved pretty printers for matrices in both `gbpplanner` and `gbp-rs`. So it
+  is easier to spot the differences between our version and theirs.
+- Continue working on getting our impl to behave like the original.
+]
+
 #deadline-countdown()
 
 #bibliography(
