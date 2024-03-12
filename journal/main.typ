@@ -609,6 +609,18 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 - Continue working on getting our impl to behave like the original.
 ]
 
+#day(datetime(day: 12, month: 03, year: 2024))
+
+#kristoffer[
+#location.home
+
+- Decided to dumb down to the design, to not enforce that the covariance of a
+  `MultivariateNormal` has to be invertible.
+- This finally made the code be able to move, the robots, but variables covariance
+  is still all zeros, which we have to fix.
+
+]
+
 #deadline-countdown()
 
 #bibliography(
