@@ -621,6 +621,17 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 ]
 
+#day(datetime(day: 13, month: 03, year: 2024))
+
+#kristoffer[
+  #location.home
+
+  - Spent pre midday on modifying factorgraph to handle "external" nodes, i.e.
+    (proxy) nodes belonging to other graphs. Design quickly got crazy with a lot of
+    types, and we decided to start over. This we think will lead to a simpler
+    design.
+]
+
 #deadline-countdown()
 
 #bibliography(
