@@ -632,6 +632,21 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
     design.
 ]
 
+#day(datetime(day: 14, month: 03, year: 2024))
+
+#kristoffer[
+  #location.au
+
+  - Finally got some progess on the reimplementation. Fixed the variables moving all over the place by not mixing up the `mean` and `information_vector` at a point in the algorithm.
+  - Still some issues with the observed behavior, but we are getting closer.
+  - Some of the issues remaining are:
+      - Seems suseptible to the initial position given to each robot.
+      - Almost every run one of the robots, accelerate downwards while the others approach their goal.
+      - The chain of variables do not have the same straight shape as in the original.
+  - Continued work on the `Formation` system.
+
+]
+
 #deadline-countdown()
 
 #bibliography(
