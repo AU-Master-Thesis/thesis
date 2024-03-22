@@ -1,9 +1,9 @@
+#let locations = (beumer: [Beumer], au: [AU 5124 139], home: [From Home], ol: [OrbitLab])
+
 #let important-datetimes = (project: (
   start: datetime(day: 29, month: 01, year: 2024),
   end: datetime(day: 04, month: 06, year: 2024),
 ))
-
-#let locations = (beumer: [Beumer], au: [AU 5124 139], home: [From Home], ol: [OrbitLab])
 
 #let datetime-display-format = "[weekday] (week [week_number padding:space]) [day]-[month]-[year]"
 
@@ -635,15 +635,29 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 14, month: 03, year: 2024))
 
 #kristoffer[
+#location.au
+
+- Finally got some progess on the reimplementation. Fixed the variables moving all
+  over the place by not mixing up the `mean` and `information_vector` at a point
+  in the algorithm.
+- Still some issues with the observed behavior, but we are getting closer.
+- Some of the issues remaining are:
+  - Seems suseptible to the initial position given to each robot.
+  - Almost every run one of the robots, accelerate downwards while the others
+    approach their goal.
+  - The chain of variables do not have the same straight shape as in the original.
+- Continued work on the `Formation` system.
+
+]
+
+#day(datetime(day: 21, month: 03, year: 2024))
+
+#kristoffer[
   #location.au
 
-  - Finally got some progess on the reimplementation. Fixed the variables moving all over the place by not mixing up the `mean` and `information_vector` at a point in the algorithm.
-  - Still some issues with the observed behavior, but we are getting closer.
-  - Some of the issues remaining are:
-      - Seems suseptible to the initial position given to each robot.
-      - Almost every run one of the robots, accelerate downwards while the others approach their goal.
-      - The chain of variables do not have the same straight shape as in the original.
-  - Continued work on the `Formation` system.
+  - Implemented some utility keybinds like using the spacebar to pause/resume the
+    simulation.
+  - implemented repeated spawning of robots
 
 ]
 
