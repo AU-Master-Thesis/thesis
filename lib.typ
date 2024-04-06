@@ -2,8 +2,8 @@
 #import "catppuccin.typ": *
 #import "@preview/codelst:1.0.0": sourcecode, codelst, sourcefile
 #import "@preview/tablex:0.0.6": *
+#import "@preview/drafting:0.2.0": *
 
-// #let a = accent
 #let theme = catppuccin.latte
 #let accent = theme.lavender
 

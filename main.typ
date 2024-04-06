@@ -69,8 +69,10 @@
 )
 
 #outline()
+#set-page-properties()
 
 #include "sections/abstract.typ"
 #include "sections/preface.typ"
 #include "sections/introduction/mod.typ"
+#include "sections/theory/mod.typ"
 #include "sections/methodology/mod.typ"
