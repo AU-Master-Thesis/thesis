@@ -661,6 +661,33 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 ]
 
+#day(datetime(day: 8, month: 04, year: 2024))
+
+#kristoffer[
+  #location.au
+
+  - Use `cfg!` macro to make our `main.rs` compatible with both our local build and our `wasm` build.
+
+  - Create a notication system for our sim ui.
+    - Fork `egui-notify` to support centered toasts
+    - Create crate `bevy_notify` to expose `egui-notify` in bevy.
+    - Hook up part of our system to use the notification system such as:
+      - Take screenshot
+      - Export factorgraphs as dot
+]
+
+
+#day(datetime(day: 9, month: 04, year: 2024))
+
+#kristoffer[
+  #location.au
+
+  - Learned about `bevy::diagnostic` and started creating diagnostic providers for metrics such as
+    number of robots, number of variables and factors and number of messages sent in total.
+  - Worked on exposing the collected metrics in a `egui` window. I will allow Jens to make it pretty ;)
+  - Spent some time helping Pernille with some networking issues in her project. Conclusion Windows bad.
+]
+
 #deadline-countdown()
 
 #bibliography(
