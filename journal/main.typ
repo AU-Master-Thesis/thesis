@@ -1,9 +1,10 @@
 #let locations = (beumer: [Beumer], au: [AU 5124 139], home: [From Home], ol: [OrbitLab])
 
-#let important-datetimes = (project: (
-  start: datetime(day: 29, month: 01, year: 2024),
-  end: datetime(day: 04, month: 06, year: 2024),
-))
+#let important-datetimes = (
+  project: (
+    start: datetime(day: 29, month: 01, year: 2024), end: datetime(day: 04, month: 06, year: 2024),
+  ),
+)
 
 #let datetime-display-format = "[weekday] (week [week_number padding:space]) [day]-[month]-[year]"
 
@@ -55,13 +56,7 @@
   }
 
   let emojies = (
-    emoji.face.goofy,
-    emoji.face.devil,
-    emoji.face.explode,
-    emoji.face.cry,
-    emoji.face.frust,
-    emoji.face.grin,
-    emoji.face.angry,
+    emoji.face.goofy, emoji.face.devil, emoji.face.explode, emoji.face.cry, emoji.face.frust, emoji.face.grin, emoji.face.angry,
   )
   assert(emojies.len() == 7)
 
@@ -72,13 +67,7 @@
 
 #let journal-entry(what, c: none, author: none) = {
   block(
-    fill: c.lighten(50%),
-    stroke: c,
-    inset: 1em,
-    outset: 0pt,
-    radius: 5pt,
-    width: 100%,
-    [
+    fill: c.lighten(50%), stroke: c, inset: 1em, outset: 0pt, radius: 5pt, width: 100%, [
       *#author* \
       #what
     ],
@@ -89,17 +78,13 @@
 #let kristoffer = journal-entry.with(author: [Kristoffer], c: color.orange)
 
 #let gbpplanner = (
-  code: link("https://github.com/aalpatya/gbpplanner"),
-  website: link("https://aalok.uk/gbpplanner/"),
-  paper: [Distributing Collaborative Multi-Robot Planning With Gaussian Belief Propagation],
+  code: link("https://github.com/aalpatya/gbpplanner"), website: link("https://aalok.uk/gbpplanner/"), paper: [Distributing Collaborative Multi-Robot Planning With Gaussian Belief Propagation],
 )
 
 #let gbp-visual-introduction = (
   notebook: link(
     "https://colab.research.google.com/drive/1-nrE95X4UC9FBLR0-cTnsIP_XhA_PZKW?usp=sharing#scrollTo=NzotHENoaY6g",
-  ),
-  paper: [A visual introduction to Gaussian Belief Propagation],
-  website: link("https://gaussianbp.github.io/"),
+  ), paper: [A visual introduction to Gaussian Belief Propagation], website: link("https://gaussianbp.github.io/"),
 )
 
 #let gbp = [Gaussian Belief Propagation]
@@ -476,8 +461,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
     worked, so I gave up.
 - Fixed line kinking factor with proper trigonometry, to make it exact.
   - Was initially taken from #link(
-      "https://github.com/Pervasive-Computing/flutter_app/blob/main/lib/misc/network_utils.dart",
-      [`Pervasive-Computing/flutter_app`],
+      "https://github.com/Pervasive-Computing/flutter_app/blob/main/lib/misc/network_utils.dart", [`Pervasive-Computing/flutter_app`],
     )
 - Thought maybe I could occlude the lines using the depth in a shader, and I asked
   ChatGPT for help, but it was a bit too much to ask for.
@@ -664,33 +648,43 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 8, month: 04, year: 2024))
 
 #kristoffer[
-  #location.au
+#location.au
 
-  - Use `cfg!` macro to make our `main.rs` compatible with both our local build and our `wasm` build.
+- Use `cfg!` macro to make our `main.rs` compatible with both our local build and
+  our `wasm` build.
 
-  - Create a notication system for our sim ui.
-    - Fork `egui-notify` to support centered toasts
-    - Create crate `bevy_notify` to expose `egui-notify` in bevy.
-    - Hook up part of our system to use the notification system such as:
-      - Take screenshot
-      - Export factorgraphs as dot
+- Create a notication system for our sim ui.
+  - Fork `egui-notify` to support centered toasts
+  - Create crate `bevy_notify` to expose `egui-notify` in bevy.
+  - Hook up part of our system to use the notification system such as:
+    - Take screenshot
+    - Export factorgraphs as dot
 ]
-
 
 #day(datetime(day: 9, month: 04, year: 2024))
 
 #kristoffer[
+#location.au
+
+- Learned about `bevy::diagnostic` and started creating diagnostic providers for
+  metrics such as number of robots, number of variables and factors and number of
+  messages sent in total.
+- Worked on exposing the collected metrics in a `egui` window. I will allow Jens
+  to make it pretty ;)
+- Spent some time helping Pernille with some networking issues in her project.
+  Conclusion Windows bad.
+]
+
+#day(datetime(day: 12, month: 04, year: 2024))
+
+#kristoffer[
   #location.au
 
-  - Learned about `bevy::diagnostic` and started creating diagnostic providers for metrics such as
-    number of robots, number of variables and factors and number of messages sent in total.
-  - Worked on exposing the collected metrics in a `egui` window. I will allow Jens to make it pretty ;)
-  - Spent some time helping Pernille with some networking issues in her project. Conclusion Windows bad.
+  - Started refactoring some of the code. Especially the factorgraph code
 ]
 
 #deadline-countdown()
 
 #bibliography(
-  "../references.yaml",
-  style: "institute-of-electrical-and-electronics-engineers",
+  "../references.yaml", style: "institute-of-electrical-and-electronics-engineers",
 )
