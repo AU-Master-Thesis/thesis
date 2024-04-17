@@ -41,8 +41,37 @@ set -l t_start (date +%s)
 
 set -l tex_document_files (command rg --pcre2-unicode --glob '*.tex' '^\\\\begin\{document\}' --files-with-matches)
 
-for f in $tex_document_files
-    command tectonic -X compile $f --outdir $outdir &
+if test (count $tex_document_files) -eq 0
+    printf '%swarn%s: no .tex files with a `\begin{document}` line found in %s\n' $yellow $reset $PWD
+    return 1
+end
+
+set -l mtime_cache_path /tmp/(status filename).cache
+if not test -f $mtime_cache_path
+    printf '%sinfo%s: creating mtime cache at %s%s%s\n' $green $reset $blue $mtime_cache_path $reset
+    touch $mtime_cache_path
+end
+
+set -l cache
+while read line
+    set -a cache $line
+end <$mtime_cache_path
+
+function compile-to-svg -a document
+    set -l output $outdir/(path basename $document)
+
+    command tectonic -X compile $document --outdir $outdir
+    and pdf2svg $output (path change-extension svg $output)
+end
+
+for document in $tex_document_files
+    set -l mtime (path mtime $document)
+    for line in $cache
+        echo $line | read -d "|" f cached_mtime
+
+    end
+    compile-to-svg $document &
+    # command tectonic -X compile $document --outdir $outdir &
     # disown
 end
 

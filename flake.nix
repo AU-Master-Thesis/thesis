@@ -21,6 +21,7 @@
             typstfmt
             typst-lsp
             tectonic
+            pdf2svg
             hayagriva
             graphviz
             python3
