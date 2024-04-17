@@ -1,6 +1,5 @@
 #!/usr/bin/env -S fish --no-config
 
-
 set -l reset (set_color normal)
 set -l bold (set_color --bold)
 set -l italics (set_color --italics)
@@ -11,6 +10,11 @@ set -l blue (set_color blue)
 set -l cyan (set_color cyan)
 set -l magenta (set_color magenta)
 
+set -l options o/outdir=
+
+if not argparse $options -- $argv
+    return 2
+end
 
 set -l deps rg tectonic
 
@@ -26,12 +30,19 @@ if test $PWD = $HOME
     exit 1
 end
 
+set -l outdir ./figures/out
+if set --query _flag_outdir
+    if test -f $_flag_outdir
+        printf '%serror%s: the given --outdir <dir> (%s) is a file, not a directory 😡\n' $red $reset $_flag_outdir
+    end
+end
+
 set -l t_start (date +%s)
 
 set -l tex_document_files (command rg --pcre2-unicode --glob '*.tex' '^\\\\begin\{document\}' --files-with-matches)
 
 for f in $tex_document_files
-    command tectonic -X compile $f &
+    command tectonic -X compile $f --outdir $outdir &
     # disown
 end
 
