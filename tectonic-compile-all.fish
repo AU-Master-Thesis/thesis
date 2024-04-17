@@ -1,14 +1,14 @@
 #!/usr/bin/env -S fish --no-config
 
-set -l reset (set_color normal)
-set -l bold (set_color --bold)
-set -l italics (set_color --italics)
-set -l red (set_color red)
-set -l green (set_color green)
-set -l yellow (set_color yellow)
-set -l blue (set_color blue)
-set -l cyan (set_color cyan)
-set -l magenta (set_color magenta)
+set -g reset (set_color normal)
+set -g bold (set_color --bold)
+set -g italics (set_color --italics)
+set -g red (set_color red)
+set -g green (set_color green)
+set -g yellow (set_color yellow)
+set -g blue (set_color blue)
+set -g cyan (set_color cyan)
+set -g magenta (set_color magenta)
 
 set -l options o/outdir=
 
@@ -37,6 +37,11 @@ if set --query _flag_outdir
     end
 end
 
+if not test -d $outdir
+    printf '%sinfo%s: creating outdir at %s%s%s\n' $green $reset $blue $outdir $reset
+    command mkdir -p $outdir
+end
+
 set -l t_start (date +%s)
 
 set -l tex_document_files (command rg --pcre2-unicode --glob '*.tex' '^\\\\begin\{document\}' --files-with-matches)
@@ -57,11 +62,19 @@ while read line
     set -a cache $line
 end <$mtime_cache_path
 
-function compile-to-svg -a document
-    set -l output $outdir/(path basename $document)
+function run
+    printf '%sevaluating%s: ' $magenta $reset
+    echo $argv | fish_indent --ansi
+    eval $argv
+end
 
-    command tectonic -X compile $document --outdir $outdir
-    and pdf2svg $output (path change-extension svg $output)
+function compile-to-svg -a document
+    set -l output_pdf $outdir/(path change-extension pdf (path basename $document))
+    set -l output_svg (path change-extension svg $output_pdf)
+    set -l --long
+
+    run command tectonic -X compile $document --outdir $outdir
+    run command pdf2svg $output_pdf $output_svg
 end
 
 for document in $tex_document_files
