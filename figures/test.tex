@@ -1,0 +1,75 @@
+\documentclass[tikz]{standalone}[2012/04/13]
+\input{include/package}
+\input{include/style}
+\input{include/functions}
+
+\begin{document}
+\tdplotsetmaincoords{60}{125}
+
+\def\d{2}
+\def\w{2}
+\def\h{2}
+\def\p{1}
+\def\e{1}
+\def\dist{8}
+
+\def\xzplane[#1] min (#2,#3,#4) max (#5,#6,#7); {
+    \draw[cube,#1] (0,#3,#4) -- (#5,#3,#4) -- (#5,#3,#7) -- (#2,#3,#7) -- cycle;
+}
+
+\def\xyplane[#1] min (#2,#3,#4) max (#5,#6,#7); {
+    \draw[cube,#1] (#2,#3,#4) -- (#2,#6,#4) -- (#5,#6,#4) -- (#5,#3,#4) -- cycle;    
+}
+
+\begin{tikzpicture}
+	[tdplot_main_coords,
+		grid/.style={very thin,gray},
+		axis/.style={->,blue,thick},
+		cube/.style={opacity=.25, very thick},
+		point/.style={circle,fill=cblue,minimum size=6, inner sep=0, outer sep=0},
+		scale=0.8
+		]
+		
+    \draw[] (\w + 0.5, 0, 0) -- node[pos=0.5, xshift=-5.5] {$h$} (\w + 0.5, 0, \h); % height
+    \draw[] (\w + 0.25, 0, 0) -- (\w +  0.75, 0, 0);
+    \draw[] (\w + 0.25, 0, \h) -- (\w + 0.75, 0, \h);
+    
+    \draw[] (\h, 0, \w + 0.5) -- node[pos=0.5, yshift=6.5] {$w$} (0, 0, \w + 0.5); % width
+    \draw[] (\h, 0, \w  + 0.25) -- (\h, 0, \w + 0.75);
+    \draw[] (0, 0, \w  + 0.25) -- (0, 0, \w + 0.75);
+    
+    \draw[] (\w + 0.5, \dist, 0) -- node[pos=0.5, yshift=-5, xshift=-5] {$d$} (\w + 0.5, \dist + \e, 0); % depth
+    \draw[] (\w + 0.25, \dist, 0) -- (\w + 0.75, \dist, 0);
+    \draw[] (\w + 0.25, \dist + \e, 0) -- (\w + 0.75, \dist + \e, 0);
+    
+    \xzplane[fill=cgreen,fill opacity=0.5,draw opacity=1,line width=0.25,draw=black] min (0,0,0) max (\h,\w,\w);
+    % \xyplane min (
+    
+    \fill[cube, fill=cpgrey, fill opacity=0.35] (\w, 0, 0) -- (\w, \dist, 0) -- (0, \dist,0)  -- (0, 0, 0) -- cycle;
+    
+    \fill[cube, fill=cpgrey, fill opacity=0.35] (0, 0, 0) -- (0, \dist, 0) -- (0, \dist,\h)  -- (0, 0, \h) -- cycle;
+
+    \foreach \x in {0, \h/2, \h}
+        \foreach \z in {0, \w/2, \w}  {
+            \draw[dashed] (\x, 1, \z) -- (\x, \dist, \z);
+            \draw[-{Triangle}] (\x, 0, \z) -- (\x, 1, \z);
+        }
+        
+    \draw[] (-1,0, 2) -- node[pos=0.5, yshift=10.5, xshift=6.0] {$\norm{t - o}_{2}$} (-1, \dist, 2);
+    \draw[] (-0.75, 0, 2) -- (-1.25,0, 2);
+    \draw[] (-0.75, \dist, 2) -- (-1.25,\dist, 2);
+    
+    \draw[green,thick] (1,0,1) -- (1.75,0,1);
+    \draw[red,thick] (1,0,1) -- (1,0.75,1);
+    \draw[blue,thick] (1,0,1) -- (1,0,1.75);
+    
+    \node[point] (origin) at (1,0,1) {};
+    \node[circle,fill=cpurple,minimum size=6, inner sep=0, outer sep=0] (target) at (1,\dist,1) {};
+
+    \bbx[fill=cred,fill opacity=0.5,draw opacity=1,line width=0.25,draw=black] min (0,\dist,0) max (\w,\dist + \e,\h);
+    
+
+    
+\end{tikzpicture}%
+
+\end{document}

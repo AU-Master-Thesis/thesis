@@ -20,6 +20,7 @@
             typst
             typstfmt
             typst-lsp
+            tectonic
             hayagriva
             graphviz
             python3

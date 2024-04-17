@@ -1,0 +1,58 @@
+\tikzstyle{equal below of} = [below=of #1.south]
+\tikzstyle{equal right of} = [right=of #1.east]
+\tikzstyle{equal left of} = [left=of #1.west]
+\tikzstyle{equal above of} = [above=of #1.north]
+
+% \def\bbx min (#1,#2,#3) max (#4,#5,#6) color #7 alpha #8; {
+% 	%draw the bottom of the cube
+%     \draw[cube,fill=#7,fill opacity=#8] (#1,#2,#3) -- (#1,#5,#3) -- (#4,#5,#3) -- (#4,#2,#3) -- cycle;
+% 	%draw the back-right of the cube
+% 	\draw[cube,fill=#7,fill opacity=#8] (#1,#2,#3) -- (#1,#5,#3) -- (#1,#5,#6) -- (#1,#2,#6) -- cycle;
+% 	%draw the back-left of the cube
+% 	\draw[cube,fill=#7,fill opacity=#8] (#1,#2,#3) -- (#4,#2,#3) -- (#4,#2,#6) -- (#1,#2,#6) -- cycle;
+% 	%draw the front-right of the cube
+% 	\draw[cube,fill=#7,fill opacity=#8] (#4,#2,#3) -- (#4,#5,#3) -- (#4,#5,#6) -- (#4,#2,#6) -- cycle;
+% 	%draw the front-left of the cube
+%     \draw[cube,fill=#7,fill opacity=#8] (#1,#5,#3) -- (#4,#5,#3) -- (#4,#5,#6) -- (#1,#5,#6) -- cycle;
+% 	%draw the top of the cube
+% 	\draw[cube,fill=#7,fill opacity=#8] (#1,#2,#6) -- (#1,#5,#6) -- (#4,#5,#6) -- (#4,#2,#6) -- cycle;
+% }
+\def\bbx[#1] min (#2,#3,#4) max (#5,#6,#7); {
+	%draw the bottom of the cube
+    \draw[cube,#1] (#2,#3,#4) -- (#2,#6,#4) -- (#5,#6,#4) -- (#5,#3,#4) -- cycle;    
+	%draw the back-right of the cube
+	\draw[cube,#1] (#2,#3,#4) -- (#2,#6,#4) -- (#2,#6,#7) -- (#2,#3,#7) -- cycle;
+	%draw the back-left of the cube
+	\draw[cube,#1] (#2,#3,#4) -- (#5,#3,#4) -- (#5,#3,#7) -- (#2,#3,#7) -- cycle;
+	%draw the front-right of the cube
+	\draw[cube,#1] (#5,#3,#4) -- (#5,#6,#4) -- (#5,#6,#7) -- (#5,#3,#7) -- cycle;
+	%draw the front-left of the cube
+    \draw[cube,#1] (#2,#6,#4) -- (#5,#6,#4) -- (#5,#6,#7) -- (#2,#6,#7) -- cycle;
+	%draw the top of the cube
+	\draw[cube,#1] (#2,#3,#7) -- (#2,#6,#7) -- (#5,#6,#7) -- (#5,#3,#7) -- cycle;
+}
+
+\def\voxel[#1] center (#2,#3,#4) resolution #5; {
+    \bbx[#1,fill opacity=0.35,draw opacity=1,line width=0.25,draw=black] min (#2-#5/2, #3-#5/2, #4-#5/2) max (#2+#5/2, #3+#5/2, #4+#5/2);
+}
+
+\def\volumetricbox at (#1,#2) with dimensions (#3,#4,#5) color #6 alpha #7; {
+    \def\bposx{#1}
+    \def\bposy{#2}
+    \def\bwidth{#3};
+    \def\bheigth{#4};
+    \def\bdepth{#5}
+    
+    \draw[draw=black] (\bposx,\bposy) -- ++(\bdepth,\bdepth) -- ++(0,\bheigth);
+    \draw[draw=black] (\bposx+\bdepth,\bposy+\bdepth) -- ++(\bwidth,0);
+    
+    \draw[draw=black,fill opacity=#7,fill=#6] (\bposx,\bposy) rectangle +(\bwidth,\bheigth);
+    
+    \draw[draw=black,fill opacity=#7,fill=#6] (\bposx+\bwidth,\bposy) -- (\bposx+\bwidth+\bdepth,\bposy+\bdepth) -- (\bposx+\bwidth+\bdepth,\bposy+\bheigth+\bdepth) -- (\bposx+\bwidth,\bposy+\bheigth);
+    
+    \draw[draw=black,fill opacity=#7,fill=#6] (\bposx+\bwidth,\bposy+\bheigth) -- (\bposx+\bwidth+\bdepth,\bposy+\bheigth+\bdepth) -- (\bposx+\bdepth,\bposy+\bheigth+\bdepth) -- (\bposx,\bposy+\bheigth);
+}
+
+
+\def\centerarc[#1](#2)(#3:#4:#5)% Syntax: [draw options] (center) (initial angle:final angle:radius)
+    { \draw[#1] ($(#2)+({#5*cos(#3)},{#5*sin(#3)})$) arc (#3:#4:#5); }
