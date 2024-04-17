@@ -62,6 +62,11 @@ while read line
     set -a cache $line
 end <$mtime_cache_path
 
+# TODO: print duration since now
+printf 'cache:\n'
+printf ' - %s\n' $cache
+
+
 function run
     printf '%sevaluating%s: ' $magenta $reset
     echo $argv | fish_indent --ansi
@@ -77,12 +82,36 @@ function compile-to-svg -a document
     run command pdf2svg $output_pdf $output_svg
 end
 
+set -l new_cache
+set -g delimiter '|'
+
 for document in $tex_document_files
     set -l mtime (path mtime $document)
+    set -l skip 0
+    set -l in_cache 0
     for line in $cache
-        echo $line | read -d "|" f cached_mtime
-
+        echo $line | read -d "$delimiter" f cached_mtime
+        # echo "f: $f"
+        # echo "cached_mtime: $cached_mtime"
+        if test $f = $document
+            set in_cache 1
+            if test $mtime -eq $cached_mtime
+                set skip 1
+            end
+            set -a new_cache "$f$delimiter$mtime"
+        end
     end
+
+    if test $in_cache -eq 0
+        set -a new_cache "$document$delimiter$mtime"
+    end
+
+    if test $skip -eq 1
+        printf '%sinfo%s: skipping %s as it has not been modified since last compile\n' $green $reset $document
+        continue
+    end
+
+
     compile-to-svg $document &
     # command tectonic -X compile $document --outdir $outdir &
     # disown
@@ -91,6 +120,9 @@ end
 printf '%sinfo%s: waiting on compiles to finish ...\n' $green $reset
 wait
 
+printf '%sinfo%s: updating mtime cache ...\n' $green $reset
+
+printf '%s\n' $new_cache >$mtime_cache_path
 
 set -l t_end (date +%s)
 set -l duration (math "$t_end - $t_start")
