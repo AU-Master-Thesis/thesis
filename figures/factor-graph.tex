@@ -56,13 +56,13 @@
 \node[text=ctpMaroon] (t1) at (ct1) {$t_1$};
 \node[text=ctpMaroon] (t2) at (ct2) {$t_2$};
 \node[text=ctpMaroon] (t3) at (ct3) {$t_n$};
-\node[dot, minimum size=0.5 * \scale, draw=ctpMaroon] (dt1) at (ctib1) {};
-\node[dot, minimum size=0.5 * \scale, draw=ctpMaroon] (dt2) at (ctib2) {};
-\node[dot, minimum size=0.5 * \scale, draw=ctpMaroon] (dt3) at (ctib3) {};
+\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt1) at (ctib1) {};
+\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt2) at (ctib2) {};
+\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt3) at (ctib3) {};
 
 \draw[csnake, draw=ctpMaroon] (t1.north) -- node[yshift=10 * \scale, pos=0.5, text=ctpMaroon] (time) {Prediction Horizon} (t3.north);
 
-\tikzset{shift={(0, -50 * \scale)}}
+\tikzset{shift={(0, -40 * \scale)}}
 \robot[robot two] sign (-1);
 \node[variable node, none] (v21) at (v1) {};
 \node[variable node, none] (v22) at (v2) {};
@@ -73,7 +73,7 @@
 \draw[none] (v13) -- node[name=vb3, pos=0.5] {} (v23);
 
 \def\ifactors[#1] at (#2) id (#3) with style (#4, #5){
-    \def\fio{4 * \scale}
+    \def\fio{3.5 * \scale}
     \node[factor node, xshift=-\fio, #4] (fi1#3) at (#2) {$f_i$};
     \node[factor node, xshift=\fio, #5] (fi2#3) at (#2) {$f_i$};
 }

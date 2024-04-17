@@ -95,7 +95,7 @@
 \draw[none] (end) --++ (10 * \scale, 0) coordinate (endRight) --++ (0, 30 * \scale) coordinate (endUp);
 \draw[none] (origin) --++ (-10 * \scale, 0) coordinate (originLeft) --++ (0, 30 * \scale) coordinate (originUp);
 
-\draw[arrow] (end) -- (endRight) -- (endUp) -- (originUp) -- (originLeft) -- (origin);
+\draw[arrow, rounded corners=5 * \scale] (end) -- (endRight) -- (endUp) -- (originUp) -- (originLeft) -- (origin);
 
 \end{tikzpicture}
 \end{document}
