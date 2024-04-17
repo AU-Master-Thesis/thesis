@@ -30,7 +30,7 @@ if test $PWD = $HOME
     exit 1
 end
 
-set -l outdir ./figures/out
+set -g outdir ./figures/out
 if set --query _flag_outdir
     if test -f $_flag_outdir
         printf '%serror%s: the given --outdir <dir> (%s) is a file, not a directory 😡\n' $red $reset $_flag_outdir
