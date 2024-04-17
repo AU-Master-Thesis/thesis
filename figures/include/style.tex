@@ -44,3 +44,20 @@
 \definecolor{cb_green_3}{HTML}{238443}
 \definecolor{cb_green_2}{HTML}{006837}
 \definecolor{cb_green_1}{HTML}{004529}
+
+\tikzset{
+    node distance=10 * \scale and 10 * \scale,
+    line/.style={draw, line cap=round, line width=0.35 * \scale, rounded corners=1 * \scale},
+    csnake/.style={line, rounded corners=0, snake=brace, raise snake=2 * \scale, segment amplitude=3 * \scale},
+    none/.style={draw=none, fill=none, line width=0pt},
+    variable node/.style={circle, line, draw=\variablecolor, fill=\variablecolor!10, minimum size=8 * \scale},
+    factor node/.style={rectangle, line, draw=\factorcolor, fill=\factorcolor!10, minimum size=5 * \scale, rounded corners=1 * \scale},
+    arrow/.style={->, line, >=Latex[round]},
+    variable message/.style={arrow, draw=\variablecolor},
+    factor message/.style={arrow, <-, draw=\factorcolor},
+    dot/.style={circle, draw=none, fill=ctpText, minimum size=1 * \scale, inner sep=0},
+}
+
+\def\scale{1mm}
+\def\factorcolor{ctpLavender}
+\def\variablecolor{ctpMaroon}

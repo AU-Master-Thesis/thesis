@@ -19,6 +19,8 @@
           buildInputs = [
             typst
             typstfmt
+            watchexec
+            pdf2svg
             typst-lsp
             tectonic
             pdf2svg
