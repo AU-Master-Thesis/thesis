@@ -161,3 +161,5 @@
 #let numref(label) = ref(label, supplement: none)
 
 #let scen(content) = boxed(color: catppuccin.latte.yellow, content)
+
+#let hline-with-gradient(cmap: color.map.inferno, height: 2pt) = rect(width: 100%, height: height, fill: gradient.linear(..cmap))
