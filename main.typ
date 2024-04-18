@@ -20,7 +20,23 @@
 
 #set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
 #set enum(full: true)
-#show outline.entry.where(level: 1) : it => text(size: 1em, weight: "bold", it)
+#show outline.entry.where(level: 1) : it => [
+  #v(1em)
+  #text(size: 1em, weight: "bold", it)
+]
+
+#show heading.where(level: 1) : it => text(accent, size: 18pt)[
+  // #repr(it.)
+  #grid(
+    columns: (1fr, 1fr),
+    align: (left, right),
+    it.body, [#counter(heading).get().at(0)],
+  )
+  #it
+  #v(-0.5em)
+  #hr
+  #v(1em)
+]
 
 #let project-name = "Multi-agent Collaborative Path Planning"
 
@@ -46,7 +62,14 @@
 )
 
 #show: paper.with(
-  paper-size: "a4", title: project-name, subtitle: "Computer Engineering Master Thesis", title-page: true, title-page-footer: align(
+  paper-size: "a4",
+  title: project-name,
+  subtitle: "Computer Engineering Master Thesis",
+  title-page: true,
+  title-page-extra: align(center, [
+    Bloop
+  ]),
+  title-page-footer: align(
     center,
   )[
     #gridx(columns: (30%, 40%), align: center + horizon)
@@ -68,12 +91,36 @@
   accent: accent,
 )
 
-#outline()
-#set-page-properties()
+// #outline()
+// #set-page-properties()
 
+// Pre-introduction
+#set heading(numbering: none)
+// #set page(numbering: "i")
 #include "sections/abstract.typ"
 #include "sections/preface.typ"
 #include "sections/nomenclature.typ"
+
+// Table of Contents
+#pagebreak(weak: true)
+#heading([Contents], level: 1, numbering: none, outlined: false)
+
+#v(1em)
+#toc-printer(target: heading.where(numbering: none))
+
+// #line(start: 0, end: 100%)
+
+#v(1em)
+#toc-printer(target: heading.where(numbering: "1."))
+
+// Report
+#counter(heading).update(0)
+#counter(page).update(0)
+#set heading(numbering: "1.")
+#set page(numbering: "1")
 #include "sections/introduction/mod.typ"
-#include "sections/theory/mod.typ"
+#include "sections/background/mod.typ"
 #include "sections/methodology/mod.typ"
+#include "sections/results/mod.typ"
+#include "sections/discussion/mod.typ"
+#include "sections/conclusion/mod.typ"

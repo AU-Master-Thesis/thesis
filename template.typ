@@ -112,15 +112,12 @@
     set document(title: title, author: authors.map(author => author.name))
 
     // Set the body font.
-    // set text(font: "Merriweather", size: 10pt)
-    // set text(font: "Maine", size: 10pt)
     set text(font: "STIX Two Text", size: 10pt)
-    // set text(font: "New Computer Modern", size: 10pt)
 
     // Configure the page.
     set page(
         paper: paper-size,
-        numbering: none, // "1/1"
+        numbering: "i", // "1/1"
         number-align: center,
     )
 
@@ -405,13 +402,6 @@
         if (title-page-content != none) {
             title-page-content
         } else {
-            // grid(
-            //     columns: 1,
-            //     [#make-title(authors, unique-affiliations)],
-            //     [#title-page-extra],
-            //     [#title-page-footer],
-            // )
-            // v(5.65mm, weak: true)
             make-title(authors, unique-affiliations)
             v(1fr, weak: true)
             title-page-extra
@@ -490,9 +480,6 @@
             bibliography(bibliography-file, title: none, style: "ieee")
         }
     }
-
-
-    // show: columns.with(1, gutter: 12pt)
 
     postbody
 }
