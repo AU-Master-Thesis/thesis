@@ -8,6 +8,8 @@
 #let theme = catppuccin.latte
 #let accent = theme.lavender
 
+#let hr = line(length: 100%)
+
 #let std-block = block.with(
   fill: catppuccin.latte.base, radius: 1em, inset: 0.75em, stroke: none, width: 100%, breakable: true,
 )
@@ -161,3 +163,26 @@
 #let numref(label) = ref(label, supplement: none)
 
 #let scen(content) = boxed(color: catppuccin.latte.yellow, content)
+
+#let toc-printer(target: none) = {
+  set par(first-line-indent: 0em)
+  outline(
+    indent: auto,
+    fill: grid(
+      // column-gutter: 
+      columns: 1,
+      block(
+        fill: black,
+        height: 0.5pt,
+        width: 100%,
+      ),
+      block(
+        fill: none,
+        height: 0.25em,
+        width: 100%,
+      ),
+    ),
+    target: target,
+    title: none,
+  )
+}

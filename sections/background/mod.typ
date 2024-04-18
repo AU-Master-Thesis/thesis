@@ -1,5 +1,6 @@
 #import "../../lib.typ": *
-= Theory <methodology>
+= Background <background>
+
 
 == Factor Graphs
 
