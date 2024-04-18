@@ -186,3 +186,4 @@
     title: none,
   )
 }
+#let hline-with-gradient(cmap: color.map.inferno, height: 2pt) = rect(width: 100%, height: height, fill: gradient.linear(..cmap))

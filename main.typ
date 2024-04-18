@@ -1,4 +1,5 @@
 #import "lib.typ": *
+#import "text-case.typ": *
 
 #show figure.where(kind: raw): set block(breakable: true)
 
