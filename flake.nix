@@ -27,6 +27,9 @@
             hayagriva
             graphviz
             python3
+            # poppler-utils
+            poppler_utils # pdf utilities
+
             just
             ltex-ls # languagetool lsp
             typos
