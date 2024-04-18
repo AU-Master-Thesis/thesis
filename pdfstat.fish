@@ -1,15 +1,22 @@
 #!/usr/bin/env -S fish --no-config
 
+set -g reset (set_color normal)
+set -g bold (set_color --bold)
+set -g italics (set_color --italics)
+set -g red (set_color red)
+set -g green (set_color green)
+set -g yellow (set_color yellow)
+set -g blue (set_color blue)
+set -g cyan (set_color cyan)
+set -g magenta (set_color magenta)
+
+
 function pdfstat -a pdf
     set -l options h/help j/json
     if not argparse $options -- $argv
         eval (status function) --help
         return 2
     end
-
-    set -l reset (set_color normal)
-    set -l red (set_color red)
-    set -l green (set_color green)
 
     # TODO: finish error messages
 
@@ -47,10 +54,34 @@ function pdfstat -a pdf
             printf '%s\n' $output
         end
     else
-        printf '%slines%s:      %10d\n' $green $reset $lines
-        printf '%swords%s:      %10d\n' $green $reset $words
-        printf '%scharacters%s: %10d\n' $green $reset $characters
+        printf '%scharacters%s:      %10d\n' $green $reset $characters
+        printf '%swords%s:           %10d\n' $green $reset $words
+        printf '%slines%s:           %10d\n' $green $reset $lines
+        set -l characters_per_normal_page 2400
+        set -l estimated_pages (math "$characters / $characters_per_normal_page")
+        printf '%sestimated pages%s: %s%10.2f%s (using %s characters for a normal page)\n' $green $reset $magenta $estimated_pages $reset $characters_per_normal_page
     end
 end
 
-pdfstat $argv
+# pdfstat $argv
+
+set -l pdfs
+if test (count $argv) -eq 0
+    set pdfs **.pdf
+else
+    set pdfs $argv
+end
+
+set -l cyan (set_color cyan)
+set -l reset (set_color normal)
+set -l n (count $pdfs)
+# for f in $pdfs
+for i in (seq $n)
+    # printf
+    set -l f $pdfs[$i]
+    string pad --right --char="-" --width=100 (printf '%s%s%s' $cyan $f $reset)
+    pdfstat $f
+    if test $i -lt $n
+        echo ""
+    end
+end
