@@ -184,7 +184,12 @@
     set enum(indent: 0em, body-indent: 0.5em)
 
     // Configure headings
-    set heading(numbering: "1.1.1.")
+    set heading(numbering: "1.1.1")
+
+    show heading.where(level: 1) : set text (size: 24pt)
+    show heading.where(level: 2) : set text (size: 18pt)
+    show heading.where(level: 3) : set text (size: 16pt)
+    show heading.where(level: 4) : set text (size: 14pt)
     
     // functions
     // display the mails in a set construction manner

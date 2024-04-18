@@ -20,22 +20,92 @@
 
 #set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
 #set enum(full: true)
-#show outline.entry.where(level: 1) : it => [
-  #v(1em)
-  #text(size: 1em, weight: "bold", it)
+
+#show outline.entry.where() : it => {
+  let t = it.body.fields().values().at(0)
+
+  let size = 1em
+  let color = black
+  let weight = "medium"
+
+  if it.level == 1 {
+    v(1em)
+    size = 1.2em
+    color = accent
+    weight = "black"
+  }
+  
+  if type(t) == "array"  {
+    v(-3em)
+    // h(it.element.level * 2em)
+    grid(
+      column-gutter: 2pt,
+      columns: ((it.element.level - 1) * 2em, auto, 1fr, auto),
+      align: (center, left + bottom, center + bottom, right + bottom),
+      [],
+      text(color, size: size, weight: weight, [
+        #it.body.fields().values().at(0).at(0)
+        #h(0.85em)
+        #it.body.fields().values().at(0).slice(2).join(" ")
+        // #repr(it.fill)
+      ]),
+      block(
+        fill: color,
+        height: 0.5pt,
+        width: 100%,
+      ),
+      text(color, size: 1em, weight: weight, it.page),
+    )
+  } else {
+    v(-3em)
+    // text(accent, size: 1.2em, weight: black, it)
+    grid(
+      column-gutter: 2pt,
+      columns: (0em, auto, 1fr, auto),
+      align: (center, left + bottom, center + bottom, right + bottom),
+      [],
+      text(color, size: size, weight: weight, it.body),
+      block(
+        fill: color,
+        height: 0.5pt,
+        width: 100%,
+      ),
+      text(color, size: 1em, weight: weight, it.page),
+    )
+  }
+}
+
+// OVERSKRIFTER
+#show heading.where(numbering: "1.1") : it => [
+  #v(1em) 
+  #block({
+    box(
+      width: 13mm, 
+      text(counter(heading).display(), weight: 600))
+    text(it.body, weight: 600)
+  })
+  #v(1em) 
 ]
 
 #show heading.where(level: 1) : it => text(accent, size: 18pt)[
-  // #repr(it.)
+  #pagebreak(weak: true)
+  #let subdued = theme.text.lighten(50%)
+  #set text(font: "JetBrainsMono NF")
+
   #grid(
     columns: (1fr, 1fr),
-    align: (left, right),
-    it.body, [#counter(heading).get().at(0)],
+    align: (left + bottom, right + top),
+    text(it.body, size: 24pt, weight: "bold"),
+      if it.numbering != none
+    {
+      text(subdued, weight: 200, size: 100pt)[#counter(heading).get().at(0)]
+      v(1.5em)
+    },
   )
-  #it
   #v(-0.5em)
-  #hr
-  #v(1em)
+  // #hr
+  #hline-with-gradient(cmap: (accent, subdued), height: 2pt)
+  #v(1.5em)
 ]
 
 #let project-name = "Multi-agent Collaborative Path Planning"
@@ -105,19 +175,20 @@
 #pagebreak(weak: true)
 #heading([Contents], level: 1, numbering: none, outlined: false)
 
-#v(1em)
+#v(5em)
 #toc-printer(target: heading.where(numbering: none))
 
 // #line(start: 0, end: 100%)
 
-#v(1em)
-#toc-printer(target: heading.where(numbering: "1."))
+#let main-numbering = "1.1"
+#v(2em)
+#toc-printer(target: heading.where(numbering: main-numbering))
 
 // Report
-#counter(heading).update(0)
-#counter(page).update(0)
-#set heading(numbering: "1.")
+#set heading(numbering: main-numbering)
 #set page(numbering: "1")
+#counter(heading).update(0)
+#counter(page).update(1)
 #include "sections/introduction/mod.typ"
 #include "sections/background/mod.typ"
 #include "sections/methodology/mod.typ"

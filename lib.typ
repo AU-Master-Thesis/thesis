@@ -167,7 +167,8 @@
 #let toc-printer(target: none) = {
   set par(first-line-indent: 0em)
   outline(
-    indent: auto,
+    indent: 2em,
+    // fill: repeat("_"),
     fill: grid(
       // column-gutter: 
       columns: 1,
@@ -176,14 +177,11 @@
         height: 0.5pt,
         width: 100%,
       ),
-      block(
-        fill: none,
-        height: 0.25em,
-        width: 100%,
-      ),
     ),
+    depth: 2,
     target: target,
     title: none,
   )
 }
+
 #let hline-with-gradient(cmap: color.map.inferno, height: 2pt) = rect(width: 100%, height: height, fill: gradient.linear(..cmap))
