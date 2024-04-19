@@ -54,6 +54,18 @@
   # https://devenv.sh/pre-commit-hooks/
   pre-commit.hooks = {
     shellcheck.enable = true;
+    alejandra.enable = true;
+    check-added-large-files.enable = true;
+    check-executables-have-shebangs.enable = true;
+    check-merge-conflicts.enable = true;
+    chktex.enable = true;
+    commitizen.enable = true;
+    end-of-file-fixer.enable = true;
+    lacheck.enable = true;
+    latexindent.enable = true;
+    trim-trailing-whitespace.enable = true;
+    typos.enable = true;
+    typstfmt.enable = true;
 
     all-typ-files-used = {
       enable = true;
