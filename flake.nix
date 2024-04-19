@@ -36,6 +36,10 @@
             yq-go
             jq
             taplo
+            fd
+            bat
+            ripgrep
+            gcc
           ];
         };
       });

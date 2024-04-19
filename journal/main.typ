@@ -683,6 +683,16 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   - Started refactoring some of the code. Especially the factorgraph code
 ]
 
+
+#day(datetime(day: 18, month: 04, year: 2024))
+
+#kristoffer[
+  #location.au
+
+  - Got circle formation to work
+
+]
+
 #deadline-countdown()
 
 #bibliography(

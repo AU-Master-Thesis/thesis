@@ -62,9 +62,34 @@ while read line
     set -a cache $line
 end <$mtime_cache_path
 
+function color_path -a path
+    set -l dirname (path dirname $path)
+    set -l basename (path basename $path)
+    # echo "dirname: $dirname"
+    if test $dirname = .
+        printf './%s%s%s' $bold $basename $reset
+    else
+        printf '%s%s%s/%s%s%s' $blue $dirname $reset $bold $basename $reset
+    end
+end
+
+set -g delimiter '|'
+
+set -l now (date +%s)
 # TODO: print duration since now
-printf 'cache:\n'
-printf ' - %s\n' $cache
+printf 'mtime cache:\n'
+for line in $cache
+    echo $line | read -d $delimiter f timestamp
+    # color_path $f
+    set -l n (string length $f)
+    set -l W 50
+    set -l seconds_since (math "$now - $timestamp")
+    printf ' - %s%s | mtime: %s%s%s seconds ago\n' (color_path $f) (string repeat --count (math "$W - $n") ' ') $yellow $seconds_since $reset
+    # string pad --width 100 (printf ' - %s%s%s' $magenta $)
+    # string pad --width 100 --right $f
+    # printf ' - %s%s%s | %s\n' $magenta (string pad --width 100 --right $f) $reset $timestamp
+end
+echo
 
 
 function run
@@ -83,7 +108,6 @@ function compile-to-svg -a document
 end
 
 set -l new_cache
-set -g delimiter '|'
 
 for document in $tex_document_files
     set -l mtime (path mtime $document)
@@ -107,7 +131,8 @@ for document in $tex_document_files
     end
 
     if test $skip -eq 1
-        printf '%sinfo%s: skipping %s as it has not been modified since last compile\n' $green $reset $document
+        # printf '%sinfo%s: skipping %s%s as it has not been modified since last compile\n' $green $reset (color_path $document) $reset
+        printf '%sinfo%s: skipping %s%s\n' $green $reset (color_path $document) $reset
         continue
     end
 
