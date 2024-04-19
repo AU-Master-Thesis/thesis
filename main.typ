@@ -2,7 +2,6 @@
 #import "text-case.typ": *
 
 
-
 #show figure.where(kind: raw): set block(breakable: true)
 
 #show raw.where(block: false): (it) => {
@@ -207,3 +206,6 @@
 #include "sections/results/mod.typ"
 #include "sections/discussion/mod.typ"
 #include "sections/conclusion/mod.typ"
+#include "sections/future-work.typ"
+
+#bibliography("./references.yaml", style: "the-institution-of-engineering-and-technology")

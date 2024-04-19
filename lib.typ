@@ -62,37 +62,15 @@
   content
 }
 
-#let todo(txt) = boxed(
-  color: theme.maroon.lighten(0%), fill: theme.maroon.lighten(80%), [*Todo:* #txt],
-)
+#let remark(txt, color: color.red, prefix: "") = {
+	if not "release" in sys.inputs {
+	boxed(color: color.lighten(0%), fill: color.lighten(80%), [*#prefix* #txt])
+	}
+}
 
-#let jens(txt) = boxed(
-  color: theme.teal.lighten(0%), fill: theme.teal.lighten(80%), [*Jens:* #txt],
-)
-
-#let kristoffer(txt) = boxed(
-  color: theme.green.lighten(0%), fill: theme.green.lighten(80%), [*Kristoffer:* #txt],
-)
-
-#let pernille(txt) = boxed(
-  color: theme.mauve.lighten(0%), fill: theme.mauve.lighten(80%), [*Pernille:* #txt],
-)
-
-#let bastian(txt) = boxed(
-  color: theme.blue.lighten(0%), fill: theme.blue.lighten(80%), [*Bastian:* #txt],
-)
-
-#let emil(txt) = boxed(
-  color: theme.pink.lighten(0%), fill: theme.pink.lighten(80%), [*Emil:* #txt],
-)
-
-#let magnus(txt) = boxed(
-  color: theme.peach.lighten(0%), fill: theme.peach.lighten(80%), [*Magnus:* #txt],
-)
-
-#let daniel(txt) = boxed(
-  color: theme.yellow.lighten(0%), fill: theme.yellow.lighten(80%), [*Daniel:* #txt],
-)
+#let todo = remark.with(color: theme.maroon, prefix: "Todo: ")
+#let jens = remark.with(color: theme.teal, prefix: "Jens: ")
+#let kristoffer = remark.with(color: theme.green, prefix: "Kristoffer: ")
 
 #let boxed-enum(
   prefix: "", suffix: "", color: accent.lighten(0%), fill: accent.lighten(80%), ..numbers,
