@@ -8,94 +8,94 @@
 \begin{document}
 
 \begin{tikzpicture}
-\def\nodelayout{
-    % Define the nodes for the variable iteration
-    \node[variable node] (v1) {};
-    \node[factor node] (f1) [right=of v1] {};
-    \node[factor node] (f2) [below=of v1] {};
-    \node[factor node] (f3) [right=of f2] {};
-    \node[variable node] (v2) [below=of f3] {};
-    
-    % Draw the lines
-    \draw[line] (v1) -- (f1);
-    \draw[line] (v1) -- (f2);
-    \draw[line] (v1) -- (f3);
-    \draw[line] (f2) -- (v2);
-    \draw[line] (f3) -- (v2);
-}
+	\def\nodelayout{
+		% Define the nodes for the variable iteration
+		\node[variable node] (v1) {};
+		\node[factor node] (f1) [right=of v1] {};
+		\node[factor node] (f2) [below=of v1] {};
+		\node[factor node] (f3) [right=of f2] {};
+		\node[variable node] (v2) [below=of f3] {};
 
-\def\messages[#1]{
-    \nodelayout
-     
-    % Draw the messsage passing arrows
-    \def\offset{2.0 * \scale}
-    
-    \draw[none] (v1.-45) --++ (0:\offset) coordinate (A);
-    \draw[none] (f3.135) --++ (90:\offset) coordinate (B);
-    \draw[#1] (A) -- (B);
-    
-    \draw[none] (v1.0) --++ (45:\offset) coordinate (A);
-    \draw[none] (f1.180) --++ (135:\offset) coordinate (B);
-    \draw[#1] (A) -- (B);
-    
-    \draw[none] (v1.-90) --++ (-45:\offset) coordinate (A);
-    \draw[none] (f2.90) --++ (45:\offset) coordinate (B);
-    \draw[#1] (A) -- (B);
-    
-    \draw[none] (v2.90) --++ (45:\offset) coordinate (A);
-    \draw[none] (f3.-90) --++ (-45:\offset) coordinate (B);
-    \draw[#1] (A) -- (B);
-    
-    \draw[none] (v2.135) --++ (90:\offset) coordinate (A);
-    \draw[none] (f2.-45) --++ (0:\offset) coordinate (B);
-    \draw[#1] (A) -- (B);
-}
+		% Draw the lines
+		\draw[line] (v1) -- (f1);
+		\draw[line] (v1) -- (f2);
+		\draw[line] (v1) -- (f3);
+		\draw[line] (f2) -- (v2);
+		\draw[line] (f3) -- (v2);
+	}
 
+	\def\messages[#1]{
+		\nodelayout
 
-\def\updatevariables{
-    \nodelayout
+		% Draw the message passing arrows
+		\def\offset{2.0 * \scale}
 
-    \Cycle[variable message]{v1}{135}{8 * \scale}{8 * \scale}
-    \Cycle[variable message]{v2}{-45}{8 * \scale}{8 * \scale}
-}
+		\draw[none] (v1.-45) --++ (0:\offset) coordinate (A);
+		\draw[none] (f3.135) --++ (90:\offset) coordinate (B);
+		\draw[#1] (A) -- (B);
+
+		\draw[none] (v1.0) --++ (45:\offset) coordinate (A);
+		\draw[none] (f1.180) --++ (135:\offset) coordinate (B);
+		\draw[#1] (A) -- (B);
+
+		\draw[none] (v1.-90) --++ (-45:\offset) coordinate (A);
+		\draw[none] (f2.90) --++ (45:\offset) coordinate (B);
+		\draw[#1] (A) -- (B);
+
+		\draw[none] (v2.90) --++ (45:\offset) coordinate (A);
+		\draw[none] (f3.-90) --++ (-45:\offset) coordinate (B);
+		\draw[#1] (A) -- (B);
+
+		\draw[none] (v2.135) --++ (90:\offset) coordinate (A);
+		\draw[none] (f2.-45) --++ (0:\offset) coordinate (B);
+		\draw[#1] (A) -- (B);
+	}
 
 
-\def\updatefactors{
-    \nodelayout
+	\def\updatevariables{
+		\nodelayout
 
-    \Cycle[factor message]{f1}{45}{8 * \scale}{8 * \scale}
-    \Cycle[factor message]{f2}{-135}{8 * \scale}{8 * \scale}
-    \Cycle[factor message]{f3}{45}{8 * \scale}{8 * \scale}
-}
+		\Cycle[variable message]{v1}{135}{8 * \scale}{8 * \scale}
+		\Cycle[variable message]{v2}{-45}{8 * \scale}{8 * \scale}
+	}
 
-\def\mid{17.5 * \scale}
 
-% VARIABLE ITERATION
-\coordinate (origin) at (-7.5 * \scale, -\mid);
-\updatevariables
-\tikzset{shift={(20 * \scale, 0)}}
-\node[color=\variablecolor, shift={(10 * \scale, -47 * \scale)}] (VI) {Variable Iteration};
-\tikzset{shift={(20 * \scale, 0)}}
-\messages[variable message]
+	\def\updatefactors{
+		\nodelayout
 
-% INTERMEDITE ARROW
-\tikzset{shift={(30 * \scale, 0)}}
-\draw[arrow] (0, -\mid) --++ (10 * \scale, 0);
-\tikzset{shift={(25 * \scale, 0)}}
-% FACTOR ITERATION
-% move origin to the right
-\updatefactors
-\tikzset{shift={(20 * \scale, 0)}}
-\node[color=\factorcolor, shift={(10 * \scale, -47 * \scale)}] (FI) {Factor Iteration};
-\tikzset{shift={(20 * \scale, 0)}}
-\messages[factor message]
+		\Cycle[factor message]{f1}{45}{8 * \scale}{8 * \scale}
+		\Cycle[factor message]{f2}{-135}{8 * \scale}{8 * \scale}
+		\Cycle[factor message]{f3}{45}{8 * \scale}{8 * \scale}
+	}
 
-\coordinate (end) at (25 * \scale, -\mid);
+	\def\mid{17.5 * \scale}
 
-\draw[none] (end) --++ (10 * \scale, 0) coordinate (endRight) --++ (0, 30 * \scale) coordinate (endUp);
-\draw[none] (origin) --++ (-10 * \scale, 0) coordinate (originLeft) --++ (0, 30 * \scale) coordinate (originUp);
+	% VARIABLE ITERATION
+	\coordinate (origin) at (-7.5 * \scale, -\mid);
+	\updatevariables
+	\tikzset{shift={(20 * \scale, 0)}}
+	\node[color=\variablecolor, shift={(10 * \scale, -47 * \scale)}] (VI) {Variable Iteration};
+	\tikzset{shift={(20 * \scale, 0)}}
+	\messages[variable message]
 
-\draw[arrow, rounded corners=5 * \scale] (end) -- (endRight) -- (endUp) -- (originUp) -- (originLeft) -- (origin);
+	% INTERMEDIATE ARROW
+	\tikzset{shift={(30 * \scale, 0)}}
+	\draw[arrow] (0, -\mid) --++ (10 * \scale, 0);
+	\tikzset{shift={(25 * \scale, 0)}}
+	% FACTOR ITERATION
+	% move origin to the right
+	\updatefactors
+	\tikzset{shift={(20 * \scale, 0)}}
+	\node[color=\factorcolor, shift={(10 * \scale, -47 * \scale)}] (FI) {Factor Iteration};
+	\tikzset{shift={(20 * \scale, 0)}}
+	\messages[factor message]
+
+	\coordinate (end) at (25 * \scale, -\mid);
+
+	\draw[none] (end) --++ (10 * \scale, 0) coordinate (endRight) --++ (0, 30 * \scale) coordinate (endUp);
+	\draw[none] (origin) --++ (-10 * \scale, 0) coordinate (originLeft) --++ (0, 30 * \scale) coordinate (originUp);
+
+	\draw[arrow, rounded corners=5 * \scale] (end) -- (endRight) -- (endUp) -- (originUp) -- (originLeft) -- (origin);
 
 \end{tikzpicture}
 \end{document}

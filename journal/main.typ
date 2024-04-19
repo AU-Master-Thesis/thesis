@@ -324,7 +324,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 - Continued working on porting gbpplanner factorgraph to Rust.
 - Spend some time figuring out how to map Eigen operations to Rust nalgebra crate.
 - Unsure about current design with every Variable have `Vec<Rc<Factor>>` and
-  Factors having `Vec<Rc<Variable>>` makes the abstraction kinda akward.
+  Factors having `Vec<Rc<Variable>>` makes the abstraction kinda awkward.
   - Thinking about restructuring and using a proper graph structure.
   - For this I think we can use the `petgraph` library.
 - Also considered ways to abstract the connection with other robots/factorgraphs
@@ -335,7 +335,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
   #locations.home
 
   - Finished initial camera controls.
-  - Set up an infite grid to visualize the environment.
+  - Set up an infinite grid to visualize the environment.
 ]
 
 #day(datetime(day: 13, month: 02, year: 2024))
@@ -536,7 +536,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 04, month: 03, year: 2024))
 
 #kristoffer[
-#location.home
+#locations.home
 
 - Refactored `MultiVariateNormal` into its own crate `gbp_multivariate_normal`
 - Continued work on implementing the `Formation` system
@@ -545,7 +545,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 06, month: 03, year: 2024))
 #jens[
-#location.au
+#locations.au
 
 - Collaborated with Kristoffer to get the Bevy/Factorgraph integration to finally
   run.
@@ -554,7 +554,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 ]
 
 #kristoffer[
-#location.au
+#locations.au
 
 - Collaborated with Jens to get the Bevy/Factorgraph integration to finally run.
 - Made compilation of factorgraphs.dot with `dot` asysc using `bevy::tasks`
@@ -563,7 +563,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 
 #day(datetime(day: 07, month: 03, year: 2024))
 #jens[
-  #location.au
+  #locations.au
 
   - Visualisation plugin
     - Made visualisation of waypoints
@@ -574,7 +574,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 ]
 
 #kristoffer[
-  #location.au
+  #locations.au
 
   - Spent all day trying to chase down why each robots factor graph almost
     immediately converges to their own position, i.e. they end up not moving at all.
@@ -585,7 +585,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 11, month: 03, year: 2024))
 
 #kristoffer[
-#location.home
+#locations.home
 
 - Have been sick today, so I have not done a whole lot.
 - Improved pretty printers for matrices in both `gbpplanner` and `gbp-rs`. So it
@@ -596,7 +596,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 12, month: 03, year: 2024))
 
 #kristoffer[
-#location.home
+#locations.home
 
 - Decided to dumb down to the design, to not enforce that the covariance of a
   `MultivariateNormal` has to be invertible.
@@ -608,7 +608,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 13, month: 03, year: 2024))
 
 #kristoffer[
-  #location.home
+  #locations.home
 
   - Spent pre midday on modifying factorgraph to handle "external" nodes, i.e.
     (proxy) nodes belonging to other graphs. Design quickly got crazy with a lot of
@@ -619,17 +619,17 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 14, month: 03, year: 2024))
 
 #kristoffer[
-#location.au
+#locations.au
 
-- Finally got some progess on the reimplementation. Fixed the variables moving all
+- Finally got some progress on the reimplementation. Fixed the variables moving all
   over the place by not mixing up the `mean` and `information_vector` at a point
   in the algorithm.
 - Still some issues with the observed behavior, but we are getting closer.
 - Some of the issues remaining are:
-  - Seems suseptible to the initial position given to each robot.
+  - Seems susceptible to the initial position given to each robot.
   - Almost every run one of the robots, accelerate downwards while the others
     approach their goal.
-  - The chain of variables do not have the same straight shape as in the original.
+  - The chain of variables does not have the same straight shape as in the original.
 - Continued work on the `Formation` system.
 
 ]
@@ -637,7 +637,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 21, month: 03, year: 2024))
 
 #kristoffer[
-  #location.au
+  #locations.au
 
   - Implemented some utility keybinds like using the spacebar to pause/resume the
     simulation.
@@ -648,12 +648,12 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 8, month: 04, year: 2024))
 
 #kristoffer[
-#location.au
+#locations.au
 
 - Use `cfg!` macro to make our `main.rs` compatible with both our local build and
   our `wasm` build.
 
-- Create a notication system for our sim ui.
+- Create a notification system for our sim ui.
   - Fork `egui-notify` to support centered toasts
   - Create crate `bevy_notify` to expose `egui-notify` in bevy.
   - Hook up part of our system to use the notification system such as:
@@ -664,7 +664,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 9, month: 04, year: 2024))
 
 #kristoffer[
-#location.au
+#locations.au
 
 - Learned about `bevy::diagnostic` and started creating diagnostic providers for
   metrics such as number of robots, number of variables and factors and number of
@@ -678,7 +678,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 12, month: 04, year: 2024))
 
 #kristoffer[
-  #location.au
+  #locations.au
 
   - Started refactoring some of the code. Especially the factorgraph code
 ]
@@ -687,7 +687,7 @@ some interesting demo videos on their #link("https://rmurai.co.uk/projects/Robot
 #day(datetime(day: 18, month: 04, year: 2024))
 
 #kristoffer[
-  #location.au
+  #locations.au
 
   - Got circle formation to work
 

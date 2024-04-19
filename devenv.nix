@@ -6,6 +6,7 @@
   packages = with pkgs; [
     typst
     typstfmt
+    tinymist
     watchexec
     pdf2svg
     typst-lsp
@@ -31,6 +32,8 @@
     # tree
     as-tree
     just
+    fish
+    typos
   ];
 
   # https://devenv.sh/scripts/
@@ -61,13 +64,17 @@
     check-added-large-files.enable = true;
     check-executables-have-shebangs.enable = true;
     check-merge-conflicts.enable = true;
-    chktex.enable = true;
+    chktex.enable = false;
     commitizen.enable = true;
     end-of-file-fixer.enable = true;
-    lacheck.enable = true;
-    latexindent.enable = true;
+    lacheck.enable = false;
+    latexindent.enable = false;
     trim-trailing-whitespace.enable = true;
     typos.enable = true;
+    # _typos = {
+    #   enable = true;
+    #   entry = "${pkgs.typos}/bin/typos --config typos.toml";
+    # };
     typstfmt.enable = false;
 
     all-typ-files-used = {
@@ -83,9 +90,28 @@
     main-typ-compiles = {
       enable = true;
       name = "typ file compiles";
-      entry = "${pkgs.typst}/bin/typst compile";
+      entry = "${pkgs.typst}/bin/typst compile --root . ";
       # files = "\\.typ$";
-      files = "main.typ";
+      excludes = ["sections/.*\\.typ"];
+      files = "./main.typ";
+      pass_filenames = true;
+    };
+
+    fish = {
+      enable = true;
+      name = "fish scripts syntactically correct";
+      entry = "${pkgs.fish}/bin/fish --no-execute";
+      # types = ["files" "fish"];
+      files = "\\.fish$";
+      pass_filenames = true;
+    };
+
+    fish_indent = {
+      enable = true;
+      name = "format fish files";
+      entry = "${pkgs.fish}/bin/fish_indent --check";
+      files = "\\.fish$";
+      # types = ["files" "fish"];
       pass_filenames = true;
     };
   };

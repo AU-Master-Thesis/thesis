@@ -151,7 +151,7 @@
       else {
         let eq = math.equation
         // let sup = el.supplement
-        
+
         if el != none and el.func() == eq {
           // The reference is an equation
           let sup = if it.fields().at("supplement", default: "none") == "none" {
@@ -190,7 +190,7 @@
     show heading.where(level: 2) : set text (size: 18pt)
     show heading.where(level: 3) : set text (size: 16pt)
     show heading.where(level: 4) : set text (size: 14pt)
-    
+
     // functions
     // display the mails in a set construction manner
     let display-mails() = {
@@ -431,7 +431,7 @@
     }
 
     // Paper contents
-    // reset text setttings
+    // reset text settings
     set align(left)
     // set text(10pt, weight: 400)
 
@@ -470,7 +470,7 @@
 
         // Display the paper's contents.
         body
-        
+
         let ref-text-size = if two-column { 10pt } else { 14pt }
         // Display bibliography.
         if bibliography-file != none {
