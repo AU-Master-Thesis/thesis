@@ -1,6 +1,8 @@
 #import "../../lib.typ": *
 = Background <background>
 
+#include "./related-works.typ"
+
 
 == Factor Graphs
 

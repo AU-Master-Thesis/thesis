@@ -1,0 +1,11 @@
+[[acronym]]
+acronym = "ATE"
+expansion = "Absolute Trajectory Error"
+
+[[acronym]]
+acronym = "RMSE"
+expansion = "Root Mean Squared Error"
+
+[[acronym]]
+acronym = "GBP"
+expansion = "Gaussian Belief Propagation"

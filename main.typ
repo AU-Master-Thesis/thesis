@@ -1,6 +1,8 @@
 #import "lib.typ": *
 #import "text-case.typ": *
 
+
+
 #show figure.where(kind: raw): set block(breakable: true)
 
 #show raw.where(block: false): (it) => {
@@ -34,7 +36,7 @@
     color = accent
     weight = "black"
   }
-  
+
   if type(t) == "array"  {
     v(-3em)
     // h(it.element.level * 2em)
@@ -77,14 +79,14 @@
 
 // OVERSKRIFTER
 #show heading.where(numbering: "1.1") : it => [
-  #v(1em) 
+  #v(1em)
   #block({
     box(
-      width: 13mm, 
+      width: 13mm,
       text(counter(heading).display(), weight: 600))
     text(it.body, weight: 600)
   })
-  #v(1em) 
+  #v(1em)
 ]
 
 #show heading.where(level: 1) : it => text(accent, size: 18pt)[
@@ -163,6 +165,16 @@
 
 // #outline()
 // #set-page-properties()
+
+// This is important! Call it whenever your page is reconfigured.
+#set-page-properties()
+
+#if "release" in sys.inputs {
+  set-margin-note-defaults(hidden: true)
+} else {
+  set-margin-note-defaults(hidden: false)
+}
+
 
 // Pre-introduction
 #set heading(numbering: none)

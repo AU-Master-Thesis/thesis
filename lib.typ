@@ -1,5 +1,6 @@
 #import "template.typ": *
 #import "catppuccin.typ": *
+#import "note.typ"
 #import "@preview/codelst:1.0.0": sourcecode, codelst, sourcefile
 #import "@preview/tablex:0.0.6": *
 #import "@preview/drafting:0.2.0": *
@@ -170,7 +171,7 @@
     indent: 2em,
     // fill: repeat("_"),
     fill: grid(
-      // column-gutter: 
+      // column-gutter:
       columns: 1,
       block(
         fill: black,

@@ -11,4 +11,4 @@ devenv.local.nix
 
 **/*.svg
 **/*.pdf
-!main.pdf
+# !main.pdf

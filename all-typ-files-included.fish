@@ -29,7 +29,7 @@ end
 
 set -l exclude_dirs journal
 
-set -l typ_files (fd --absolute-path --exclude $exclude_dirs --extension typ)
+set -l typ_files (fd --absolute-path --exclude $exclude_dirs --exclude extension-ideas.typ --extension typ)
 set -l typ_files_not_included $typ_files
 
 if set --query _flag_verbose

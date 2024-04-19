@@ -30,6 +30,7 @@
     git
     # tree
     as-tree
+    just
   ];
 
   # https://devenv.sh/scripts/
@@ -78,11 +79,13 @@
       pass_filenames = false;
     };
 
-    typ-files-compiles = {
+    # typ-files-compiles = {
+    main-typ-compiles = {
       enable = true;
       name = "typ file compiles";
       entry = "${pkgs.typst}/bin/typst compile";
-      files = "\\.typ$";
+      # files = "\\.typ$";
+      files = "main.typ";
       pass_filenames = true;
     };
   };
