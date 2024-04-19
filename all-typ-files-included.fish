@@ -30,6 +30,7 @@ end
 set -l exclude_dirs journal
 
 set -l typ_files (fd --absolute-path --exclude $exclude_dirs --extension typ)
+set -l typ_files_not_included $typ_files
 
 if set --query _flag_verbose
     for f in $typ_files
@@ -102,24 +103,32 @@ while test (count $files_to_visit) -gt 0
         end
     end
 
-    if contains --index -- $f $typ_files | read index
+    if contains --index -- $f $typ_files_not_included | read index
         # printf '%sdeleting%s: %s from list of visited\n' $red $reset $f
 
-        set -e typ_files[$index]
+        set -e typ_files_not_included[$index]
     end
 
     # read input
 
 end
 
-if test (count $typ_files) -gt 0
-    printf '%serror%s: %s%d%s typ files not included\n' $red $reset $red (count $typ_files) $reset >&2
-    for f in $typ_files
-        printf ' - '
-        color_path $f
+if test (count $typ_files_not_included) -gt 0
+    printf '%serror%s: %s%d%s typ files not included\n' $red $reset $red (count $typ_files_not_included) $reset >&2
+
+    if command --query as-tree
+        printf '%s\n' $typ_files_not_included | as-tree
+    else
+        for f in $typ_files_not_included
+            printf ' - '
+            color_path $f
+        end
     end
+
     # printf ' - %s\n' $typ_files
     exit 1
 else
     exit 0
 end
+
+# TODO: draw as a tree structure

@@ -28,6 +28,8 @@
     ripgrep
     gcc
     git
+    # tree
+    as-tree
   ];
 
   # https://devenv.sh/scripts/
@@ -65,7 +67,7 @@
     latexindent.enable = true;
     trim-trailing-whitespace.enable = true;
     typos.enable = true;
-    typstfmt.enable = true;
+    typstfmt.enable = false;
 
     all-typ-files-used = {
       enable = true;
