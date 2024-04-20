@@ -13,6 +13,9 @@
 #import "@preview/wordometer:0.1.1": word-count, total-words, total-characters
 // #show: word-count.with(exclude: (heading.where(level: 1), strike, figure.caption, <no-wc>))
 
+#import "@preview/acrostiche:0.3.1": init-acronyms, print-index, acr, acrpl
+
+
 // #show: word-count
 
 #let theme = catppuccin.latte
@@ -173,3 +176,13 @@
 }
 
 #let hline-with-gradient(cmap: color.map.inferno, height: 2pt) = rect(width: 100%, height: height, fill: gradient.linear(..cmap))
+
+
+#let merge(..dicts) = {
+  dicts.pos().fold((:), (acc, dict) => {
+    for (k, v) in dict {
+      acc.insert(k, v)
+    }
+    acc
+  })
+}

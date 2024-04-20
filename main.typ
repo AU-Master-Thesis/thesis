@@ -223,6 +223,30 @@
   // ]
 })
 
+#let acronyms = yaml("acronyms.yaml")
+
+#let acrostiche-acronyms = merge(
+  ..acronyms.map(it => {
+    let v = (it.definition,)
+    if "plural" in it {
+      v.push(it.plural)
+    }
+
+    (it.acronym: v)
+  })
+)
+
+// #acrostiche-acronyms
+
+#init-acronyms(acrostiche-acronyms)
+
+#print-index()
+
+
+#acr("SOA")
+
+#acrpl("AOS")
+
 
 #include "sections/introduction/mod.typ"
 #include "sections/background/mod.typ"
