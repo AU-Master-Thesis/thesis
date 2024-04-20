@@ -107,6 +107,16 @@
       pass_filenames = false;
     };
 
+    # all-acronyms-used = {
+    #   enable = true;
+    #   name = "all acronyms used";
+    #   entry = "./all-acronyms-used.fish ./main.typ";
+    #   # files = "\\.typ$";
+    #   excludes = ["sections/.*\\.typ"];
+    #   files = "./main.typ";
+    #   pass_filenames = false;
+    # };
+
     fish = {
       enable = true;
       name = "fish scripts syntactically correct";

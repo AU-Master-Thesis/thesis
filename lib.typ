@@ -1,10 +1,19 @@
 #import "template.typ": *
 #import "catppuccin.typ": *
 #import "note.typ"
+#import "text-case.typ": *
 #import "@preview/codelst:1.0.0": sourcecode, codelst, sourcefile
+
 #import "@preview/tablex:0.0.6": *
 #import "@preview/drafting:0.2.0": *
 #import "@preview/cetz:0.2.2": *
+// #import "@preview/glossarium:0.3.0": make-glossary, print-glossary, gls, glspl
+// #show: make-glossary
+
+#import "@preview/wordometer:0.1.1": word-count, total-words, total-characters
+// #show: word-count.with(exclude: (heading.where(level: 1), strike, figure.caption, <no-wc>))
+
+// #show: word-count
 
 #let theme = catppuccin.latte
 #let accent = theme.lavender

@@ -1,5 +1,4 @@
 #import "lib.typ": *
-#import "text-case.typ": *
 
 
 #show figure.where(kind: raw): set block(breakable: true)
@@ -17,7 +16,8 @@
 }
 
 // #show link: it => underline(text(accent)[#it])
-#show link: it => text(accent)[#it]
+// #show link: it => text(accent)[#it]
+#show link: it => text(accent, it)
 
 #set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
 #set enum(full: true)
@@ -168,7 +168,7 @@
 // This is important! Call it whenever your page is reconfigured.
 #set-page-properties()
 
-#if "release" in sys.inputs {
+#if "release" in sys.inputs and sys.inputs.release == "true" {
   set-margin-note-defaults(hidden: true)
 } else {
   set-margin-note-defaults(hidden: false)
@@ -200,6 +200,30 @@
 #set page(numbering: "1")
 #counter(heading).update(0)
 #counter(page).update(1)
+
+#show: word-count
+#locate(loc => {
+  let words = state("total-words").final(loc)
+  let chars = state("total-characters").final(loc)
+  let normal-pages = chars / 2400
+  set text(size: 20pt)
+  set par(first-line-indent: 0em)
+  set align(center)
+  table(
+    columns: (auto, auto),
+    align: (left, right),
+    [*word count*], [#words],
+    [*character count*], [#chars],
+    [*normal pages*], [#normal-pages],
+  )
+  // [
+  //   *word count*: #words \
+  //   *character count*: #chars \
+  //   *normal pages*: #normal-pages
+  // ]
+})
+
+
 #include "sections/introduction/mod.typ"
 #include "sections/background/mod.typ"
 #include "sections/methodology/mod.typ"
@@ -207,5 +231,7 @@
 #include "sections/discussion/mod.typ"
 #include "sections/conclusion/mod.typ"
 #include "sections/future-work.typ"
+
+
 
 #bibliography("./references.yaml", style: "the-institution-of-engineering-and-technology")
