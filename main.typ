@@ -195,12 +195,6 @@
 #v(2em)
 #toc-printer(target: heading.where(numbering: main-numbering))
 
-// Report
-#set heading(numbering: main-numbering)
-#set page(numbering: "1")
-#counter(heading).update(0)
-#counter(page).update(1)
-
 #show: word-count
 #locate(loc => {
   let words = state("total-words").final(loc)
@@ -222,6 +216,12 @@
   //   *normal pages*: #normal-pages
   // ]
 })
+
+// Report
+#set heading(numbering: main-numbering)
+#set page(numbering: "1")
+#counter(heading).update(0)
+#counter(page).update(1)
 
 #let acronyms = yaml("acronyms.yaml")
 
