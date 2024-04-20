@@ -1,5 +1,5 @@
 #import "lib.typ": *
-#import "text-case.typ": *
+
 
 #show figure.where(kind: raw): set block(breakable: true)
 
@@ -16,7 +16,8 @@
 }
 
 // #show link: it => underline(text(accent)[#it])
-#show link: it => text(accent)[#it]
+// #show link: it => text(accent)[#it]
+#show link: it => text(accent, it)
 
 #set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
 #set enum(full: true)
@@ -34,7 +35,7 @@
     color = accent
     weight = "black"
   }
-  
+
   if type(t) == "array"  {
     v(-3em)
     // h(it.element.level * 2em)
@@ -77,14 +78,14 @@
 
 // OVERSKRIFTER
 #show heading.where(numbering: "1.1") : it => [
-  #v(1em) 
+  #v(1em)
   #block({
     box(
-      width: 13mm, 
+      width: 13mm,
       text(counter(heading).display(), weight: 600))
     text(it.body, weight: 600)
   })
-  #v(1em) 
+  #v(1em)
 ]
 
 #show heading.where(level: 1) : it => text(accent, size: 18pt)[
@@ -164,6 +165,16 @@
 // #outline()
 // #set-page-properties()
 
+// This is important! Call it whenever your page is reconfigured.
+#set-page-properties()
+
+#if "release" in sys.inputs and sys.inputs.release == "true" {
+  set-margin-note-defaults(hidden: true)
+} else {
+  set-margin-note-defaults(hidden: false)
+}
+
+
 // Pre-introduction
 #set heading(numbering: none)
 // #set page(numbering: "i")
@@ -189,9 +200,38 @@
 #set page(numbering: "1")
 #counter(heading).update(0)
 #counter(page).update(1)
+
+#show: word-count
+#locate(loc => {
+  let words = state("total-words").final(loc)
+  let chars = state("total-characters").final(loc)
+  let normal-pages = chars / 2400
+  set text(size: 20pt)
+  set par(first-line-indent: 0em)
+  set align(center)
+  table(
+    columns: (auto, auto),
+    align: (left, right),
+    [*word count*], [#words],
+    [*character count*], [#chars],
+    [*normal pages*], [#normal-pages],
+  )
+  // [
+  //   *word count*: #words \
+  //   *character count*: #chars \
+  //   *normal pages*: #normal-pages
+  // ]
+})
+
+
 #include "sections/introduction/mod.typ"
 #include "sections/background/mod.typ"
 #include "sections/methodology/mod.typ"
 #include "sections/results/mod.typ"
 #include "sections/discussion/mod.typ"
 #include "sections/conclusion/mod.typ"
+#include "sections/future-work.typ"
+
+
+
+#bibliography("./references.yaml", style: "the-institution-of-engineering-and-technology")

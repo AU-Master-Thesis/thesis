@@ -7,22 +7,22 @@
 \begin{document}
 \begin{tikzpicture}[]
 
-\def\mainSize{10 * \scale}
-\def\wScalar{3}
-\def\pad{0.3 * \scale}
+	\def\mainSize{10 * \scale}
+	\def\wScalar{3}
+	\def\pad{0.3 * \scale}
 
-\pgfmathsetmacro{\wScalarExtra}{\wScalar + 1}
-\pgfmathsetmacro{\wScalarLess}{\wScalar - 1}
-\pgfmathsetmacro{\wScalarLessLess}{\wScalar - 2}
+	\pgfmathsetmacro{\wScalarExtra}{\wScalar + 1}
+	\pgfmathsetmacro{\wScalarLess}{\wScalar - 1}
+	\pgfmathsetmacro{\wScalarLessLess}{\wScalar - 2}
 
-\draw[none, line, rounded corners=0, draw=ctpLavender] (-\pad, \pad + \mainSize) -- ++(\wScalar * \mainSize + 2 * \pad, 0) -- ++(0, -\wScalarExtra * \mainSize - 2 * \pad) -- ++(-\mainSize - 2 * \pad, 0) -- ++(0, \wScalar * \mainSize) -- ++(-\wScalarLess * \mainSize, 0) -- cycle;
-\draw[none, line, rounded corners=0, draw=ctpLavender] (-\pad, -\wScalarLessLess * \mainSize + \pad) -- ++ (\mainSize + 2 * \pad, 0) -- ++(0, -\wScalar * \mainSize) -- ++(\wScalarLess * \mainSize, 0) -- ++(0, -\mainSize - 2 * \pad) -- ++(-\wScalar * \mainSize - 2 * \pad, 0) -- cycle;
-% \node[dot] at (B) {};
+	\draw[none, line, rounded corners=0, draw=ctpLavender] (-\pad, \pad + \mainSize) -- ++(\wScalar * \mainSize + 2 * \pad, 0) -- ++(0, -\wScalarExtra * \mainSize - 2 * \pad) -- ++(-\mainSize - 2 * \pad, 0) -- ++(0, \wScalar * \mainSize) -- ++(-\wScalarLess * \mainSize, 0) -- cycle;
+	\draw[none, line, rounded corners=0, draw=ctpLavender] (-\pad, -\wScalarLessLess * \mainSize + \pad) -- ++ (\mainSize + 2 * \pad, 0) -- ++(0, -\wScalar * \mainSize) -- ++(\wScalarLess * \mainSize, 0) -- ++(0, -\mainSize - 2 * \pad) -- ++(-\wScalar * \mainSize - 2 * \pad, 0) -- cycle;
+	% \node[dot] at (B) {};
 
-\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, 0) rectangle ++(\mainSize * \wScalar, \mainSize);
-\draw[none, line, rounded corners=0, draw=ctpMaroon] (2 * \mainSize, 0) rectangle ++(\mainSize, -\wScalar * \mainSize);
-\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, -\mainSize) rectangle ++(\mainSize, -\wScalar * \mainSize);
-\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, -\wScalarExtra * \mainSize) rectangle ++(\wScalar * \mainSize, -\mainSize);
+	\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, 0) rectangle ++(\mainSize * \wScalar, \mainSize);
+	\draw[none, line, rounded corners=0, draw=ctpMaroon] (2 * \mainSize, 0) rectangle ++(\mainSize, -\wScalar * \mainSize);
+	\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, -\mainSize) rectangle ++(\mainSize, -\wScalar * \mainSize);
+	\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, -\wScalarExtra * \mainSize) rectangle ++(\wScalar * \mainSize, -\mainSize);
 
 \end{tikzpicture}%
 \end{document}

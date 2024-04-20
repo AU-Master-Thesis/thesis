@@ -1,2 +1,14 @@
 .direnv/
+**/*.pdf# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
+**/*.svg
 **/*.pdf
+# !main.pdf

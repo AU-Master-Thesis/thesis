@@ -1,0 +1,29 @@
+[[acronym]]
+acronym = "ATE"
+expansion = "Absolute Trajectory Error"
+
+[[acronym]]
+acronym = "RMSE"
+expansion = "Root Mean Squared Error"
+
+[[acronym]]
+acronym = "GBP"
+expansion = "Gaussian Belief Propagation"
+
+
+[[acronym]]
+acronym = "ECS"
+expansion = "Entity Component System"
+
+
+[[acronym]]
+acronym = "SOA"
+expansion = "Structure of Arrays"
+
+[[acronym]]
+acronym = "AOS"
+expansion = "Array of Structures"
+
+[[acronym]]
+acronym = "AABB"
+expansion = "Axis Aligned Bounding Box"
