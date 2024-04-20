@@ -17,6 +17,7 @@
     python3
     # poppler-utils
     poppler_utils # pdf utilities
+    languagetool
 
     just
     ltex-ls # languagetool lsp
@@ -101,9 +102,9 @@
       enable = true;
       name = "all references used";
       entry = "./all-references-used.fish ./main.typ";
-      # files = "\\.typ$";
+      files = "\\.typ$";
       excludes = ["sections/.*\\.typ"];
-      files = "./main.typ";
+      # files = "./main.typ";
       pass_filenames = false;
     };
 
@@ -111,9 +112,19 @@
       enable = true;
       name = "all acronyms used";
       entry = "./all-acronyms-used.fish ./main.typ";
-      # files = "\\.typ$";
+      files = "\\.typ$";
       excludes = ["sections/.*\\.typ"];
-      files = "./main.typ";
+      # files = "./main.typ";
+      pass_filenames = false;
+    };
+
+    all-sentences-start-with-a-capital-letter = {
+      enable = true;
+      name = "all sentences start with a capital letter";
+      entry = "./all-sentences-start-with-a-capital-letter.fish ./main.pdf";
+      files = "\\.typ$";
+      excludes = ["sections/.*\\.typ"];
+      # files = "./main.typ";
       pass_filenames = false;
     };
 
