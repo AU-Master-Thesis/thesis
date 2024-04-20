@@ -10,19 +10,48 @@
 	\def\mainSize{10 * \scale}
 	\def\wScalar{3}
 	\def\pad{0.3 * \scale}
+	\def\s{1}
 
 	\pgfmathsetmacro{\wScalarExtra}{\wScalar + 1}
 	\pgfmathsetmacro{\wScalarLess}{\wScalar - 1}
 	\pgfmathsetmacro{\wScalarLessLess}{\wScalar - 2}
 
-	\draw[none, line, rounded corners=0, draw=ctpLavender] (-\pad, \pad + \mainSize) -- ++(\wScalar * \mainSize + 2 * \pad, 0) -- ++(0, -\wScalarExtra * \mainSize - 2 * \pad) -- ++(-\mainSize - 2 * \pad, 0) -- ++(0, \wScalar * \mainSize) -- ++(-\wScalarLess * \mainSize, 0) -- cycle;
-	\draw[none, line, rounded corners=0, draw=ctpLavender] (-\pad, -\wScalarLessLess * \mainSize + \pad) -- ++ (\mainSize + 2 * \pad, 0) -- ++(0, -\wScalar * \mainSize) -- ++(\wScalarLess * \mainSize, 0) -- ++(0, -\mainSize - 2 * \pad) -- ++(-\wScalar * \mainSize - 2 * \pad, 0) -- cycle;
-	% \node[dot] at (B) {};
+	% Colliders
+	\draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, \pad + \mainSize) -- ++(\wScalar * \mainSize + 2 * \pad, 0) -- ++(0, -\wScalarExtra * \mainSize - 2 * \pad) -- ++(-\mainSize - 2 * \pad, 0) -- ++(0, \wScalar * \mainSize) -- ++(-\wScalarLess * \mainSize, 0) -- cycle;
+	\draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, -\wScalarLessLess * \mainSize + \pad) -- ++ (\mainSize + 2 * \pad, 0) -- ++(0, -\wScalar * \mainSize) -- ++(\wScalarLess * \mainSize, 0) -- ++(0, -\mainSize - 2 * \pad) -- ++(-\wScalar * \mainSize - 2 * \pad, 0) -- cycle;
 
-	\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, 0) rectangle ++(\mainSize * \wScalar, \mainSize);
-	\draw[none, line, rounded corners=0, draw=ctpMaroon] (2 * \mainSize, 0) rectangle ++(\mainSize, -\wScalar * \mainSize);
-	\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, -\mainSize) rectangle ++(\mainSize, -\wScalar * \mainSize);
-	\draw[none, line, rounded corners=0, draw=ctpMaroon] (0, -\wScalarExtra * \mainSize) rectangle ++(\wScalar * \mainSize, -\mainSize);
+	\draw[none, line, collider] (0, 0) rectangle ++(\mainSize * \wScalar, \mainSize);
+	\draw[none, line, collider] (2 * \mainSize, 0) rectangle ++(\mainSize, -\wScalar * \mainSize);
+	\draw[none, line, collider] (0, -\mainSize) rectangle ++(\mainSize, -\wScalar * \mainSize);
+	\draw[none, line, collider] (0, -\wScalarExtra * \mainSize) rectangle ++(\wScalar * \mainSize, -\mainSize);
+
+	% RRT tree
+	\coordinate (start) at (0, -\mainSize / 2);
+	\coordinate (end) at (\wScalar * \mainSize, -\wScalar * \mainSize - \mainSize / 2);
+
+	% \draw[line, no rounding, node at every point=valid collider dot]
+	\draw[rrt line]
+		     (start) 	coordinate (rrt1)
+		-- ++(18:\s) 	coordinate (rrt2)
+		-- ++(-28:\s) 	coordinate (rrt3)
+		-- ++(-110:\s) 	coordinate (rrt4)
+		-- ++(-80:\s) 	coordinate (rrt5)
+		-- ++(-115:\s) 	coordinate (rrt6)
+		-- ++(-20:\s) 	coordinate (rrt7)
+		--   (end) 		coordinate (rrt8);
+
+	\draw[rrt line] (rrt2) -- ++(80:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt3) -- ++(-5:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt4) -- ++(-170:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt5) -- ++(-10:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt6) -- ++(-130:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt7) -- ++(-85:\s) node[collider dot] () {};
+
+	\foreach \i in {2, ..., 7}
+		\node at (rrt\i) [line, valid collider dot] {};
+
+	\node[dot, fill=ctpBlue, minimum size=2.5 * \scale] at (start) {};
+	\node[dot, fill=ctpGreen, minimum size=2.5 * \scale] at (end) {};
 
 \end{tikzpicture}%
 \end{document}
