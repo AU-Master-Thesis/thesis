@@ -128,6 +128,16 @@
       pass_filenames = false;
     };
 
+    all-svg-figures-used = {
+      enable = true;
+      name = "all svg figures used";
+      entry = "./all-svg-figures-used.fish";
+      files = "\\.typ$";
+      excludes = ["sections/.*\\.typ"];
+      # files = "./main.typ";
+      pass_filenames = false;
+    };
+
     fish = {
       enable = true;
       name = "fish scripts syntactically correct";
