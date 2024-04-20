@@ -1,0 +1,14 @@
+- acronym: ATE
+  definition: Absolute Trajectory Error
+- acronym: RMSE
+  definition: Root Mean Squared Error
+- acronym: GBP
+  definition: Gaussian Belief Propagation
+- acronym: ECS
+  definition: Entity Component System
+- acronym: SOA
+  definition: Structure of Arrays
+- acronym: AOS
+  definition: Array of Structures
+- acronym: AABB
+  definition: Axis Aligned Bounding Box

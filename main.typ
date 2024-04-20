@@ -223,6 +223,30 @@
   // ]
 })
 
+#let acronyms = yaml("acronyms.yaml")
+
+#let acrostiche-acronyms = merge(
+  ..acronyms.map(it => {
+    let v = (it.definition,)
+    if "plural" in it {
+      v.push(it.plural)
+    }
+
+    (it.acronym: v)
+  })
+)
+
+// #acrostiche-acronyms
+
+#init-acronyms(acrostiche-acronyms)
+
+#print-index()
+
+
+#acr("SOA")
+
+#acrpl("AOS")
+
 
 #include "sections/introduction/mod.typ"
 #include "sections/background/mod.typ"
@@ -232,6 +256,9 @@
 #include "sections/conclusion/mod.typ"
 #include "sections/future-work.typ"
 
+
+// Hello. bad sentence. This is a better one. although this could be it as wel
+// it goes across lines.
 
 
 #bibliography("./references.yaml", style: "the-institution-of-engineering-and-technology")
