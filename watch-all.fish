@@ -9,7 +9,7 @@ end
 
 
 set -l pids
-run 'watchexec.exe --exts tex ./tectonic-compile-all.fish &'
+run 'watchexec --exts tex ./tectonic-compile-all.fish &'
 set -a pids $last_pid
 disown
 run 'typst w main.typ &'
