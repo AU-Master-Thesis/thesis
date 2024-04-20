@@ -71,7 +71,17 @@
     lacheck.enable = false;
     latexindent.enable = false;
     trim-trailing-whitespace.enable = true;
-    typos.enable = true;
+    # typos.enable = true;
+    # typos.settings.exclude =
+    # typos.settings.configPath = "typos.toml";
+
+    custom-typos = {
+      enable = true;
+      # name = ""
+      entry = "${pkgs.typos}/bin/typos --config typos.toml";
+      files = "\\.typ$";
+      pass_filenames = false;
+    };
     # _typos = {
     #   enable = true;
     #   entry = "${pkgs.typos}/bin/typos --config typos.toml";
