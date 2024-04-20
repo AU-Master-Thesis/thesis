@@ -97,6 +97,16 @@
       pass_filenames = true;
     };
 
+    all-references-used = {
+      enable = true;
+      name = "all references used";
+      entry = "./all-references-used.fish ./main.typ";
+      # files = "\\.typ$";
+      excludes = ["sections/.*\\.typ"];
+      files = "./main.typ";
+      pass_filenames = false;
+    };
+
     fish = {
       enable = true;
       name = "fish scripts syntactically correct";
