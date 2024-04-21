@@ -27,6 +27,3 @@ The thesis has been conducted in the period from #important-datetimes.project.st
 // Sign off
 Enjoy reading, \
 #a.jens & #a.kristoffer \
-
-
-

@@ -257,7 +257,7 @@
     set text(size: 10pt, font: "JetBrainsMono NF")
     set par(first-line-indent: 0em)
     set align(center)
-    
+
     tablex(
       columns: (auto, auto),
       align: (left, right),
@@ -318,7 +318,7 @@
   }
 
   state("acronyms",none).display(acronyms=>{
-    
+
     // Build acronym list
     let acr-list = acronyms.keys()
 
@@ -328,7 +328,7 @@
     }else{
       acr-list = acr-list.sorted().rev()
     }
-  
+
     // print the acronyms
     for acr in acr-list{
       let acr-long = acronyms.at(acr)
