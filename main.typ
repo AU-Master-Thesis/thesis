@@ -1,6 +1,5 @@
 #import "lib.typ": *
 
-
 #show figure.where(kind: raw): set block(breakable: true)
 
 #show raw.where(block: false): (it) => {
@@ -30,13 +29,13 @@
   let weight = "medium"
 
   if it.level == 1 {
-    v(1em)
+    v(1.5em)
     size = 1.2em
     color = accent
     weight = "black"
   }
 
-  if type(t) == "array"  {
+  if type(t) == "array" {
     v(-3em)
     // h(it.element.level * 2em)
     grid(
@@ -50,11 +49,7 @@
         #it.body.fields().values().at(0).slice(2).join(" ")
         // #repr(it.fill)
       ]),
-      block(
-        fill: color,
-        height: 0.5pt,
-        width: 100%,
-      ),
+      block(fill: color, height: 0.5pt, width: 100%),
       text(color, size: 1em, weight: weight, it.page),
     )
   } else {
@@ -66,11 +61,7 @@
       align: (center, left + bottom, center + bottom, right + bottom),
       [],
       text(color, size: size, weight: weight, it.body),
-      block(
-        fill: color,
-        height: 0.5pt,
-        width: 100%,
-      ),
+      block(fill: color, height: 0.5pt, width: 100%),
       text(color, size: 1em, weight: weight, it.page),
     )
   }
@@ -80,15 +71,16 @@
 #show heading.where(numbering: "1.1") : it => [
   #v(1em)
   #block({
-    box(
-      width: 13mm,
-      text(counter(heading).display(), weight: 600))
+    box(width: 13mm, text(counter(heading).display(), weight: 600))
     text(it.body, weight: 600)
   })
   #v(1em)
 ]
 
-#show heading.where(level: 1) : it => text(accent, size: 18pt)[
+#show heading.where(level: 1) : it => text(
+  accent,
+  size: 18pt,
+)[
   #pagebreak(weak: true)
   #let subdued = theme.text.lighten(50%)
   #set text(font: "JetBrainsMono NF")
@@ -97,8 +89,7 @@
     columns: (1fr, 1fr),
     align: (left + bottom, right + top),
     text(it.body, size: 24pt, weight: "bold"),
-      if it.numbering != none
-    {
+    if it.numbering != none {
       text(subdued, weight: 200, size: 100pt)[#counter(heading).get().at(0)]
       v(1.5em)
     },
@@ -109,29 +100,6 @@
   #v(1.5em)
 ]
 
-#let project-name = "Multi-agent Collaborative Path Planning"
-
-#let authors = (
-  (
-    name: "Kristoffer Plagborg Bak Sørensen",
-    email: "201908140@post.au.dk",
-    auid: "au649525",
-  ),
-  (
-    name: "Jens Høigaard Jensen",
-    email: "201907928@post.au.dk",
-    auid: "au649507",
-  ),
-).map(
-  author => {
-    author + (
-      department: [Department of Electrical and Computer Engineering],
-      organization: [Aarhus University],
-      location: [Aarhus, Denmark],
-    )
-  },
-)
-
 #show: paper.with(
   paper-size: "a4",
   title: project-name,
@@ -140,14 +108,16 @@
   title-page-extra: align(center, [
     Bloop
   ]),
-  title-page-footer: align(
-    center,
-  )[
+  title-page-footer: align(center)[
     #gridx(columns: (30%, 40%), align: center + horizon)
     #gridx(
-      columns: 2, row-gutter: 0em, align: (x, y) => (right, left).at(x),
-      [*Supervisor:*], [Andriy Sarabakha],
-      [*Co-supervisor:*], [Jonas le-Fevre Sejersen],
+      columns: 2,
+      row-gutter: 0em,
+      align: (x, y) => (right, left).at(x),
+      [*Supervisor:*],
+      [Andriy Sarabakha],
+      [*Co-supervisor:*],
+      [Jonas le-Fevre Sejersen],
     )
     #v(2mm, weak: true)
     \{andriy, jonas.le.fevre\}\@ece.au.dk
@@ -162,11 +132,10 @@
   accent: accent,
 )
 
-// #outline()
-// #set-page-properties()
-
 // This is important! Call it whenever your page is reconfigured.
-#set-page-properties()
+#if not release() {
+  set-page-properties()
+}
 
 #if "release" in sys.inputs and sys.inputs.release == "true" {
   set-margin-note-defaults(hidden: true)
@@ -174,79 +143,36 @@
   set-margin-note-defaults(hidden: false)
 }
 
-
 // Pre-introduction
 #set heading(numbering: none)
 // #set page(numbering: "i")
-#include "sections/abstract.typ"
 #include "sections/preface.typ"
+#include "sections/abstract.typ"
 #include "sections/nomenclature.typ"
+
+// #acr("SOA"), #acrpl("AOS")
 
 // Table of Contents
 #pagebreak(weak: true)
-#heading([Contents], level: 1, numbering: none, outlined: false)
+#heading([Contents], level: 1, numbering: none, outlined: false)<contents-1>
 
-#v(5em)
-#toc-printer(target: heading.where(numbering: none))
-
-// #line(start: 0, end: 100%)
+#v(1em)
+#toc-printer(target: heading.where().before(<contents-1>).and(heading.where(level: 1)))
 
 #let main-numbering = "1.1"
-#v(2em)
+#v(1em)
 #toc-printer(target: heading.where(numbering: main-numbering))
+#v(1em)
+#toc-printer(target: heading.where(numbering: none).after(<contents-1>))
 
 #show: word-count
-#locate(loc => {
-  let words = state("total-words").final(loc)
-  let chars = state("total-characters").final(loc)
-  let normal-pages = chars / 2400
-  set text(size: 20pt)
-  set par(first-line-indent: 0em)
-  set align(center)
-  table(
-    columns: (auto, auto),
-    align: (left, right),
-    [*word count*], [#words],
-    [*character count*], [#chars],
-    [*normal pages*], [#normal-pages],
-  )
-  // [
-  //   *word count*: #words \
-  //   *character count*: #chars \
-  //   *normal pages*: #normal-pages
-  // ]
-})
+#stats()
 
 // Report
 #set heading(numbering: main-numbering)
 #set page(numbering: "1")
 #counter(heading).update(0)
 #counter(page).update(1)
-
-#let acronyms = yaml("acronyms.yaml")
-
-#let acrostiche-acronyms = merge(
-  ..acronyms.map(it => {
-    let v = (it.definition,)
-    if "plural" in it {
-      v.push(it.plural)
-    }
-
-    (it.acronym: v)
-  })
-)
-
-// #acrostiche-acronyms
-
-#init-acronyms(acrostiche-acronyms)
-
-#print-index()
-
-
-#acr("SOA")
-
-#acrpl("AOS")
-
 
 #include "sections/introduction/mod.typ"
 #include "sections/background/mod.typ"
@@ -256,9 +182,12 @@
 #include "sections/conclusion/mod.typ"
 #include "sections/future-work.typ"
 
-
 // Hello. bad sentence. This is a better one. although this could be it as wel
 // it goes across lines.
 
-
-#bibliography("./references.yaml", style: "the-institution-of-engineering-and-technology")
+#heading([References], level: 1, numbering: none)
+#bibliography(
+  "./references.yaml",
+  style: "the-institution-of-engineering-and-technology",
+  title: none,
+)

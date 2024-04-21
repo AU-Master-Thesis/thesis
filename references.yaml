@@ -84,3 +84,74 @@ zymartu_games_bevy_2023:
   url:
     value: https://www.youtube.com/watch?v=B6ZFuYYZCSY
     date: 2024-02-09
+  
+wisse_wp1_2020:
+  type: article
+  title: '{WP1} - {Competence} {Centers} and {Technical} {Expertise} {Management}'
+  author:
+  - Wisse, Martijn
+  - Chiang, Ting-Chia
+  date: 2020
+  parent:
+    type: periodical
+
+kiadi_synthesized_2021:
+  type: article
+  title: Synthesized {A}* {Multi}-robot {Path} {Planning} in an {Indoor} {Smart} {Lab} {Using} {Distributed} {Cloud} {Computing}
+  author:
+  - Kiadi, Morteza
+  - Villar, José Ramón
+  - Tan, Qing
+  date: 2021
+  editor:
+  - Herrero, Álvaro
+  - Cambra, Carlos
+  - Urda, Daniel
+  - Sedano, Javier
+  - Quintián, Héctor
+  - Corchado, Emilio
+  page-range: 580–589
+  serial-number:
+    doi: 10.1007/978-3-030-57802-2_56
+    isbn: 978-3-030-57802-2
+  parent:
+    type: proceedings
+    title: 15th {International} {Conference} on {Soft} {Computing} {Models} in {Industrial} and {Environmental} {Applications} ({SOCO} 2020)
+    publisher: Springer International Publishing
+    location: Cham
+    parent:
+      type: proceedings
+      title: Advances in {Intelligent} {Systems} and {Computing}
+
+liu_learning_2023:
+  type: misc
+  title: Learning to {Play} {Trajectory} {Games} {Against} {Opponents} with {Unknown} {Objectives}
+  author:
+  - Liu, Xinjie
+  - Peters, Lasse
+  - Alonso-Mora, Javier
+  date: 2023-03
+  publisher: arXiv
+  url:
+    value: http://arxiv.org/abs/2211.13779
+
+patwardhan_distributing_2023:
+  type: article
+  title: Distributing {Collaborative} {Multi}-{Robot} {Planning} {With} {Gaussian} {Belief} {Propagation}
+  author:
+  - Patwardhan, Aalok
+  - Murai, Riku
+  - Davison, Andrew J.
+  date: 2023-02
+  page-range: 552–559
+  url:
+    value: https://ieeexplore.ieee.org/document/9976221/
+    date: 2023-12-05
+  serial-number:
+    doi: 10.1109/LRA.2022.3227858
+    issn: 2377-3766, 2377-3774
+  parent:
+    type: periodical
+    title: IEEE Robotics and Automation Letters
+    issue: 2
+    volume: 8

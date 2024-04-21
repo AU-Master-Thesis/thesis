@@ -112,7 +112,7 @@
     set document(title: title, author: authors.map(author => author.name))
 
     // Set the body font.
-    set text(font: "STIX Two Text", size: 10pt)
+    set text(font: "STIX Two Text", size: 12pt)
 
     // Configure the page.
     set page(
