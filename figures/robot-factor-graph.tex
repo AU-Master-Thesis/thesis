@@ -1,0 +1,100 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[
+		robot one/.style={draw=ctpGreen, fill=ctpGreen!10},
+		robot two/.style={draw=ctpMauve, fill=ctpMauve!10},
+	]
+
+	\def\to{8 * \scale}
+
+	% takes one argument, which is whether to flip the sign of the offset
+	\def\robot[#1] sign (#2); {
+	\def\tox{8 * \scale}
+
+	\def\toy{#2 * \tox}
+
+	\node[factor node, #1] (f0) {$f_p$};
+	\node[variable node, #1] (v1) [shift={(-\tox, -\toy)}, right=of f0] {$v_1$};
+	\node[factor node, #1] (f1) [right=of v1] {$f_d$};
+	\node[variable node, #1] (v2) [right=of f1] {$v_2$};
+	\node[none, minimum width=10 * \scale] (f2) [right=of v2] {};
+	\node[variable node, #1] (v3) [right=of f2] {$v_n$};
+	\node[factor node, #1] (f3) [shift={(-\tox, \toy)}, right=of v3] {$f_p$};
+
+	\draw[line] (f0) -- (v1);
+	\draw[line] (v1) -- (f1);
+	\draw[line] (f1) -- (v2);
+	\draw[line] (v2) -- (f2);
+	\draw[line] (f2) -- (v3);
+	\draw[line] (v3) -- (f3);
+
+	\draw[none] (f2) --++ (2.5 * \scale, 0) coordinate (A);
+	\draw[none] (f2) --++ (-2.5 * \scale, 0) coordinate (B);
+	\node[dot] (d1) at (f2) {};
+	\node[dot] (d2) at (A) {};
+	\node[dot] (d3) at (B) {};
+	}
+
+	\robot[robot one] sign (1);
+	\node[variable node, none] (v11) at (v1) {};
+	\node[variable node, none] (v12) at (v2) {};
+	\node[variable node, none] (v13) at (v3) {};
+
+	\def\top{15 * \scale}
+	\draw[none] (v1) --++ (0, \top) coordinate (ct1);
+	\draw[none] (v2) --++ (0, \top) coordinate (ct2);
+	\draw[none] (v3) --++ (0, \top) coordinate (ct3);
+	\draw[none] (f2) --++ (0, \top) coordinate (ctib1);
+	\draw[none] (f2) --++ (2.5 * \scale, \top) coordinate (ctib2);
+	\draw[none] (f2) --++ (-2.5 * \scale, \top) coordinate (ctib3);
+
+	\node[text=ctpMaroon] (t1) at (ct1) {$t_1$};
+	\node[text=ctpMaroon] (t2) at (ct2) {$t_2$};
+	\node[text=ctpMaroon] (t3) at (ct3) {$t_n$};
+	\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt1) at (ctib1) {};
+	\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt2) at (ctib2) {};
+	\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt3) at (ctib3) {};
+
+	\draw[csnake, draw=ctpMaroon] (t1.north) -- node[yshift=10 * \scale, pos=0.5, text=ctpMaroon] (time) {Prediction Horizon} (t3.north);
+
+	\tikzset{shift={(0, -40 * \scale)}}
+	\robot[robot two] sign (-1);
+	\node[variable node, none] (v21) at (v1) {};
+	\node[variable node, none] (v22) at (v2) {};
+	\node[variable node, none] (v23) at (v3) {};
+
+	\draw[none] (v11) -- node[name=vb1, pos=0.5] {} (v21);
+	\draw[none] (v12) -- node[name=vb2, pos=0.5] {} (v22);
+	\draw[none] (v13) -- node[name=vb3, pos=0.5] {} (v23);
+
+	\def\ifactors[#1] at (#2) id (#3) with style (#4, #5){
+			\def\fio{3.5 * \scale}
+			\node[factor node, xshift=-\fio, #4] (fi1#3) at (#2) {$f_i$};
+			\node[factor node, xshift=\fio, #5] (fi2#3) at (#2) {$f_i$};
+		}
+
+	\ifactors[] at (vb1) id (vb1) with style (robot one, robot two)
+	\ifactors[] at (vb2) id (vb2) with style (robot one, robot two)
+	\ifactors[] at (vb3) id (vb3) with style (robot one, robot two)
+
+	\draw[line] (v11) -- (fi1vb1);
+	\draw[line] (v11) -- (fi2vb1);
+	\draw[line] (v12) -- (fi1vb2);
+	\draw[line] (v12) -- (fi2vb2);
+	\draw[line] (v13) -- (fi1vb3);
+	\draw[line] (v13) -- (fi2vb3);
+
+	\draw[line] (v21) -- (fi1vb1);
+	\draw[line] (v21) -- (fi2vb1);
+	\draw[line] (v22) -- (fi1vb2);
+	\draw[line] (v22) -- (fi2vb2);
+	\draw[line] (v23) -- (fi1vb3);
+	\draw[line] (v23) -- (fi2vb3);
+
+\end{tikzpicture}%
+\end{document}

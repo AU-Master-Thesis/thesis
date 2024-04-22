@@ -266,6 +266,7 @@
       [*normal pages*], [#calc.round(normal-pages, digits: 2)],
       rule,
       [*goal pages*], [#total-pages],
+      [*goal characters*], [#(total-pages * 2400)],
       [*pp./person/day*], [#calc.round(pages-person-day, digits: 2)],
       [*days left*], [#days-left.days()],
     )
@@ -346,3 +347,48 @@
     }
   })
 }
+
+#let node(color, content, rounding: 50%, size: 4mm) = {
+  let width = if (repr(content).len() - 2) > 1 { 0pt } else { 1.5pt };
+  h(5pt)
+  // block(
+    box(
+      fill: color.lighten(90%),
+      stroke: 1pt + color,
+      outset: (x: size / 2, y: size / 2),
+      inset: (y: -size / 4),
+      radius: rounding,
+      baseline: -size / 4,
+      height: 0pt,
+      width: 0pt,
+      align(
+        center,
+        text(
+          catppuccin.latte.text,
+          size: 0.5em,
+          weight: "bold",
+          font: "JetBrains Mono",
+          content
+        )
+      )
+    )
+  // )
+  h(5pt)
+}
+
+#let variable(color, content) = {
+  node(color, content)
+}
+
+#let factor(color, content) = {
+  node(color, content, rounding: 5%, size: 1.25mm)
+}
+
+#let example-counter = counter("example")
+#let example-box(number) = boxed(color: accent)[*Example #number:*]
+
+#let example(body) = std-block[
+  #example-counter.step()
+  #example-box(context example-counter.get().at(0))
+  #body
+]
