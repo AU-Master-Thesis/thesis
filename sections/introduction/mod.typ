@@ -16,7 +16,7 @@ With this development, the possibility and thus also demand for multi-agent syst
 
 
 // Step 3: Connect that to the specific problem of path planning, collaboration, communication, and collision avoidance
-In the context of multi-agent systems, path planning is a key component. It is a process of optimisation to find the most efficient path for an agent to reach its goal. This is especially important in the context of multi-agent systems, where multiple agents need to coordinate their movements to avoid collisions and reach their goals as efficiently as possible. This requires a high level of collaboration and communication between the agents, as well as a high level of collision avoidance to ensure that the agents do not collide with each other or with obstacles.
+In the context of multi-agent systems, path planning is a key component. It is a process of optimization to find the most efficient path for an agent to reach its goal. This is especially important in the context of multi-agent systems, where multiple agents need to coordinate their movements to avoid collisions and reach their goals as efficiently as possible. This requires a high level of collaboration and communication between the agents, as well as a high level of collision avoidance to ensure that the agents do not collide with each other or with obstacles.
 
 == Problem Definition <intro-problem-definition>
 #todo[A lot of this is probably in the original contract.]
@@ -52,12 +52,12 @@ The objective of this project is to build on top of the work of @patwardhan_dist
 == Research Hypothesis
 This thesis poses the following hypothesis:
 
-#todo[Maybe this should multiple hypothesis, or maybe it should be more specific or rephrased.]
+#todo[Maybe this should be multiple hypothesis, or maybe it should be more specific or rephrased.]
 
 #set enum(numbering: req-enum.with(prefix: "H-"))
 + Reproducing the results of the original GBP Planner in a new programming language will improve the software's scientific communication and its extensibility.
 
-+ Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degredation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, fram time, fps].
++ Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
 
 
 == Research Questions

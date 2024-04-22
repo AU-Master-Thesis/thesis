@@ -12,3 +12,5 @@
   definition: Array of Structures
 - acronym: AABB
   definition: Axis Aligned Bounding Box
+- acronym: UAV
+  definition: Unmanned Aerial Vehicle
