@@ -11,7 +11,7 @@ if not test -f $pdf
     exit 1
 end
 
-set -l matches (pdftotext $pdf - | string match --groups-only --regex --all '[^g]\. +([a-z][^.]+)')
+set -l matches (pdftotext $pdf - | string match --groups-only --regex --all '[^eg]\. +([a-z][^.]+)')
 
 set -l reset (set_color normal)
 set -l bold (set_color --bold)
