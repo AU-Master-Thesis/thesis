@@ -35,6 +35,7 @@
     just
     fish
     typos
+    sqlite
   ];
 
   # https://devenv.sh/scripts/
