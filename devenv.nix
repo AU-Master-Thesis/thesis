@@ -35,6 +35,7 @@
     just
     fish
     typos
+    sqlite
   ];
 
   # https://devenv.sh/scripts/
@@ -71,6 +72,7 @@
     lacheck.enable = false;
     latexindent.enable = false;
     trim-trailing-whitespace.enable = true;
+    check-yaml.enable = true;
     # typos.enable = true;
     # typos.settings.exclude =
     # typos.settings.configPath = "typos.toml";

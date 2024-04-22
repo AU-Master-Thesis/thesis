@@ -183,7 +183,7 @@
 #include "sections/conclusion/mod.typ"
 #include "sections/future-work.typ"
 
-// Hello. bad sentence. This is a better one. although this could be it as wel
+// Hello. bad sentence. This is a better one. although this could be it as well
 // it goes across lines.
 
 #heading([References], level: 1, numbering: none)
