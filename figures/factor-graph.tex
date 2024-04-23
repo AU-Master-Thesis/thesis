@@ -15,12 +15,12 @@
     \node[variable node] (v2) at (\s, 0) {$v_2$};
     \node[variable node] (v3) at (\s, \s)  {$v_3$};
     \node[variable node] (v4) at (\s * 3, \s) {$v_4$};
-    
+
     \node[factor node] (f1) at (0, \s) {$f_1$};
     \node[factor node] (f2) at (2 * \s, \s) {$f_2$};
     \node[factor node] (f3) at (\s * 2, 0) {$f_3$};
     \node[factor node] (f4) at (3 * \s, 0) {$f_4$};
-    
+
     \draw[line] (v1) -- (f1);
     \draw[line] (v2) -- (f1);
     \draw[line] (v3) -- (f1);

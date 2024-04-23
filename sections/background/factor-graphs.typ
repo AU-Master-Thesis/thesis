@@ -14,10 +14,10 @@
 // Properties:
 // - enables efficient computation
 // - enables computation of marginal distributions through the sum-product algorithm
-// - generalisation of constraint graphs 
+// - generalisation of constraint graphs
 //
 // Gaussian factor graph:
-// Explaing how the 
+// Explaing how the
 // - factors are Gaussian distributions
 // - measurement or constraint of factor is represented by a measurement function $h$
 // - variables are the mean and variance of the Gaussian
