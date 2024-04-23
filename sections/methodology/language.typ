@@ -32,7 +32,7 @@ of time fighting its idiosyncrasies
   - Rich library ecosystem
   - Helpful error message
   - Error handling, errors as values, no exceptions
-  - Exceptional tooling, 
+  - Exceptional tooling,
 ]
 
 #kristoffer[

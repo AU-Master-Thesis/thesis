@@ -120,9 +120,9 @@
   if not input in _catppuccin {
     panic(theme + " is not a valid theme, valid themes are: " + catppuccin.keys().join(", "))
   }
-  
+
   let theme = _catppuccin.at(input, default: default)
-  
+
   // let theme = _catppuccin.at(input, default: "latte")
   // if theme == none {
   //   panic(theme + " is not a valid theme, valid themes are: " + catppuccin.keys().join(", "))

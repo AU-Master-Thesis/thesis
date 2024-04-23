@@ -7,9 +7,9 @@ To objectively compare our reimplementation with the original GBP Planner, we me
 
 #let metric(name) = [_ #name _ #h(1em)]
 
-1. #metric[Distance travelled] The cumulative distance covered by the robot until it reaches its destination. Effective trajectories aim to minimize this measure. 
-2. #metric[Makespan] The overall duration for all robots to achieve their objectives. A collaborative system of numerous robots should strive to reduce this measure. 
-3. #metric[Smoothness] Continous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot and other real world constraints. #note.kristoffer[like what, torque, friction?]. 
+1. #metric[Distance travelled] The cumulative distance covered by the robot until it reaches its destination. Effective trajectories aim to minimize this measure.
+2. #metric[Makespan] The overall duration for all robots to achieve their objectives. A collaborative system of numerous robots should strive to reduce this measure.
+3. #metric[Smoothness] Continous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot and other real world constraints. #note.kristoffer[like what, torque, friction?].
 
 Smoothness is a geometric property of the path traversed.
 

@@ -57,7 +57,7 @@ formations:
 
 
 #kristoffer[
-  show screenshots side by side of different elements of the simulation from theirs and ours, 
+  show screenshots side by side of different elements of the simulation from theirs and ours,
   e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
 
 

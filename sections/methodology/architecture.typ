@@ -8,16 +8,16 @@ This section presents the architectural patterns used in the design of the simul
 
 #acr("ECS") is an architectual software design pattern specifically designed for data oriented programming #note.kristoffer[explain what is meant by data oriented programing]. At the heart of it are three complementary concepts, from which its name comes from: entities, components and systems:
 
-/ Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. 
+/ Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer.
 / Component: Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
 / System: Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
 
-It if different from traditional #acr("OOP") based ways of modelling 
+It if different from traditional #acr("OOP") based ways of modelling
 
-At first glance this representation/organisazation 
+At first glance this representation/organisazation
 
 
-that is designed to fully utilize modern computer hardware 
+that is designed to fully utilize modern computer hardware
 
 
 memory hierarchies
@@ -71,13 +71,13 @@ Cache Locality
 data oriented design vs object oriented design
 
 
-The #acr("ECS") architecture is not limited to game engines and simulations. 
+The #acr("ECS") architecture is not limited to game engines and simulations.
 
 is versatile
 
 // https://dl.acm.org/doi/10.1145/3286689.3286703
 
-// #acr("AOS") vs #acr("SOA") 
+// #acr("AOS") vs #acr("SOA")
 //
 //
 // ```rust
@@ -103,7 +103,7 @@ entity similar to a primary key in a relational database
   let cm = emoji.checkmark
   show raw: it => it
   let gray = catppuccin.theme.subtext0
-  
+
   set align(center)
   set table(stroke: gray)
 
@@ -124,7 +124,7 @@ entity similar to a primary key in a relational database
   figure(
     {
   table(columns: columns, stroke: table-stroke, fill: table-fill-with-header,
-  
+
     table.header(..header),
     table.hline(stroke: 1pt),
     [$a$], [#cm], [], [#cm], [#cm $[0.0, 1.0]$], [], [],
@@ -133,14 +133,14 @@ entity similar to a primary key in a relational database
     [$a+3$], [#cm], [], [], [], [#cm], [],
     [$a+4$], [#cm], [], [], [], [#cm], []
   )
-  
+
   v(-1em)
   text(size: 18pt, [...])
   v(-0.25em)
-  
+
   table(columns: columns, stroke: gray, fill: (x, y) => if x == 0 { gray.lighten(80%) },
   [$a+n$], [#cm], [#cm], [], [#cm $[1.0, 0.0]$], [], []
-  
+
 )
   }, caption: [Structural layout of an #acr("ECS") data store. Conceptually it is analagous to a table in relational database. #cm in a component column denotes that the entity has an instance of that component type e.g. entity $a + 2$ has components: ${$ `Transform`, `Robot`, `Velocity2d` $}$]
 ) //  <f.ecs-entity-component-table>
@@ -166,10 +166,10 @@ fn move_robots(mut query: Query<(&mut Transform, &Velocity2d), With<Robot>>) {
 
 
   table(columns: columns, fill: table-fill-with-header,
-  
+
   ..header
   ,
-  
+
   [$a$], [#cm], [], [#cm], [#cm $[0.0, 1.0]$], [], [],
   q-match-data[$a+1$], q-match-data[#cm], q-match-filter[#cm], [], q-match-data[#cm $[0.2, 0.8]$], [], [],
   q-match-data[$a+2$], q-match-data[#cm], q-match-filter[#cm], [], q-match-data[#cm $[-0.5, 0.0]$], [], [],
@@ -181,11 +181,11 @@ fn move_robots(mut query: Query<(&mut Transform, &Velocity2d), With<Robot>>) {
   v(-0.25em)
   table(columns: columns,
   q-match-data[$a+n$], q-match-data[#cm], q-match-filter[#cm], [], q-match-data[#cm $[1.0, 0.0]$], [], []
-  
+
 )
 
-} 
+}
 
-The `With<Robot>` is a 
+The `With<Robot>` is a
 
-where 
+where
