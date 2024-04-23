@@ -16,7 +16,7 @@ if not argparse $options -- $argv
     return 2
 end
 
-set -l deps rg tectonic sqlite3
+set -l deps rg tectonic # sqlite3
 
 for d in $deps
     command --query $d; and continue
