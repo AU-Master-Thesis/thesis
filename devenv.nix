@@ -24,6 +24,7 @@
     typos
     yq-go
     jq
+    jaq
     taplo
     fd
     bat
@@ -36,6 +37,7 @@
     fish
     typos
     sqlite
+    nushell
   ];
 
   # https://devenv.sh/scripts/
@@ -108,6 +110,16 @@
       excludes = ["sections/.*\\.typ"];
       files = "./main.typ";
       pass_filenames = true;
+    };
+
+    all-citations-used = {
+      enable = true;
+      name = "all citations used";
+      entry = "./all-citations-used.fish ./main.typ";
+      files = "\\.typ$";
+      excludes = ["sections/.*\\.typ"];
+      # files = "./main.typ";
+      pass_filenames = false;
     };
 
     all-references-used = {
