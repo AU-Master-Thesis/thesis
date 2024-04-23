@@ -10,42 +10,32 @@ set -g blue (set_color blue)
 set -g cyan (set_color cyan)
 set -g magenta (set_color magenta)
 
-set -l references (string match --regex --groups-only '^([^ :]+):\s*$' < ./references.yaml)
-
-# printf '%s\n' $references
-
-set -l references_used_count
-set -l references_used
+set -l query "selector(heading).or(selector(figure)).or(selector(metadata)).or(selector(math.equation))"
+set -l labels (typst query main.typ --field label $query | jaq -r '.[]' | string sub --start=2 --end=-1)
+set -l labels_used
 
 set -l files (./includes.fish ./main.typ)
-
-set -l regexp "@($(string join '|' -- $references))"
+# TODO: handle '#ref("label")' | '#ref(<label>)' syntax
+set -l regexp "@($(string join '|' -- $labels))"
 
 for f in $files
-    set -l matches (string match --regex --groups-only --all $regexp <$f)
-
+    set -l matches (string match --regex --groups-only $regexp < $f)
     for m in $matches
-        if not contains -- $m $references_used
-            set -a references_used $m
+        if not contains -- $m $labels_used
+            set -a labels_used $m
         end
     end
 end
 
-# printf ' - %s\n' $references_used
-
 set -l n_references_not_used 0
 
-for ref in $references
-    if contains -- $ref $references_used
-        printf '[%s✓%s] %s%s%s\n' $green $reset $green $ref $reset
+for l in $labels
+    if contains -- $l $labels_used
+        printf '[%s✓%s] %s%s%s\n' $green $reset $green $l $reset
     else
-        printf '[%s✘%s] %s%s%s not used 😡\n' $red $reset $red $ref $reset
+        printf '[%s✘%s] %s%s%s not used 😡\n' $red $reset $red $l $reset
         set n_references_not_used (math "$n_references_not_used + 1")
     end
 end
 
 exit $n_references_not_used
-
-
-
-# rg "@($(string join '|' -- $references))" --glob '*.typ' --stats
