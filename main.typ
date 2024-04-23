@@ -189,6 +189,8 @@
 #heading([References], level: 1, numbering: none)
 #bibliography(
   "./references.yaml",
-  style: "the-institution-of-engineering-and-technology",
+  style: "future-science",
+  // style: "american-society-of-mechanical-engineers",
+  // style: "ieee",
   title: none,
 )
