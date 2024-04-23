@@ -1,0 +1,38 @@
+#!/usr/bin/env -S fish --no-config
+
+set -g reset (set_color normal)
+set -g bold (set_color --bold)
+set -g italics (set_color --italics)
+set -g red (set_color red)
+set -g green (set_color green)
+set -g yellow (set_color yellow)
+set -g blue (set_color blue)
+set -g cyan (set_color cyan)
+set -g magenta (set_color magenta)
+
+printf '%s  ----- POST-MERGE -----  %s\n' (set_color --bold bryellow) $reset
+
+function in-wsl
+    string match --quiet '*microsoft*' </proc/version
+end
+
+function run
+    set -l program $argv[1]
+    set -l args $argv[2..]
+    if not string match --quiet '*.fish' -- $program; and in-wsl
+        set program "$program.exe" # wsl ...
+    end
+
+    echo "$program $args" | fish_indent --ansi
+    eval "$program $args"
+    # if test $status -ne 0
+    #     exit 
+    # end
+end
+
+printf '%sinfo%s: compiling main.typ ...\n' (set_color green) (set_color normal) >&2
+# typst c main.typ
+run typst c main.typ; or exit
+printf '%sinfo%s: compiling main.typ ... DONE\n' (set_color green) (set_color normal) >&2
+
+run ./tectonic-compile-all.fish; or exit
