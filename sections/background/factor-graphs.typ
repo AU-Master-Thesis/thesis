@@ -56,6 +56,8 @@ In @fig-robot-factor-graph two joint factor graphs are visualised. The first var
 
 The process of updating#note.wording[inference] on a factor graph is done by passing messages between the variables and factors. @fig-message-passing visualises the two major steps; #boxed(color: theme.maroon)[Variable Iteration] and #boxed(color: theme.lavender)[Factor Iteration], each with two sub-steps; an internal update, and a message passing step.
 
+BLOP
+
 #gridx(
   columns: (1em, 1fr),
   [], [
