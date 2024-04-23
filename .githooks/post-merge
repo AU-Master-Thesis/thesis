@@ -26,7 +26,7 @@ function run
     echo "$program $args" | fish_indent --ansi
     eval "$program $args"
     # if test $status -ne 0
-    #     exit 
+    #     exit
     # end
 end
 

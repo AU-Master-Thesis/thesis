@@ -42,5 +42,3 @@ Originally Murai _et al._ showed, with their _A Robot Web for Distributed Many-D
 #todo[maybe the 'dedicated section' is simply the rest of the background which contains the relevant theory.]
 
 === GBP Planner <background-related-works-gbp-planner>
-
-
