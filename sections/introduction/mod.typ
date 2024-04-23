@@ -58,19 +58,19 @@ This thesis poses the following hypothesis:
 
 + Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
 
-From this point on, anything pertaining to the context of #H(1) will be #study.H-1, and anything pertaining to the context of #H(2) will be #study.H-2.
+From this point on, anything pertaining to the context of #H(1) will be denoted under #study.H-1.prefix: #study.H-1.name, and anything pertaining to the context of #H(2) will be #study.H-2.prefix: #study.H-2.name.
 
 
 == Research Questions <intro-research-questions>
 
 // === Study 1
-#study.H-1: Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-1", weight: 900):
+#study.H-1.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-1", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "RQ-1.", color: theme.teal))
 + Which programming language will be optimal for scientific communication and extensibility?
 + Is it possible to reproduce the results of the original GBP Planner in the chosen programming language?
 
 // === Study 2
-#study.H-2: Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
+#study.H-2.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "RQ-2.", color: theme.teal))
 + Will global planning improve the actors' capability to move in complex environments?
 + Will global planning degrade the reproduced local cooperative collision avoidance?
@@ -82,25 +82,25 @@ From this point on, anything pertaining to the context of #H(1) will be #study.H
 // #todo[1 research question to many research objectives]
 
 // #let o-num() = req-enum.with(color: accent)
-#study.H-1: Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):
+#study.H-1.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
 + Evaluate possible programming languages on several metrics for scientific communication and extensibility. #todo[rephrase, or mention different metrics.] #note.layout([Learn by reproducing])
 
-#study.H-1: Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):
+#study.H-1.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "O-1.2.", color: theme.green))
 + Reimplement the original GBP Planner in the chosen programming language.
 + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
 
-#study.H-2: Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.1", weight: 900):
+#study.H-2.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.1", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "O-2.1.", color: theme.green))
 + Implement a global planning layer in the reimplemented GBP Planner.
 + Evaluate the actors' capability to move in complex environments by looking at the four metrics: distance travelled, makespan, smoothness, and collision count, comparing against the reimplemented reproduction and the original GBP Planner.
 
-#study.H-2: Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.2", weight: 900):
+#study.H-2.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.2", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "O-2.2.", color: theme.green))
 + Compare the four metrics: distance travelled, makespan, smoothness, and collision count of the reimplemented reproduction with and without the global planning layer.
 
-#study.H-2: Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.3", weight: 900):
+#study.H-2.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.3", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "O-2.3.", color: theme.green))
 + Compare performance metrics of the reimplemented reproduction with and without the global planning layer against the original GBP Planner.
 

@@ -399,6 +399,14 @@
 #let O(n) = [Objective #boxed(color: theme.lavender)[*O-#n*]]
 
 #let study = (
-  H-1: [_*Study 1*_],
-  H-2: [_*Study 2*_],
+  H-1: (
+    prefix: [_*Study 1*_],
+    name: [_*Reproduction*_],
+    full: [_*Study 1: Reproduction*_],
+  ),
+  H-2: (
+    prefix: [_*Study 2*_],
+    name: [_*Extension*_],
+    full: [_*Study 2: Extension*_],
+  ),
 )
