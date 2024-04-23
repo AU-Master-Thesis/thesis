@@ -16,3 +16,11 @@
   definition: Axis Aligned Bounding Box
 - acronym: UAV
   definition: Unmanned Aerial Vehicle
+- acronym: SIMD
+  definition: Single Instruction, Multiple Data
+- acronym: SISD
+  definition: Single Instruction, Single Data
+- acronym: OOP
+  definition: Object Oriented Programming
+- acronym: LDJ # metric used in gbpplanner
+  definition: Log Dimensionless Jerk

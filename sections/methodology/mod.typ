@@ -39,18 +39,34 @@ formations:
 
 
 
-#import "@preview/codelst:2.0.1": sourcecode
+// #import "@preview/codelst:2.0.1": sourcecode
+//
+// #sourcecode[```typ
+// #show "ArtosFlow": name => box[
+//   #box(image(
+//     "logo.svg",
+//     height: 0.7em,
+//   ))
+//   #name
+// ]
+//
+// This report is embedded in the
+// ArtosFlow project. ArtosFlow is a
+// project of the Artos Institute.
+// ```]
 
-#sourcecode[```typ
-#show "ArtosFlow": name => box[
-  #box(image(
-    "logo.svg",
-    height: 0.7em,
-  ))
-  #name
+
+#kristoffer[
+  show screenshots side by side of different elements of the simulation from theirs and ours, 
+  e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
+
+
+  use this to argue on a non measureable level why our implementation has is similar to theirs / has been reproduced
 ]
 
-This report is embedded in the
-ArtosFlow project. ArtosFlow is a
-project of the Artos Institute.
-```]
+#kristoffer[
+  talk about how our graph representation is different from theirs.
+  Ours is more faithful to how robots would represent the other robots in the environment
+  compared to theirs, since they use bidirectional `std::shared_ptr`, which is not useable
+  in a scenario where the algorithm run on different computer hosts, or just computer processes on the same host.
+]
