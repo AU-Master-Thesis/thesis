@@ -53,6 +53,7 @@ In @fig-robot-factor-graph two joint factor graphs are visualised. The first var
 === The Sum-Product Algorithm <background-sum-product-algorithm>
 
 // Sum-Product Algorithm @theodoridis_machine_2020
+lille ændring
 
 === Asynchronoous Message Passing <background-asynchronous-message-passing>
 
