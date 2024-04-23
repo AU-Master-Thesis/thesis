@@ -2,6 +2,8 @@
   definition: Absolute Trajectory Error
 - acronym: RMSE
   definition: Root Mean Squared Error
+- acronym: BP
+  definition: Belief Propagation
 - acronym: GBP
   definition: Gaussian Belief Propagation
 - acronym: ECS

@@ -243,7 +243,7 @@
   }
   locate(loc => {
     let words = state("total-words").final(loc)
-    let chars = state("total-characters").final(loc)
+    let chars = state("total-characters").final(loc) + words * 0.8
     let normal-pages = chars / 2400
 
     let total-pages = 100
@@ -262,7 +262,7 @@
       columns: (auto, auto),
       align: (left, right),
       [*words*], [#words],
-      [*characters*], [#chars],
+      [*characters*], [#calc.round(chars, digits: 0)],
       [*normal pages*], [#calc.round(normal-pages, digits: 2)],
       rule,
       [*goal pages*], [#total-pages],
@@ -392,3 +392,13 @@
   #example-box(context example-counter.get().at(0))
   #body
 ]
+
+
+#let H(n) = [Hypothesis #boxed(color: theme.lavender)[*H-#n*]]
+#let RQ(n) = [Research Question #boxed(color: theme.lavender)[*RQ-#n*]]
+#let O(n) = [Objective #boxed(color: theme.lavender)[*O-#n*]]
+
+#let study = (
+  H-1: [_*Study 1*_],
+  H-2: [_*Study 2*_],
+)

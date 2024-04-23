@@ -22,13 +22,13 @@
 // - measurement or constraint of factor is represented by a measurement function $h$
 // - variables are the mean and variance of the Gaussian
 
-A factor graph is a bipartite graph, where the nodes are divided into two sets; variables and factors. The edges between the nodes represent the dependencies between the variables and factors. Mathematically the factor graph represents the factorisation of a joint function, where the factors are functions that determine the probability of the variables.@loeliger_introduction_2004@alevizos_factor_2012
+A factor graph is a bipartite graph, where the nodes are divided into two disjoint sets; variables and factors. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. Mathematically the factor graph represents the factorisation of a joint function, where the factors are functions that determine the probability of the variables.@loeliger_introduction_2004@alevizos_factor_2012
 
 #example[
   An example factor graph is visualised in @fig-factor-graph. Writing out the visualised factor graph produces:
 
   $
-    P(v_1,v_2,v_3,v_4) = f_1(v_1,v_2,v_3) f_2(v_3,v_4) f_3(v_3,v_4) f_4(v_4)
+    P(v_1,v_2,v_3,v_4) = 1/Z f_1(v_1,v_2,v_3) f_2(v_3,v_4) f_3(v_3,v_4) f_4(v_4)
   $
 
   #figure(
@@ -50,7 +50,9 @@ In @fig-robot-factor-graph two joint factor graphs are visualised. The first var
   caption: [Here shown are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in red#sr, #text(theme.maroon, $n$) times-steps into the future, #text(theme.maroon, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.],
 )<fig-robot-factor-graph>
 
-=== Message Passing
+=== The Sum-Product Algorithm <background-sum-product-algorithm>
+
+// Sum-Product Algorithm @theodoridis_machine_2020
 
 The process of updating#note.wording[inference] on a factor graph is done by passing messages between the variables and factors. @fig-message-passing visualises the two major steps; #boxed(color: theme.maroon)[Variable Iteration] and #boxed(color: theme.lavender)[Factor Iteration], each with two sub-steps; an internal update, and a message passing step.
 
