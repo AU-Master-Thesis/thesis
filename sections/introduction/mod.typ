@@ -52,7 +52,7 @@ The objective of this project is to build on top of the work of @patwardhan_dist
 == Research Hypothesis
 This thesis poses the following hypothesis:
 
-#todo[Maybe this should be multiple hypothesis, or maybe it should be more specific or rephrased.]
+// #todo[Maybe this should multiple hypothesis, or maybe it should be more specific or rephrased.]
 
 #set enum(numbering: req-enum.with(prefix: "H-"))
 + Reproducing the results of the original GBP Planner in a new programming language will improve the software's scientific communication and its extensibility.
@@ -72,10 +72,10 @@ Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.ligh
 + Will global planning degrade the reproduced local cooperative collision avoidance?
 + Will the global planning maintain a competitive level of performance?
 
-#todo[1 hypothesis to many research question]
+// #todo[1 hypothesis to many research question]
 
 == Research Objectives
-#todo[1 research question to many research objectives]
+// #todo[1 research question to many research objectives]
 
 // #let o-num() = req-enum.with(color: accent)
 Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):

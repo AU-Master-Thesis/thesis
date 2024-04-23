@@ -9,8 +9,6 @@
     #note
   ]
 
-  // import "@preview/drafting:0.2.0": margin-note
-
   margin-note(side: left, stroke: c + 1pt, note)
 }
 
@@ -32,7 +30,6 @@
   ]
 
   margin-note(side: right, stroke: c + 1pt, note)
-
 }
 
 #let layout(note) = {
@@ -43,5 +40,14 @@
   ]
 
   margin-note(side: right, stroke: c + 1pt, note)
+}
 
+#let wording(note) = {
+  let c = catppuccin.latte.teal
+  let note = [
+    #text(c, "Layout")
+    #note
+  ]
+
+  margin-note(side: right, stroke: c + 1pt, note)
 }

@@ -19,6 +19,7 @@
 #show link: it => text(accent, it)
 
 #set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
+// #set list.where(leve)
 #set enum(full: true)
 
 #show outline.entry.where() : it => {

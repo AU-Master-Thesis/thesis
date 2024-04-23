@@ -3,7 +3,7 @@
 
 // things to cover
 
-at @multi-robot-path-planning-review
+// at @multi-robot-path-planning-review
 
 // multi robot systems
 // path planning element is a crucial part of such systems
@@ -37,29 +37,10 @@ at @multi-robot-path-planning-review
 // A backbone process required by an autonomous robotic system is path planning [4, 5]. Path planning is the problem of finding an obstacle-free path to the desired destination. In contrast with trajectory planning, a path planning problem ignores the temporal evolution of motion which means neither velocities nor acceleration is taken into account
 
 // is there a need to synchronize in time the ordering of operations/messages?
+Originally Murai _et al._ showed, with their _A Robot Web for Distributed Many-Device Localisation_, that #acr("GBP") can be utilised to solve multi-agent _localisation_. Then Patwardhan _et al._ showed that the same algorithm structure can be adapted to multi-agent _planning_. This thesis aims to extend the work by Patwardhan _et al._@gbpplanner to include a global planning layer, which can provide a more robust solution to the multi-agent planning in highly complex environments. As such @gbpplanner will be covered more thoroughly in its own dedicated section below, see @background-related-works-gbp-planner.
 
-@gbpplanner will be covered more thoroughly in its own dedicated section, see #todo[section ref to gbpplanner section]
+#todo[maybe the 'dedicated section' is simply the rest of the background which contains the relevant theory.]
 
-t
-
-
-
-- The game theory paper
+=== GBP Planner <background-related-works-gbp-planner>
 
 
-
-
-#lorem(50)
-#margin-note(side: left)[hello]
-
-#note.krisoffer[rtrst]
-
-
-#lorem(50)
-#note.jens[stst]
-
-#lorem(50)
-#note.jonas[i think this]
-
-#lorem(50)
-#note.layout[i do not like this]
