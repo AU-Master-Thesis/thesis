@@ -329,6 +329,26 @@ ahuja_shape_1997:
     volume: 19
 
 # Factor Graph Theory
+dellaert_factor_2017:
+  type: article
+  title: Factor {Graphs} for {Robot} {Perception}
+  author:
+  - Dellaert, Frank
+  - Kaess, Michael
+  date: 2017
+  page-range: 11-13
+  url:
+    value: http://www.nowpublishers.com/article/Details/ROB-043
+    date: 2024-04-23
+  serial-number:
+    doi: 10.1561/2300000043
+    issn: 1935-8253, 1935-8261
+  parent:
+    type: periodical
+    title: Foundations and Trends in Robotics
+    issue: 1-2
+    volume: 6
+
 loeliger_introduction_2004:
   type: article
   title: An introduction to factor graphs
@@ -371,6 +391,20 @@ theodoridis_machine_2020:
     type: anthology
     title: Machine {Learning}
     publisher: Elsevier
+
+# factor graphs for energy based models as alluded to in gbp-visual-introduction
+energy-based-models:
+  type: anthos
+  title: A tutorial on energy-based learning
+  author:
+  - Lecun, Yann
+  - Chopra, Sumit
+  - Hadsell, Raia
+  date: 2006-01
+  page-range: 34–37
+  abstract: Energy-Based Models (EBMs) capture dependencies between variables by as- sociating a scalar energy to each configuration of the variab les. Inference consists in clamping the value of observed variables and finding config urations of the re- maining variables that minimize the energy. Learning consists in finding an energy function in which observed configurations of the variables a re given lower energies than unobserved ones. The EBM approach provides a common theoretical frame- work for many learning models, including traditional discr iminative and genera- tive approaches, as well as graph-transformer networks, co nditional random fields, maximum margin Markov networks, and several manifold learning methods. Probabilistic models must be properly normalized, which sometimes requires evaluating intractable integrals over the space of all poss ible variable configura- tions. Since EBMs have no requirement for proper normalization, this problem is naturally circumvented. EBMs can be viewed as a form of non-probabilistic factor graphs, and they provide considerably more flexibility in th e design of architec- tures and training criteria than probabilistic approaches .
+  parent:
+    type: anthology
 
 # Rust Crates
 # https://github.com/bevyengine/bevy/discussions/8098

@@ -16,6 +16,8 @@
   definition: Axis Aligned Bounding Box
 - acronym: UAV
   definition: Unmanned Aerial Vehicle
+- acronym: MAP
+  definition: Maximum A Posteriori
 - acronym: SIMD
   definition: Single Instruction, Multiple Data
 - acronym: SISD

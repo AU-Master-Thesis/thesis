@@ -126,7 +126,7 @@
         [#citation]
     }
 
-    show math.equation.where(block: true) : set block(spacing: 1.75em)
+    show math.equation.where(block: true) : set block(spacing: 1.25em)
 
     show figure: it => align(center, {
         it.body
@@ -177,7 +177,7 @@
 
     // Configure equation numbering and spacing
     set math.equation(numbering: "(1)")
-    show math.equation: set block(spacing: 0.65em)
+    // show math.equation: set block(spacing: 1.25em)
 
     // Configure lists
     set list(indent: 0em, body-indent: 0.5em)

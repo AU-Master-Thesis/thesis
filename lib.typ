@@ -19,6 +19,10 @@
 
 #let theme = catppuccin.latte
 #let accent = theme.lavender
+#let colors = (
+  variable: theme.maroon,
+  factor: theme.lavender,
+)
 
 #let hr = line(length: 100%)
 
@@ -458,6 +462,28 @@
 #let O(n) = [Objective #boxed(color: theme.lavender)[*O-#n*]]
 
 #let study = (
-  H-1: [_*Study 1*_],
-  H-2: [_*Study 2*_],
+  H-1: (
+    prefix: [_*Study 1*_],
+    name: [_*Reproduction*_],
+    full: [_*Study 1: Reproduction*_],
+  ),
+  H-2: (
+    prefix: [_*Study 2*_],
+    name: [_*Extension*_],
+    full: [_*Study 2: Extension*_],
+  ),
+)
+
+#let step = (
+  s1: boxed(color: colors.variable)[*Step 1*],
+  s2: boxed(color: colors.variable)[*Step 2*],
+  s3: boxed(color: colors.factor)[*Step 3*],
+  s4: boxed(color: colors.factor)[*Step 4*],
+)
+
+#let iteration = (
+  // factor: boxed(color: colors.factor)[*Factor Iteration*],
+  // variable: boxed(color: colors.variable)[*Variable Iteration*],
+  factor: text(colors.factor, "Factor Iteration"),
+  variable: text(colors.variable, "Variable Iteration"),
 )
