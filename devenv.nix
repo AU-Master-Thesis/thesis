@@ -79,106 +79,106 @@
     # typos.settings.exclude =
     # typos.settings.configPath = "typos.toml";
 
-    custom-typos = {
-      enable = true;
-      # name = ""
-      entry = "${pkgs.typos}/bin/typos --config typos.toml";
-      files = "\\.typ$";
-      pass_filenames = false;
-    };
-    # _typos = {
-    #   enable = true;
-    #   entry = "${pkgs.typos}/bin/typos --config typos.toml";
-    # };
-    typstfmt.enable = false;
+    #   custom-typos = {
+    #     enable = true;
+    #     # name = ""
+    #     entry = "${pkgs.typos}/bin/typos --config typos.toml";
+    #     files = "\\.typ$";
+    #     pass_filenames = false;
+    #   };
+    #   # _typos = {
+    #   #   enable = true;
+    #   #   entry = "${pkgs.typos}/bin/typos --config typos.toml";
+    #   # };
+    #   typstfmt.enable = false;
 
-    all-typ-files-used = {
-      enable = true;
-      name = "all typ files used in main.typ";
-      entry = "./all-typ-files-included.fish";
-      files = "\\.typ$";
-      excludes = ["sections/.*\\.typ"];
-      pass_filenames = false;
-    };
+    #   all-typ-files-used = {
+    #     enable = true;
+    #     name = "all typ files used in main.typ";
+    #     entry = "./all-typ-files-included.fish";
+    #     files = "\\.typ$";
+    #     excludes = ["sections/.*\\.typ"];
+    #     pass_filenames = false;
+    #   };
 
-    # typ-files-compiles = {
-    main-typ-compiles = {
-      enable = true;
-      name = "typ file compiles";
-      entry = "${pkgs.typst}/bin/typst compile --root . ";
-      # files = "\\.typ$";
-      excludes = ["sections/.*\\.typ"];
-      files = "./main.typ";
-      pass_filenames = true;
-    };
+    #   # typ-files-compiles = {
+    #   main-typ-compiles = {
+    #     enable = true;
+    #     name = "typ file compiles";
+    #     entry = "${pkgs.typst}/bin/typst compile --root . ";
+    #     # files = "\\.typ$";
+    #     excludes = ["sections/.*\\.typ"];
+    #     files = "./main.typ";
+    #     pass_filenames = true;
+    #   };
 
-    all-citations-used = {
-      enable = true;
-      name = "all citations used";
-      entry = "./all-citations-used.fish ./main.typ";
-      files = "\\.typ$";
-      excludes = ["sections/.*\\.typ"];
-      # files = "./main.typ";
-      pass_filenames = false;
-    };
+    #   all-citations-used = {
+    #     enable = true;
+    #     name = "all citations used";
+    #     entry = "./all-citations-used.fish ./main.typ";
+    #     files = "\\.typ$";
+    #     excludes = ["sections/.*\\.typ"];
+    #     # files = "./main.typ";
+    #     pass_filenames = false;
+    #   };
 
-    all-references-used = {
-      enable = true;
-      name = "all references used";
-      entry = "./all-references-used.fish ./main.typ";
-      files = "\\.typ$";
-      excludes = ["sections/.*\\.typ"];
-      # files = "./main.typ";
-      pass_filenames = false;
-    };
+    #   all-references-used = {
+    #     enable = true;
+    #     name = "all references used";
+    #     entry = "./all-references-used.fish ./main.typ";
+    #     files = "\\.typ$";
+    #     excludes = ["sections/.*\\.typ"];
+    #     # files = "./main.typ";
+    #     pass_filenames = false;
+    #   };
 
-    all-acronyms-used = {
-      enable = true;
-      name = "all acronyms used";
-      entry = "./all-acronyms-used.fish ./main.typ";
-      files = "\\.typ$";
-      excludes = ["sections/.*\\.typ"];
-      # files = "./main.typ";
-      pass_filenames = false;
-    };
+    #   all-acronyms-used = {
+    #     enable = true;
+    #     name = "all acronyms used";
+    #     entry = "./all-acronyms-used.fish ./main.typ";
+    #     files = "\\.typ$";
+    #     excludes = ["sections/.*\\.typ"];
+    #     # files = "./main.typ";
+    #     pass_filenames = false;
+    #   };
 
-    all-sentences-start-with-a-capital-letter = {
-      enable = true;
-      name = "all sentences start with a capital letter";
-      entry = "./all-sentences-start-with-a-capital-letter.fish ./main.pdf";
-      files = "\\.typ$";
-      excludes = ["sections/.*\\.typ"];
-      # files = "./main.typ";
-      pass_filenames = false;
-    };
+    #   all-sentences-start-with-a-capital-letter = {
+    #     enable = true;
+    #     name = "all sentences start with a capital letter";
+    #     entry = "./all-sentences-start-with-a-capital-letter.fish ./main.pdf";
+    #     files = "\\.typ$";
+    #     excludes = ["sections/.*\\.typ"];
+    #     # files = "./main.typ";
+    #     pass_filenames = false;
+    #   };
 
-    all-svg-figures-used = {
-      enable = true;
-      name = "all svg figures used";
-      entry = "./all-svg-figures-used.fish";
-      files = "\\.typ$";
-      excludes = ["sections/.*\\.typ"];
-      # files = "./main.typ";
-      pass_filenames = false;
-    };
+    #   all-svg-figures-used = {
+    #     enable = true;
+    #     name = "all svg figures used";
+    #     entry = "./all-svg-figures-used.fish";
+    #     files = "\\.typ$";
+    #     excludes = ["sections/.*\\.typ"];
+    #     # files = "./main.typ";
+    #     pass_filenames = false;
+    #   };
 
-    fish = {
-      enable = true;
-      name = "fish scripts syntactically correct";
-      entry = "${pkgs.fish}/bin/fish --no-execute";
-      # types = ["files" "fish"];
-      files = "\\.fish$";
-      pass_filenames = true;
-    };
+    #   fish = {
+    #     enable = true;
+    #     name = "fish scripts syntactically correct";
+    #     entry = "${pkgs.fish}/bin/fish --no-execute";
+    #     # types = ["files" "fish"];
+    #     files = "\\.fish$";
+    #     pass_filenames = true;
+    #   };
 
-    fish_indent = {
-      enable = true;
-      name = "format fish files";
-      entry = "${pkgs.fish}/bin/fish_indent --check";
-      files = "\\.fish$";
-      # types = ["files" "fish"];
-      pass_filenames = true;
-    };
+    #   fish_indent = {
+    #     enable = true;
+    #     name = "format fish files";
+    #     entry = "${pkgs.fish}/bin/fish_indent --check";
+    #     files = "\\.fish$";
+    #     # types = ["files" "fish"];
+    #     pass_filenames = true;
+    #   };
   };
 
   devcontainer.enable = true;

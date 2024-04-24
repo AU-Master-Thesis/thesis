@@ -104,23 +104,20 @@ In @fig-robot-factor-graph two joint factor graphs are visualised. The first var
 
 // NOTES:
 // Sum-Product Algorithm @theodoridis_machine_2020
-// The sum-product algorithm is a message passing algorithm used to perform exact inference on factor graphs. 
-#acr("BP") is an algorithm for marginal inference, as opposed to exact inference. 
+// The sum-product algorithm is a message passing algorithm used to perform exact inference on factor graphs.
+// #acr("BP") is an algorithm for marginal inference, as opposed to exact inference.
 
-@robotweb@gbpplanner@gbp-visual-introduction
+// #acr("BP") is carried out by the sum-product algorithm.@robotweb@gbpplanner@gbp-visual-introduction
 
-#jens[finish this section]
-
-=== Asynchronous Message Passing <background-asynchronous-message-passing>
-
-The process of updating#note.wording[inference] on a factor graph is done by passing messages between the variables and factors. @fig-message-passing visualises the two major steps; #boxed(color: theme.maroon)[Variable Iteration] and #boxed(color: theme.lavender)[Factor Iteration], each with two sub-steps; an internal update, and a message passing step.
+The process of performing inference#note.wording[] on a factor graph is done by passing messages between the variables and factors. @fig-message-passing visualises the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
 
 #gridx(
-  columns: (1em, 1fr),
+  columns: (2em, 1fr, 4em, 1fr),
   [], [
     #set enum(numbering: req-enum.with(prefix: "Step ", color: theme.maroon))
     + Variable update
     + Variable to factor message
+  ], [], [
     #set enum(start: 3, numbering: req-enum.with(prefix: "Step ", color: theme.lavender))
     + Factor update
     + Factor to variable message
@@ -129,5 +126,28 @@ The process of updating#note.wording[inference] on a factor graph is done by pas
 
 #figure(
   image("../../figures/out/message-passing.svg"),
-  caption: [The four steps of propagating messages in a factor graph. Firstly, the variables#sr are internally updated, and new messages are sent to neighbouring factors#sl, who then update internally, sending the updated messaages back to neighbouring variables#sr. \ _Note that this figure shows the #boxed(color: theme.maroon)[Variable Iteration] first, however, performing the #boxed(color: theme.lavender)[Factor Iteration] first is also a valid, the main idea is simply that they are alternating._],
+  caption: [The four steps of propagating messages in a factor graph. Firstly, the variables#sr are internally updated, and new messages are sent to neighbouring factors#sl, who then update internally, sending the updated messaages back to neighbouring variables#sr. \ _Note that this figure shows the #iteration.variable first, however, performing the #iteration.factor first is also a valid, the main idea is simply that they are alternating._],
 )<fig-message-passing>
+
+#jens[context for BP and the sum-product algorithm]
+
+In #step.s1 the computation of the marginal distribution of a variable $x_i$ takes place. This is done by finding the product of all messages from neighbouring factors $f_j$ to $x_i$, as seen in  @eq-mp-variable-update@gbpplanner@gbp-visual-introduction@robotweb.
+
+$
+  m_(x_i) = product_(s in N(i)) m_(f_s #ra x_i)
+$<eq-mp-variable-update>
+
+Secondly, in #step.s2 the variable to factor messages $m_(x_i #ra f_j)$ are computed as described in @eq-mp-variable-to-factor@gbpplanner, which is a product of all messages from neighbouring factors $f_s$ except $f_j$.@gbpplanner@gbp-visual-introduction@robotweb
+
+$
+  m_(x_i #ra f_j) = product_(s in N(i) \\ j) m_(f_s #ra x_i)
+$<eq-mp-variable-to-factor>
+
+The factor to variable messages $m_(f_j #ra x_i)$ are described in @eq-mp-factor-to-variable@gbpplanner, where the message is the product of the factor $f_j$ and the messages from all neighbouring variables $x_i$ except $x_i$ itself.@gbpplanner@gbp-visual-introduction@robotweb This corresponds to the entire #iteration.factor, i.e. #step.s3 and #step.s4, also shown in @fig-message-passing.
+$
+  m_(f_j #ra x_i) = sum_(X_j \\ x_i) f_j (X_j) product_(k in N(j) \\ i) m_(x_k #ra f_j)
+$<eq-mp-factor-to-variable>
+
+#jens[finish this section]
+
+=== Asynchronous Message Passing <background-asynchronous-message-passing>

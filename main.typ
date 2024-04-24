@@ -181,7 +181,7 @@
 #include "sections/results/mod.typ"
 #include "sections/discussion/mod.typ"
 #include "sections/conclusion/mod.typ"
-#include "sections/future-work.typ"
+// #include "sections/future-work.typ"
 
 // Hello. bad sentence. This is a better one. although this could be it as well
 // it goes across lines.

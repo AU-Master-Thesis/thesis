@@ -18,3 +18,11 @@
   definition: Unmanned Aerial Vehicle
 - acronym: MAP
   definition: Maximum A Posteriori
+- acronym: SIMD
+  definition: Single Instruction, Multiple Data
+- acronym: SISD
+  definition: Single Instruction, Single Data
+- acronym: OOP
+  definition: Object Oriented Programming
+- acronym: LDJ # metric used in gbpplanner
+  definition: Log Dimensionless Jerk
