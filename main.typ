@@ -175,6 +175,9 @@
 #counter(heading).update(0)
 #counter(page).update(1)
 
+#kristoffer[make a statement about how we release our software for others to use .e.g license and terms]
+#kristoffer[check all libraries we use are in accordance with our terms]
+
 #include "sections/introduction/mod.typ"
 #include "sections/background/mod.typ"
 #include "sections/methodology/mod.typ"

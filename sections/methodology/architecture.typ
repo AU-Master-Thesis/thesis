@@ -146,7 +146,7 @@ entity similar to a primary key in a relational database
 ) //  <f.ecs-entity-component-table>
 
 
-In Bevy systems are ordinary functions
+// In Bevy systems are ordinary functions
 
 
 // sourcecode[

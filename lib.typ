@@ -107,6 +107,8 @@
   if not "release" in sys.inputs {
     boxed(color: color.lighten(0%), fill: color.lighten(80%), [*#prefix* #txt])
   }
+
+  state("remark" + prefix, 0).update(s => s + 1)
 }
 
 #let todo = remark.with(color: theme.maroon, prefix: "Todo: ")
@@ -233,6 +235,12 @@
   end: datetime(day: 04, month: 06, year: 2024),
 ))
 
+#let plural(word, n) = if n <= 1 {
+  word
+} else {
+  word + "s"
+}
+
 #let release() = {
   return "release" in sys.inputs and sys.inputs.release == "true"
 }
@@ -299,7 +307,58 @@
       box(height: 1em, width: 100%, fill: colors.incomplete),
       box(height: 1em, width: 100%, fill: colors.complete),
     )
+
+    let t = state("remark" + "Todo: ").final(loc)
+    let j = state("remark" + "Jens: ").final(loc)
+    let k = state("remark" + "Kristoffer: ").final(loc)
+    let total = 0 + t + j + k
+
+    let columns = ()
+    let texts = ()
+    let boxes = ()
+
+    if t != none {
+      columns.push(t)
+      texts.push(text(theme.maroon, [#t todo]))
+      boxes.push(box(height: 1em, width: 100%, fill: theme.maroon))
+    }
+      if j != none {
+      columns.push(j)
+      texts.push(text(theme.teal, [#j Jens]))
+      boxes.push(box(height: 1em, width: 100%, fill: theme.teal))
+    }
+      if k != none {
+      columns.push(k)
+      texts.push(text(theme.green, [#k Kristoffer]))
+      boxes.push(box(height: 1em, width: 100%, fill: theme.green))
+    }
+
+    v(1em)
+
+    grid(
+      column-gutter: 0pt,
+      columns: columns.map(v => v / total * 100%),
+      row-gutter: 5pt,
+      ..texts,
+      ..boxes,
+    //   columns: (t / total * 100%, j / total * 100%, k / total * 100%),
+    //   row-gutter: 5pt,
+    //   text(red, [#t todo]),
+    //   text(blue, [#j Jens]),
+    //   text(green, [#k Kristoffer]),
+    //   box(height: 1em, width: 100%, fill: red),
+    //   box(height: 1em, width: 100%, fill: blue),
+    //   box(height: 1em, width: 100%, fill: green),
+    // )
+    // align(center, [#total #plural("remark", total)]
+    )
+
+    align(center, [#total *#plural("remark", total)*])
+
+
   })
+
+  
 }
 
 #let print-index(level: 1, outlined: false, sorted: "", title: "Acronyms Index", delimiter:":") = {
