@@ -362,7 +362,7 @@
 
   })
 
-  
+
 }
 
 #let print-index(level: 1, outlined: false, sorted: "", title: "Acronyms Index", delimiter:":") = {
