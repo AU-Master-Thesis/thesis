@@ -117,6 +117,7 @@
 
 #let todo = remark.with(color: theme.maroon, prefix: "Todo: ")
 #let jens = remark.with(color: theme.teal, prefix: "Jens: ")
+#let yens = remark.with(color: theme.pink, prefix: "Yens: ")
 #let kristoffer = remark.with(color: theme.green, prefix: "Kristoffer: ")
 
 #let boxed-enum(
@@ -243,6 +244,68 @@
   word
 } else {
   word + "s"
+}
+
+#let as-string(any) = {
+    if type(any) == "string" {
+        any
+    } else if type(any) == "content" {
+        let repr_any = repr(any)
+        repr_any.slice(1, repr_any.len() - 1) // remove square brackets
+    } else {
+        str(any)
+    }
+}
+
+#let plural-alt(s) = {
+    let s = as-string(s)
+    if s.ends-with("s") {
+        // plural
+        s + "es"
+    } else {
+        // singular
+        s + "s"
+    }
+}
+
+#let possessive(s) = {
+    let s = as-string(s)
+    if s.ends-with("s") {
+        // plural
+        s + "s"
+    } else {
+        // singular
+        s + "'s"
+    }
+}
+
+// Format a string | content as Title Case
+#let titlecase(text) = {
+    let string = if type(text) == "string" {
+        text
+    } else if type(text) == "content" {
+        repr(text).slice(1,-1) // remove square brackets
+    } else {
+        panic("Invalid type for text. Valid types are 'string' | 'content'")
+    }
+
+    string.split(" ").map(word => {
+        let chars = word.split("")
+        (
+            upper(chars.at(1)),
+            ..chars.slice(2, -1)
+        ).join("") // join into a string again
+    }).join(" ") // join into a sentence again
+}
+
+#let repo(org: none, repo: none) = {
+    if (repo == none) {
+        panic("Name is required for repo")
+    }
+    if (org == none) {
+        raw(repo)
+    }
+    raw((org, repo).join("/"), block: false)
 }
 
 #let release() = {
@@ -487,3 +550,45 @@
   factor: text(colors.factor, "Factor Iteration"),
   variable: text(colors.variable, "Variable Iteration"),
 )
+
+
+#let blocked(title: none, content) = std-block[
+  #v(0.25em)
+  #text(theme.text, size: 1.2em, weight: 900, title)
+
+  #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: white + 2pt))
+
+  #content
+
+  #v(0.5em)
+]
+
+#let cost = (
+  cheap: " " + sg + " " + text(theme.green, style: "italic", "Cheap"),
+  expensive: " " + sr + " " + text(theme.maroon, style: "italic", "Expensive"),
+)
+
+#let algorithm-counter = counter("algorithm")
+
+#let algorithm(
+    content,
+    caption: none,
+    numbering: "1.",
+    supplement: "Algorithm",
+) = {
+    algorithm-counter.step()
+    // show regex("^\/\/.*"): it => raw(it)
+    set par(first-line-indent: 0em)
+    tablex(
+        columns: (5%, 95%),
+        auto-lines: false,
+        stroke: 0.5pt,
+        if caption != none {hlinex()},
+        if caption != none {
+            colspanx(2, [*#supplement #algorithm-counter.display():* #caption])
+        },
+        hlinex(),
+        [], [#content],
+        hlinex(),
+    )
+}

@@ -131,6 +131,12 @@
   print-toc: false,
   toc-depth: 2,
   accent: accent,
+  // postbody: [
+  //     #pagebreak(weak: true)
+  //     #start-appendix()
+  //     #set heading(numbering: "A:", supplement: "Appendix")
+  //     #include "sections/appendix.typ"
+  // ]
 )
 
 // This is important! Call it whenever your page is reconfigured.

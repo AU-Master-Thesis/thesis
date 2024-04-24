@@ -1,39 +1,5 @@
 #import "../../lib.typ": *
-
-== Probabilistic Inference <background-probabilistic-inference>
-
-To contextualise factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $X$, given some observed or known quantities, $D$. This is done by combining prior knowledge with $D$, to infer the most likely distribution of the variables.@gbp-visual-introduction
-
-#example[
-  // Everyday example describing how meteorological forecasts are made
-  An everyday example of probabilistic inference is in the field of meteorology. Meteorologists use prior knowledge of weather patterns ($D$), combined with observed data to infer the most likely weather forecast for the upcoming days ($X$).
-]
-
-// Explain bayesian inference
-Baye's rule is the foundation of probabilistic inference, and is used to update the probability distribution of a set of variables, $X$, given some observed data, $D$. The rule is defined as in @eq-bayes-theorom@gbp-visual-introduction:
-
-$
-  p(X|D) = (p(D|X)p(X)) / (p(D))
-$<eq-bayes-theorom>
-
-This posterior distribution describes our belief of $X$, after observing $D$, which can then be used for decision making about possible future states.@gbp-visual-introduction Furthermore, when we have the posterior, properties about $X$ can be computed;
-
-#set enum(numbering: req-enum.with(prefix: "Property ", color: theme.green))
-+ The most likely state of $X$, the #acr("MAP") estimate $X_"MAP"$, is the state with the highest probability in the posterior distribution. See @eq-map-estimate@gbp-visual-introduction:
-
-  $
-    X_"MAP" = "argmax"_X p(X|D)
-  $<eq-map-estimate>
-
-+ The marginal posteriors, summarising our beliefs of individual variables in $X$, can be computed by marginalising the posterior distribution, see @eq-marginal-posterior@gbp-visual-introduction:
-
-  $
-    p(X_i|D) = sum_(X \\ x_i) p(X|D)
-  $<eq-marginal-posterior>
-
-// The most common methods for probabilistic inference are exact inference and approximate inference.
-
-== Factor Graphs <background-factor-graphs>
+== Factor Graphs <s.b.factor-graphs>
 
 // NOTES:
 // Explain the concept of factor graphs
@@ -90,7 +56,7 @@ $<eq-map-energy>
   )<fig-factor-graph>
 ]
 
-The factor graph is a generalisation of constraint graphs, and can represent any join function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm.@loeliger_introduction_2004@alevizos_factor_2012 The sum-product algorithm is detailed in @background-belief-propagation.
+The factor graph is a generalisation of constraint graphs, and can represent any join function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm.@loeliger_introduction_2004@alevizos_factor_2012 The sum-product algorithm is detailed in @s.b.belief-propagation.
 
 // Below is factor graph notions in terms of the multi-agent robotic system we have developed
 In @fig-robot-factor-graph two joint factor graphs are visualised. The first variables in each factor graph $v_1$#note.wording[#variable(theme.green, $v_1$)], represent the location of a green#sg and purple#sp robot respectively. Each robot has a corresponding factorgraph, where the figure shows how the two factor graphs are connected with interrobot factors $f_i$ when they are close enough to each other. Variables $v_2, dots, v_n$ represent the future predicted#note.wording[planned] states of the robot respectively at timesteps $t_2, dots, t_n$, where $t_1$ is the current time.
@@ -100,7 +66,7 @@ In @fig-robot-factor-graph two joint factor graphs are visualised. The first var
   caption: [Here shown are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in red#sr, #text(theme.maroon, $n$) times-steps into the future, #text(theme.maroon, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.],
 )<fig-robot-factor-graph>
 
-== Belief Propagation <background-belief-propagation> // The Sum-Product Algorithm <background-sum-product-algorithm>
+== Belief Propagation <s.b.belief-propagation> // The Sum-Product Algorithm <background-sum-product-algorithm>
 
 // NOTES:
 // Sum-Product Algorithm @theodoridis_machine_2020
@@ -150,4 +116,16 @@ $<eq-mp-factor-to-variable>
 
 #jens[finish this section]
 
-=== Asynchronous Message Passing <background-asynchronous-message-passing>
+Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leafs, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction#jens[more citation for loopy BP]
+
+The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transform from an exact method to and approximation. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
+
+Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm isn't guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loppy #acr("BP") is very capable of converging to the true marginals, as long as the graphs aren't highly cyclic#note.wording[too loopy? Is loopy and cyclic the same thing?].@gbp-visual-introduction
+
+== Gaussian Belief Propagation <s.b.gaussian-belief-propagation>
+
+#jens[do this #emoji.face.smile]
+
+== Non-Linearities <s.b.non-linearities>
+
+#jens[and this]

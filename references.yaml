@@ -51,7 +51,7 @@ patwardhan_distributing_2023:
   - Murai, Riku
   - Davison, Andrew J.
   date: 2023-02
-  page-range: 552–559
+  page-range: 552-559
   url:
     value: https://ieeexplore.ieee.org/document/9976221/
     date: 2023-12-05
@@ -75,7 +75,7 @@ multi-robot-path-planning-review:
   - Baziyad, Mohammed
   - Bettayeb, Maamar
   date: 2023
-  page-range: 1–26
+  page-range: 1-26
   serial-number:
     doi: 10.1017/S0263574723000322
   parent:
@@ -98,7 +98,7 @@ kiadi_synthesized_2021:
   - Sedano, Javier
   - Quintián, Héctor
   - Corchado, Emilio
-  page-range: 580–589
+  page-range: 580-589
   serial-number:
     doi: 10.1007/978-3-030-57802-2_56
     isbn: 978-3-030-57802-2
@@ -214,7 +214,7 @@ radmanesh_overview_2018:
   - Guentert, Paul
   - Sarim, Mohammad
   date: 2018-04
-  page-range: 1–24
+  page-range: 1-24
   serial-number:
     doi: 10.1142/S2301385018400022
   abstract: Unmanned aerial vehicles (UAVs) have recently attracted the attention of researchers due to their numerous potential civilian applications. However, current robot navigation technologies need further development for efficient application to various scenarios. One key issue is the "Sense and Avoid" capability, currently of immense interest to researchers. Such a capability is required for safe operation of UAVs in civilian domain. For autonomous decision making and control of UAVs, several path-planning and navigation algorithms have been proposed. This is a challenging task to be carried out in a 3D environment, especially while accounting for sensor noise, uncertainties in operating conditions, and real-time applicability. Heuristic and non-heuristic or exact techniques are the two solution methodologies that categorize path-planning algorithms. The aim of this paper is to carry out a comprehensive and comparative study of existing UAV path planning algorithms for both methods. Three different obstacle scenarios test the performance of each algorithm. We have compared the computational time and solution optimality, and tested each algorithm with variations in the availability of global and local obstacle information.
@@ -230,7 +230,7 @@ park_new_2003:
   - Park, Min Gyu
   - Lee, Min Cheol
   date: 2003-12
-  page-range: 1876–1885
+  page-range: 1876-1885
   url:
     value: https://doi.org/10.1007/BF02982426
     date: 2024-04-22
@@ -253,7 +253,7 @@ faria_comparing_2004:
   - Prestes, E.
   - Idiart, M.A.P.
   date: 2004-12
-  page-range: 762–767
+  page-range: 762-767
   url:
     value: https://ieeexplore.ieee.org/document/1438014
     date: 2024-04-22
@@ -274,7 +274,7 @@ sathyaraj_multiple_2008:
   - Finn, A.
   - Drake, S.
   date: 2008-09
-  page-range: 257–267
+  page-range: 257-267
   url:
     value: https://doi.org/10.1007/s10700-008-9035-0
     date: 2024-04-22
@@ -314,7 +314,7 @@ ahuja_shape_1997:
   - Ahuja, N.
   - Chuang, Jen-Hui
   date: 1997-02
-  page-range: 169–176
+  page-range: 169-176
   url:
     value: https://ieeexplore.ieee.org/document/574801
     date: 2024-04-22
@@ -354,7 +354,7 @@ loeliger_introduction_2004:
   title: An introduction to factor graphs
   author: Loeliger, H.-A.
   date: 2004-01
-  page-range: 28–41
+  page-range: 28-41
   url:
     value: https://ieeexplore.ieee.org/document/1267047
     date: 2024-04-22
@@ -401,10 +401,72 @@ energy-based-models:
   - Chopra, Sumit
   - Hadsell, Raia
   date: 2006-01
-  page-range: 34–37
+  page-range: 34-37
   abstract: Energy-Based Models (EBMs) capture dependencies between variables by as- sociating a scalar energy to each configuration of the variab les. Inference consists in clamping the value of observed variables and finding config urations of the re- maining variables that minimize the energy. Learning consists in finding an energy function in which observed configurations of the variables a re given lower energies than unobserved ones. The EBM approach provides a common theoretical frame- work for many learning models, including traditional discr iminative and genera- tive approaches, as well as graph-transformer networks, co nditional random fields, maximum margin Markov networks, and several manifold learning methods. Probabilistic models must be properly normalized, which sometimes requires evaluating intractable integrals over the space of all poss ible variable configura- tions. Since EBMs have no requirement for proper normalization, this problem is naturally circumvented. EBMs can be viewed as a form of non-probabilistic factor graphs, and they provide considerably more flexibility in th e design of architec- tures and training criteria than probabilistic approaches .
   parent:
     type: anthology
+
+# RRT
+sampling-based-survey:
+  type: misc
+  title: Sampling-based {Algorithms} for {Optimal} {Motion} {Planning}
+  author:
+  - Karaman, Sertac
+  - Frazzoli, Emilio
+  date: 2011-05
+  publisher: arXiv
+  url:
+    value: http://arxiv.org/abs/1105.1186
+    date: 2024-04-24
+  serial-number:
+    doi: 10.48550/arXiv.1105.1186
+  note: 'Comment: 76 pages, 26 figures, to appear in International Journal of Robotics Research'
+  abstract: During the last decade, sampling-based path planning algorithms, such as Probabilistic RoadMaps (PRM) and Rapidly-exploring Random Trees (RRT), have been shown to work well in practice and possess theoretical guarantees such as probabilistic completeness. However, little effort has been devoted to the formal analysis of the quality of the solution returned by such algorithms, e.g., as a function of the number of samples. The purpose of this paper is to fill this gap, by rigorously analyzing the asymptotic behavior of the cost of the solution returned by stochastic sampling-based algorithms as the number of samples increases. A number of negative results are provided, characterizing existing algorithms, e.g., showing that, under mild technical conditions, the cost of the solution returned by broadly used sampling-based algorithms converges almost surely to a non-optimal value. The main contribution of the paper is the introduction of new algorithms, namely, PRM* and RRT*, which are provably asymptotically optimal, i.e., such that the cost of the returned solution converges almost surely to the optimum. Moreover, it is shown that the computational complexity of the new algorithms is within a constant factor of that of their probabilistically complete (but not asymptotically optimal) counterparts. The analysis in this paper hinges on novel connections between stochastic sampling-based path planning algorithms and the theory of random geometric graphs.
+  annote: 'Comment: 76 pages, 26 figures, to appear in International Journal of Robotics Research'
+
+informed-rrt-star:
+  type: article
+  title: 'Informed {RRT}*: {Optimal} sampling-based path planning focused via direct sampling of an admissible ellipsoidal heuristic'
+  author:
+  - Gammell, Jonathan D.
+  - Srinivasa, Siddhartha S.
+  - Barfoot, Timothy D.
+  date: 2014-09
+  page-range: 2997-3004
+  url:
+    value: https://ieeexplore.ieee.org/document/6942976
+    date: 2024-04-24
+  serial-number:
+    doi: 10.1109/IROS.2014.6942976
+  abstract: Rapidly-exploring random trees (RRTs) are popular in motion planning because they find solutions efficiently to single-query problems. Optimal RRTs (RRT*s) extend RRTs to the problem of finding the optimal solution, but in doing so asymptotically find the optimal path from the initial state to every state in the planning domain. This behaviour is not only inefficient but also inconsistent with their single-query nature.
+  parent:
+    type: proceedings
+    title: 2014 {IEEE}/{RSJ} {International} {Conference} on {Intelligent} {Robots} and {Systems}
+
+rrt-medium:
+  type: misc
+  title: 'Robotic {Path} {Planning}: {RRT} and {RRT}*'
+  author: Chinenov, Tim
+  date: 2019-02
+  url:
+    value: https://theclassytim.medium.com/robotic-path-planning-rrt-and-rrt-212319121378
+    date: 2024-04-24
+  abstract: Exploring the optimized version of a orthodox path planning algorithm
+
+original-rrt:
+  type: article
+  title: 'Rapidly-exploring random trees : a new tool for path planning'
+  author: LaValle, S.
+  date: 1998
+  url:
+    value: https://www.semanticscholar.org/paper/Rapidly-exploring-random-trees-%3A-a-new-tool-for-LaValle/d967d9550f831a8b3f5cb00f8835a4c866da60ad
+    date: 2024-04-24
+  note: '[TLDR] This work introduces the concept of a Rapidly-exploring Random Tree as a randomized data structure that is designed for a broad class of path planning problems and successfully applied RRTs to holonomic, nonholonomic, and kinodynamic planning problems of up to twelve degrees of freedom.'
+  abstract: We introduce the concept of a Rapidly-exploring Random Tree (RRT) as a randomized data structure that is designed for a broad class of path planning problems. While they share many of the bene cial properties of existing randomized planning techniques, RRTs are specifically designed to handle nonholonomic constraints (including dynamics) and high degrees of freedom. An RRT is iteratively expanded by applying control inputs that drive the system slightly toward randomly-selected points, as opposed to requiring point-to-point convergence, as in the probabilistic roadmap approach. Several desirable properties and a basic implementation of RRTs are discussed. To date, we have successfully applied RRTs to holonomic, nonholonomic, and kinodynamic planning problems of up to twelve degrees of freedom.
+  annote: '[TLDR] This work introduces the concept of a Rapidly-exploring Random Tree as a randomized data structure that is designed for a broad class of path planning problems and successfully applied RRTs to holonomic, nonholonomic, and kinodynamic planning problems of up to twelve degrees of freedom.'
+  parent:
+    type: periodical
+    title: The annual research report
 
 # Rust Crates
 # https://github.com/bevyengine/bevy/discussions/8098

@@ -128,17 +128,40 @@
 
     show math.equation.where(block: true) : set block(spacing: 1.25em)
 
-    show figure: it => align(center, {
-        it.body
-        set par(justify: false)
-        // set text(size: 0.75em)
-        {
-            set text(accent)
-            it.supplement + " " + it.counter.display(it.numbering) + "."
+    // show figure: it => align(center, {
+    //     it.body
+    //     set par(justify: false)
+    //     // set text(size: 0.75em)
+    //     {
+    //         set text(accent)
+    //         it.supplement + " " + it.counter.display(it.numbering) + "."
+    //     }
+    //     " " + it.caption.body
+    //     v(1.5em, weak: true)
+    // })
+
+
+    show figure: it => align(center)[
+        #let fs = 0.8em
+        #let bh = 2em
+        #if it.kind == "algorithm" {
+            fs = 1em
+            bh = 0em
         }
-        " " + it.caption.body
-        v(1.5em, weak: true)
-    })
+        #set text(size: fs)
+        #it.body
+        #v(1em, weak: true)
+        #if it.kind != "algorithm" [
+            #set text(accent)
+            #it.supplement
+            #it.counter.display(it.numbering).
+            #set text(black)
+            #it.caption.body
+        ] #h(0.1em)
+        // #it.caption
+        // #repr(it.caption)
+        #v(bh, weak: true)
+    ]
 
     // triggered when using the dedicated syntax `@ref`
     show ref: it => {

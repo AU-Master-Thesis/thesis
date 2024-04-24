@@ -1,5 +1,5 @@
 #import "../../lib.typ": *
-== Related Works <related-works>
+== Related Works <s.b.related-works>
 
 // things to cover
 

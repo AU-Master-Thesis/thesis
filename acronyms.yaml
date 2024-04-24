@@ -18,6 +18,8 @@
   definition: Unmanned Aerial Vehicle
 - acronym: MAP
   definition: Maximum A Posteriori
+- acronym: KL
+  definition: Kullback-Leibler
 - acronym: SIMD
   definition: Single Instruction, Multiple Data
 - acronym: SISD
