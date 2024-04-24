@@ -408,24 +408,10 @@
       row-gutter: 5pt,
       ..texts,
       ..boxes,
-    //   columns: (t / total * 100%, j / total * 100%, k / total * 100%),
-    //   row-gutter: 5pt,
-    //   text(red, [#t todo]),
-    //   text(blue, [#j Jens]),
-    //   text(green, [#k Kristoffer]),
-    //   box(height: 1em, width: 100%, fill: red),
-    //   box(height: 1em, width: 100%, fill: blue),
-    //   box(height: 1em, width: 100%, fill: green),
-    // )
-    // align(center, [#total #plural("remark", total)]
     )
 
     align(center, [#total *#plural("remark", total)*])
-
-
   })
-
-
 }
 
 #let print-index(level: 1, outlined: false, sorted: "", title: "Acronyms Index", delimiter:":") = {

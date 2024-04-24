@@ -1,0 +1,63 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[
+collider dot/.style={dot, collider, minimum size=5 * \scale},
+valid collider dot/.style={collider dot, draw=ctpTeal},
+]
+	\def\mainSize{10 * \scale}
+	\def\wScalar{3}
+	\def\pad{0.3 * \scale}
+	\def\s{0.5}
+
+	\pgfmathsetmacro{\wScalarExtra}{\wScalar + 1}
+	\pgfmathsetmacro{\wScalarLess}{\wScalar - 1}
+	\pgfmathsetmacro{\wScalarLessLess}{\wScalar - 2}
+
+	% Colliders
+	\draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, \pad + \mainSize) -- ++(\wScalar * \mainSize + 2 * \pad, 0) -- ++(0, -\wScalarExtra * \mainSize - 2 * \pad) -- ++(-\mainSize - 2 * \pad, 0) -- ++(0, \wScalar * \mainSize) -- ++(-\wScalarLess * \mainSize, 0) -- cycle;
+	\draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, -\wScalarLessLess * \mainSize + \pad) -- ++ (\mainSize + 2 * \pad, 0) -- ++(0, -\wScalar * \mainSize) -- ++(\wScalarLess * \mainSize, 0) -- ++(0, -\mainSize - 2 * \pad) -- ++(-\wScalar * \mainSize - 2 * \pad, 0) -- cycle;
+
+	\draw[none, line, collider] (0, 0) rectangle ++(\mainSize * \wScalar, \mainSize);
+	\draw[none, line, collider] (2 * \mainSize, 0) rectangle ++(\mainSize, -\wScalar * \mainSize);
+	\draw[none, line, collider] (0, -\mainSize) rectangle ++(\mainSize, -\wScalar * \mainSize);
+	\draw[none, line, collider] (0, -\wScalarExtra * \mainSize) rectangle ++(\wScalar * \mainSize, -\mainSize);
+
+	% RRT tree
+	\coordinate (start) at (0, -\mainSize / 2);
+	\coordinate (end) at (\wScalar * \mainSize, -\wScalar * \mainSize - \mainSize / 2);
+
+	% \draw[line, no rounding, node at every point=valid collider dot]
+	\draw[rrt line]
+		     (start) 	coordinate (rrt1)
+		-- ++(18:\s) 	coordinate (rrt2)
+		-- ++(-28:\s) 	coordinate (rrt3)
+		-- ++(10:\s)    coordinate (rrt4)
+		-- ++(-60:\s)   coordinate (rrt5)
+		-- ++(-110:\s) 	coordinate (rrt6)
+		-- ++(-80:\s) 	coordinate (rrt7)
+		-- ++(-115:\s) 	coordinate (rrt8)
+		-- ++(-95:\s)   coordinate (rrt9)
+		-- ++(-70:\s)   coordinate (rrt10)
+		-- ++(-5:\s) 	coordinate (rrt11)
+		-- ++(-20:\s) 	coordinate (rrt12)
+		--   (end) 		coordinate (rrt13);
+
+	\draw[rrt line] (rrt2) -- ++(20:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt3) -- ++(-60:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt6) -- ++(-45:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt8) -- ++(-35:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt10) -- ++(-65:\s) node[collider dot] () {};
+
+	\foreach \i in {2, ..., 12}
+		\node at (rrt\i) [line, valid collider dot] {};
+
+	\node[dot, fill=ctpBlue, minimum size=2.5 * \scale] at (start) {};
+	\node[dot, fill=ctpGreen, minimum size=2.5 * \scale] at (end) {};
+
+\end{tikzpicture}%
+\end{document}
