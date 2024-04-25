@@ -24,24 +24,24 @@
 
 // Mathematically, the Hammersley-Clifford Theorom states that any positive joint distribution can be represented as a product of factors,
 
-A factor graph is a bipartite graph, where the nodes are divided into two disjoint sets; variables and factors. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution , $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each clique of variables in the graph, which can be seen in @eq-factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
+A factor graph is a bipartite graph, where the nodes are divided into two disjoint sets; variables and factors. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution , $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each clique of variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
 
 $
   p(X) = product_{i} f_i (X_i)
-$<eq-factor-product>
+$<eq.factor-product>
 
-Thus interpreting this, the factors are not necessarily in themselves probabilities, but rather the functions that determine the probabilities of the variables.@loeliger_introduction_2004@alevizos_factor_2012 Additionally, it can be useful to present factor graphs as energy-based models@energy-based-models, where, as seen in @eq-factor-energy@gbp-visual-introduction, each factor $f_i$ is associated with an energy $E_i > 0$:@gbp-visual-introduction
+Thus interpreting this, the factors are not necessarily in themselves probabilities, but rather the functions that determine the probabilities of the variables.@loeliger_introduction_2004@alevizos_factor_2012 Additionally, it can be useful to present factor graphs as energy-based models@energy-based-models, where, as seen in @eq.factor-energy@gbp-visual-introduction, each factor $f_i$ is associated with an energy $E_i > 0$:@gbp-visual-introduction
 
 $
   f_i(X_i) = exp(-E_i(X_i))
-$<eq-factor-energy>
+$<eq.factor-energy>
 
-This presentation also gives another way of finding the #acr("MAP") estimate, by finding the state with the lowest energy in the factor graph, see @eq-map-energy@gbp-visual-introduction:
+This presentation also gives another way of finding the #acr("MAP") estimate, by finding the state with the lowest energy in the factor graph, see @eq.map-energy@gbp-visual-introduction:
 
 $
   X_"MAP" &= "arg min"_X -log p(X) \
           &= "arg min"_X sum_i E_i(X_i)
-$<eq-map-energy>
+$<eq.map-energy>
 
 #example[
   An example factor graph is visualised in @fig-factor-graph, with variables #text(theme.red, ${v_1, dots, v_4}$) and factors #text(theme.lavender, ${f_1, dots, f_4}$). Writing out the visualised factor graph produces:

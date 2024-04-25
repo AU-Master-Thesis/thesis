@@ -141,7 +141,36 @@
     // })
 
 
-    show figure: it => align(center)[
+// show figure: fig => {
+//     let (fs, bh) = if fig.kind == "algorithm" {
+//         (1em, 0em)
+//     } else {
+//         (0.8em, 2em)
+//     }
+//
+//     set text(size: fs)
+//     set align(center)
+//
+//     [#fig.body]
+//     v(1em, weak: true)
+//
+//     if fig.kind == "example" {}
+//     else if fig.kind == "algorithm" {}
+//     else {
+//     set text(accent)
+//     fig.supplement
+//     fig.counter.display(fig.numbering)
+//     set text(black)
+//     fig.caption.body
+//
+//     }
+//
+//     v(bh, weak: true)
+//
+//
+// }
+
+show figure: it => align(center)[
         #let fs = 0.8em
         #let bh = 2em
         #if it.kind == "algorithm" {
@@ -151,12 +180,25 @@
         #set text(size: fs)
         #it.body
         #v(1em, weak: true)
+        // if it.kind == "example" {
+
+    // }
+
+
         #if it.kind != "algorithm" [
             #set text(accent)
             #it.supplement
             #it.counter.display(it.numbering).
             #set text(black)
-            #it.caption.body
+            #if it.caption != none {
+                it.caption.body
+            }
+    // #it.caption
+    // #it.caption.fields()
+//             #if "caption" in it {
+//     it.caption.body
+//
+// }
         ] #h(0.1em)
         // #it.caption
         // #repr(it.caption)

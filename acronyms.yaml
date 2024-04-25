@@ -1,7 +1,22 @@
 - acronym: ATE
   definition: Absolute Trajectory Error
+# Suggested by Jonas
 - acronym: RMSE
   definition: Root Mean Squared Error
+- acronym: ADE
+  definition: Absolute Displacement Error
+- acronym: FDE
+  definition: Final Displacement Error
+- acronym: APE
+  definition: Absolute Position Error
+# https://en.wikipedia.org/wiki/Mean_absolute_percentage_error
+# Suggested by Jonas
+- acronym: MAPE
+  definition: Mean Absolute Position Error
+# https://en.wikipedia.org/wiki/Mean_absolute_error
+# Suggested by Jonas
+- acronym: MAE
+  definition: Mean Absolute Error
 - acronym: BP
   definition: Belief Propagation
 - acronym: GBP
@@ -28,3 +43,5 @@
   definition: Object Oriented Programming
 - acronym: LDJ # metric used in gbpplanner
   definition: Log Dimensionless Jerk
+- acronym: CSR
+  definition: Compressed Sparse Row

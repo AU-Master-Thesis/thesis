@@ -140,7 +140,7 @@
 )
 
 // This is important! Call it whenever your page is reconfigured.
-#if not release() {
+#if not release {
   set-page-properties()
 }
 

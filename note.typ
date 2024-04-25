@@ -4,7 +4,8 @@
 #let note-gen(note, c: color.red, scope: "") = {
   let note = [
     #text(c, scope)
-    #note
+    #text(size: 10pt, note)
+    // #note
   ]
 
   margin-note(side: left, stroke: c + 1pt, note)
@@ -13,9 +14,12 @@
 #let kristoffer = note-gen.with(c: catppuccin.latte.yellow, scope: "Kristoffer")
 #let k = kristoffer
 #let jens = note-gen.with(c: catppuccin.latte.mauve, scope: "Jens")
+#let j = jens
 #let jonas = note-gen.with(c: catppuccin.latte.blue, scope: "Jonas")
 #let layout = note-gen.with(c: catppuccin.latte.maroon, scope: "Layout")
+#let l = layout
 #let wording = note-gen.with(c: catppuccin.latte.teal, scope: "Wordings")
+#let w = wording
 
 // #let krisoffer(note) = {
 //   let c = catppuccin.latte.yellow

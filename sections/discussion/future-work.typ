@@ -13,3 +13,5 @@ the start.
  - The state space is more complex. As a result the matrices being sent around are larger, and more computationally costly
  - What factors would have to change or be updated?
  - Have other already done something similar
+
+ - Have the factorgraph be able to change the number of variable nodes during the lifetime of the graph. I.e. having it dependant on the desired velocity. If we want to accelerate the robot and have it move faster, it might be better to have more variables/longer future horizon, while if we do not move very fast, fewer variables could be sufficient and less computationally taxing in that case.

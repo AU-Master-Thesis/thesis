@@ -478,3 +478,17 @@ bevyengine:
   serial-number:
     version: 0.13.2
   note: https://github.com/bevyengine/bevy/releases/tag/v0.13.2
+
+
+petgraph:
+  type: repository
+  title: petgraph
+  author: # Used the people of the `gitub/petgraph` org as the authors
+  - Anton Kochkov # XVilka
+  - bluss # bluss
+  - Agustín Borgna # ABorgna
+  - Bilal Mahmoud # indietyp
+  date: 2024-04-24
+  serial-number:
+    version: 0.6.4
+  note: https://github.com/petgraph/petgraph/releases/tag/petgraph%40v0.6.4

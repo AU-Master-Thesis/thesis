@@ -38,6 +38,7 @@
     typos
     sqlite
     nushell
+    xsv
   ];
 
   # https://devenv.sh/scripts/
@@ -60,6 +61,8 @@
 
   # https://devenv.sh/languages/
   # languages.nix.enable = true;
+  languages.python.enable = true;
+  languages.python.uv.enable = true;
 
   # https://devenv.sh/pre-commit-hooks/
   pre-commit.hooks = {

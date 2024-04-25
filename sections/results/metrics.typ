@@ -5,9 +5,9 @@ To objectively compare our reimplementation with the original GBP Planner, we me
 
 #let metric(name) = [_ #name _ #h(1em)]
 
-1. #metric[Distance travelled] The cumulative distance covered by the robot until it reaches its destination. Effective trajectories aim to minimize this measure.
-2. #metric[Makespan] The overall duration for all robots to achieve their objectives. A collaborative system of numerous robots should strive to reduce this measure.
-3. #metric[Smoothness] Continous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot and other real world constraints. #note.kristoffer[like what, torque, friction?].
++ #metric[Distance travelled] The cumulative distance covered by the robot until it reaches its destination. Effective trajectories aim to minimize this measure.
++ #metric[Makespan] The overall duration for all robots to achieve their objectives. A collaborative system of numerous robots should strive to reduce this measure.
++ #metric[Smoothness] Continous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot and other real world constraints. #note.kristoffer[like what, torque, friction?].
 
 Smoothness is a geometric property of the path traversed.
 
@@ -24,3 +24,9 @@ $ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") in
 where $t in [t_("start"), t_("final")]$ is the time interval the metric is measured over. $v(t)$ is the velocity of a robot at time $t$, and $v_("max")$ is the maximum velocity along the trajectory.
 
 4. #metric[Inter robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circle. A collision between two robots happen when their circles intersects.
+
+
+
+In addition to the metrics used by by Patwardhan _et al._@gbpplanner we also consider the following metrics:
+
+5. #metric[#acr("RMSE")]

@@ -72,6 +72,23 @@
   lno,
 )))
 
+#let sourcecode-reference(content, caption: none) = {
+  figure(
+    content,
+    kind: "code",
+    supplement: [Code Reference],
+    caption: caption
+  )
+}
+
+// #let code-snippet(content) = {
+//   figure(
+//     content,
+//     kind: "code",
+//     supplement: [Code Snippet]
+//   )
+// }
+
 #let snippet = sourcecode.with(numbering: none, frame: std-block.with(inset: 2pt, radius: 3pt))
 
 #let tablex = tablex.with(stroke: 0.25pt, auto-lines: false, inset: 0.5em)
@@ -308,12 +325,10 @@
     raw((org, repo).join("/"), block: false)
 }
 
-#let release() = {
-  return "release" in sys.inputs and sys.inputs.release == "true"
-}
+#let release = "release" in sys.inputs and sys.inputs.release == "true"
 
 #let stats() = {
-  if release() {
+  if release {
     return
   }
   locate(loc => {
@@ -499,11 +514,21 @@
 #let example-counter = counter("example")
 #let example-box(number) = boxed(color: accent)[*Example #number:*]
 
-#let example(body) = std-block[
-  #example-counter.step()
-  #example-box(context example-counter.get().at(0))
-  #body
-]
+#let example(body) = {
+  // figure(
+    std-block[
+    #example-counter.step()
+    #example-box(context example-counter.get().at(0))
+    #body
+
+  ]
+  // ,
+  //   kind: "example",
+  //   supplement: [Example]
+  //
+  // )
+
+}
 
 
 #let H(n) = [Hypothesis #boxed(color: theme.lavender)[*H-#n*]]
