@@ -15,3 +15,10 @@ the start.
  - Have other already done something similar
 
  - Have the factorgraph be able to change the number of variable nodes during the lifetime of the graph. I.e. having it dependant on the desired velocity. If we want to accelerate the robot and have it move faster, it might be better to have more variables/longer future horizon, while if we do not move very fast, fewer variables could be sufficient and less computationally taxing in that case.
+
+- Establish a simple network protocol to negotiate and establish the lifecycle of the bidirected connection between two robots.
+  - How do two robots connect?
+  - How do they communicate?
+  - How do they check the connection is still alive?
+  - How do they reconnect? Is it any different from just disconnecting and then reconnecting, or is it necessary to have some kind of stateful protocol? Should be avoided
+  - How do they disconnect?
