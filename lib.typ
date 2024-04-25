@@ -578,3 +578,12 @@
         hlinex(),
     )
 }
+
+#let gaussian = (
+  moments: [_Moments Form_],
+  canonical: [_Canonical Form_],
+)
+
+#let factor = (
+  lp: [_linearisation point_],
+)

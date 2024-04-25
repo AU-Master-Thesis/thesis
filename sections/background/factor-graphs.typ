@@ -75,7 +75,7 @@ In @fig-robot-factor-graph two joint factor graphs are visualised. The first var
 
 // #acr("BP") is carried out by the sum-product algorithm.@robotweb@gbpplanner@gbp-visual-introduction
 
-The process of performing inference#note.wording[] on a factor graph is done by passing messages between the variables and factors. @fig-message-passing visualises the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
+The process of performing inference#note.wording[] on a factor graph is done by passing messages between the variables and factors. @fig.message-passing visualises the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
 
 #gridx(
   columns: (2em, 1fr, 4em, 1fr),
@@ -93,15 +93,15 @@ The process of performing inference#note.wording[] on a factor graph is done by 
 #figure(
   image("../../figures/out/message-passing.svg"),
   caption: [The four steps of propagating messages in a factor graph. Firstly, the variables#sr are internally updated, and new messages are sent to neighbouring factors#sl, who then update internally, sending the updated messaages back to neighbouring variables#sr. \ _Note that this figure shows the #iteration.variable first, however, performing the #iteration.factor first is also a valid, the main idea is simply that they are alternating._],
-)<fig-message-passing>
+)<fig.message-passing>
 
 #jens[context for BP and the sum-product algorithm]
 
-In #step.s1 the computation of the marginal distribution of a variable $x_i$ takes place. This is done by finding the product of all messages from neighbouring factors $f_j$ to $x_i$, as seen in  @eq-mp-variable-update@gbpplanner@gbp-visual-introduction@robotweb.
+In #step.s1 the computation of the marginal distribution of a variable $x_i$ takes place. This is done by finding the product of all messages from neighbouring factors $f_j$ to $x_i$, as seen in  @eq.mp-variable-update@gbpplanner@gbp-visual-introduction@robotweb.
 
 $
   m_(x_i) = product_(s in N(i)) m_(f_s #ra x_i)
-$<eq-mp-variable-update>
+$<eq.mp-variable-update>
 
 Secondly, in #step.s2 the variable to factor messages $m_(x_i #ra f_j)$ are computed as described in @eq-mp-variable-to-factor@gbpplanner, which is a product of all messages from neighbouring factors $f_s$ except $f_j$.@gbpplanner@gbp-visual-introduction@robotweb
 
@@ -109,10 +109,10 @@ $
   m_(x_i #ra f_j) = product_(s in N(i) \\ j) m_(f_s #ra x_i)
 $<eq-mp-variable-to-factor>
 
-The factor to variable messages $m_(f_j #ra x_i)$ are described in @eq-mp-factor-to-variable@gbpplanner, where the message is the product of the factor $f_j$ and the messages from all neighbouring variables $x_i$ except $x_i$ itself.@gbpplanner@gbp-visual-introduction@robotweb This corresponds to the entire #iteration.factor, i.e. #step.s3 and #step.s4, also shown in @fig-message-passing.
+The factor to variable messages $m_(f_j #ra x_i)$ are described in @eq.mp-factor-to-variable@gbpplanner, where the message is the product of the factor $f_j$ and the messages from all neighbouring variables $x_i$ except $x_i$ itself.@gbpplanner@gbp-visual-introduction@robotweb This corresponds to the entire #iteration.factor, i.e. #step.s3 and #step.s4, also shown in @fig.message-passing.
 $
   m_(f_j #ra x_i) = sum_(X_j \\ x_i) f_j (X_j) product_(k in N(j) \\ i) m_(x_k #ra f_j)
-$<eq-mp-factor-to-variable>
+$<eq.mp-factor-to-variable>
 
 #jens[finish this section]
 
@@ -129,3 +129,44 @@ Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained mi
 == Non-Linearities <s.b.non-linearities>
 
 #jens[and this]
+
+Non-linear factors can exist, however, to understand the impact, let's first look at linear factors. A factor is usually modeled with data $d$. Equation @eq.gaussian-factor@gbp-visual-introduction shows how this is written:
+
+$
+  #text(theme.green, $d$) &tilde.op #text(theme.maroon, $m(X_n)$) + epsilon.alt
+$<eq.gaussian-factor>
+
+Here, #text(theme.maroon, $m(X_n)$) represents the measurement of the state of the subset of neighbouring variables, $X_n$, to the factor, and the error term $epsilon.alt tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))$ is white noise. Thus, finding the residual $r$ between the measurement and the model, as seen in @eq.gaussian-residual@gbp-visual-introduction, reveals propogates the Gaussian nature of the model to the residual.
+
+$
+  r = #text(theme.green, $d$) - #text(theme.maroon, $m(X_n)$) tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))
+$<eq.gaussian-residual>
+
+With this, looking at @f.gaussian-models, the #gaussian.moments can be rewritten with the measurement, $m(x)$, and the model $d$@eq.gaussian-energy@gbp-visual-introduction:
+
+$
+  E(X_n) = 1/2 (#text(theme.maroon, $m(X_n)$) - #text(theme.green, $d$))^top #text(theme.mauve, $Sigma_n$)^(-1) (#text(theme.maroon, $m(X_n)$) - #text(theme.green, $d$))
+$<eq.gaussian-energy>
+
+#let jacobian = $upright(bold(J))$
+In case of a linear factor, the measurement function is quadratic and can be written as $#text(theme.maroon, $m(X_n)$) = jacobian X_n + c$, where $jacobian$ is the jacobian. This allows us to rearrange the energy onto #gaussian.canonical @eq.gaussian-canonical@gbp-visual-introduction:
+
+$
+  E(X_n) = 1/2 X_n^top #text(theme.yellow, $Lambda$) X_n - #text(theme.yellow, $eta$)^top X_n#h(1em), "where" #text(theme.yellow, $eta$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) (#text(theme.green, $d$) - c) "and" #text(theme.yellow, $Lambda$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) jacobian
+$<eq.gaussian-canonical>
+
+However, in case of a non-linearity in $#text(theme.maroon, $m$)$, the energy is also not quadratic in $X_n$, which in turn means that the factor is not Gaussian. To achieve a Gaussian distribution for the factor in this case, it is necessary to linearise around a current estimate $X_0$, which is from here called the #factor.lp. This linearisation takes place by @eq.factor-linearisation@gbp-visual-introduction:
+
+$
+  #text(theme.maroon, $m(X_n)$) = #text(theme.maroon, $m(X_0)$) + jacobian(X_n - X_0)
+$<eq.factor-linearisation>
+
+As such, we end up with a linearised factor on the form @eq.linearised-factor@gbp-visual-introduction, which ends up with a Gaussian approximation of the true non-linear distribution:
+
+$
+  c = #text(theme.maroon, $m(X_n)$) - jacobian X_n
+$<eq.linearised-factor>
+
+#example[
+  #jens[make this example with similar figure as to @gbp-visual-introduction]
+]
