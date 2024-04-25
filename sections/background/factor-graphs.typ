@@ -17,7 +17,7 @@
 // - generalisation of constraint graphs
 //
 // Gaussian factor graph:
-// Explaing how the
+// Explaining how the
 // - factors are Gaussian distributions
 // - measurement or constraint of factor is represented by a measurement function $h$
 // - variables are the mean and variance of the Gaussian
@@ -116,7 +116,7 @@ $<eq.mp-factor-to-variable>
 
 #jens[finish this section]
 
-Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leafs, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction#jens[more citation for loopy BP]
+Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction#jens[more citation for loopy BP]
 
 The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transform from an exact method to and approximation. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
 
@@ -136,7 +136,7 @@ $
   #text(theme.green, $d$) &tilde.op #text(theme.maroon, $m(X_n)$) + epsilon.alt
 $<eq.gaussian-factor>
 
-Here, #text(theme.maroon, $m(X_n)$) represents the measurement of the state of the subset of neighbouring variables, $X_n$, to the factor, and the error term $epsilon.alt tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))$ is white noise. Thus, finding the residual $r$ between the measurement and the model, as seen in @eq.gaussian-residual@gbp-visual-introduction, reveals propogates the Gaussian nature of the model to the residual.
+Here, #text(theme.maroon, $m(X_n)$) represents the measurement of the state of the subset of neighbouring variables, $X_n$, to the factor, and the error term $epsilon.alt tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))$ is white noise. Thus, finding the residual $r$ between the measurement and the model, as seen in @eq.gaussian-residual@gbp-visual-introduction, reveals propagates the Gaussian nature of the model to the residual.
 
 $
   r = #text(theme.green, $d$) - #text(theme.maroon, $m(X_n)$) tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))

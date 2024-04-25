@@ -6,7 +6,7 @@ This section presents the architectural patterns used in the design of the simul
 
 === Entity Component System
 
-#acr("ECS") is an architectual software design pattern specifically designed for data oriented programming #note.kristoffer[explain what is meant by data oriented programing]. At the heart of it are three complementary concepts, from which its name comes from: entities, components and systems:
+#acr("ECS") is an architectural software design pattern specifically designed for data oriented programming #note.kristoffer[explain what is meant by data oriented programing]. At the heart of it are three complementary concepts, from which its name comes from: entities, components and systems:
 
 / Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer.
 / Component: Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
@@ -142,7 +142,7 @@ entity similar to a primary key in a relational database
   [$a+n$], [#cm], [#cm], [], [#cm $[1.0, 0.0]$], [], []
 
 )
-  }, caption: [Structural layout of an #acr("ECS") data store. Conceptually it is analagous to a table in relational database. #cm in a component column denotes that the entity has an instance of that component type e.g. entity $a + 2$ has components: ${$ `Transform`, `Robot`, `Velocity2d` $}$]
+  }, caption: [Structural layout of an #acr("ECS") data store. Conceptually it is analogous to a table in relational database. #cm in a component column denotes that the entity has an instance of that component type e.g. entity $a + 2$ has components: ${$ `Transform`, `Robot`, `Velocity2d` $}$]
 ) //  <f.ecs-entity-component-table>
 
 
