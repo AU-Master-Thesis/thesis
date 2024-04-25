@@ -468,6 +468,16 @@ original-rrt:
     type: periodical
     title: The annual research report
 
+
+the-rust-book:
+  type: book
+  author: The Rust Project Developers
+  title: The Rust Programming Language
+  date: 2023-02-09
+  url:
+    value: https://doc.rust-lang.org/book/
+    date: 2024-04-24
+
 # Rust Crates
 # https://github.com/bevyengine/bevy/discussions/8098
 bevyengine:
