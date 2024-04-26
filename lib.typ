@@ -546,6 +546,11 @@
     name: [_*Extension*_],
     full: [_*Study 2: Extension*_],
   ),
+  H-3: (
+    prefix: [_*Study 3*_],
+    name: [_*Architecture & Design*_],
+    full: [_*Study 3: Architecture & Design*_],
+  ),
 )
 
 #let step = (
