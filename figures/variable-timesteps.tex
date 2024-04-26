@@ -1,0 +1,63 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[]
+
+
+  \node[] at (10, 5) {Variable Timesteps};
+
+  \def\vts{0,1,2,3,5,7,9,12,15,18,20}
+  % \def\nodey
+  % \def\underbraceY
+
+  \foreach \x [count=\xi from 0] in \vts {
+    \node[variable node](v\x) at (\x,3) {$v_{\xi}$};
+  }
+
+  % Add a node containing the underbrace
+  \node at (2,2) {
+    $\underbrace{\hspace{3cm}}$
+  };
+
+
+  \def\lookaheadMultiple{$l_m$}
+  % Add text below the underbrace
+  \node at (2, 1.7) {\lookaheadMultiple};
+
+  \node at (7,2) {
+    $\underbrace{\hspace{5cm}}$
+  };
+
+  % Add text below the underbrace
+  \node at (7, 1.7) {\lookaheadMultiple};
+
+  \node at (15,2) {
+    $\underbrace{\hspace{7cm}}$
+  };
+
+  \node at (15, 1.7) {\lookaheadMultiple};
+
+  \node at (10, 1) {
+    $\underbrace{\hspace{20cm}}$
+  };
+
+  \node at (10, 0.7) {$l_h = h / \Delta t$};
+
+  \foreach \x [remember=\x as \lastx (initially 0)] in {1,2,3,5,7,9,12,15,18,20} {
+    \draw (v\lastx) -- (v\x);
+  }
+
+  % Draw the x-axis
+  \draw[thick,lightgray, -latex] (-0.5,0) -- (20.5,0) node [right] {$t$};
+
+  % Draw the ticks and labels on the x-axis
+  \foreach \x in {0,...,20} {
+    \draw[gray] (\x,0.1) -- (\x,-0.1) node [below] {\x.0};
+  }
+
+\end{tikzpicture}%
+\end{document}
