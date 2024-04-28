@@ -58,7 +58,9 @@ This thesis poses the following hypothesis:
 
 + Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
 
-From this point on, anything pertaining to the context of #H(1) will be denoted under #study.H-1.prefix: #study.H-1.name, and anything pertaining to the context of #H(2) will be #study.H-2.prefix: #study.H-2.name.
++ Extensive tooling will create a great environment for others to understand the software and extend it further. Furthermore, such tooling will make it easier to reproduce and engage with the developed solution software.
+
+From this point on, anything pertaining to the context of #H(1) will be denoted under #study.H-1.prefix: #study.H-1.name, anything pertaining to the context of #H(2) will be #study.H-2.prefix: #study.H-2.name, and anything pertaining to the context of #H(3) will be #study.H-3.prefix: #study.H-3.name.
 
 
 == Research Questions <intro-research-questions>
@@ -75,6 +77,13 @@ From this point on, anything pertaining to the context of #H(1) will be denoted 
 + Will global planning improve the actors' capability to move in complex environments?
 + Will global planning degrade the reproduced local cooperative collision avoidance?
 + Will the global planning maintain a competitive level of performance?
+
+// === Study 3
+#study.H-3.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
+#set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal))
++ What kind of tooling will be most beneficial for the software?
++ How can tooling help with future reproducibility and engagement with the software?#todo[maybe chance these or rephrase]
++ How can tooling help with understanding and extending the software?#todo[maybe chance these or rephrase]
 
 // #todo[1 hypothesis to many research question]
 
@@ -103,6 +112,22 @@ From this point on, anything pertaining to the context of #H(1) will be denoted 
 #study.H-2.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.3", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "O-2.3.", color: theme.green))
 + Compare performance metrics of the reimplemented reproduction with and without the global planning layer against the original GBP Planner.
+
+#study.H-3.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.1", weight: 900):
+#set enum(numbering: req-enum.with(prefix: "O-3.1.", color: theme.green))
++ Analyse and evaluate different kinds of tooling that can be beneficial for the software.
++ Pick the most beneficial tooling approach for the software.
+
+#study.H-3.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.2", weight: 900):
+#set enum(numbering: req-enum.with(prefix: "O-3.2.", color: theme.green))
++ Implement tooling to help with future reproducibility and engagement with the software.#todo[maybe chance these or rephrase]
+
+#study.H-3.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.3", weight: 900):
+#set enum(numbering: req-enum.with(prefix: "O-3.3.", color: theme.green))
++ Implement tooling to help with understanding and extending the software.#todo[maybe chance these or rephrase]
+
+
+
 
 #todo[Part of the argument for H-2: Furthermore, a language with that shares qualities#kristoffer[wording] with modelling languages will improve the software's ability to communicate scientific results.]
 #todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
