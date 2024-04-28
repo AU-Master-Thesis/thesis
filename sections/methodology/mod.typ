@@ -74,55 +74,9 @@ show examples of them, and how they allow for flexibly and declaratively define 
   List out all the configuration parameters both the algorithm exposes and the sim. Which one is identical to gbpplanner, and what values are sensible to use as defaults
 ]
 
+Patwardhan _et al_.
 
-#let variable_timesteps(lookahead_multiple, lookahead_horizon) = {
-  let n = 1 + (0.5 * (-1.0 + calc.sqrt(1.0 + 8.0 * lookahead_horizon / lookahead_multiple)))
-  let n = calc.floor(n)
-
-  let timesteps = ()
-
-  for i in range(lookahead_multiple * (n + 1)) {
-    let section = i / lookahead_multiple
-    let f = (lookahead_multiple / 2.0) * section + (section * -lookahead_multiple + i) * (section + 1.0)
-
-    if f >= lookahead_horizon {
-      timesteps.push(lookahead_horizon)
-  break
-    }
-
-    timesteps.push(f)
-
-
-  }
-
-  timesteps
-
-}
-
-#variable_timesteps(20, 3)
-
-// #{
-//   import "@preview/cetz:0.2.2": canvas, plot
-//
-//
-// canvas(length: 1cm, {
-//   plot.plot(size: (8, 6),
-//     x-tick-step: none,
-//     x-ticks: ((-calc.pi, $-pi$), (0, $0$), (calc.pi, $pi$)),
-//     y-tick-step: 1,
-//     {
-//       plot.add(
-//         style: style,
-//         domain: (-calc.pi, calc.pi), calc.sin)
-//       plot.add(
-//         hypograph: true,
-//         style: style,
-//         domain: (-calc.pi, calc.pi), calc.cos)
-//       plot.add(
-//         hypograph: true,
-//         style: style,
-//         domain: (-calc.pi, calc.pi), x => calc.cos(x + calc.pi))
-//     })
-// })
-//
-// }
+#figure(
+  image("../../figures/out/variable-timesteps.svg"),
+  caption: [Variable timesteps, #kristoffer[explain figure, and review design, use same variable names as rest of document]]
+) <f.variable-timesteps>
