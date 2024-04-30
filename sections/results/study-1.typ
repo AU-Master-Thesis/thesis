@@ -14,7 +14,7 @@
     columns: (1fr, 1fr),
     table.header([Param], [Value]),
     table.hline(),
-    [$Delta_T$], [$0.1 s$],
+    [$Delta_T$ #note.k[is this `t0`?]], [$0.1 s$],
     tdc[$M_R$], tdc[$10$],
     tdc[$M_I$], tdc[$50$],
     // [$sigma_d$], [$0.1$ #note.k[not stated explicitly in the paper, but all their configs in the repo uses 0.1]],

@@ -67,7 +67,7 @@ show examples of them, and how they allow for flexibly and declaratively define 
   e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
 
 
-  use this to argue on a non measurable level why our implementation has is similar to theirs / has been reproduced
+  use this to argue on a non-measurable level why our implementation has is similar to theirs / has been reproduced
 ]
 
 #kristoffer[
@@ -80,3 +80,10 @@ Patwardhan _et al_.
   image("../../figures/out/variable-timesteps.svg"),
   caption: [Variable timesteps, #kristoffer[explain figure, and review design, use same variable names as rest of document]]
 ) <f.variable-timesteps>
+
+
+#kristoffer[
+  Explain the marginalization step/ algorithm
+  They do explain it at ALL in the paper so, we need another citation for it
+  Maybe make a figure, or some colorful equations to explain the step/slices
+]
