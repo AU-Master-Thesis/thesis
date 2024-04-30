@@ -614,6 +614,19 @@
   canonical: [_Canonical Form_],
 )
 
+#let inference = (
+  MAP: [_#acr("MAP") inference_],
+  marginal: [_marginal inference_],
+)
+
 #let factor = (
   lp: [_linearisation point_],
+)
+
+#let m = (
+  Lambda: text(theme.mauve, $Lambda$),
+  eta: text(theme.mauve, $eta$),
+  mu: text(theme.mauve, $mu$),
+  Sigma: text(theme.mauve, $Sigma$),
+  X: text(theme.mauve, $X$),
 )
