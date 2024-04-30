@@ -1,3 +1,4 @@
+set shell := ["fish", "--no-config", "-c"]
 # theme := "latte"
 # theme := "frappe"
 theme := "macchiato"
@@ -12,6 +13,7 @@ build:
 
 alias w := dev
 dev:
+    test -f main.pdf; and xdg-open main.pdf >&2 >/dev/null &; disown
     typst watch --input catppuccin={{theme}} main.typ
 
 alias p := pdf
