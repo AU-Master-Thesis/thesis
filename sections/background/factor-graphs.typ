@@ -118,13 +118,72 @@ $<eq.mp-factor-to-variable>
 
 Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction#jens[more citation for loopy BP]
 
-The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transform from an exact method to and approximation. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
+The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transforms from an exact method to and approximation. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
 
 Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm isn't guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loppy #acr("BP") is very capable of converging to the true marginals, as long as the graphs aren't highly cyclic#note.wording[too loopy? Is loopy and cyclic the same thing?].@gbp-visual-introduction
 
 == Gaussian Belief Propagation <s.b.gaussian-belief-propagation>
 
 #jens[do this #emoji.face.smile]
+
+Having introduced both Gaussian models, and #acr("BP"), we can now take a look at #acr("GBP"). #acr("GBP") is a variant of #acr("BP"), where, due to the closure properties#jens[cite] of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix, #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$).@gbp-visual-introduction
+
+As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"); exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guaranteed.@gbp-visual-introduction
+
+=== Varibale Update <s.b.gbp.variable-update>
+
+The variable belief update happens by taken the product of incoming messages from nerighbouring nodes, here denoted as $N(i)$, as seen in @eq.gbp-variable-update@gbp-visual-introduction:
+
+$
+  b_i(x_i) = product_(s in N(i)) m_(f_s #ra x_i)
+$<eq.gbp-variable-update>
+
+Writing out the Gaussian message on #gaussian.canonical becoms @eq.gbp-message-canonical@gbp-visual-introduction:
+
+$
+  m = cal(N)^(-1) (x; mu, Lambda) prop exp(-1/2 x^top Lambda x + eta^top x)
+$<eq.gbp-message-canonical>
+
+Fortunately, as the messages are stored on #gaussian.canonical, the product in @eq.gbp-variable-update is the same as summing up the information vectors and precision matrices, as seen in @eq.gbp-variable-update-canonical@gbp-visual-introduction:
+
+$
+  eta_b_i = sum_(s in N(i)) eta_(f_s #ra x_i)
+  #h(1em)"and"#h(1em)
+  Lambda_b_i = sum_(s in N(i)) Lambda_(f_s #ra x_i)
+$<eq.gbp-variable-update-canonical>
+
+=== Variable to Factor Message <s.b.gbp.variable-to-factor>
+
+The variable to factor message passing is described in @eq.gbp-variable-to-factor@gbp-visual-introduction, where the message is the product of the incoming messages from all neighbouring factors $f_j$ except the factor $f_i$ itself, same as described in @eq-mp-variable-to-factor@gbpplanner:
+
+$
+  m_(x_i #ra f_j) = product_(s in N(i) \\ j) m_(f_s #ra x_i)
+$<eq.gbp-variable-to-factor>
+
+Again in this case, the message is sent in the #gaussian.canonical form, and as such the outgoing messages can simply be computed by summing up the information vectors and precision matrices, as seen in @eq.gbp-variable-to-factor-canonical@gbp-visual-introduction:
+
+$
+  eta_(x_i #ra f_j) = sum_(s in N(i) \\ j) eta_(f_s #ra x_i)
+  #h(1em)"and"#h(1em)
+  Lambda_(x_i #ra f_j) = sum_(s in N(i) \\ j) Lambda_(f_s #ra x_i)
+$<eq.gbp-variable-to-factor-canonical>
+
+=== Factor Update <s.b.gbp.factor-update>
+#jens[describe how factor distance is marginalised and factors are updated]
+
+=== Factor to Variable Message Passing <s.b.gbp.factor-to-variable>
+
+Before marginalising, messages from nerighbouring variables are aggregated into a single message, as seen in @eq.gbp-factor-to-variable@gbp-visual-introduction:
+
+$
+  m_(f_i #ra x_j) = product_(s in N(j) \\ i) m_(x_s #ra f_i)
+$<eq.gbp-factor-to-variable>
+
+#example[
+  Consider a factor $f$ connected to 3 variables; $x_1,x_2,x_3$
+
+  #jens[finish this example from @gbp-visual-introduction appendix B]
+]
 
 == Non-Linearities <s.b.non-linearities>
 
