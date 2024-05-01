@@ -87,3 +87,23 @@ Patwardhan _et al_.
   They do explain it at ALL in the paper so, we need another citation for it
   Maybe make a figure, or some colorful equations to explain the step/slices
 ]
+
+#kristoffer[
+  Explain how factors are abstracted using the `Factor` trait.
+  How our implementation uses Composition instead of inheritance in C++
+    - What pros/cons does this bring?
+]
+
+```rust
+trait Factor {
+  /// Name of the factor. Useful for debugging purposes
+  fn name(&self) -> &'static str;
+  ///
+  fn neighbours(&self) -> usize;
+
+  fn jacobian_delta(&self) -> f64;
+
+  // ...
+
+}
+```

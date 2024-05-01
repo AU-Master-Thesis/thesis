@@ -493,6 +493,21 @@ original-rrt:
     type: periodical
     title: The annual research report
 
+packed-compressed-sparse-row:
+  type: article
+  title: 'Packed Compressed Sparse Row: A Dynamic Graph Representation'
+  author:
+  - Wheatman, Brian
+  - Xu, Helen
+  date: 2018
+  page-range: 1–7
+  serial-number:
+    doi: 10.1109/HPEC.2018.8547566
+  parent:
+    type: proceedings
+    title: 2018 IEEE High Performance extreme Computing Conference (HPEC)
+    issue: ''
+    volume: 0
 
 the-rust-book:
   type: book
@@ -503,7 +518,8 @@ the-rust-book:
     value: https://doc.rust-lang.org/book/
     date: 2024-04-24
 
-# Rust Crates
+
+# --- Rust Crates ---
 # https://github.com/bevyengine/bevy/discussions/8098
 bevyengine:
   type: repository
@@ -513,7 +529,6 @@ bevyengine:
   serial-number:
     version: 0.13.2
   note: https://github.com/bevyengine/bevy/releases/tag/v0.13.2
-
 
 petgraph:
   type: repository
@@ -527,3 +542,24 @@ petgraph:
   serial-number:
     version: 0.6.4
   note: https://github.com/petgraph/petgraph/releases/tag/petgraph%40v0.6.4
+
+indexmap:
+  type: repository
+  title: indexmap
+  author: # Used the people of the `gitub/petgraph` org as the authors
+  - Josh Stone # cuviper
+  - bluss # bluss
+  date: 2024-04-30
+  serial-number:
+    version: 2.2.6
+  note: https://github.com/petgraph/indexmap/releases/tag/indexmap%40v2.2.6
+
+
+rust-std:
+  type: repository
+  title: The Rust Standard Library
+  author: The Rust Project Developers
+  date: 2024-04-30
+  serial-number:
+    version: 1.77.0
+  note: https://doc.rust-lang.org/std/
