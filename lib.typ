@@ -163,6 +163,19 @@
   weight: 900,
 )
 
+#let box-enum(
+  prefix: "",
+  suffix: "",
+  delim: ".",
+  color: accent.lighten(0%),
+  ..numbers,
+) = boxed(
+  color: color,
+  fill: color.lighten(80%),
+  prefix + numbers.pos().map(str).join(delim) + suffix,
+  weight: 900,
+)
+
 #let req-enum(prefix: "R-", color: accent, ..numbers) = boxed(
   color: color,
   fill: color.lighten(80%),
@@ -442,14 +455,6 @@
 }
 
 #let print-index(level: 1, outlined: false, sorted: "", title: "Acronyms Index", delimiter:":") = {
-  //Print an index of all the acronyms and their definitions.
-  // Args:
-  //   level: level of the heading. Default to 1.
-  //   outlined: make the index section outlined. Default to false
-  //   sorted: define if and how to sort the acronyms: "up" for alphabetical order, "down" for reverse alphabetical order, "" for no sort (print in the order they are defined). If anything else, sort as "up". Default to ""
-  //   title: set the title of the heading. Default to "Acronyms Index". Passing an empty string will result in removing the heading.
-  //   delimiter: String to place after the acronym in the list. Defaults to ":"
-
   // assert on input values to avoid cryptic error messages
   assert(sorted in ("","up","down"), message:"Sorted must be a string either \"\", \"up\" or \"down\"")
 
@@ -523,26 +528,77 @@
   node(color, content, rounding: 5%, size: 1.25mm)
 }
 
+#let listing-counter = counter("listing")
+
+#let listing(
+  content,
+  caption: none,
+) = {
+  let supplement = [Listing]
+  let n = context listing-counter.get().at(0)
+
+  return figure(
+    {
+      listing-counter.step()
+      sourcecode(content)
+    },
+    caption: caption,
+    kind: "listing",
+    supplement: supplement,
+  )
+}
+
 #let example-counter = counter("example")
 #let example-box(number) = boxed(color: accent)[*Example #number:*]
 
-#let example(body) = {
-  // example-counter.step()
-  example-counter.step()
+#let example(
+  body,
+  caption: none,
+) = {
+  let supplement = [Example]
+  let n = context example-counter.get().at(0)
+  let title_prefix = text(weight: "bold", "Example " + n + if caption != none {": "} else {""})
 
-  // let counter = locate(loc => example-counter.update(1 + example-counter.at(loc)))
   return figure(
-    [#example-counter.step()] +
-    blocked(
-      title: text(
-        accent,
-        [Example #context example-counter.get().at(0)]
-      ),
-      body + [#metadata("example") <meta:excounter>]
-    ),
+    {
+      example-counter.step()
+      blocked(
+        title: text(accent, title_prefix) + text(weight: "regular", caption),
+        body + [#metadata("example") <meta:excounter>]
+      )
+    },
     kind: "example",
     supplement: [Example],
   )
+}
+
+#let algorithm-counter = counter("algorithm")
+
+#let algorithm(
+    content,
+    caption: none,
+) = {
+    let supplement = [Algorithm]
+    let n = context algorithm-counter.get().at(0)
+    let title_prefix = text(weight: "bold", "Algorithm " + n + if caption != none {": "} else {""})
+    let ind = 1em
+
+    return figure(
+      {
+        set par(first-line-indent: ind, hanging-indent: ind)
+        algorithm-counter.step()
+
+        blocked(
+          title: text(accent, title_prefix) + text(weight: "regular", caption),
+          h(ind) + content
+          // content + linebreak() +
+          // repr(content.fields())
+        )
+      },
+      numbering: "1.",
+      kind: "algorithm",
+      supplement: supplement,
+    )
 }
 
 
@@ -595,31 +651,6 @@
   cheap: " " + sg + " " + text(theme.green, style: "italic", "Cheap"),
   expensive: " " + sr + " " + text(theme.maroon, style: "italic", "Expensive"),
 )
-
-#let algorithm-counter = counter("algorithm")
-
-#let algorithm(
-    content,
-    caption: none,
-    numbering: "1.",
-    supplement: "Algorithm",
-) = {
-    algorithm-counter.step()
-    // show regex("^\/\/.*"): it => raw(it)
-    set par(first-line-indent: 0em)
-    tablex(
-        columns: (5%, 95%),
-        auto-lines: false,
-        stroke: 0.5pt,
-        if caption != none {hlinex()},
-        if caption != none {
-            colspanx(2, [*#supplement #algorithm-counter.display():* #caption])
-        },
-        hlinex(),
-        [], [#content],
-        hlinex(),
-    )
-}
 
 #let gaussian = (
   moments: [_Moments Form_],

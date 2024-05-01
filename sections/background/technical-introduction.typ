@@ -13,10 +13,10 @@
 
 To eventually understand #acr("GBP"), the underlying theory of Gaussian models is detailed in this section. Gaussian models are often chosen when representing uncertainty due to the following reasons:
 #set enum(numbering: req-enum.with(prefix: "Reason ", color: accent))
-+ _Realistic Modeling:_ Gaussian models effectively capture the way many physical phenomena and sensor readings are distributed in the real world.@gbp-visual-introduction
-+ _Mathematical Simplicity:_ Gaussian models have a clean mathematical structure, making them easy to work with.@gbp-visual-introduction
-+ _Computational Efficiency:_ Calculations involving Gaussian models can be performed using straightforward formulas, keeping computations fast.@gbp-visual-introduction
-+ _Flexibility:_ Gaussian models maintain their form under common statistical operations (marginalization, conditioning, products), ensuring ease of manipulation within robotic systems.@gbp-visual-introduction
++ _*Realistic Modeling:*_ Gaussian models effectively capture the way many physical phenomena and sensor readings are distributed in the real world.@gbp-visual-introduction
++ _*Mathematical Simplicity:*_ Gaussian models have a clean mathematical structure, making them easy to work with.@gbp-visual-introduction
++ _*Computational Efficiency:*_ Calculations involving Gaussian models can be performed using straightforward formulas, keeping computations fast.@gbp-visual-introduction
++ _*Flexibility:*_ Gaussian models maintain their form under common statistical operations (marginalization, conditioning, products), ensuring ease of manipulation within robotic systems.@gbp-visual-introduction
 
 // Explain the two ways of representing Gaussian models in  the exponential energy form
 // - Moments form
@@ -112,7 +112,9 @@ As outlined in @f.gaussian-models the _Canonical Form_ is much more computationa
 
 To contextualise factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $X$, given some observed or known quantities, $D$. This is done by combining prior knowledge with $D$, to infer the most likely distribution of the variables.@gbp-visual-introduction See @ex.probabilistic-inference.
 
-#example[
+#example(
+  caption: [Probabilistic Inference in Meteorology]
+)[
   // Everyday example describing how meteorological forecasts are made
   An everyday example of probabilistic inference is in the field of meteorology. Meteorologists use prior knowledge of weather patterns ($D$), combined with observed data to infer the most likely weather forecast for the upcoming days ($X$).
 ]<ex.probabilistic-inference>

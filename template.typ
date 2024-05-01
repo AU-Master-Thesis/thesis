@@ -203,6 +203,10 @@
         it.body
     }
 
+    show figure.where(kind: "algorithm") : it => {
+        it.body
+    }
+
     // triggered when using the dedicated syntax `@ref`
     show ref: it => {
       let el = it.element

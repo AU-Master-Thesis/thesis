@@ -3,6 +3,30 @@
 
 Rapidly Exploring Random Trees (RRT) is a sampling-based motion planning algorithm, introduced by Steven M. LaValle in 1998@original-rrt. The algorithm incrementally builds a tree of nodes, each node a specific step length, $s$, from the last. The tree is built by randomly sampling a point in the configuration space, and then extending the tree towards that point with $s$. See the entire algorithm in @alg-rrt.@original-rrt@sampling-based-survey
 
+
+What about `inline` code? Also shown in @lst.python-rrt.
+#listing(caption: [This is the caption.])[
+```python
+def rrt(start, goal, s, N, g_tolerance):
+    V = {start}
+    E = set()
+    for i in range(N):
+        x_random = SampleRandomPoint()
+        x_nearest = NearestNeighbor(G=(V, E), x_random)
+        x_new = Steer(s, x_nearest, x_random)
+        if CollisionFree(x_nearest, x_new):
+            V = V.union({x_new})
+            E = E.union({(x_nearest, x_new)})
+        else:
+            continue
+        if WithinGoalTolerance(g_tolerance, x_new, goal) and CollisionFree(x_new, goal):
+            V = V.union({goal})
+            E = E.union({(x_new, goal)})
+            break
+    return G = (V, E)
+```
+]<lst.python-rrt>
+
 #example[
   #set par(first-line-indent: 0em)
   *Scenario:* Let's look at an example, where the possible state space is _two-dimensional euclidean space_. A Robot wants to go from 2D position $x_A$ to $x_B$ \ \
@@ -28,41 +52,37 @@ Rapidly Exploring Random Trees (RRT) is a sampling-based motion planning algorit
 #jens[make functions monotext also in the algorithm?]
 
 #let la = sym.arrow.l
-#figure(
-  algorithm(
-    [
-      #let ind() = h(2em)
-      *Input:* ${x_"start", x_"goal", s, N, g_"tolerance"}$ \ \
+#algorithm(
+  [
+    #let ind() = h(2em)
+    *Input:* ${x_"start", x_"goal", s, N, g_"tolerance"}$ \ \
 
-      $V #la x_"start"$ \
-      $E #la emptyset$ \ \
+    $V #la x_"start"$ \
+    $E #la emptyset$ \ \
 
-      *for* $i = 1, \ldots, N$ *do* \
-      #ind()$x_"random" #la "SampleRandomPoint"()$ \
-      #ind()$x_"nearest" #la "NearestNeighbor"(G = (V, E), x_"random")$ \
-      #ind()$x_"new" #la "Steer"(s, x_"nearest", x_"random")$ \ \
+    *for* $i = 1, \ldots, N$ *do* \
+    #ind()$x_"random" #la "SampleRandomPoint"()$ \
+    #ind()$x_"nearest" #la "NearestNeighbor"(G = (V, E), x_"random")$ \
+    #ind()$x_"new" #la "Steer"(s, x_"nearest", x_"random")$ \ \
 
-      #ind()*if* $"CollisionFree"(x_"nearest", x_"new")$ *then* \
-      #ind()#ind()$V #la V union x_"new"$ \
-      #ind()#ind()$E #la E union {(x_"nearest", x_"new")}$ \
-      #ind()*else* \
-      #ind()#ind()*continue* \
-      #ind()*end* \ \
+    #ind()*if* $"CollisionFree"(x_"nearest", x_"new")$ *then* \
+    #ind()#ind()$V #la V union x_"new"$ \
+    #ind()#ind()$E #la E union {(x_"nearest", x_"new")}$ \
+    #ind()*else* \
+    #ind()#ind()*continue* \
+    #ind()*end* \ \
 
-      #ind()*if* $"WithinGoalTolerance"(g_"tolerance", x_"new", x_"goal")$ \
-      #ind()#h(1em)*and* $"CollisionFree"(x_"new", x_"goal")$ *then* \
-      #ind()#ind()$V #la V union x_"goal"$ \
-      #ind()#ind()$E #la E union {(x_"new", x_"goal")}$ \
-      #ind()#ind()*break* \
-      #ind()*end* \
-      *end* \ \
+    #ind()*if* $"WithinGoalTolerance"(g_"tolerance", x_"new", x_"goal")$ \
+    #ind()#h(1em)*and* $"CollisionFree"(x_"new", x_"goal")$ *then* \
+    #ind()#ind()$V #la V union x_"goal"$ \
+    #ind()#ind()$E #la E union {(x_"new", x_"goal")}$ \
+    #ind()#ind()*break* \
+    #ind()*end* \
+    *end* \ \
 
-      *return* $G = (V, E)$
-    ],
-    caption: [The RRT algorithm.]
-  ),
-  supplement: "Algorithm",
-  kind: "algorithm",
+    *return* $G = (V, E)$
+  ],
+  caption: [The RRT algorithm.]
 )<alg-rrt>
 
 #jens[also do this]
