@@ -117,10 +117,11 @@ To contextualise factor graph inference, the underlying probabilistic inference 
   An everyday example of probabilistic inference is in the field of meteorology. Meteorologists use prior knowledge of weather patterns ($D$), combined with observed data to infer the most likely weather forecast for the upcoming days ($X$).
 ]<ex.probabilistic-inference>
 
+// @ex.probabilistic-inference
 
 
 // Explain bayesian inference
-Baye's rule is the foundation of probabilistic inference, and is used to update the probability distribution of a set of variables, $X$, given some observed data, $D$. The rule is defined as in @eq-bayes-theorom@gbp-visual-introduction:
+Baye's rule is the foundation of probabilistic inference, and is used to update the probability distribution of a set of variables, $X$, given some observed data, $D$. The rule is defined as in @eq-bayes-theorom[Equation]@gbp-visual-introduction:
 
 $
   p(X|D) = (p(D|X)p(X)) / (p(D))

@@ -60,7 +60,7 @@ This thesis poses the following hypothesis:
 
 + Extensive tooling will create a great environment for others to understand the software and extend it further. Furthermore, such tooling will make it easier to reproduce and engage with the developed solution software.
 
-From this point on, anything pertaining to the context of #H(1) will be denoted under #study.H-1.prefix: #study.H-1.name, anything pertaining to the context of #H(2) will be #study.H-2.prefix: #study.H-2.name, and anything pertaining to the context of #H(3) will be #study.H-3.prefix: #study.H-3.name.
+From this point on, anything pertaining to the context of #H(1) will be denoted under #study.H-1.full.s, anything pertaining to the context of #H(2) will be #study.H-2.prefix: #study.H-2.full.s, and anything pertaining to the context of #H(3) will be #study.H-3.full.s.
 
 
 == Research Questions <intro-research-questions>

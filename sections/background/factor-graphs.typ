@@ -24,7 +24,7 @@
 
 // Mathematically, the Hammersley-Clifford Theorom states that any positive joint distribution can be represented as a product of factors,
 
-A factor graph is a bipartite graph, where the nodes are divided into two disjoint sets; variables and factors. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution , $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each clique of variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
+A factor graph is a bipartite graph, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution , $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each clique of variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
 
 $
   p(X) = product_{i} f_i (X_i)
@@ -44,7 +44,7 @@ $
 $<eq.map-energy>
 
 #example[
-  An example factor graph is visualised in @fig-factor-graph, with variables #text(theme.red, ${v_1, dots, v_4}$) and factors #text(theme.lavender, ${f_1, dots, f_4}$). Writing out the visualised factor graph produces:
+  An example factor graph is visualised in @fig.factor-graph, with variables #text(theme.red, ${v_1, dots, v_4}$) and factors #text(theme.lavender, ${f_1, dots, f_4}$). Writing out the visualised factor graph produces:
 
   $
     p(v_1,v_2,v_3,v_4) = 1/Z#note.wording[Should this be here? `gbp-visual-introduction` doesn't have it] f_1(v_1,v_2,v_3) f_2(v_3,v_4) f_3(v_3,v_4) f_4(v_4)
@@ -53,18 +53,18 @@ $<eq.map-energy>
   #figure(
     image("../../figures/out/factor-graph.svg", width: 60%),
     caption: [A factor graph is a bipartite graph, where the nodes are divided into two sets; variables and factors. Variables are represented as red circles#sr, and factors as blue squares#sl. The edges between the nodes represent the dependencies between the variables and factors.],
-  )<fig-factor-graph>
-]
+  )<fig.factor-graph>
+]<ex.factor-graph>
 
 The factor graph is a generalisation of constraint graphs, and can represent any join function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm.@loeliger_introduction_2004@alevizos_factor_2012 The sum-product algorithm is detailed in @s.b.belief-propagation.
-
-// Below is factor graph notions in terms of the multi-agent robotic system we have developed
-In @fig-robot-factor-graph two joint factor graphs are visualised. The first variables in each factor graph $v_1$#note.wording[#variable(theme.green, $v_1$)], represent the location of a green#sg and purple#sp robot respectively. Each robot has a corresponding factorgraph, where the figure shows how the two factor graphs are connected with interrobot factors $f_i$ when they are close enough to each other. Variables $v_2, dots, v_n$ represent the future predicted#note.wording[planned] states of the robot respectively at timesteps $t_2, dots, t_n$, where $t_1$ is the current time.
 
 #figure(
   image("../../figures/out/robot-factor-graph.svg"),
   caption: [Here shown are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in red#sr, #text(theme.maroon, $n$) times-steps into the future, #text(theme.maroon, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.],
 )<fig-robot-factor-graph>
+
+// Below is factor graph notions in terms of the multi-agent robotic system we have developed
+In @fig-robot-factor-graph two joint factor graphs are visualised. The first variables in each factor graph $v_1$#note.wording[#variable(theme.green, $v_1$)], represent the location of a green#sg and purple#sp robot respectively. Each robot has a corresponding factorgraph, where the figure shows how the two factor graphs are connected with interrobot factors $f_i$ when they are close enough to each other. Variables $v_2, dots, v_n$ represent the future predicted#note.wording[planned] states of the robot respectively at timesteps $t_2, dots, t_n$, where $t_1$ is the current time.
 
 == Belief Propagation <s.b.belief-propagation> // The Sum-Product Algorithm <background-sum-product-algorithm>
 
@@ -206,7 +206,23 @@ $
 $<eq.gbp-variable-to-factor-canonical>
 
 === Factor Update <s.b.gbp.factor-update>
-#jens[describe how factor distance is marginalised and factors are updated]
+#jens[
+  describe how factor distance is marginalised and factors are updated
+  + Update linearisation point
+  + Measurement & jacobian around linearisation point
+    The measurement residual is
+    $
+      m_r = m(X_0) - m(X_n) \
+    $
+    Where $X_0$ is the configuration at $t_0$, and $X_n$ is the configuration at the current timestep $t_n$.
+  + Factor potential update
+    $
+      #m.Lambda _p = #jacobian^top Lambda_M #jacobian \
+      #m.eta _p = #jacobian^top Lambda_M (#jacobian l_p + m_r)
+    $
+    Where $#m.Lambda _p$ and $#m.eta _p$ denotes the precision matrix and information vector of the factor _potential_, and $Lambda_M$ is the measurement precision matrix.
+  + Factor marginalisation
+]
 
 === Factor to Variable Message Passing <s.b.gbp.factor-to-variable>
 
@@ -216,11 +232,66 @@ $
   m_(f_i #ra x_j) = product_(s in N(j) \\ i) m_(x_s #ra f_i)
 $<eq.gbp-factor-to-variable>
 
-#example[
-  Consider a factor $f$ connected to 3 variables; $x_1,x_2,x_3$
 
-  #jens[finish this example from @gbp-visual-introduction appendix B]
-]
+
+#example[
+  Consider a factor $f$ connected to 3 variables; $x_1,x_2,x_3$, and we want to compute the message to be passed to variable $x_1$. Write the factor out as a Gaussian distribution, see @eq.ex.factor@gbp-visual-introduction:
+
+  $
+    f(mat(x_1,x_2,x_3)) = cal(N)^(-1) (mat(x_1,x_2,x_3); eta_f, Lambda_f)
+  $<eq.ex.factor>
+
+  Here, the two Gaussian parameters $eta_f$ and $Lambda_f$ can be expanded to see the individual contributions from each variable, as seen in @eq.ex.factor-canonical@gbp-visual-introduction:
+
+  $
+    eta_f = mat(eta_(f"1"); eta_(f"2"); eta_(f"3"))
+    #h(1em)"and"#h(1em)
+    Lambda_f = mat(
+      Lambda_(f"11"), Lambda_(f"12"), Lambda_(f"13");
+      Lambda_(f"21"), Lambda_(f"22"), Lambda_(f"23");
+      Lambda_(f"31"), Lambda_(f"32"), Lambda_(f"33")
+    )
+  $<eq.ex.factor-canonical>
+
+  As described earlier, firstly step is to compute the message to be passed to $x_1$, which is the product of the incoming messages from $x_2$ and $x_3$, as seen in @eq.ex.product-adjacent, as we are on the #gaussian.canonical this is a summation, and yields the Gaussian, $cal(N) (eta_f^prime, Lambda_f^prime)$@gbp-visual-introduction:
+
+  $
+    eta_f^prime = mat(eta_(f"1"); eta_(f"2") + eta_(x_2 #ra f); eta_(f"3") + eta_(x_3 #ra f))
+    #h(1em)"and"#h(1em)
+    Lambda_f^prime = mat(
+      Lambda_(f"11"), Lambda_(f"12"), Lambda_(f"13");
+      Lambda_(f"21"), Lambda_(f"22") + Lambda_(x_2 #ra f), Lambda_(f"23");
+      Lambda_(f"31"), Lambda_(f"32"), Lambda_(f"33") + Lambda_(x_3 #ra f)
+    )
+  $<eq.ex.product-adjacent>
+
+  Now as we are passing a message to $x_1$, we have to marginalise out all other variables, $x_2$ and $x_3$. This is done by the marginalisation equations given by @marginalisation for Gaussians in #gaussian.canonical. See @eq.ex.marginalisation-setup and @eq.ex.marginalisation for the joint  distribution over variables $a$ and $b$@gbp-visual-introduction@marginalisation.
+
+  $
+    eta = mat(eta_a; eta_b)
+    #h(1em)"and"#h(1em)
+    Lambda = mat(
+      Lambda_(a a), Lambda_(a b);
+      Lambda_(b a), Lambda_(b b)
+    )
+  $<eq.ex.marginalisation-setup>
+
+  $
+    eta_(M a) = eta_a + Lambda_(a b) Lambda_(b b)^(-1) eta_b
+    #h(1em)"and"#h(1em)
+    Lambda_(a a) = Lambda_(M a) - Lambda_(a b) Lambda_(b b)^(-1) Lambda_(b a)
+  $<eq.ex.marginalisation>
+
+  Now to marginalise, perform the two steps:
+    #set enum(numbering: req-enum.with(prefix: "Step ", color: theme.peach))
+  + *Reorder the vector $eta_f^prime$ and the matrix $Lambda_f^prime$ to bring the contribution from the recipient $x_1$ to the top.* \
+    _In our case no reordering is to be done, as $x_1$ is already at the top._
+
+    #jens[maybe an example where reordering is necessary is better]
+
+  + *Recognise the subblocks $a$ and $b$ from @eq.ex.marginalisation-setup and @eq.ex.marginalisation.* \
+    _In our case $a = x_1$ and $b = mat(x_2, x_3)$._
+]<ex.factor-to-variable>
 
 == Non-Linearities <s.b.non-linearities>
 
@@ -244,7 +315,6 @@ $
   E(X_n) = 1/2 (#text(theme.maroon, $m(X_n)$) - #text(theme.green, $d$))^top #text(theme.mauve, $Sigma_n$)^(-1) (#text(theme.maroon, $m(X_n)$) - #text(theme.green, $d$))
 $<eq.gaussian-energy>
 
-#let jacobian = $upright(bold(J))$
 In case of a linear factor, the measurement function is quadratic and can be written as $#text(theme.maroon, $m(X_n)$) = jacobian X_n + c$, where $jacobian$ is the jacobian. This allows us to rearrange the energy onto #gaussian.canonical @eq.gaussian-canonical@gbp-visual-introduction:
 
 $

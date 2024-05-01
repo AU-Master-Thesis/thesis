@@ -172,6 +172,8 @@
 //
 // }
 
+    set math.mat(delim: "[")
+
     show figure: it => align(center)[
         #let fs = 0.8em
         #let bh = 2em
@@ -203,53 +205,40 @@
 
     // triggered when using the dedicated syntax `@ref`
     show ref: it => {
-      // let sup = it.supplement
       let el = it.element
-
-      // return repr(it)
 
       if el == none {
           it.citation
       }
       else {
         let eq = math.equation
-        // let sup = el.supplement
 
-        if el != none and el.func() == eq {
+        if el.func() == eq {
           // The reference is an equation
           let sup = if it.fields().at("supplement", default: "none") == "none" {
             [Equation]
           } else { [] }
-          // [#it.has("supplement")]
-          show regex("\d+"): set text(accent)
-          let n = numbering(el.numbering, ..counter(eq).at(el.location()))
-          [#sup #n]
+          // show link : set text(black)
+          // show regex("\d+"): set text(accent)
+          // let n = numbering(el.numbering, ..counter(eq).at(el.location()))
+          let n = counter(eq).at(el.location()).at(0)
+          return [#link(it.target, sup)\(#link(it.target, [#n])\)]
         }
-        else if el.has("kind") {
-          // return "ERGHERG"
-          if el.kind == "example" {
+        else if el.has("kind") and el.kind == "example" {
             let loc = it.element.location()
             let exs = query(selector(<meta:excounter>).after(loc), loc)
-            let number = example-counter.at(exs.first().location())//.at("latest")
+            let number = example-counter.at(exs.first().location())
 
             return link(
               it.target,
               [#el.supplement~#numbering(it.element.numbering, ..number)]
             )
-          }
         }
-        else if it.citation.has("supplement") {
-          if el != none and el.func() == eq {
-            show regex("\d+"): set text(accent)
-            let n = numbering(el.numbering, ..counter(eq).at(el.location()))
-            [#el.supplement #n]
-          }
-          else {
+        else {
             return link(
               it.target,
-              text(accent)[#it]
+              it
             )
-          }
         }
       }
 
