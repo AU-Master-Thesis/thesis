@@ -126,9 +126,46 @@ Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained mi
 
 #jens[do this #emoji.face.smile]
 
-Having introduced both Gaussian models, and #acr("BP"), we can now take a look at #acr("GBP"). #acr("GBP") is a variant of #acr("BP"), where, due to the closure properties#jens[cite] of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix, #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$).@gbp-visual-introduction
+Having introduced both Gaussian models, and #acr("BP"), we can now take a look at #acr("GBP"). #acr("GBP") is a variant of #acr("BP"), where, due to the closure properties#jens[cite] of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix, #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$). As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"); exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guaranteed.@gbp-visual-introduction
 
-As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"); exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guaranteed.@gbp-visual-introduction
+In a factor graph, where all factors are Gaussian, and since all energy terms are additive in the #gaussian.canonical, the energy of the factor graph is also Gaussian, which means that one can represent it as a single multivariate Gaussian. See the equation for this joint distribution in @eq.gaussian-joint@gbp-visual-introduction:
+
+$
+  p(X) prop exp(-1/2 X^top #m.Lambda X + #m.eta^top X)
+$<eq.gaussian-joint>
+
+==== MAP Inference <s.b.gbp.map-inference>
+
+In the context of #acr("GBP"), the #acr("MAP") estimate can be found by the parameters $X_"MAP"$ that maximises the joint distribution in @eq.gaussian-joint. The total energy can then be written as @eq.gaussian-energy-total@gbp-visual-introduction
+
+$
+  nabla_X E(X) = nabla_X log P(X) = -#m.Lambda X + #m.eta
+$<eq.gaussian-energy-total>
+
+which is the gradient of the log-probability, and can be set to zero, $nabla_X E = 0$, to find the #acr("MAP") estimate, which, in #acr("GBP") is reduced to the mean #m.mu, as seen in @eq.gaussian-map@gbp-visual-introduction:
+
+$
+  X_"MAP" = #m.Lambda^(-1) #m.eta = #m.mu
+$<eq.gaussian-map>
+
+==== Marginal Inference <s.b.gbp.marginal-inference>
+
+The goal of marginal inference in #acr("GBP") is to find the per variable marginal posterior distributions. In the #gaussian.moments this looks like @eq.gaussian-marginal-moments@gbp-visual-introduction:
+
+$
+  p(x_i) &= integral p(X) #h(0.25em) d X_(-i) \
+         &prop exp(-1/2 (x_i - #m.mu _i)^top #m.Sigma _(i i)^(-1) (x_i - #m.mu _i))
+$<eq.gaussian-marginal-moments>
+
+where $X_{-i}$ is the set of all variables except $x_i$, and $#m.Sigma _(i i)$ is the $i^"th"$ diagonal element of the covariance matrix $#m.Sigma = #m.Lambda$. The marginal posterior distribution is then a Gaussian with mean $#m.mu _i$ and variance $#m.Sigma _(i i)$. Furthermore, $#m.mu _i$ is the $i^"th"$ element of the joint mean vector $#m.mu$, as in @eq.gaussian-joint.
+
+With the understanding from #numref(<s.b.gbp.map-inference>) and #numref(<s.b.gbp.marginal-inference>); inference in #acr("GBP") ends up being a matter of solving the linear system of equations @eq.gaussian-linear-system@gbp-visual-introduction:
+
+$
+  A x = b #sym.arrow.r.double #m.Lambda #m.mu = #m.eta
+$<eq.gaussian-linear-system>
+
+Where #inference.MAP solves for the mean, #m.mu, and #inference.marginal finds the covariance, #m.Sigma, by solving for the block diagonal of $#m.Lambda^(-1)$, and indirectly also the mean, #m.mu.
 
 === Varibale Update <s.b.gbp.variable-update>
 

@@ -1,4 +1,5 @@
 #import "lib.typ": *
+#import "template.typ": *
 
 #show figure.where(kind: raw): set block(breakable: true)
 
@@ -72,7 +73,7 @@
 #show heading.where(numbering: "1.1") : it => [
   #v(1em)
   #block({
-    box(width: 13mm, text(counter(heading).display(), weight: 600))
+    box(width: 18mm, text(counter(heading).display(), weight: 600))
     text(it.body, weight: 600)
   })
   #v(1em)
@@ -203,3 +204,5 @@
   // style: "ieee",
   title: none,
 )
+
+#example-counter.display()

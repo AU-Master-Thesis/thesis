@@ -1,5 +1,7 @@
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the IEEE.
+#import "./lib.typ": *
+
 #let appendix = state("appendix", false)
 #let heading-supplement = state("heading-supplement", "Section")
 
@@ -170,7 +172,7 @@
 //
 // }
 
-show figure: it => align(center)[
+    show figure: it => align(center)[
         #let fs = 0.8em
         #let bh = 2em
         #if it.kind == "algorithm" {
@@ -180,10 +182,6 @@ show figure: it => align(center)[
         #set text(size: fs)
         #it.body
         #v(1em, weak: true)
-        // if it.kind == "example" {
-
-    // }
-
 
         #if it.kind != "algorithm" [
             #set text(accent)
@@ -193,22 +191,22 @@ show figure: it => align(center)[
             #if it.caption != none {
                 it.caption.body
             }
-    // #it.caption
-    // #it.caption.fields()
-//             #if "caption" in it {
-//     it.caption.body
-//
-// }
         ] #h(0.1em)
         // #it.caption
         // #repr(it.caption)
         #v(bh, weak: true)
     ]
 
+    show figure.where(kind: "example") : it => {
+        it.body
+    }
+
     // triggered when using the dedicated syntax `@ref`
     show ref: it => {
       // let sup = it.supplement
       let el = it.element
+
+      // return repr(it)
 
       if el == none {
           it.citation
@@ -227,6 +225,19 @@ show figure: it => align(center)[
           let n = numbering(el.numbering, ..counter(eq).at(el.location()))
           [#sup #n]
         }
+        else if el.has("kind") {
+          // return "ERGHERG"
+          if el.kind == "example" {
+            let loc = it.element.location()
+            let exs = query(selector(<meta:excounter>).after(loc), loc)
+            let number = example-counter.at(exs.first().location())//.at("latest")
+
+            return link(
+              it.target,
+              [#el.supplement~#numbering(it.element.numbering, ..number)]
+            )
+          }
+        }
         else if it.citation.has("supplement") {
           if el != none and el.func() == eq {
             show regex("\d+"): set text(accent)
@@ -234,10 +245,14 @@ show figure: it => align(center)[
             [#el.supplement #n]
           }
           else {
-            text(accent)[#it]
+            return link(
+              it.target,
+              text(accent)[#it]
+            )
           }
         }
       }
+
     }
 
     // Configure equation numbering and spacing

@@ -1,4 +1,4 @@
-#import "template.typ": *
+// #import "template.typ": *
 #import "catppuccin.typ": *
 #import "note.typ"
 #import "text-case.typ": *
@@ -57,6 +57,18 @@
   width: 100%,
   breakable: true,
 )
+
+#let blocked(title: none, content) = std-block[
+  #v(0.25em)
+  #text(theme.text, size: 1.2em, weight: 900, title)
+  // #v(-0.15em)
+
+  #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: white + 2pt))
+
+  #content
+
+  #v(0.5em)
+]
 
 #let sourcecode = sourcecode.with(frame: std-block, numbers-style: (lno) => move(dy: 1pt, text(
   font: "JetBrains Mono",
@@ -515,19 +527,22 @@
 #let example-box(number) = boxed(color: accent)[*Example #number:*]
 
 #let example(body) = {
-  // figure(
-    std-block[
-    #example-counter.step()
-    #example-box(context example-counter.get().at(0))
-    #body
+  // example-counter.step()
+  example-counter.step()
 
-  ]
-  // ,
-  //   kind: "example",
-  //   supplement: [Example]
-  //
-  // )
-
+  // let counter = locate(loc => example-counter.update(1 + example-counter.at(loc)))
+  return figure(
+    [#example-counter.step()] +
+    blocked(
+      title: text(
+        accent,
+        [Example #context example-counter.get().at(0)]
+      ),
+      body + [#metadata("example") <meta:excounter>]
+    ),
+    kind: "example",
+    supplement: [Example],
+  )
 }
 
 
@@ -567,18 +582,6 @@
   variable: text(colors.variable, "Variable Iteration"),
 )
 
-
-#let blocked(title: none, content) = std-block[
-  #v(0.25em)
-  #text(theme.text, size: 1.2em, weight: 900, title)
-
-  #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: white + 2pt))
-
-  #content
-
-  #v(0.5em)
-]
-
 #let cost = (
   cheap: " " + sg + " " + text(theme.green, style: "italic", "Cheap"),
   expensive: " " + sr + " " + text(theme.maroon, style: "italic", "Expensive"),
@@ -614,6 +617,19 @@
   canonical: [_Canonical Form_],
 )
 
+#let inference = (
+  MAP: [_#acr("MAP") inference_],
+  marginal: [_marginal inference_],
+)
+
 #let factor = (
   lp: [_linearisation point_],
+)
+
+#let m = (
+  Lambda: text(theme.mauve, $Lambda$),
+  eta: text(theme.mauve, $eta$),
+  mu: text(theme.mauve, $mu$),
+  Sigma: text(theme.mauve, $Sigma$),
+  X: text(theme.mauve, $X$),
 )

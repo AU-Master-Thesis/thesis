@@ -110,12 +110,14 @@ As outlined in @f.gaussian-models the _Canonical Form_ is much more computationa
 
 == Probabilistic Inference <s.b.probabilistic-inference>
 
-To contextualise factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $X$, given some observed or known quantities, $D$. This is done by combining prior knowledge with $D$, to infer the most likely distribution of the variables.@gbp-visual-introduction
+To contextualise factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $X$, given some observed or known quantities, $D$. This is done by combining prior knowledge with $D$, to infer the most likely distribution of the variables.@gbp-visual-introduction See @ex.probabilistic-inference.
 
 #example[
   // Everyday example describing how meteorological forecasts are made
   An everyday example of probabilistic inference is in the field of meteorology. Meteorologists use prior knowledge of weather patterns ($D$), combined with observed data to infer the most likely weather forecast for the upcoming days ($X$).
-]
+]<ex.probabilistic-inference>
+
+
 
 // Explain bayesian inference
 Baye's rule is the foundation of probabilistic inference, and is used to update the probability distribution of a set of variables, $X$, given some observed data, $D$. The rule is defined as in @eq-bayes-theorom@gbp-visual-introduction:
