@@ -554,17 +554,26 @@
   H-1: (
     prefix: [_*Study 1*_],
     name: [_*Reproduction*_],
-    full: [_*Study 1: Reproduction*_],
+    full: (
+      s: [_*Study 1: Reproduction*_],
+      n: [Study 1: Reproduction],
+    )
   ),
   H-2: (
     prefix: [_*Study 2*_],
     name: [_*Extension*_],
-    full: [_*Study 2: Extension*_],
+    full: (
+      s: [_*Study 2: Extension*_],
+      n: [Study 2: Extension],
+    )
   ),
   H-3: (
     prefix: [_*Study 3*_],
     name: [_*Architecture & Design*_],
-    full: [_*Study 3: Architecture & Design*_],
+    full: (
+      s: [_*Study 3: Architecture & Design*_],
+      n: [Study 3: Architecture & Design],
+    )
   ),
 )
 
@@ -626,10 +635,13 @@
   lp: [_linearisation point_],
 )
 
+
+#let jacobian = $upright(bold(J))$
 #let m = (
-  Lambda: text(theme.mauve, $Lambda$),
-  eta: text(theme.mauve, $eta$),
-  mu: text(theme.mauve, $mu$),
-  Sigma: text(theme.mauve, $Sigma$),
-  X: text(theme.mauve, $X$),
+  Lambda: $#text(theme.mauve, $Lambda$)$,
+  eta: $#text(theme.mauve, $eta$)$,
+  mu: $#text(theme.mauve, $mu$)$,
+  Sigma: $#text(theme.mauve, $Sigma$)$,
+  X: $#text(theme.mauve, $X$)$,
+  J: jacobian
 )

@@ -48,7 +48,7 @@
       text(color, size: size, weight: weight, [
         #it.body.fields().values().at(0).at(0)
         #h(0.85em)
-        #it.body.fields().values().at(0).slice(2).join(" ")
+        #it.body.fields().values().at(0).slice(2).join("")
         // #repr(it.fill)
       ]),
       block(fill: color, height: 0.5pt, width: 100%),

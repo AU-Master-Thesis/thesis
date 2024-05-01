@@ -9,3 +9,4 @@
 #include "./metrics.typ"
 #include "./study-1.typ"
 #include "./study-2.typ"
+#include "./study-3.typ"
