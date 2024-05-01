@@ -4,7 +4,7 @@
 #show figure.where(kind: raw): set block(breakable: true)
 
 #show raw.where(block: false): (it) => {
-  set text(catppuccin.latte.text, font: "JetBrains Mono", size: 1em)
+  set text(catppuccin.latte.text, font: "JetBrainsMono NF", size: 1em)
   box(
     fill: catppuccin.latte.base,
     inset: (x: 2pt),

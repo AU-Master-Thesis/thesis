@@ -39,6 +39,7 @@
     sqlite
     nushell
     xsv
+    # (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "ComicShannsMono" "Hack" ]; })
   ];
 
   # https://devenv.sh/scripts/

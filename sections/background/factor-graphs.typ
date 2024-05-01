@@ -283,7 +283,7 @@ $<eq.gbp-factor-to-variable>
   $<eq.ex.marginalisation>
 
   Now to marginalise, perform the two steps:
-    #set enum(numbering: req-enum.with(prefix: "Step ", color: theme.peach))
+    #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.peach, suffix: ":"))
   + *Reorder the vector $eta_f^prime$ and the matrix $Lambda_f^prime$ to bring the contribution from the recipient $x_1$ to the top.* \
     _In our case no reordering is to be done, as $x_1$ is already at the top._
 
