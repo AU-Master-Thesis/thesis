@@ -88,7 +88,7 @@ figure(
   table.hline(),
   [`Graph`], [Uses an _Adjacency List_ to store nodes.], [$O(|E| + |V|)$], [`Vec<N>`],
   [`StableGraph`], [Similar to `Graph`, but it keeps indices stable across removals.], [$O(|E| + |V|)$], [`Vec<N>`],
-  [`GraphMap`], [Uses an adjacency list, but instead of storing nodes sequentially it uses generated node identifiers as keys into a hash table, where the value is a list of the nodes' connected edges.], [$O(|E| + |V|)$], [`IndexMap<N>`],
+  [`GraphMap`], [Uses an adjacency list, but instead of storing nodes sequentially it uses generated node identifiers as keys into a hash table, where the value is a list of the nodes' connected edges.], [$O(|E| + |V|)*$], [`IndexMap<N>`],
   [`MatrixGraph`], [Uses an _Adjacency Matrix_ to store nodes.], [$O(|V^2|)$], [`Vec<N>`],
   [`CSR`], [Uses a sparse adjacency matrix to store nodes, in the #acr("CSR") format.], [$O(|E| + |V|)$], [`Vec<N>`],
 
@@ -106,6 +106,8 @@ figure(
     // CSR - A sparse adjacency matrix graph with arbitrary associated data.
   )
 }
+
+#kristoffer[explain \* in memory section]
 
 // Iteration is very fast since it is on the dense key-values
 // A raw hash table of key-value indices, and a vector of key-value pairs
