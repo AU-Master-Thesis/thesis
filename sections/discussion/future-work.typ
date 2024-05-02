@@ -1,3 +1,5 @@
+#import "../../lib.typ": *
+
 == Future Work
 
 
@@ -22,3 +24,5 @@ the start.
   - How do they check the connection is still alive?
   - How do they reconnect? Is it any different from just disconnecting and then reconnecting, or is it necessary to have some kind of stateful protocol? Should be avoided
   - How do they disconnect?
+
+#kristoffer[Experiment with different graph representations, e.g. matrix, csr, map based etc. and test if they match theoretical performance profiles derived in the graph representation section]

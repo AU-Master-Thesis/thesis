@@ -200,23 +200,55 @@ $ B("Simulation"(20, 10, 10)) = #size_of_example "bytes" = #MiB(size_of_example)
 #MiB(size_of_example) is not a lot of memory for a modern computer. This of course, only accounts for the stack allocated memory of each structure. For heap allocated structures like dynamically sized matrices this only accounts for the heap pointer to the data and the length of the allocated buffer, and not the size of the buffer. With 4 #acr("DOF") a conservative estimate can be made by generalizing the heap allocation size of each node to be the largest heap allocation of the possible node variants. Let
 
 $ H(T) = "heap allocation of T in bytes" $ <equ.heap-allocation-in-bytes>
-
-
+$ H_("inbox")(T, C) = "heap allocation of T's inbox with C connections in bytes" $
 
 #{
   let f64 = 8
   let DOFS = 4
   let heap_size_of_factor_state = (4 + 2 * 2 + DOFS * 2 + 4 * 8 + 4) * f64
-  let heap_size_of_dynamic = 4 * 8 * f64
-  let heap_size_of_obstacle = 0 * f64
-  let heap_size_of_interrobot = 0 * f64
-  let heap_size_of_variable_prior = DOFS * f64
-  let heap_size_of_variable_belief = DOFS * DOFS * f64
+  let heap_size_of_dynamic = 4 * 8 * f64 + heap_size_of_factor_state
+  let heap_size_of_obstacle = 0 * f64 + heap_size_of_factor_state
+  let heap_size_of_interrobot = 0 * f64 + heap_size_of_factor_state
+  let heap_size_of_variable_prior = (DOFS + DOFS * DOFS) * f64
+  let heap_size_of_variable_belief = (DOFS + DOFS * DOFS + DOFS + DOFS * DOFS) * f64
   let heap_size_of_variable = heap_size_of_variable_prior + heap_size_of_variable_belief
 
-  table(
+  let heap_size_of_message = (DOFS + DOFS + DOFS * DOFS) * f64
 
-)
+let heap_size_of_variable_inboxes(variables, connections) = {
+  assert(variables >= 2);
+  assert(connections >= 0);
+
+  let first_last = 2 * (1 + connections)
+  let inbetween = (variables - 2) * (2 + 1 + connections)
+  (first_last + inbetween) * heap_size_of_message
+}
+
+
+  // TODO: missing size of inbox, for a variable this is dependant on the number of robots it is connected to
+
+  // show table.cell.where(y: 0): strong
+  set align(center)
+
+  table(
+    columns: 4,
+    [], [$H$], [$H_("inbox")(C)$], [$H_("total")(C)$],
+    [$V_("current")$], [#heap_size_of_variable], [$#heap_size_of_message times (1 + C)$], [$#{heap_size_of_variable + 1 * heap_size_of_message} + #heap_size_of_message C$],
+    [$V_("horizon")$], [#heap_size_of_variable], [$#heap_size_of_message times (1 + C)$], [$#{heap_size_of_variable + 1 * heap_size_of_message} + #heap_size_of_message C$],
+    [$V_("in-between")$], [#heap_size_of_variable], [$#heap_size_of_message times (3 + C)$], [$#{heap_size_of_variable + 3 * heap_size_of_message} + #heap_size_of_message C$],
+
+    [$F_("dynamic")$], [#heap_size_of_dynamic], [#{1 * heap_size_of_message}], [#{heap_size_of_dynamic + 1 * heap_size_of_message}],
+    [$F_("interrobot")$], [#heap_size_of_interrobot], [#{2 * heap_size_of_message}], [#{heap_size_of_interrobot + 2 * heap_size_of_message}],
+
+
+  )
+
+  // table(
+  //   columns: 5,
+  //   table.header([], [Variable], [$F_("obstacle")$], [$F_("dynamic")$], [$F_("interrobot")$]),
+  //   [$H$], [#heap_size_of_variable], [#heap_size_of_obstacle], [*#heap_size_of_dynamic*], [#heap_size_of_interrobot],
+  // )
+
 }
 
 // Lower estimate as some of the fields are heap allocated, and only the auxiliary data like the pointer to the data and the size of it is counted by the $B$ function.
@@ -248,10 +280,14 @@ $ H(T) = "heap allocation of T in bytes" $ <equ.heap-allocation-in-bytes>
 // / GraphMap: asd
 
 
+Too summarize memory consumption should not be a limiting factor of simulating the system.
+
 Not too many nodes in the graph, so we did not spend time benchmarking the various backing memory models.
 
 
 // closer to real distribution
+
+Since the memory required for each graph is not very high, we can afford to use more space for additional indices arrays
 
 // In Rust every piece of data i.e. every variable and allocated block of memory has a single owner
 
@@ -290,6 +326,3 @@ j
 
 
 using dedicated indices arrays for factors and variables to speed up iteration for queries only requiring access to the nodes or variables.
-
-
-#kristoffer[Not experiment with different graph representations, e.g. matrix, csr, map based etc.]
