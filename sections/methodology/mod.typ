@@ -99,13 +99,18 @@ Patwardhan _et al_.
 trait Factor {
   /// Name of the factor. Useful for debugging purposes
   fn name(&self) -> &'static str;
-  ///
+  /// Number of neighbours this factor expects
   fn neighbours(&self) -> usize;
-
+  /// Whether the factor is linear or non-linear
+  fn linear(&self) -> bool;
+  /// The delta for the jacobian calculation
   fn jacobian_delta(&self) -> f64;
-
-  // ...
-
+  /// The jacobian of the factor
+  fn jacobian(&self, state: &FactorState, x: &Vector<f64>) -> Cow<'_, Matrix<f64>>;
+  /// Measurement function
+  fn measure(&self, state: &FactorState, x: &Vector<f64>) -> Vector<f64>;
+  /// First order jacobian (provided method)
+  fn first_order_jacobian(&self, state: &FactorState, x: Vector<f64>) -> Matrix<f64> { ... }
 }
 ```
 

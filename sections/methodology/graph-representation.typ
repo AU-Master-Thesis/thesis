@@ -82,22 +82,29 @@ _petgraph_ supports the following five types of graph representation:
   // show table.cell.where(x: 0): strong
   // show table.header: strong
   show table.cell.where(y: 0): strong
-  let cm = text(theme.green, emoji.checkmark)
+  let yes = text(theme.green, emoji.checkmark)
+  // let no = text(theme.red, emoji.crossmark)
+  let no = text(theme.red, [x])
+  // let no = emoji.crossmark
   set align(center)
 figure(
   table(
-    columns: 5,
-    align: (left, left, center, center, center),
-    table.header([Name], [Description], [Space Complexity], [Backing Vertex Structure], [Dynamic]),
+    // columns: (1fr, 3fr, 1fr, 1fr, 1fr, 1fr),
+    columns: 7,
+    align: (left, left, center, center, center, center, center),
+    table.header([Name], [Description], [Space Complexity], [Backing Vertex Structure], [Dynamic], [Stable Indices], [Hashable vertices]),
     table.hline(),
-    [`Graph`], [Uses an _Adjacency List_ to store vertices.], [$O(|E| + |V|)$], [`Vec<N>`], [#cm],
-    [`StableGraph`], [Similar to `Graph`, but it keeps indices stable across removals.], [$O(|E| + |V|)$], [`Vec<N>`],[#cm],
-    [`GraphMap`], [Uses an adjacency list, but instead of storing vertices sequentially it uses generated vertex identifiers as keys into a hash table, where the value is a list of the vertices' connected edges.], [$O(|E| + |V|)*$], [`IndexMap<N>`], [#cm],
-    [`MatrixGraph`], [Uses an _Adjacency Matrix_ to store vertices.], [$O(|V^2|)$], [`Vec<N>`], [#cm],
-    [`CSR`], [Uses a sparse adjacency matrix to store vertices, in the #acr("CSR") format.], [$O(|E| + |V|)$], [`Vec<N>`], [#cm],
+    [`Graph`], [Uses an _Adjacency List_ to store vertices.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
+    [`StableGraph`], [Similar to `Graph`, but it keeps indices stable across removals.], [$O(|E| + |V|)$], [`Vec<N>`],[#yes], [#yes], [#no],
+    [`GraphMap`], [Uses an associative array, but instead of storing vertices sequentially it uses generated vertex identifiers as keys into a hash table, where the value is a list of the vertices' connected edges.], [$O(|E| + |V|)*$],
+    // [`IndexMap<N>`],
+    [`IndexMap<N, Vec<(N, CompactDirection)>>`],
+    [#yes], [#no], [#yes],
+    [`MatrixGraph`], [Uses an _Adjacency Matrix_ to store vertices.], [$O(|V^2|)$], [`Vec<N>`], [#yes], [#no], [#no],
+    [`CSR`], [Uses a sparse adjacency matrix to store vertices, in the #acr("CSR") format.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
     table.hline(),
   ),
-  caption: [Available Graph Representations in the `petgraph` library. $|E|$ is the number of edges and $|V|$ is the number of nodes. The "Backing Node Structure" lists which underlying data structure is used to store the associated of each vertex. `Vec<N>` #footnote([Part of Rust's standard library]) is a growable array where items are placed continuous in memory@rust-std. `IndexMap<N>` is a special hash map structure that uses a hash table for key-value indices, and a growable array of key-value pair. Allows for very fast iteration over nodes since their memory are densely stored in memory@indexmap. The "Dynamic" column labels if the data structure supports vertices/edges being removed after initialization.],
+  caption: [Available Graph Representations in the `petgraph` library. $|E|$ is the number of edges and $|V|$ is the number of nodes. The "Backing Node Structure" lists which underlying data structure is used to store the associated of each vertex. `Vec<N>` #footnote([Part of Rust's standard library]) is a growable array where items are placed continuous in memory@rust-std. `IndexMap<N>` is a special hash map structure that uses a hash table for key-value indices, and a growable array of key-value pairs. Allows for very fast iteration over nodes since their memory are densely stored in memory@indexmap. The "Dynamic" column labels if the data structure supports vertices/edges being removed after initialization. The "Hashable vertices" columns list if the data structure requires that the vertex type must be hashable.],
     // Graph - An adjacency list graph with arbitrary associated data.
     // StableGraph - Similar to Graph, but it keeps indices stable across removals.gn
     // GraphMap - An adjacency list graph backed by a hash table. The node identifiers are the keys into the table.
@@ -106,8 +113,16 @@ figure(
   )
 }
 
-All five graph representations support dynamic insertion and removal of vertices and edges after initialization of the graph. So all of them satisfy the first requirement. Four out of the five graph representations uses a `Vec<N>` as its underlying container for vertex instances. `Vec<N>` are guaranteed to be continuous in memory
+All five graph representations support dynamic insertion and removal of vertices and edges after initialization of the graph. So all of them satisfy the first requirement. Four out of the five graph representations uses a `Vec<N>` as its underlying container for vertex instances. `Vec<N>` are guaranteed to be continuous in memory ensuring fast iteration due to cache locality. At the same time the relative difference in iteration speed of using a the `GraphMap` structure should not really be noticeable, given that it uses an `IndexMap<N>`, which in turn uses a `Vec<(N, E)>` for its underlying storage of vertices. But it adds the additional constraint that vertices needs to be hashable, which is impractical given the lack of non-unique immutable fields of the `Node` struct#note.k[ehh... maybe `node_index` field, but Option???]. So all data structures support the second requirement. Only the `StableGraph` data structure guarantees stable indices across repeated removal and insertion. Leaving it as the sole viable choice left that meets all three requirements. In terms of space complexity all five candidates are close to equivalent, with four of them using $O(|V| + |E|)$ space, and the `MatrixGraph` using $O(|V|^2)$.
 
+// https://github.com/indexmap-rs/indexmap/blob/3f0fffb85b99a2a37bbee363703f8509dd03e2d7/src/map/core.rs#L32
+
+// #[derive(Clone)]
+// pub struct GraphMap<N, E, Ty> {
+//     nodes: IndexMap<N, Vec<(N, CompactDirection)>>,
+//     edges: IndexMap<(N, N), E>,
+//     ty: PhantomData<Ty>,
+// }
 
 #line(length: 100%, stroke: red + 1em)
 
