@@ -5,6 +5,7 @@
 #include "architecture.typ"
 #include "global-planning.typ"
 #include "graph-representation.typ"
+#include "iteration-schedules.typ"
 
 
 #kristoffer[talk about design of different config format design, especially `formation` and `environment`
@@ -107,3 +108,22 @@ trait Factor {
 
 }
 ```
+
+
+Scheduling, order in which we call internal and external iteration
+
+#{
+  let iterations = (
+    internal: 10,
+    external: 10,
+  )
+
+  let interleave-evenly(..times) = {
+    let times = times.pos()
+    assert(times > 0, message: "#times must be > 0")
+    let max = times.max()
+    let increments = times.map(x => max / x)
+    let state = range(times.len()).map(_ => 0.0)
+
+  }
+}
