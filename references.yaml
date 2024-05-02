@@ -432,6 +432,13 @@ marginalisation:
 
 
 # RRT
+erc-rrt-star:
+  type: misc
+  title: '{RRT} {Star} - {ERC} {Handbook}'
+  url:
+    value: https://erc-bpgc.github.io/handbook/automation/PathPlanners/Sampling_Based_Algorithms/RRT_Star/
+    date: 2024-05-02
+
 sampling-based-survey:
   type: misc
   title: Sampling-based {Algorithms} for {Optimal} {Motion} {Planning}

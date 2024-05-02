@@ -45,3 +45,7 @@
   definition: Log Dimensionless Jerk
 - acronym: CSR
   definition: Compressed Sparse Row
+- acronym: RRT
+  definition: Rapidly-exploring Random Tree
+- acronym: RRT*
+  definition: Optimal Rapidly-exploring Random Tree

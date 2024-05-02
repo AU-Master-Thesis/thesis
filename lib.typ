@@ -58,7 +58,7 @@
   breakable: true,
 )
 
-#let blocked(title: none, content) = std-block[
+#let blocked(title: none, content, color: theme.base) = std-block(fill: color)[
   #v(0.25em)
   #text(theme.text, size: 1.2em, weight: 900, title)
   // #v(-0.15em)
@@ -216,6 +216,7 @@
 #let cp(content) = text(catppuccin.latte.mauve, content)
 
 #let ra = sym.arrow.r
+#let la = sym.arrow.l
 
 #let swatch(color, content: none, s: 6pt) = {
   if content != none {
@@ -393,6 +394,9 @@
     let progress = normal-pages / total-pages * 100%
     let progress-left = 100% - progress
 
+    let days-gone = total-days.days() - days-left.days()
+    let days-left-percent = days-left.days() / total-days.days() * 100%
+
     grid(
       column-gutter: 0pt,
       columns: (progress, 1fr),
@@ -403,8 +407,15 @@
       box(height: 1em, width: 100%, fill: colors.incomplete),
     )
 
-    let days-gone = total-days.days() - days-left.days()
-    let days-left-percent = days-left.days() / total-days.days() * 100%
+    let percent-to-indhent = 100% - progress - days-left-percent
+    grid(
+      column-gutter: 0pt,
+      columns: (progress, 1fr, days-left-percent),
+      row-gutter: 5pt,
+      [], text(colors.incomplete, [#repr(percent-to-indhent)]), [],
+      box(height: 1em, width: 100%, fill: theme.overlay0), box(height: 1em, width: 100%, fill: colors.incomplete), box(height: 1em, width: 100%, fill: theme.overlay0),
+    )
+
     grid(
       column-gutter: 0pt,
       columns: (1fr, days-left-percent),
@@ -561,10 +572,12 @@
 
   return figure(
     {
+      // set text(size: 0.8em)
       example-counter.step()
       blocked(
         title: text(accent, title_prefix) + text(weight: "regular", caption),
-        body + [#metadata("example") <meta:excounter>]
+        body + [#metadata("example") <meta:excounter>],
+        color: theme.lavender.lighten(90%),
       )
     },
     kind: "example",
@@ -585,12 +598,14 @@
 
     return figure(
       {
+        // set text(size: 0.8em)
         set par(first-line-indent: ind, hanging-indent: ind)
         algorithm-counter.step()
 
         blocked(
-          title: text(accent, title_prefix) + text(weight: "regular", caption),
-          h(ind) + content
+          title: text(theme.mauve.lighten(20%), title_prefix) + text(weight: "regular", caption),
+          h(ind) + content,
+        color: theme.mauve.lighten(90%),
           // content + linebreak() +
           // repr(content.fields())
         )

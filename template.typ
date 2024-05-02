@@ -211,6 +211,8 @@
     show ref: it => {
       let el = it.element
 
+      // return repr(el)
+
       if el == none {
           it.citation
       }
@@ -222,11 +224,12 @@
           let sup = if it.fields().at("supplement", default: "none") == "none" {
             [Equation]
           } else { [] }
+          // let sup = it.fields().at("supplement", default: "none")
           // show link : set text(black)
           // show regex("\d+"): set text(accent)
           // let n = numbering(el.numbering, ..counter(eq).at(el.location()))
           let n = counter(eq).at(el.location()).at(0)
-          return [#link(it.target, sup)\(#link(it.target, [#n])\)]
+          return [#link(it.target, sup) \(#link(it.target, [#n])\)]
         }
         else if el.has("kind") and el.kind == "example" {
             let loc = it.element.location()

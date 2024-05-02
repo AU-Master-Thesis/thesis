@@ -5,12 +5,13 @@
 
 #show raw.where(block: false): (it) => {
   set text(catppuccin.latte.text, font: "JetBrainsMono NF", size: 1em)
+  set box(fill: catppuccin.latte.base, radius: 3pt, stroke: none, inset: (x: 2pt), outset: (y: 2pt))
   box(
-    fill: catppuccin.latte.base,
-    inset: (x: 2pt),
-    outset: (y: 2pt),
-    radius: 3pt,
-    stroke: none,
+    // fill: catppuccin.latte.base,
+    // inset: (x: 2pt),
+    // outset: (y: 2pt),
+    // radius: 3pt,
+    // stroke: none,
     it,
   )
 }
@@ -100,6 +101,18 @@
   // #hr
   #hline-with-gradient(cmap: (accent, subdued), height: 2pt)
   #v(1.5em)
+]
+
+#show heading.where(level: 4) : it => text(
+  black,
+  size: 14pt,
+)[
+  #v(0.25em)
+  #block({
+    box(width: 18mm, text(counter(heading).display(), weight: 600))
+    text(it.body, weight: 600)
+  })
+  #v(0.15em)
 ]
 
 #show: paper.with(
