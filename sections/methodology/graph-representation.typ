@@ -113,7 +113,116 @@ figure(
   )
 }
 
-All five graph representations support dynamic insertion and removal of vertices and edges after initialization of the graph. So all of them satisfy the first requirement. Four out of the five graph representations uses a `Vec<N>` as its underlying container for vertex instances. `Vec<N>` are guaranteed to be continuous in memory ensuring fast iteration due to cache locality. At the same time the relative difference in iteration speed of using a the `GraphMap` structure should not really be noticeable, given that it uses an `IndexMap<N>`, which in turn uses a `Vec<(N, E)>` for its underlying storage of vertices. But it adds the additional constraint that vertices needs to be hashable, which is impractical given the lack of non-unique immutable fields of the `Node` struct#note.k[ehh... maybe `node_index` field, but Option???]. So all data structures support the second requirement. Only the `StableGraph` data structure guarantees stable indices across repeated removal and insertion. Leaving it as the sole viable choice left that meets all three requirements. In terms of space complexity all five candidates are close to equivalent, with four of them using $O(|V| + |E|)$ space, and the `MatrixGraph` using $O(|V|^2)$.
+All five graph representations support dynamic insertion and removal of vertices and edges after initialization of the graph. So all of them satisfy the first requirement. Four out of the five graph representations uses a `Vec<N>` as its underlying container for vertex instances. `Vec<N>` are guaranteed to be continuous in memory ensuring fast iteration due to cache locality. At the same time the relative difference in iteration speed of using a the `GraphMap` structure should not really be noticeable, given that it uses an `IndexMap<N>`, which in turn uses a `Vec<(N, E)>` for its underlying storage of vertices. But it adds the additional constraint that vertices needs to be hashable, which is impractical given the lack of non-unique immutable fields of the `Node` struct#note.k[ehh... maybe `node_index` field, but Option???]. So all data structures support the second requirement. Only the `StableGraph` data structure guarantees stable indices across repeated removal and insertion. Leaving it as the sole viable choice left that meets all three requirements. Expressed using the _petgraph_ library the chosen `Graph` type is defined as:
+
+#sourcecode-reference[
+  ```rust
+
+type IndexSize = u16; // 2^16 - 1 = 65535
+pub type NodeIndex = petgraph::stable_graph::NodeIndex<IndexSize>;
+pub type Graph = petgraph::stable_graph::StableGraph<Node, (), Undirected, IndexSize>;
+```
+]
+
+#kristoffer[explain `()` type parameter for edge data]
+
+`IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In our experiments@s.results no individual factorgraph ever held more more than $~$#note.k[find this number], so a bound of $2^16 - 1$ was sufficient, and takes up less space than $2^32 - 1$.
+
+// u32 denotes the space of possible indices i.e. $2^32 - 1$
+
+
+
+In terms of space complexity all five candidates are close to equivalent, with four of them using $O(|V| + |E|)$ space, and the `MatrixGraph` using $O(|V|^2)$. Lack of sufficient/enough memory were not deemed and issue for the simulation. To support this claim let:
+
+$ B(T) = "stack allocation of T in bytes" $
+
+The standard library function #raw(block: false, lang: "rust", "std::mem::size_of::<T>()") is used to calculate $B(T)$@rust-std. Then the size of a `VariableNode` and a `FactorNode` is:
+
+
+$ B("Variable") = 392 "bytes" $
+$ B("Factor") =  408 "bytes" $
+
+#let size_of_variable = 392
+#let size_of_factor = 408
+
+A `Node` is modelled as a tagged union of a `VariableNode` and `FactorNode` so the size of a node is, the size of the largest of the two variants, plus 8 bytes to store the tag@the-rust-book:
+
+$ B(v_i) = max(B("Variable"), B("Factor")) + 8 "bytes" $ <eq.factorgraph-memory-estimate>
+
+#let size_of_node = calc.max(size_of_variable, size_of_factor) + 8
+
+No data is associated with an edge so the size of an edge is:
+
+$ B(e_i) = 0 "bytes" $
+
+An empty `FactorGraph` takes up:
+
+$ B("FactorGraph") = 200 "bytes" $
+
+#kristoffer[explain functions and meaning of variable names]
+
+#let size_of_graph = 200
+
+$ N_("obstacle")(\#V) = \#V - 2 $
+
+#let n_obstacle(v) = v - 2
+
+$ N_("dynamic")(\#V) = \#V - 1 $
+
+#let n_dynamic(v) = v - 1
+
+$ N_("interrobot")(\#V, \#C) = \#V times \#C $
+
+#let n_interrobot(v, c) = v * c
+
+$ N_("factors")(\#V, \#C) = N_("obstacle")(\#V) + N_("dynamic")(\#V) + N_("interrobot")(\#V, \#C) $
+
+#let n_factors(v, c) = n_obstacle(v) + n_dynamic(v) + n_interrobot(v, c)
+
+#let robots = 20
+#let variables = 10
+
+With a simulation of $\#R$ robots and $\#V$ variables, with each robot having $\#C$ connections, then the size is:
+
+$ B("Simulation"(R, V, C))
+
+&= R times (B("FactorGraph") + (V + N_("factors")(V, C)) times B("Node"))
+$
+
+#let size_of_simulation(r, v, c) = r * (size_of_graph + (v + n_factors(v, c)) * size_of_node)
+
+With $R = 20, V = 10, C = 10$ the size is:
+
+#let size_of_example = size_of_simulation(20, 10, 10)
+
+$ B("Simulation"(20, 10, 10)) = #size_of_example "bytes" = #MiB(size_of_example) $
+
+#MiB(size_of_example) is not a lot of memory for a modern computer. This of course, only accounts for the stack allocated memory of each structure. For heap allocated structures like dynamically sized matrices this only accounts for the heap pointer to the data and the length of the allocated buffer, and not the size of the buffer. With 4 #acr("DOF") a conservative estimate can be made by generalizing the heap allocation size of each node to be the largest heap allocation of the possible node variants. Let
+
+$ H(T) = "heap allocation of T in bytes" $ <equ.heap-allocation-in-bytes>
+
+
+
+#{
+  let f64 = 8
+  let DOFS = 4
+  let heap_size_of_factor_state = (4 + 2 * 2 + DOFS * 2 + 4 * 8 + 4) * f64
+  let heap_size_of_dynamic = 4 * 8 * f64
+  let heap_size_of_obstacle = 0 * f64
+  let heap_size_of_interrobot = 0 * f64
+  let heap_size_of_variable_prior = DOFS * f64
+  let heap_size_of_variable_belief = DOFS * DOFS * f64
+  let heap_size_of_variable = heap_size_of_variable_prior + heap_size_of_variable_belief
+
+  table(
+
+)
+}
+
+// Lower estimate as some of the fields are heap allocated, and only the auxiliary data like the pointer to the data and the size of it is counted by the $B$ function.
+
+
+// #kristoffer[do some napkin math for the size of the graph to justify why the memory of the chosen structure is not very important]
 
 // https://github.com/indexmap-rs/indexmap/blob/3f0fffb85b99a2a37bbee363703f8509dd03e2d7/src/map/core.rs#L32
 
@@ -125,8 +234,6 @@ All five graph representations support dynamic insertion and removal of vertices
 // }
 
 #line(length: 100%, stroke: red + 1em)
-
-#kristoffer[explain \* in memory section]
 
 // Iteration is very fast since it is on the dense key-values
 // A raw hash table of key-value indices, and a vector of key-value pairs
@@ -140,22 +247,11 @@ All five graph representations support dynamic insertion and removal of vertices
 // / Adjacency matrix: $O(|V^2|)$ memory
 // / GraphMap: asd
 
-#kristoffer[do some napkin math for the size of the graph to justify why the memory of the chosen structure is not very important]
-
-$ B("Variable") =  $
-$ B("Factor") =  $
-
-$ B(v_i) = max(B("Variable"), B("Factor")) $ <eq.factorgraph-memory-estimate>
-
-$ B(e_i) = 0 $
-
-
-
 
 Not too many nodes in the graph, so we did not spend time benchmarking the various backing memory models.
 
 
-closer to real distribution
+// closer to real distribution
 
 // In Rust every piece of data i.e. every variable and allocated block of memory has a single owner
 
@@ -177,14 +273,6 @@ trade some speed for edge lookup time, for having indices not being invalidated
 
 consider insertion/deletion of nodes and edges as influencers of the graph data structure.
 j
-#sourcecode-reference[
-  ```rust
-pub type Graph = petgraph::stable_graph::StableGraph<Node, (), Undirected, u32>;
-```
-]
-
-u32 denotes the space of possible indices i.e. $2^32 - 1$
-
 // The "naive"
 
 // interior mutability
@@ -202,8 +290,6 @@ u32 denotes the space of possible indices i.e. $2^32 - 1$
 
 
 using dedicated indices arrays for factors and variables to speed up iteration for queries only requiring access to the nodes or variables.
-
-#kristoffer[Why `StableGraph`?]
 
 
 #kristoffer[Not experiment with different graph representations, e.g. matrix, csr, map based etc.]
