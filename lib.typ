@@ -2,6 +2,7 @@
 #import "catppuccin.typ": *
 #import "note.typ"
 #import "text-case.typ": *
+#import "unitfmt.typ": *
 #import "@preview/codelst:1.0.0": sourcecode, codelst, sourcefile
 
 #import "@preview/tablex:0.0.6": *

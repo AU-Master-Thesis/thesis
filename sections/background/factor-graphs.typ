@@ -167,7 +167,7 @@ $<eq.gaussian-linear-system>
 
 Where #inference.MAP solves for the mean, #m.mu, and #inference.marginal finds the covariance, #m.Sigma, by solving for the block diagonal of $#m.Lambda^(-1)$, and indirectly also the mean, #m.mu.
 
-=== Varibale Update <s.b.gbp.variable-update>
+=== Variable Update <s.b.gbp.variable-update>
 
 The variable belief update happens by taken the product of incoming messages from nerighbouring nodes, here denoted as $N(i)$, as seen in @eq.gbp-variable-update@gbp-visual-introduction:
 
@@ -175,7 +175,7 @@ $
   b_i(x_i) = product_(s in N(i)) m_(f_s #ra x_i)
 $<eq.gbp-variable-update>
 
-Writing out the Gaussian message on #gaussian.canonical becoms @eq.gbp-message-canonical@gbp-visual-introduction:
+Writing out the Gaussian message on #gaussian.canonical becomes @eq.gbp-message-canonical@gbp-visual-introduction:
 
 $
   m = cal(N)^(-1) (x; mu, Lambda) prop exp(-1/2 x^top Lambda x + eta^top x)
