@@ -177,6 +177,14 @@
   weight: 900,
 )
 
+#let hyp-counter = counter("hypothesis")
+#let h-enum(
+  ..numbers,
+) = {
+  hyp-counter.step()
+  box-enum(prefix: "H-", delim: ".", color: theme.lavender, ..numbers)
+}
+
 #let req-enum(prefix: "R-", color: accent, ..numbers) = boxed(
   color: color,
   fill: color.lighten(80%),
@@ -623,6 +631,11 @@
 #let O(n) = [Objective #boxed(color: theme.lavender)[*O-#n*]]
 
 #let study = (
+  heading: it => {
+    set par(first-line-indent: 0em)
+    v(0.25em)
+    block(text(size: 14pt, weight: 900, it))
+  },
   H-1: (
     prefix: [_*Study 1*_],
     name: [_*Reproduction*_],
@@ -633,18 +646,26 @@
   ),
   H-2: (
     prefix: [_*Study 2*_],
-    name: [_*Extension*_],
+    name: [_*Improving*_],
     full: (
-      s: [_*Study 2: Extension*_],
-      n: [Study 2: Extension],
+      s: [_*Study 2: Improving*_],
+      n: [Study 2: Improving],
     )
   ),
   H-3: (
     prefix: [_*Study 3*_],
-    name: [_*Architecture & Design*_],
+    name: [_*Extension*_],
     full: (
-      s: [_*Study 3: Architecture & Design*_],
-      n: [Study 3: Architecture & Design],
+      s: [_*Study 3: Extension*_],
+      n: [Study 3: Extension],
+    )
+  ),
+  H-4: (
+    prefix: [_*Study 4*_],
+    name: [_*Tooling & Design*_],
+    full: (
+      s: [_*Study 4: Tooling & Design*_],
+      n: [Study 4: Tooling & Design],
     )
   ),
 )
@@ -692,3 +713,7 @@
   X: $#text(theme.mauve, $X$)$,
   J: jacobian
 )
+
+#let number-word(num) = {
+  let num = str(num)
+}

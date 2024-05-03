@@ -49,18 +49,24 @@ The objective of this project is to build on top of the work of @patwardhan_dist
 - Modular. New factors can be added to the factor graph to encode different constraints.
 
 == Research Hypothesis <intro-research-hypothesis>
-This thesis poses the following hypothesis:
+#let h-amount = context hyp-counter.at(<marker.end-of-hypothesis>).first()
+This thesis poses the following #h-amount hypothesis:
 
+// #repr(h-amount.get())
 // #todo[Maybe this should multiple hypothesis, or maybe it should be more specific or rephrased.]
 
-#set enum(numbering: req-enum.with(prefix: "H-"))
+
+#set enum(numbering: h-enum)
 + Reproducing the results of the original GBP Planner in a new programming language will improve the software's scientific communication and its extensibility.
+
++ Improvements can be made to the original work without transforming the software.
 
 + Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
 
 + Extensive tooling will create a great environment for others to understand the software and extend it further. Furthermore, such tooling will make it easier to reproduce and engage with the developed solution software.
 
-From this point on, anything pertaining to the context of #H(1) will be denoted under #study.H-1.full.s, anything pertaining to the context of #H(2) will be #study.H-2.prefix: #study.H-2.full.s, and anything pertaining to the context of #H(3) will be #study.H-3.full.s.
+From this point on, anything pertaining to the context of #H(1) will be referred to as #study.H-1.full.s, #H(2) will be #study.H-2.full.s, #H(3) will be #study.H-3.full.s, and #H(4) will be #study.H-4.full.s.
+<marker.end-of-hypothesis>
 
 
 == Research Questions <intro-research-questions>
@@ -74,13 +80,20 @@ From this point on, anything pertaining to the context of #H(1) will be denoted 
 // === Study 2
 #study.H-2.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "RQ-2.", color: theme.teal))
-+ Will global planning improve the actors' capability to move in complex environments?
-+ Will global planning degrade the reproduced local cooperative collision avoidance?
-+ Will the global planning maintain a competitive level of performance?
++ Which immediate improvements are obivous#note.wording[too harsh?] from looking at the original work?
++ Are these improvements possible without transforming the software?
++ Can these improvements be measured, and if so, how?
 
 // === Study 3
 #study.H-3.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal))
++ Will global planning improve the actors' capability to move in complex environments?
++ Will global planning degrade the reproduced local cooperative collision avoidance?
++ Will the global planning maintain a competitive level of performance?
+
+// === Study 4
+#study.H-4.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-4", weight: 900):
+#set enum(numbering: req-enum.with(prefix: "RQ-4.", color: theme.teal))
 + What kind of tooling will be most beneficial for the software?
 + How can tooling help with future reproducibility and engagement with the software?#todo[maybe chance these or rephrase]
 + How can tooling help with understanding and extending the software?#todo[maybe chance these or rephrase]
@@ -91,43 +104,66 @@ From this point on, anything pertaining to the context of #H(1) will be denoted 
 // #todo[1 research question to many research objectives]
 
 // #let o-num() = req-enum.with(color: accent)
-#study.H-1.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
-+ Evaluate possible programming languages on several metrics for scientific communication and extensibility. #todo[rephrase, or mention different metrics.] #note.layout([Learn by reproducing])
+#{
+  [
+    /// Study 1
+    #(study.heading)(study.H-1.full.n)
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
+    + Evaluate possible programming languages on several metrics for scientific communication and extensibility. #todo[rephrase, or mention different metrics.] #note.layout([Learn by reproducing])
 
-#study.H-1.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-1.2.", color: theme.green))
-+ Reimplement the original GBP Planner in the chosen programming language.
-+ Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-1.2.", color: theme.green))
+    + Reimplement the original GBP Planner in the chosen programming language.
+    + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
 
-#study.H-2.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.1", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-2.1.", color: theme.green))
-+ Implement a global planning layer in the reimplemented GBP Planner.
-+ Evaluate the actors' capability to move in complex environments by looking at the four metrics: distance travelled, makespan, smoothness, and collision count, comparing against the reimplemented reproduction and the original GBP Planner.
+    /// Study 2
+    #(study.heading)(study.H-2.full.n)
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.1", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-2.1.", color: theme.green))
+    + Identify immediate improvements to the original work.
 
-#study.H-2.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.2", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-2.2.", color: theme.green))
-+ Compare the four metrics: distance travelled, makespan, smoothness, and collision count of the reimplemented reproduction with and without the global planning layer.
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.2", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-2.2.", color: theme.green))
+    + Implement the identified improvements without transforming the software.
+    + Evaluate whether the improvements are transformative by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
 
-#study.H-2.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.3", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-2.3.", color: theme.green))
-+ Compare performance metrics of the reimplemented reproduction with and without the global planning layer against the original GBP Planner.
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.3", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-2.3.", color: theme.green))
+    + Use the measurements from #boxed(color: theme.green,  [*O-2.2.2*]) to evaluate the improvements.
 
-#study.H-3.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.1", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-3.1.", color: theme.green))
-+ Analyse and evaluate different kinds of tooling that can be beneficial for the software.
-+ Pick the most beneficial tooling approach for the software.
+    /// Study 3
+    #(study.heading)(study.H-3.full.n)
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.1", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-3.1.", color: theme.green))
+    + Implement a global planning layer in the reimplemented GBP Planner.
+    + Evaluate the actors' capability to move in complex environments by looking at the four metrics: distance travelled, makespan, smoothness, and collision count, comparing against the reimplemented reproduction and the original GBP Planner.
 
-#study.H-3.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.2", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-3.2.", color: theme.green))
-+ Implement tooling to help with future reproducibility and engagement with the software.#todo[maybe chance these or rephrase]
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.2", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-3.2.", color: theme.green))
+    + Compare the four metrics: distance travelled, makespan, smoothness, and collision count of the reimplemented reproduction with and without the global planning layer.
 
-#study.H-3.prefix #sym.dash.em Objectives for research question #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.3", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "O-3.3.", color: theme.green))
-+ Implement tooling to help with understanding and extending the software.#todo[maybe chance these or rephrase]
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.3", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-3.3.", color: theme.green))
+    + Compare performance metrics of the reimplemented reproduction with and without the global planning layer against the original GBP Planner.
 
+    /// Study 4
+    #(study.heading)(study.H-4.full.n)
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.1", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-4.1.", color: theme.green))
+    + Analyse and evaluate different kinds of tooling that can be beneficial for the software.
+    + Pick the most beneficial tooling approach for the software.
 
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.2", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-4.2.", color: theme.green))
+    + Implement tooling to help with future reproducibility and engagement with the software.#todo[maybe chance these or rephrase]
 
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.3", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-4.3.", color: theme.green))
+    + Implement tooling to help with understanding and extending the software.#todo[maybe chance these or rephrase]
+  ]
+}
 
 #todo[Part of the argument for H-2: Furthermore, a language with that shares qualities#kristoffer[wording] with modelling languages will improve the software's ability to communicate scientific results.]
 #todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
+#jens[make figure that shows the connection of all these, including outlining which parts are which study.]

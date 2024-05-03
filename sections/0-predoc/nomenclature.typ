@@ -1,4 +1,4 @@
-#import "../lib.typ": *
+#import "../../lib.typ": *
 = Nomenclature <nomenclature>
 
 - Interior Mutability
@@ -8,7 +8,7 @@
 - Every capital letter in `monospace` is some type. A type in rust is either a
   struct, a tagged enum or a union.
 
-#let acronyms = yaml("../acronyms.yaml")
+#let acronyms = yaml("../../acronyms.yaml")
 
 #let acrostiche-acronyms = merge(..acronyms.map(it => {
   let v = (it.definition,)

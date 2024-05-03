@@ -167,9 +167,9 @@
 // Pre-introduction
 #set heading(numbering: none)
 // #set page(numbering: "i")
-#include "sections/preface.typ"
-#include "sections/abstract.typ"
-#include "sections/nomenclature.typ"
+#include "sections/0-predoc/preface.typ"
+#include "sections/0-predoc/abstract.typ"
+#include "sections/0-predoc/nomenclature.typ"
 
 // #acr("SOA"), #acrpl("AOS")
 
@@ -198,12 +198,12 @@
 #kristoffer[make a statement about how we release our software for others to use .e.g license and terms]
 #kristoffer[check all libraries we use are in accordance with our terms]
 
-#include "sections/introduction/mod.typ"
-#include "sections/background/mod.typ"
-#include "sections/methodology/mod.typ"
-#include "sections/results/mod.typ"
-#include "sections/discussion/mod.typ"
-#include "sections/conclusion/mod.typ"
+#include "sections/1-introduction/mod.typ"
+#include "sections/2-background/mod.typ"
+#include "sections/3-methodology/mod.typ"
+#include "sections/4-results/mod.typ"
+#include "sections/5-discussion/mod.typ"
+#include "sections/6-conclusion/mod.typ"
 // #include "sections/future-work.typ"
 
 // Hello. bad sentence. This is a better one. although this could be it as well
