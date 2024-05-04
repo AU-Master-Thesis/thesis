@@ -17,6 +17,7 @@ With this development, the possibility and thus also demand for multi-agent syst
 // Step 3: Connect that to the specific problem of path planning, collaboration, communication, and collision avoidance
 In the context of multi-agent systems, path planning is a key component. It is a process of optimization to find the most efficient path for an agent to reach its goal. This is especially important in the context of multi-agent systems, where multiple agents need to coordinate their movements to avoid collisions and reach their goals as efficiently as possible. This requires a high level of collaboration and communication between the agents, as well as a high level of collision avoidance to ensure that the agents do not collide with each other or with obstacles.
 
+
 == Problem Definition <intro-problem-definition>
 #todo[A lot of this is probably in the original contract.]
 

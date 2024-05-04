@@ -115,6 +115,7 @@
 
     // Set the body font.
     set text(font: "STIX Two Text", size: 12pt)
+    // set text(font: "New Computer Modern", size: 12pt)
 
     // Configure the page.
     set page(
