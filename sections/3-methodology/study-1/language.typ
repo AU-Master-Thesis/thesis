@@ -1,12 +1,12 @@
-#import "../../lib.typ": *
-== Implementation Language
+#import "../../../lib.typ": *
+=== Implementation Language
 
 This subsection describes the choice of implementation programming language used in both the simulation and the reimplementation of the gbpplanner paper. Motivations for why the language was chosen is laid out and argued for.
 
 Both the simulation and the gbplanner reimplementation are written in the Rust programming language. Rust is a modern systems programming language
 
 
-=== Why did we choose Rust?
+==== Why did we choose Rust?
 
 - `gbpplanner` is implemented in C++. We are both familiar with C++, but have in
   previous projects spent a lot

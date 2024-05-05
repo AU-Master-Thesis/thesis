@@ -1,5 +1,5 @@
 #import "../../lib.typ": *
-== Study 1: Reproduction <s.r.study-1>
+== #study.H-1.full.n <s.r.study-1>
 
 === Experiment Setup
 

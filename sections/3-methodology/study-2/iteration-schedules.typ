@@ -1,6 +1,24 @@
-#import "../../lib.typ": *
+#import "../../../lib.typ": *
 
 === Iteration Schedules <s.iteration-schedules>
+
+Scheduling, order in which we call internal and external iteration
+
+// #{
+//   let iterations = (
+//     internal: 10,
+//     external: 10,
+//   )
+
+//   let interleave-evenly(..times) = {
+//     let times = times.pos()
+//     assert(times > 0, message: "#times must be > 0")
+//     let max = times.max()
+//     let increments = times.map(x => max / x)
+//     let state = range(times.len()).map(_ => 0.0)
+
+//   }
+// }
 
 #let every(array, n, skip-first: false) = {
   // let n = n + if skip-first { 0 } else { 0 }

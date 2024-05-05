@@ -648,10 +648,10 @@
   ),
   H-2: (
     prefix: [_*Study 2*_],
-    name: [_*Improving*_],
+    name: [_*Improvements*_],
     full: (
-      s: [_*Study 2: Improving*_],
-      n: [Study 2: Improving],
+      s: [_*Study 2: Improvements*_],
+      n: [Study 2: Improvements],
     )
   ),
   H-3: (

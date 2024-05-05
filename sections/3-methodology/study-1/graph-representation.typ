@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../../lib.typ": *
 
 === Graph Representation <s.graph-representation>
 

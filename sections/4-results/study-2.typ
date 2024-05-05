@@ -1,2 +1,2 @@
 #import "../../lib.typ": *
-== Study 2: Extension <s.r.study-2>
+== #study.H-2.full.n <s.r.study-2>

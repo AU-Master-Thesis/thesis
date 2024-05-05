@@ -1,10 +1,10 @@
-#import "../../lib.typ": *
-== Architecture <s.m.architecture>
+#import "../../../lib.typ": *
+=== Architecture <s.m.architecture>
 
 This section presents the architectural patterns used in the design of the simulation. First by presenting the major architectural paradigm used, the ECS paradigm. What it is, how it works and why it was chosen. Second how it results in changes compared to the original implementation of the gbplanner algorithm.
 
 
-=== Entity Component System
+==== Entity Component System
 
 #acr("ECS") is an architectural software design pattern specifically designed for data oriented programming #note.kristoffer[explain what is meant by data oriented programing]. At the heart of it are three complementary concepts, from which its name comes from: entities, components and systems:
 
