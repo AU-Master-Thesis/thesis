@@ -193,6 +193,58 @@
 #kristoffer[make a statement about how we release our software for others to use .e.g license and terms]
 #kristoffer[check all libraries we use are in accordance with our terms]
 
+#set page(
+  header: context {
+    let h1 = hydra(1)
+    let h2 = hydra(2)
+    if h1 == none {
+      return none
+    }
+
+    let cm = (accent, theme.text.lighten(50%))
+    let odd = calc.odd(here().page())
+
+    if odd {
+      cm = cm.rev()
+    }
+    set text(gradient.linear(..cm))
+
+    let h = {
+      let chapter-number = h1.fields().values().first().first()
+      let chapter-title = h1.fields().values().first().slice(2)
+
+      if type(chapter-title) == "array" {
+        chapter-title = chapter-title.join("")
+      }
+
+      [Chapter #chapter-number: #chapter-title]
+
+      // repr(h1.fields().values().first().slice(2))
+      if h2 != none {
+        h(0.5em)
+        sym.bar.h
+        h(0.5em)
+        h2
+      }
+    }
+
+    let date = {
+      datetime.today().display("[day]-[month]-[year]")
+    }
+    let items = (h, date)
+    if odd {
+      items = items.rev()
+    }
+
+    grid(
+      columns: (auto, 1fr),
+      align: (left, right),
+      ..items
+    )
+    hline-with-gradient(cmap: cm, height: 1pt)
+  }
+)
+
 #include "sections/1-introduction/mod.typ"
 #include "sections/2-background/mod.typ"
 #include "sections/3-methodology/mod.typ"

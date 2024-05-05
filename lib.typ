@@ -8,6 +8,7 @@
 #import "@preview/tablex:0.0.6": *
 #import "@preview/drafting:0.2.0": *
 #import "@preview/cetz:0.2.2": *
+#import "@preview/hydra:0.4.0": hydra
 // #import "@preview/glossarium:0.3.0": make-glossary, print-glossary, gls, glspl
 // #show: make-glossary
 
@@ -477,6 +478,8 @@
 }
 
 #let print-index(level: 1, outlined: false, sorted: "", title: "Acronyms Index", delimiter:":") = {
+  pagebreak(weak: true)
+  set page(columns: 2)
   // assert on input values to avoid cryptic error messages
   assert(sorted in ("","up","down"), message:"Sorted must be a string either \"\", \"up\" or \"down\"")
 
@@ -496,21 +499,29 @@
       acr-list = acr-list.sorted().rev()
     }
 
-    // print the acronyms
-    for acr in acr-list{
-      let acr-long = acronyms.at(acr)
-      let acr-long = if type(acr-long) == array {
-        acr-long.at(0)
-      } else {acr-long}
-      table(
-        columns: (1fr, 10fr),
-        column-gutter: 1em,
-        align: (right, left),
-        stroke: none,
-        inset: 0pt,
-        [*#acr#delimiter*], [#acr-long\ ]
-      )
+    let to-content-array() = {
+      let arr = ()
+      for acr in acr-list {
+        let acr-long = acronyms.at(acr)
+        let acr-long = if type(acr-long) == array {
+          acr-long.at(0)
+        } else {acr-long}
+        // ([*#acr#delimiter*], [#acr-long\ ])
+        arr.push([*#acr#delimiter*])
+        arr.push([#acr-long\ ])
+      }
+      arr
     }
+
+    tablex(
+      columns: (auto, 10fr),
+      column-gutter: 1em,
+      row-gutter: 1em,
+      align: (right, left),
+      inset: 0pt,
+      (), vlinex(), (),
+      ..to-content-array()
+    )
   })
 }
 
