@@ -1,2 +1,2 @@
 #!/usr/bin/env -S fish --no-config
-watchexec --clear -e tex ./tectonic-compile-all.fish
+watchexec.exe --clear -e tex ./tectonic-compile-all.fish

@@ -7,11 +7,6 @@
   set text(catppuccin.latte.text, font: "JetBrainsMono NF", size: 1em)
   set box(fill: catppuccin.latte.base, radius: 3pt, stroke: none, inset: (x: 2pt), outset: (y: 2pt))
   box(
-    // fill: catppuccin.latte.base,
-    // inset: (x: 2pt),
-    // outset: (y: 2pt),
-    // radius: 3pt,
-    // stroke: none,
     it,
   )
 }

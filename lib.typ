@@ -248,8 +248,10 @@
 #let sg = swatch(catppuccin.latte.green)
 #let sb = swatch(catppuccin.latte.blue)
 #let sp = swatch(catppuccin.latte.mauve)
-#let sgr = swatch(catppuccin.latte.surface0)
 #let sl = swatch(catppuccin.latte.lavender)
+#let sgr = swatch(catppuccin.latte.surface0)
+#let sgr2 = swatch(catppuccin.latte.surface2)
+#let st = swatch(catppuccin.latte.text)
 
 #let nameref(label, name, supplement: none) = {
   show link : it => text(accent, it)
@@ -716,4 +718,11 @@
 
 #let number-word(num) = {
   let num = str(num)
+}
+
+
+#let fsig(content) = text(font: "JetBrainsMono NF", size: 0.85em, content)
+#let algeq(content) = {
+  show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance|MinCostConnection|Rewire|Sample|Nearest|ObstacleFree|Neighbourhood|Cost|Line|Parent)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+  content
 }

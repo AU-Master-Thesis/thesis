@@ -333,6 +333,13 @@ $
   c = #text(theme.maroon, $m(X_n)$) - jacobian X_n
 $<eq.linearised-factor>
 
+The underlying potential non-linearities of factors is exemplified in @ex.non-linearities, and visualised in @fig.non-linearities.
+
 #example[
   #jens[make this example with similar figure as to @gbp-visual-introduction]
-]
+
+  #figure(
+    image("../../figures/out/non-linearities.svg", width: 60%),
+    caption: [A non-linear factor is visualised, where the measurement function $m(X_n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualised as a grey#sgr2 contour plot underneat the linearised gaussian distribution#sl on top.],
+  )<fig.non-linearities>
+]<ex.non-linearities>

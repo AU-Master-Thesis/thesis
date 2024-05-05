@@ -1,0 +1,53 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\makeatletter
+\def\nonlinearGaussian{%
+	\pgfmathsetmacro{\myX}{\pgf@x}
+	\pgfmathsetmacro{\myY}{0.0075*\pgf@x*\pgf@x + \pgf@y}
+	\setlength{\pgf@x}{\myX pt}
+	\setlength{\pgf@y}{\myY pt}
+}
+\makeatother
+
+\def\b{0.05}
+
+\begin{document}
+\begin{tikzpicture}[
+    nl gaussian/.style={line, draw=ctpText, fill=ctpText, draw opacity={\b*5}, fill opacity={\b*3}},
+    gaussian/.style={line, draw=ctpLavender, fill=none, fill opacity=0.15},
+]
+
+    \def\gaussian[#1]{%
+        \draw[#1] (0, 0) ellipse (8mm and 3mm);
+        \draw[#1] (0, 0) ellipse (16mm and 5mm);
+        \draw[#1] (0, 0) ellipse (24mm and 7mm);
+        \draw[#1] (0, 0) ellipse (32mm and 9mm);
+    }
+
+    \def\r{0}
+
+    \begin{scope}
+        %Inside the scope transformation is active
+        \pgftransformnonlinear{\nonlinearGaussian}
+        \gaussian[rotate=\r, nl gaussian]
+    \end{scope}
+    \begin{scope}[rotate=\r]
+        \gaussian[gaussian]
+    \end{scope}
+
+    \node[dot, minimum size=1 * \scale] (A) at (0, 0) {};
+    \node[shift={(2.5 * \scale, 1.5 * \scale)}] (B) at (A) {$l_0$};
+
+    \def\e{20 * \scale}
+    \def\s{3}
+    \def\rc{ctpGreen}
+    \node[dot, minimum size=\s * \scale, fill=\rc] (C) at (-{\e * sin(\r)}, {\e * cos(\r)}) {};
+    \node[shift={({(-\s) * \scale}, {(\s) * \scale})}, text=\rc] (D) at (C) {$r_0$};
+
+
+\end{tikzpicture}%
+\end{document}

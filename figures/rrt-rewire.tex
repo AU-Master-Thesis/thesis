@@ -1,0 +1,135 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\def\tc{ctpText!70}
+\begin{document}
+\begin{tikzpicture}[
+    tree dot/.style={dot, fill=\tc},
+]
+    % ╭────────────────────────────────────────────────────────────────────────────────────────────╮
+    % │ SETUP                                                                                      │
+    % ╰────────────────────────────────────────────────────────────────────────────────────────────╯
+    \coordinate (root) at (0, 0);
+
+    \def\e{5 * \scale}
+
+    \def\tree[#1] ub (#2) lb (#3){
+        \draw[rrt line, draw=\tc, #1, draw=#3] (root) coordinate (t1q1) {}
+                             -- ++(30:\e) node[tree dot, #1, fill=#3] (t1q2) {}
+                             -- ++(0:\e)  node[tree dot, #1, fill=#3] (t1q3) {} coordinate (t1q3c) {};
+        \draw[none] (t1q3)
+               -- ++(10:\e) coordinate (t1q4c) {};
+
+        \draw[rrt line, draw=\tc, #1, draw=#2] (root)
+               -- ++(85:\e)  node[tree dot, #1, fill=#2] (t2q2) {}
+               -- ++(40:\e)  node[tree dot, #1, fill=#2] (t2q3) {}
+               -- ++(0:\e)  node[tree dot, #1, fill=#2] (t2q4) {} coordinate (t2q4c) {};
+        \draw[none] (t2q4)
+               -- ++(-30:\e) node[tree dot, #1, fill=#2] (t2q5) {} coordinate (t2q5c)
+               -- ++(-10:\e) node[tree dot, #1, fill=#2] (t2q6) {} coordinate (t2q6c);
+
+        \node[dot, fill=\tc] at (root) {};
+    }
+    \def\nodef[#1]{
+        \node[tree dot, #1] (t1q4) at (t1q4c) {};
+    }
+    \def\branchLower[#1]{
+        \draw[rrt line, #1] (t1q3c) -- (t1q4c);
+    }
+    \def\branchUpper[#1]{
+        \draw[rrt line, #1] (t2q4c) -- (t2q5c) -- (t2q6c);
+    }
+    \def\stdLabels{
+        \def\o{2.2 * \scale}
+        \node[none, text=ctpText, shift={(\o, -\scale)}, scale=0.5]
+            (rootLabel) at (root) {$v_{root}$};
+        \node[none, text=ctpLavender, shift={(\o, -\scale)}, scale=0.5]
+            (newLabel) at (t1q4) {$v_{new}$};
+    }
+    \def\nearLabels{
+        \def\o{1.5 * \scale}
+        \node[none, text=ctpYellow, shift={(\o, \scale)}, scale=0.5]
+            (near1Label) at (t2q5) {$n_{1}$};
+        \node[none, text=ctpYellow, shift={(\o, \scale)}, scale=0.5]
+            (near2Label) at (t2q6) {$n_{2}$};
+    }
+
+    \def\width{25 * \scale}
+
+    % Step label at bottom center
+    \def\stepLabel[#1]{
+        \node[none, text=ctpText, scale=0.75, scale=0.65] at (\width / 2 - \e / 2, -\e * 0.8) {#1};
+    }
+
+    % ╭────────────────────────────────────────────────────────────────────────────────────────────╮
+    % │ TREE STEP 1                                                                                │
+    % ╰────────────────────────────────────────────────────────────────────────────────────────────╯
+    \tree[] ub (ctpMaroon!70) lb (ctpGreen!70)
+    \branchUpper[draw=ctpMaroon!70]
+    \branchLower[dotted, draw=ctpGreen!70]
+    \nodef[fill=ctpLavender]
+    \stdLabels
+
+    % circle at t1q4
+    \begin{scope}[on background layer]
+        \draw[line, draw=ctpMauve, fill=ctpMauve, draw opacity=0.5, fill opacity=0.25]
+            (t1q4) circle (\e);
+
+        \draw[rrt line, densely dotted, line width=0.15 * \scale, draw=ctpMauve, opacity=0.5]
+            (t1q4c) -- node[pos=0.5, text=ctpMauve, scale=0.5, opacity=0.75, shift={(1.5 * \scale, -1.5 * \scale)}] (r) {$s$} ++ (0,-\e);
+    \end{scope}
+
+    \stepLabel[Step 1]
+
+    % ╭────────────────────────────────────────────────────────────────────────────────────────────╮
+    % │ TREE STEP 2                                                                                │
+    % ╰────────────────────────────────────────────────────────────────────────────────────────────╯
+    \tikzset{shift={(\width, 0)}}
+    \coordinate (root) at (0, 0);
+    \tree[] ub (\tc) lb (\tc)
+    \branchLower[draw=\tc]
+    \branchUpper[draw=\tc]
+    \nodef[fill=ctpLavender]
+    \stdLabels
+    \nearLabels
+
+    \node[dot, fill=ctpYellow] (near1) at (t2q5) {};
+    \node[dot, fill=ctpYellow] (near2) at (t2q6) {};
+
+    % circle at t1q4
+    \begin{scope}[on background layer]
+        \draw[line, draw=ctpLavender, fill=ctpLavender, draw opacity=0.75, fill opacity=0.35]
+            (t1q4) circle (\e);
+
+        \draw[rrt line, densely dotted, line width=0.15 * \scale, draw=ctpLavender, opacity=0.5]
+            (t1q4c) -- node[pos=0.5, text=ctpLavender, scale=0.5, opacity=0.75, shift={(1.5 * \scale, -1.5 * \scale)}] (r) {$r$} ++ (0,-\e);
+    \end{scope}
+
+    \stepLabel[Step 2]
+
+    % ╭────────────────────────────────────────────────────────────────────────────────────────────╮
+    % │ TREE STEP 3                                                                                │
+    % ╰────────────────────────────────────────────────────────────────────────────────────────────╯
+    \tikzset{shift={(\width, 0)}}
+    \coordinate (root) at (0, 0);
+    \tree[] ub (\tc) lb (\tc)
+    \branchLower[draw=\tc]
+
+    \node[dot, fill=ctpYellow] (near1) at (t2q5) {};
+    \node[dot, fill=ctpYellow] (near2) at (t2q6) {};
+
+    \begin{scope}[on background layer]
+        \branchUpper[dotted, draw=ctpMaroon!70]
+        \draw[rrt line, draw=ctpYellow!70] (t2q5) -- (t1q4c)
+                                           (t2q6) -- (t1q4c);
+    \end{scope}
+    \nodef[fill=ctpLavender]
+
+    \stepLabel[Step 3]
+
+
+\end{tikzpicture}%
+\end{document}

@@ -71,68 +71,62 @@
   This section provides a mathematical description of the functions used in the RRT algorithm; functions `SampleRandomPoint`, `NearestNeighbor`, `Steer`, `CollisionFree`, and `WithinGoalTolerance`. As in @alg-rrt, the #acr("RRT") tree consists of vertices, $V$, and edges, $E$; together composing a graph, $G = (V, E)$. These denotations are used in the following descriptions.@erc-rrt-star
 
   // \ #text(size: 1.25em, weight: "bold", [`SampleRandomPoint()`])  \
-  ==== `SampleRandomPoint() -> x`
+  // ==== `SampleRandomPoint() -> x`
+  ==== #fsig[SampleRandomPoint() -> x]
   This functions takes no arguments, and returns a random point, $x$, in the configuration space. Most commonly this is done by drawing from a uniform distribution. Say that $omega$ is an element in the set of all possible states in the configuration space $Omega$, where $forall omega in Omega$ equation @eq.func-sample-random-point holds.@erc-rrt-star
 
-  #{
-    show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
-    [
-      $
-        "SampleRandomPoint" : omega arrow.r.bar {"SampleRandomPoint"_i (omega)}_(i in NN_0) subset cal(X)
-      $<eq.func-sample-random-point>
-    ]
-  }
+  #algeq[
+    $
+      "SampleRandomPoint" : omega arrow.r.bar {"SampleRandomPoint"_i (omega)}_(i in NN_0) subset cal(X)
+    $<eq.func-sample-random-point>
+  ]
+
 
   That is; the set of all randomly sampled points, $cal(X)_"rand"$, which is the result of the above mapping, is a subset of the configuration space, $cal(X)$.
 
   // #jens[finish this one, it doesn't make too much sense]
 
   // \ #text(size: 1.25em, weight: "bold", [`NearestNeighbor(G, x)`])  \
-  ==== `NearestNeighbor(G, x) -> v`
+  // ==== `NearestNeighbor(G, x) -> v`
+  ==== #fsig[NearestNeighbor(G, x) -> v]
   Finds the nearest node $v in V subset cal(X)$ in the tree to a given point. Takes in the graph, $G = (V, E)$, and a point, $x in cal(X)$, see @eq.func-nearest-neighbor. This notion could be further specified with a distance metric, such as the Euclidean distance, as seen in @eq.func-nearest-neighbor-euclidean, which return the node $v in V$ that minimizes the distance, $norm(x - v)$, between the new point $x$ and an existing node $v$.@erc-rrt-star
 
-  #{
-    show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
-    [
-      $
-        "NearestNeighbor" : (G, x) arrow.r.bar v in V
-      $<eq.func-nearest-neighbor>
+  #algeq[
+    $
+      "NearestNeighbor" : (G, x) arrow.r.bar v in V
+    $<eq.func-nearest-neighbor>
 
-      $
-        "NearestNeighbor"(G = (V, E), x) = "argmin"_(v in V) norm(x - v)
-      $<eq.func-nearest-neighbor-euclidean>
-    ]
-  }
+    $
+      "NearestNeighbor"(G = (V, E), x) = "argmin"_(v in V) norm(x - v)
+    $<eq.func-nearest-neighbor-euclidean>
+  ]
 
   // \ #text(size: 1.25em, weight: "bold", [`Steer(x, y)`])  \
-  ==== `Steer(x, y, s) -> v`
+  // ==== `Steer(x, y, s) -> v`
+  ==== #fsig[Steer(x, y, s) -> v]
   Creates a new node at a specific distance from the nearest node towards a given point. Takes in two points $x, y in cal(X)$, and a step length $s in RR^+$,. The new node $v$ is created by moving $s$ distance from $x$ towards $y$. This way equation @eq.func-steer returns a point $v in cal(X)$ such that $v$ is closer to $y$ than $x$, which will either be $s$ closer, or if the randomly sampled point $y$ is within $s$ distance from $x$ to begin with, $v$ will be at $y$. As such the inequality $norm(z - y) >= s$ holds.@erc-rrt-star
 
-  #{
-    show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
-    [
-      $
-        "Steer" : (x, y, s) arrow.r.bar v in cal(X)
-      $<eq.func-steer>
-    ]
-  }
+  #algeq[
+    $
+      "Steer" : (x, y, s) arrow.r.bar v in cal(X)
+    $<eq.func-steer>
+  ]
 
   // \ #text(size: 1.25em, weight: "bold", [`CollisionFree(x, y)`])  \
-  ==== `CollisionFree(x, y) -> p`
+  // ==== `CollisionFree(x, y) -> p`
+  ==== #fsig[CollisionFree(x, y) -> p]
   Checks if the path between two nodes is collision-free. Takes in two points $x, y in cal(X)$, and returns a boolean, $p in {top, bot}$. The returned values, $p$, says something about whether the addition of node $y in cal(X)$ into the #acr("RRT") tree is valid, given a proposed edge to the node $x in V$. Typically the validity notion depends on whether the path from $x$ to $y$ is collision-free, hence the function's name, but could include any other arbitrary constraints.@erc-rrt-star
 
   // \ #text(size: 1.25em, weight: "bold", [`WithinGoalTolerance(tolerance, x, goal)`])  \
-  ==== `WithinGoalTolerance(t, x, g) -> p`
+  // ==== `WithinGoalTolerance(t, x, g) -> p`
+  ==== #fsig[WithinGoalTolerance(t, x, g) -> p]
   Checks if a node is within the goal tolerance distance from the goal. As such the the functions takes in the distance tolerance $t$, a node $x in V$, and the goal state $g in cal(X)$. The function returns a boolean, $p in {top, bot}$, that tells us whether $x$ is within a euclidean distance $t$ from the goal state $g$. See @eq.func-goal-tolerance for the mathematical representation.@erc-rrt-star
 
-  #{
-    show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
-    [
-      $
-        "WithinGoalTolerance" : (t, v, g) arrow.r.bar p in {top, bot}
-      $<eq.func-goal-tolerance>
-    ]
-  }
+  #algeq[
+    $
+      "WithinGoalTolerance" : (t, v, g) arrow.r.bar p in {top, bot}
+    $<eq.func-goal-tolerance>
+  ]
 
 ]
 // #jens[
@@ -193,8 +187,6 @@
 
   As such every time a new node is created, there is a possibility that other nodes within that radius, will have a lower cost if they were to be connected to the new node. Thus, comparing the nodes' old cost, and the cost they would have in case we connect them to the newly created node, determines whether to rewire or not.
 
-With the modifications made, the #acr("RRT*") algorithm is shown in @alg-rrt-star@erc-rrt-star.
-
 #algorithm(
   caption: [The RRT\* Algorithm],
 )[
@@ -233,14 +225,38 @@ With the modifications made, the #acr("RRT*") algorithm is shown in @alg-rrt-sta
   *end* \ \
 
   *Output:* $G = (V, E)$
-]<alg-rrt-star>
+]<alg.rrt-star>
 
-=== RRT\* Functions
+With the modifications made, the #acr("RRT*") algorithm is shown in @alg.rrt-star@erc-rrt-star. Two important blocks of the algorithm has been sectioned out in sub-algorithms @alg.rrt-star.min-cost-connection and #numref(<alg.rrt-star.rewire>), which are described along side the other new functions of #acr("RRT*") under @s.b.rrt-star.functions. The main parts of the algorithm are visualised in @f.rrt-rewire as three steps:
+#set enum(numbering: box-enum.with(prefix: "Step ", suffix: ":", color: theme.mauve))
++ A new point has been sampled, deemed collision-free, and thus node $v_"new"$ can be added to the tree. But first, we need to find which existing node to connect to. Here, $v_"nearest"$ is chosen by the `MinCostConnection` algorithm, as it is the node that minimizes the total cost from the root to $v_"new"$, within the step-length radius $s$.
++ In preparation, rewiring candidates will be found, by looking at all nodes in the tree, that are withing a certain reqiring radius, $r$, from $v_"new"$. This is done by the `Neighbourhood` function, which returns the set $V_"near" = {n_1, n_2, dots, n_n}$.
+#[
+  #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+  + This step is where the rewiring takes place. By looking at the nodes in $V_"near"$, we can compute each node's cost, $c_"new"$ with equation @eq.rrt-star-cost
 
-Here the functions used in the #acr("RRT*") algorithm are described. Functions from #acr("RRT") are not repeated here, as they are the same. The new functions are; `MinCostConnection`, `Rewire`, `Cost`, `Neighbourhood`, `Parent`, and `Line`.
+    $
+      "Cost"(v_"new") + c("Line"(n_i, v_"new"))
+    $<eq.rrt-star-cost>
 
-==== `MinCostConnection(V_near, x_new, x_init, c_init) -> v` <s.b.rrt-star.min-cost-connection>
+    as if $v_"new"$ were its parent. Denote the costs $C_"near" = {c_1, c_2, dots, c_n}$. Now for each node $n_i in V_"near"$, check if $c_i < c_"new"$, and if so, rewire the connection to make $v_"new"$ the parent of $n_i$.
+]
 
+#figure(
+  {
+    v(1em)
+    image("../../figures/out/rrt-rewire.svg", width: 100%)
+  },
+  caption: [The #acr("RRT*") algorithm drawn out in 3 steps. Firstly, a new node is sampled and added to the tree, where the cost is lowest, looking in a radius of $s$#swatch(theme.mauve.lighten(40%)). Then nodes within a neighbourhood $r$#swatch(theme.lavender.lighten(25%)), are then rewired if their cost would be lower by doing so.],
+)<f.rrt-rewire>
+
+=== RRT\* Functions <s.b.rrt-star.functions>
+
+Here the functions used in the #acr("RRT*") algorithm are described in @alg.rrt-star. Functions from base-#acr("RRT") are not repeated here, as no change is made to them. The new functions are; `MinCostConnection`, `Rewire`, `Cost`, `Neighbourhood`, `Parent`, and `Line`.
+
+// ==== `MinCostConnection(V_near, x_new, x_init, c_init) -> v` <s.b.rrt-star.min-cost-connection>
+==== #fsig[MinCostConnection(V_near, v_new, v_init, c_init) -> v] <s.b.rrt-star.min-cost-connection>
+This function is a main part of the #acr("RRT*") modification, as it attached the new node $v_"new"$, not to the node nearest to the randomly sampled point in $cal(X)$, but to the node that minimizes the cost from the root to $v_"new"$. This happens by looking at all nodes in a neighbourhood $V_"near"$ of radius $r$ from $v_"new"$, and then finding the node that minimizes the cost. To begin with the initial node $v_"init"$ and its cost $c_"init"$ is passed to the function as the initial comparison point. The initial comparison point is typically the nearest node in the tree, that would have been the parent for $v_"new"$ in #acr("RRT"). The function's operation is described in @alg.rrt-star.min-cost-connection.
 #algorithm(
   caption: [Finding the Minimum Cost Connection],
   [
@@ -264,8 +280,9 @@ Here the functions used in the #acr("RRT*") algorithm are described. Functions f
   ]
 )<alg.rrt-star.min-cost-connection>
 
-==== `Rewire(V_near, x_new)` <s.b.rrt-star.rewire>
-
+// ==== `Rewire(V_near, x_new)` <s.b.rrt-star.rewire>
+==== #fsig[Rewire(V_near, v_new)] <s.b.rrt-star.rewire>
+The rewiring function is the second part of the #acr("RRT*") optimisation steps, which changes previously established connections in the tree. The function uses the neighbourhood $V_"near"$ of nodes in radius $r$ around $v_"new"$. For each $n_i in V_"near"$, if the cost of $n_i$ with $v_"new"$ as parent is lower than the previously established cost for $n_i$, the tree is rewired. The function is described in @alg.rrt-star.rewire.
 #algorithm(
   caption: [Rewiring],
   [
@@ -287,10 +304,49 @@ Here the functions used in the #acr("RRT*") algorithm are described. Functions f
   ]
 )<alg.rrt-star.rewire>
 
-==== `Cost(v) -> c` <s.b.rrt-star.cost>
+// ==== `Cost(v) -> c` <s.b.rrt-star.cost>
+==== #fsig[Cost(v) -> c] <s.b.rrt-star.cost>
+// By whatever means, returns the cost of a node, $v in V$. That is; the length of the line segments if one were to walk from $v$ and all the way back to the root node.
 
-==== `Neighbourhood(V, E, x, r) -> V_near` <s.b.rrt-star.neighbourhood>
+This function is used in @alg.rrt-star, #numref(<alg.rrt-star.min-cost-connection>), and #numref(<alg.rrt-star.rewire>) to access the cost $c$ of a node $v in V$. Typically the cost is a distance, and as such; the sum of the Euclidean distances between all nodes if one were to walk all the way back to the root node from $v$. Thus a mapping from a node $v in V$ to a cost $c in RR^+$ as shown in @eq.func-cost.
 
-==== `Parent(v) -> p` <s.b.rrt-star.parent>
+#algeq[
+  $
+    "Cost" : v arrow.r.bar c in RR^+
+  $<eq.func-cost>
+]
 
-==== `Line(x, y) -> l` <s.b.rrt-star.line>
+// ==== `Neighbourhood(V, E, x, r) -> V_near` <s.b.rrt-star.neighbourhood>
+==== #fsig[Neighbourhood(V, E, x, r) -> V_near] <s.b.rrt-star.neighbourhood>
+A more complex function, which returns a the set of all nodes in $V$ that are within a radius $r$ from a potential new node $x in cal(X)$. If the configuration space is $cal(X) = RR^2$, then the neighbourhood $V_"near"$ is a subset of $V$ such that $forall v in V_"near"$, $norm(v - x) <= r$. This mapping is described in @eq.func-neighbourhood.
+
+#algeq[
+  $
+    "Neighbourhood" : (V, E, x, r) arrow.r.bar V_"near" subset V
+  $<eq.func-neighbourhood>
+]
+
+// ==== `Parent(v) -> p` <s.b.rrt-star.parent>
+==== #fsig[Parent(v) -> p] <s.b.rrt-star.parent>
+Semantically denotes access to the parent node $p in V$ of a node $v in V$, see @eq.func-parent.
+
+#algeq[
+  $
+    "Parent" : v arrow.r.bar p in V
+  $<eq.func-parent>
+]
+
+// ==== `Line(x, y) -> l` <s.b.rrt-star.line>
+==== #fsig[Line(x, y) -> l] <s.b.rrt-star.line>
+#{
+  show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+
+  [
+    Denotes the idea of the finding the line segment that is between two nodes $x, y in cal(X)$. This line segment expresses the relationship between $x$ and $y$ in the configuration space $cal(X)$. It can be used, as seen in algorithms #numref(<alg.rrt-star>), #numref(<alg.rrt-star.min-cost-connection>) and #numref(<alg.rrt-star.rewire>), to calculate the cost that this line segment provides. This is done by the function $c("Line"(x, y))$, which, in case of a Euclidean configuration space, and thus cost would express a mapping from two points $x, y in cal(X)$ to a distance $l in RR^+$, see @eq.func-line.
+
+    $
+      "Line" : (x, y) arrow.r.bar l in RR^+ \
+      c("Line"(x, y)) = norm(x - y)
+    $<eq.func-line>
+  ]
+}
