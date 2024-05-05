@@ -5,14 +5,15 @@ import re
 import os
 import argparse
 import subprocess
+import statistics
+
 
 def get_gradient(n: int) -> list[str] | None:
-    # Run the shell command
     output = subprocess.run(
         f"pastel gradient red green -s HSL -n {n} | pastel format hex",
         shell=True,
         capture_output=True,
-        text=True
+        text=True,
     )
 
     # Check if the command was successful
@@ -21,7 +22,6 @@ def get_gradient(n: int) -> list[str] | None:
         output_lines = output.stdout.splitlines()
         # Print the list
         return output_lines
-        # print(output_lines)
     else:
         # If the command failed, print the error message
         print("Error:", output.stderr)
@@ -29,7 +29,7 @@ def get_gradient(n: int) -> list[str] | None:
 
 def hex_to_ansi(hex_color):
     # Remove '#' if present
-    hex_color = hex_color.lstrip('#')
+    hex_color = hex_color.lstrip("#")
 
     # Convert hex to RGB
     r = int(hex_color[0:2], 16)
@@ -41,7 +41,8 @@ def hex_to_ansi(hex_color):
 
     return ansi_color
 
-dictionary = {}
+
+dictionary: dict[str, int] = {}
 
 word_regexp = re.compile(r"\b(\w+)\b")
 
@@ -53,10 +54,6 @@ for line in sys.stdin.readlines():
             dictionary[word] += 1
         else:
             dictionary[word] = 1
-
-# print(dictionary)
-
-
 
 
 parser = argparse.ArgumentParser()
@@ -73,7 +70,9 @@ max_count_length = len(str(max(dictionary.values())))
 unique_word_lengths = set(dictionary.values())
 unique_word_length = len(set(dictionary.values()))
 
-word_count_to_gradient_index: dict[int, int] = {c: i for i, c in enumerate(sorted(unique_word_lengths, reverse=True))}
+word_count_to_gradient_index: dict[int, int] = {
+    c: i for i, c in enumerate(sorted(unique_word_lengths, reverse=True))
+}
 # print(word_count_to_gradient_index)
 # sys.exit(0)
 
@@ -97,12 +96,14 @@ BLUE = "\033[34m"
 
 N = len(dictionary) if args.top == 0 else args.top
 # Print in sorted order by frequency
-for word in sorted(dictionary, key=dictionary.get, reverse=True)[: N]:
+for word in sorted(dictionary, key=dictionary.get, reverse=True)[:N]:
     if dictionary[word] >= args.min_words:
         count = dictionary[word]
         # print(f"{word:>{max_word_length}} {count:<}")
         percentage = count / total_words * 100
-        text = f"{word:>{max_word_length}} {count:{max_count_length}} ({percentage:.2f}%)"
+        text = (
+            f"{word:>{max_word_length}} {count:{max_count_length}} ({percentage:.2f}%)"
+        )
         width_available = terminal_columns - len(text)
         histogram_length: int = min(count, width_available) - 1
         histogram_bar = "+" * histogram_length
@@ -118,4 +119,17 @@ for word in sorted(dictionary, key=dictionary.get, reverse=True)[: N]:
         # print(word, dictionary[word])
 
 
-print(f"{total_words = }")
+print(f"{YELLOW}------- STATS -------{RESET}")
+
+mean: float = statistics.mean(dictionary.values())
+median: float = statistics.median(dictionary.values())
+stdev: float = statistics.stdev(dictionary.values())
+variance: float = statistics.variance(dictionary.values())
+
+total: int = total_words
+
+print(f"{total    = : >10}")
+print(f"{mean     = : >10.2f}")
+print(f"{median   = : >10.2f}")
+print(f"{stdev    = : >10.2f}")
+print(f"{variance = : >10.2f}")

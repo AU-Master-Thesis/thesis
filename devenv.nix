@@ -39,6 +39,9 @@
     sqlite
     nushell
     xsv
+    ruff
+    ruff-lsp
+    pyright
     # (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "ComicShannsMono" "Hack" ]; })
   ];
 
