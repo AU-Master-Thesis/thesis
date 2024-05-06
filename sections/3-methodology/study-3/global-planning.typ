@@ -10,3 +10,5 @@ An example of the RRT algorithm in action can be seen in @f-m-rrt-colliders. #no
   image("../../../figures/out/rrt-colliders.svg", width: 30%),
   caption: [RRT algorithm and environment integration.],
 )<f-m-rrt-colliders>
+
+==== Path Adherence

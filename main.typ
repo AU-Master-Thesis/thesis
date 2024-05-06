@@ -264,5 +264,3 @@
   // style: "ieee",
   title: none,
 )
-
-#example-counter.display()

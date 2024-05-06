@@ -519,7 +519,7 @@
       row-gutter: 1em,
       align: (right, left),
       inset: 0pt,
-      (), vlinex(), (),
+      // (), vlinex(), (),
       ..to-content-array()
     )
   })
