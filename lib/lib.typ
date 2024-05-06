@@ -66,17 +66,20 @@
   clip: true,
 )
 
-#let blocked(title: none, content, color: theme.base) = std-block(fill: color)[
-  #v(0.25em)
-  #text(theme.text, size: 1.2em, weight: 900, title)
-  // #v(-0.15em)
+#let blocked(title: none, content, color: theme.base) = {
+  set align(left)
+  std-block(fill: color)[
+    #v(0.25em)
+    #text(theme.text, size: 1.2em, weight: 900, title)
+    // #v(-0.15em)
 
-  #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: white + 2pt))
+    #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: white + 2pt))
 
-  #content
+    #content
 
-  #v(0.5em)
-]
+    #v(0.5em)
+  ]
+}
 
 #let sourcecode = sourcecode.with(frame: std-block, numbers-style: (lno) => move(dy: 1pt, text(
   font: "JetBrains Mono",

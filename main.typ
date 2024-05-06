@@ -19,6 +19,9 @@
 // #set list.where(level)
 #set enum(full: true)
 
+#set grid(gutter: 0.5em)
+#set image(width: 100%)
+
 #show outline.entry.where() : it => {
   let t = it.body.fields().values().at(0)
 
