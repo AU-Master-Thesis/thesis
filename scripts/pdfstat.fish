@@ -1,4 +1,5 @@
-#!/usr/bin/env -S fish --no-config
+#!/usr/bin/env nix-shell
+#! nix-shell -i fish -p poppler_utils jq
 
 set -g reset (set_color normal)
 set -g bold (set_color --bold)

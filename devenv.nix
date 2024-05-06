@@ -1,64 +1,69 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  python-packages = with pkgs; [
+    ruff
+    ruff-lsp
+    pyright
+  ];
+in {
   # https://devenv.sh/basics/
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = with pkgs; [
-    typst
-    typstfmt
-    tinymist
-    watchexec
-    pdf2svg
-    typst-lsp
-    tectonic
-    pdf2svg
-    hayagriva
-    graphviz
-    python3
-    # poppler-utils
-    poppler_utils # pdf utilities
-    languagetool
+  packages = with pkgs;
+    [
+      typst
+      typstfmt
+      tinymist
+      watchexec
+      pdf2svg
+      typst-lsp
+      tectonic
+      pdf2svg
+      hayagriva
+      graphviz
+      python3
+      # poppler-utils
+      poppler_utils # pdf utilities
+      languagetool
 
-    just
-    ltex-ls # languagetool lsp
-    typos
-    yq-go
-    jq
-    jaq
-    taplo
-    fd
-    bat
-    ripgrep
-    gcc
-    git
-    # tree
-    as-tree
-    just
-    fish
-    typos
-    sqlite
-    nushell
-    xsv
-    ruff
-    ruff-lsp
-    pyright
-    # (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "ComicShannsMono" "Hack" ]; })
-  ];
+      just
+      ltex-ls # languagetool lsp
+      typos
+      yq-go
+      jq
+      jaq
+      taplo
+      fd
+      bat
+      ripgrep
+      gcc
+      git
+      # tree
+      as-tree
+      just
+      fish
+      typos
+      sqlite
+      nushell
+      xsv
+      # (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "ComicShannsMono" "Hack" ]; })
+    ]
+    ++ python-packages;
 
   # https://devenv.sh/scripts/
-  scripts.hello.exec = "echo hello from $GREET";
+  # scripts.hello.exec = "echo hello from $GREET";
 
-  enterShell = ''
-    # hello
-    # ${pkgs.typst}/bin/typst --version
-    # git --version
-  '';
-
-  # https://devenv.sh/tests/
-  enterTest = ''
-    echo "Running tests"
-    git --version | grep "2.42.0"
-  '';
+  # enterShell = ''
+  #   # hello
+  #   # ${pkgs.typst}/bin/typst --version
+  #   # git --version
+  # '';
+  #
+  # # https://devenv.sh/tests/
+  # enterTest = ''
+  #   echo "Running tests"
+  #   git --version | grep "2.42.0"
+  # '';
 
   # https://devenv.sh/services/
   # services.postgres.enable = true;
@@ -99,14 +104,14 @@
     #   # };
     #   typstfmt.enable = false;
 
-    #   all-typ-files-used = {
-    #     enable = true;
-    #     name = "all typ files used in main.typ";
-    #     entry = "./all-typ-files-included.fish";
-    #     files = "\\.typ$";
-    #     excludes = ["sections/.*\\.typ"];
-    #     pass_filenames = false;
-    #   };
+    # all-typ-files-used = {
+    #   enable = true;
+    #   name = "all typ files used in main.typ";
+    #   entry = "./scripts/all-typ-files-included.fish";
+    #   files = "\\.typ$";
+    #   excludes = ["sections/.*\\.typ"];
+    #   pass_filenames = false;
+    # };
 
     #   # typ-files-compiles = {
     #   main-typ-compiles = {
@@ -122,7 +127,7 @@
     #   all-citations-used = {
     #     enable = true;
     #     name = "all citations used";
-    #     entry = "./all-citations-used.fish ./main.typ";
+    #     entry = "./scripts/all-citations-used.fish ./main.typ";
     #     files = "\\.typ$";
     #     excludes = ["sections/.*\\.typ"];
     #     # files = "./main.typ";
@@ -132,7 +137,7 @@
     #   all-references-used = {
     #     enable = true;
     #     name = "all references used";
-    #     entry = "./all-references-used.fish ./main.typ";
+    #     entry = "./scripts/all-references-used.fish ./main.typ";
     #     files = "\\.typ$";
     #     excludes = ["sections/.*\\.typ"];
     #     # files = "./main.typ";
@@ -142,7 +147,7 @@
     #   all-acronyms-used = {
     #     enable = true;
     #     name = "all acronyms used";
-    #     entry = "./all-acronyms-used.fish ./main.typ";
+    #     entry = "./scripts/all-acronyms-used.fish ./main.typ";
     #     files = "\\.typ$";
     #     excludes = ["sections/.*\\.typ"];
     #     # files = "./main.typ";
@@ -152,7 +157,7 @@
     #   all-sentences-start-with-a-capital-letter = {
     #     enable = true;
     #     name = "all sentences start with a capital letter";
-    #     entry = "./all-sentences-start-with-a-capital-letter.fish ./main.pdf";
+    #     entry = "./scripts/all-sentences-start-with-a-capital-letter.fish ./main.pdf";
     #     files = "\\.typ$";
     #     excludes = ["sections/.*\\.typ"];
     #     # files = "./main.typ";
@@ -162,30 +167,30 @@
     #   all-svg-figures-used = {
     #     enable = true;
     #     name = "all svg figures used";
-    #     entry = "./all-svg-figures-used.fish";
+    #     entry = "./scripts/all-svg-figures-used.fish";
     #     files = "\\.typ$";
     #     excludes = ["sections/.*\\.typ"];
     #     # files = "./main.typ";
     #     pass_filenames = false;
     #   };
 
-    #   fish = {
-    #     enable = true;
-    #     name = "fish scripts syntactically correct";
-    #     entry = "${pkgs.fish}/bin/fish --no-execute";
-    #     # types = ["files" "fish"];
-    #     files = "\\.fish$";
-    #     pass_filenames = true;
-    #   };
+    fish = {
+      enable = true;
+      name = "fish scripts syntactically correct";
+      entry = "${pkgs.fish}/bin/fish --no-execute";
+      # types = ["files" "fish"];
+      files = "\\.fish$";
+      pass_filenames = true;
+    };
 
-    #   fish_indent = {
-    #     enable = true;
-    #     name = "format fish files";
-    #     entry = "${pkgs.fish}/bin/fish_indent --check";
-    #     files = "\\.fish$";
-    #     # types = ["files" "fish"];
-    #     pass_filenames = true;
-    #   };
+    fish_indent = {
+      enable = true;
+      name = "format fish files";
+      entry = "${pkgs.fish}/bin/fish_indent --check";
+      files = "\\.fish$";
+      # types = ["files" "fish"];
+      pass_filenames = true;
+    };
   };
 
   devcontainer.enable = true;

@@ -1,4 +1,5 @@
-#!/usr/bin/env -S fish --no-config
+#!/usr/bin/env nix-shell
+#! nix-shell -i fish -p fd as-tree
 
 set -g options v/verbose
 

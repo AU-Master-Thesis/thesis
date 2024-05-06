@@ -1,4 +1,5 @@
-#!/usr/bin/env -S fish --no-config
+#!/usr/bin/env nix-shell
+#! nix-shell -i fish -p hello
 
 set -l reset (set_color normal)
 set -l bold (set_color --bold)
@@ -12,7 +13,7 @@ set -l magenta (set_color magenta)
 
 set -l svgs (path resolve ./figures/out/*.svg img/*.svg)
 
-set -l typ_files (./includes.fish ./main.typ)
+set -l typ_files (./scripts/includes.fish ./main.typ)
 
 set -l svgs_used
 

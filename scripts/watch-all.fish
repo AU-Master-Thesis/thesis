@@ -1,5 +1,5 @@
-#!/usr/bin/env -S fish --no-config
-
+#!/usr/bin/env nix-shell
+#! nix-shell -i fish -p watchexec typst
 
 function run
     printf '%sevaluating%s: ' $magenta $reset
@@ -8,10 +8,10 @@ function run
 end
 
 function is_wsl
-    string match --quiet "*microsoft*" < /proc/version
+    string match --quiet "*microsoft*" </proc/version
 end
 
-set watchexec_command 'watchexec'
+set watchexec_command watchexec
 if is_wsl
     set watchexec_command 'watchexec.exe'
 end

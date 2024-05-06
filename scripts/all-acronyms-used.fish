@@ -1,4 +1,5 @@
-#!/usr/bin/env -S fish --no-config
+#!/usr/bin/env nix-shell
+#! nix-shell -i fish -p hello
 
 set -g reset (set_color normal)
 set -g bold (set_color --bold)
@@ -14,7 +15,7 @@ set -l acronyms (string match --regex --groups-only 'acronym: (\S+)$' < acronyms
 
 set -l acronyms_used
 
-set -l files (./includes.fish ./main.typ)
+set -l files (./scripts/includes.fish ./main.typ)
 
 set -l regexp "#(acr|acrpl)\(\"($(string join '|' -- $acronyms))\"\)"
 
@@ -32,9 +33,9 @@ set -l n_acronyms_not_used 0
 
 for ac in $acronyms
     if contains -- $ac $acronyms_used
-        printf '[%s✓%s] %s%s%s\n' $green $reset $green $ac $reset
+        printf '[%s✓%s] %s%6s%s\n' $green $reset $green $ac $reset
     else
-        printf '[%s✘%s] %s%s%s not used 😡\n' $red $reset $red $ac $reset
+        printf '[%s✘%s] %s%6s%s not used 😡\n' $red $reset $red $ac $reset
         set n_acronyms_not_used (math "$n_acronyms_not_used + 1")
     end
 end

@@ -1,4 +1,5 @@
-#!/usr/bin/env -S fish --no-config
+#!/usr/bin/env nix-shell
+#! nix-shell -i fish -p hello
 
 set -g reset (set_color normal)
 set -g bold (set_color --bold)
@@ -17,7 +18,7 @@ set -l citations (string match --regex --groups-only '^([^ :]+):\s*$' < ./refere
 set -l citations_used_count
 set -l citations_used
 
-set -l files (./includes.fish ./main.typ)
+set -l files (./scripts/includes.fish ./main.typ)
 
 set -l regexp "@($(string join '|' -- $citations))"
 

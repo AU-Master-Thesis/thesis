@@ -1,4 +1,6 @@
-#!/usr/bin/env -S fish --no-config
+#!/usr/bin/env nix-shell
+#! nix-shell -i fish -p typst jaq
+
 
 set -g reset (set_color normal)
 set -g bold (set_color --bold)
@@ -14,7 +16,7 @@ set -l query "selector(heading).or(selector(figure)).or(selector(metadata)).or(s
 set -l labels (typst query main.typ --field label $query | jaq -r '.[]' | string sub --start=2 --end=-1)
 set -l labels_used
 
-set -l files (./includes.fish ./main.typ)
+set -l files (./scripts/includes.fish ./main.typ)
 # TODO: handle '#ref("label")' | '#ref(<label>)' syntax
 set -l regexp "@($(string join '|' -- $labels))"
 
