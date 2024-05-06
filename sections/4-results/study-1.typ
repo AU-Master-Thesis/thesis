@@ -23,7 +23,7 @@
     [$sigma_r$], [$0.005$],
     [$sigma_o$], [$0.005$],
     [$C_("radius")$], [$50 m$],
-    tdc[$r_R$], tdc[randomly sampled from $cal(U)(2,3) m$],
+    tdc[$r_R$], [randomly sampled from $cal(U)(2,3) m$],
   [Initial speed], [$15 " " m "/" s$],
   [$N_R$], [${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$]
 )
