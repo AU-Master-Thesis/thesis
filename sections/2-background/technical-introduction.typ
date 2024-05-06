@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../lib/mod.typ": *
 == Gaussian Models <s.b.gaussian-models>
 
 // Reasons from @gbp-visual-introduction

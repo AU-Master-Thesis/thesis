@@ -1,6 +1,6 @@
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the IEEE.
-#import "./lib.typ": *
+#import "lib/mod.typ": *
 
 #let appendix = state("appendix", false)
 #let heading-supplement = state("heading-supplement", "Section")

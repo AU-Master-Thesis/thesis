@@ -131,4 +131,3 @@
   _catppuccin.insert("theme", theme)
   _catppuccin
 }
-

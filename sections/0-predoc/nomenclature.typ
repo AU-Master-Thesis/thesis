@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../lib/mod.typ": *
 = Nomenclature <nomenclature>
 
 - Interior Mutability

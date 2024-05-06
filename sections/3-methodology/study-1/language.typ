@@ -1,4 +1,4 @@
-#import "../../../lib.typ": *
+#import "../../../lib/mod.typ": *
 === Implementation Language
 
 This subsection describes the choice of implementation programming language used in both the simulation and the reimplementation of the gbpplanner paper. Motivations for why the language was chosen is laid out and argued for.

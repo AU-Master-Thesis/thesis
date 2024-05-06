@@ -1,4 +1,4 @@
-#import "../../../lib.typ": *
+#import "../../../lib/mod.typ": *
 === Global Planning
 // RRT
 
@@ -12,3 +12,7 @@ An example of the RRT algorithm in action can be seen in @f-m-rrt-colliders. #no
 )<f-m-rrt-colliders>
 
 ==== Path Adherence
+
+#jens[Approach 1: Simply perform RRT\*, and use the resulting points as waypoints.]
+
+#jens[Approach 2: Use the RRT\* algorithm to generate a path, then track the robots along it with _pose factors_ (traction factors).]
