@@ -42,9 +42,20 @@ def hex_to_ansi(hex_color):
     return ansi_color
 
 
-dictionary: dict[str, int] = {}
+# print(get_gradient(10))
+# sys.exit(0)
 
-word_regexp = re.compile(r"\b(\w+)\b")
+parser = argparse.ArgumentParser()
+parser.add_argument("-m", "--min-words", type=int, default=0)
+parser.add_argument("-t", "--top", type=int)
+parser.add_argument("--no-digits")
+args = parser.parse_args()
+
+
+dictionary: dict[str, int] = {}
+word_regexp = re.compile(r"\b(\D+)\b") if not args.no_digits else re.compile(r"\b(\w+)\b")
+
+# word_regexp = re.compile(r"\b(\w+)\b")
 
 for line in sys.stdin.readlines():
     line = line.strip()
@@ -55,11 +66,6 @@ for line in sys.stdin.readlines():
         else:
             dictionary[word] = 1
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument("-m", "--min-words", type=int, default=0)
-parser.add_argument("-t", "--top", type=int)
-args = parser.parse_args()
 
 total_words = sum(dictionary.values())
 
@@ -76,9 +82,11 @@ word_count_to_gradient_index: dict[int, int] = {
 # print(word_count_to_gradient_index)
 # sys.exit(0)
 
+print(f"{unique_word_length = }")
+
 gradient = get_gradient(unique_word_length)
 # print(gradient)
-
+#
 # sys.exit(0)
 
 
