@@ -1,8 +1,6 @@
-// #import "template.typ": *
+
 #import "catppuccin.typ": *
-#import "note.typ"
-#import "text-case.typ": *
-#import "unitfmt.typ": *
+// #import "template.typ": *
 #import "@preview/codelst:1.0.0": sourcecode, codelst, sourcefile
 
 #import "@preview/tablex:0.0.6": *
@@ -58,6 +56,14 @@
   stroke: none,
   width: 100%,
   breakable: true,
+)
+
+#let cut-block = block.with(
+  fill: none,
+  radius: 1em,
+  stroke: none,
+  breakable: true,
+  clip: true,
 )
 
 #let blocked(title: none, content, color: theme.base) = std-block(fill: color)[
@@ -642,6 +648,28 @@
 #let H(n) = [Hypothesis #boxed(color: theme.lavender)[*H-#n*]]
 #let RQ(n) = [Research Question #boxed(color: theme.lavender)[*RQ-#n*]]
 #let O(n) = [Objective #boxed(color: theme.lavender)[*O-#n*]]
+
+#let scen = (
+  circle: "Circle",
+  clear-circle: "Clear Circle",
+  junction: "Junction",
+).pairs().map(
+  it => {
+    let key = it.at(0)
+    let value = it.at(1)
+
+    (
+      key,
+      (
+        s: text(style: "italic", weight: 900, value),
+        n: value
+      )
+    )
+  }
+).fold((:), (acc, it) => {
+  acc.insert(it.at(0), it.at(1))
+  acc
+})
 
 #let study = (
   heading: it => {

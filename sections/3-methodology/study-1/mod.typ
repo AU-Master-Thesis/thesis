@@ -1,4 +1,4 @@
-#import "../../../lib.typ": *
+#import "../../../lib/mod.typ": *
 == #study.H-1.full.n <s.r.study-1>
 
 #include "language.typ"

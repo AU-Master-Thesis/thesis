@@ -1,4 +1,4 @@
-#import "../../../lib.typ": *
+#import "../../../lib/mod.typ": *
 
 === Iteration Schedules <s.iteration-schedules>
 

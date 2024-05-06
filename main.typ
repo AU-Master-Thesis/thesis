@@ -1,4 +1,4 @@
-#import "lib.typ": *
+#import "lib/mod.typ": *
 #import "template.typ": *
 
 #show figure.where(kind: raw): set block(breakable: true)

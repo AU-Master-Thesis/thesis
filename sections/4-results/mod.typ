@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../lib/mod.typ": *
 // = Results <s.results>
 
 // #todo[solve these fricking frucking reference issues]
@@ -7,6 +7,7 @@
 = Results <s.results>
 
 #include "./metrics.typ"
+#include "./scenarios.typ"
 #include "./study-1.typ"
 #include "./study-2.typ"
 #include "./study-3.typ"

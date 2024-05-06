@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../lib/mod.typ": *
 = Methodology <methodology>
 
 #include "study-1/mod.typ"

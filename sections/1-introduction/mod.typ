@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../lib/mod.typ": *
 = Introduction <introduction>
 
 == Motivation <intro-motivation>

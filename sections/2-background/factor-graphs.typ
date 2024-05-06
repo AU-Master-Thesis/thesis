@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../lib/mod.typ": *
 == Factor Graphs <s.b.factor-graphs>
 
 // NOTES:

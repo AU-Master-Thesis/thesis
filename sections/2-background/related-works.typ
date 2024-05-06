@@ -1,4 +1,4 @@
-#import "../../lib.typ": *
+#import "../../lib/mod.typ": *
 == Related Works <s.b.related-works>
 
 // things to cover
