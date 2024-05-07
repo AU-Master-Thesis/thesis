@@ -26,3 +26,28 @@ the start.
   - How do they disconnect?
 
 #kristoffer[Experiment with different graph representations, e.g. matrix, csr, map based etc. and test if they match theoretical performance profiles derived in the graph representation section]
+
+#kristoffer[
+  Try to make an estimate about the throughput of the system, in terms of messages per second, and try and estimate how much bandwidth is used.
+
+  Based on the results, discuss what implications this would have for a real world system.
+]
+
+#kristoffer[
+  Talk about our simulation as an extendable tool/system to easily test various modifications to using different factorgraph configurations, for robot path planning
+  - Extendable
+  - Maintainable ahh...
+]
+
+#kristoffer[
+  Does it make sense to queue messages?, or is it enough to only work on the latest one?
+]
+
+#kristoffer[
+  Extend the code to work with ROS2. Would probably work well with the pub/sub middleware
+  architecture and the QoS system in ROS2. E.g. each robot exposes a sub over the network, that
+  acts as a queue for incoming messages. The factorgraph will the use a pub to send messages to other known
+  robots on their respective topics.
+
+  Consequently, why did we not use ROS2 to begin with?
+]
