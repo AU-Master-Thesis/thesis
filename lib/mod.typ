@@ -4,3 +4,4 @@
 #import "unitfmt.typ": *
 #import "note.typ"
 #import "params.typ"
+#import "table.typ": *

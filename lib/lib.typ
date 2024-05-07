@@ -1,4 +1,5 @@
 
+#import "blocks.typ": *
 #import "catppuccin.typ": *
 // #import "template.typ": *
 #import "@preview/codelst:1.0.0": sourcecode, codelst, sourcefile
@@ -24,6 +25,8 @@
   factor: theme.lavender,
 )
 
+#let rep(item, n) = range(n).map(_ => item)
+
 #let hr = line(length: 100%)
 
 #let project-name = "Multi-agent Collaborative Path Planning"
@@ -48,38 +51,6 @@
   jens: authors.at(1).name,
   kristoffer: authors.at(0).name,
 )
-
-#let std-block = block.with(
-  fill: catppuccin.latte.base,
-  radius: 1em,
-  inset: 0.75em,
-  stroke: none,
-  width: 100%,
-  breakable: true,
-)
-
-#let cut-block = block.with(
-  fill: none,
-  radius: 1em,
-  stroke: none,
-  breakable: true,
-  clip: true,
-)
-
-#let blocked(title: none, content, color: theme.base) = {
-  set align(left)
-  std-block(fill: color)[
-    #v(0.25em)
-    #text(theme.text, size: 1.2em, weight: 900, title)
-    // #v(-0.15em)
-
-    #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: white + 2pt))
-
-    #content
-
-    #v(0.5em)
-  ]
-}
 
 #let sourcecode = sourcecode.with(frame: std-block, numbers-style: (lno) => move(dy: 1pt, text(
   font: "JetBrains Mono",

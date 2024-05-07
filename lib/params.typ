@@ -94,8 +94,6 @@
   pair-list.flatten()
 }
 
-#let rep(item, n) = range(n).map(_ => item)
-
 #let tabular(subdict, title: none, extra-rows: 0) = {
 
   let header = table.header(
