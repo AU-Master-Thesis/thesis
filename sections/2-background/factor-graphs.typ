@@ -24,7 +24,7 @@
 
 // Mathematically, the Hammersley-Clifford Theorom states that any positive joint distribution can be represented as a product of factors,
 
-A factor graph is a bipartite graph, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution , $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each clique of variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
+A factor graph is a bipartite graph with undirected edges, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution , $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each clique#note.k[clique is more of human social term] of variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
 
 $
   p(X) = product_{i} f_i (X_i)
@@ -56,7 +56,7 @@ $<eq.map-energy>
   )<fig.factor-graph>
 ]<ex.factor-graph>
 
-The factor graph is a generalisation of constraint graphs, and can represent any join function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm.@loeliger_introduction_2004@alevizos_factor_2012 The sum-product algorithm is detailed in @s.b.belief-propagation.
+The factor graph is a generalisation of constraint graphs, and can represent any joint function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm.@loeliger_introduction_2004@alevizos_factor_2012 The sum-product algorithm is detailed in @s.b.belief-propagation.
 
 #figure(
   image("../../figures/out/robot-factor-graph.svg"),
@@ -75,7 +75,10 @@ In @fig-robot-factor-graph two joint factor graphs are visualised. The first var
 
 // #acr("BP") is carried out by the sum-product algorithm.@robotweb@gbpplanner@gbp-visual-introduction
 
-The process of performing inference#note.wording[] on a factor graph is done by passing messages between the variables and factors. @fig.message-passing visualises the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
+
+Inference on a factor graph is achieved by passing messages between the variables and factors. @fig.message-passing visualises the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
+
+// The process of performing inference#note.wording[] on a factor graph is done by passing messages between the variables and factors. @fig.message-passing visualises the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
 
 #gridx(
   columns: (2em, 1fr, 4em, 1fr),
@@ -118,9 +121,11 @@ $<eq.mp-factor-to-variable>
 
 Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction#jens[more citation for loopy BP]
 
-The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transforms from an exact method to and approximation. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
+The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
 
 Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm isn't guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loppy #acr("BP") is very capable of converging to the true marginals, as long as the graphs aren't highly cyclic#note.wording[too loopy? Is loopy and cyclic the same thing?].@gbp-visual-introduction
+
+#todo[later mention that the specific factorgraph structure is non-cyclic in our case]
 
 == Gaussian Belief Propagation <s.b.gaussian-belief-propagation>
 
@@ -169,19 +174,19 @@ Where #inference.MAP solves for the mean, #m.mu, and #inference.marginal finds t
 
 === Variable Update <s.b.gbp.variable-update>
 
-The variable belief update happens by taken the product of incoming messages from nerighbouring nodes, here denoted as $N(i)$, as seen in @eq.gbp-variable-update@gbp-visual-introduction:
+The variable belief update happens by taking the product of incoming messages from neighbouring factor nodes, here denoted as $N(i)$, as seen in @eq.gbp-variable-update@gbp-visual-introduction:
 
 $
   b_i(x_i) = product_(s in N(i)) m_(f_s #ra x_i)
 $<eq.gbp-variable-update>
 
-Writing out the Gaussian message on #gaussian.canonical becomes @eq.gbp-message-canonical@gbp-visual-introduction:
+Writing out the Gaussian message in #gaussian.canonical becomes @eq.gbp-message-canonical@gbp-visual-introduction:
 
 $
   m = cal(N)^(-1) (x; mu, Lambda) prop exp(-1/2 x^top Lambda x + eta^top x)
 $<eq.gbp-message-canonical>
 
-Fortunately, as the messages are stored on #gaussian.canonical, the product in @eq.gbp-variable-update is the same as summing up the information vectors and precision matrices, as seen in @eq.gbp-variable-update-canonical@gbp-visual-introduction:
+Fortunately, as the messages are stored in #gaussian.canonical, the product in @eq.gbp-variable-update is the same as summing up the information vectors and precision matrices, as seen in @eq.gbp-variable-update-canonical@gbp-visual-introduction:
 
 $
   eta_b_i = sum_(s in N(i)) eta_(f_s #ra x_i)
@@ -197,7 +202,7 @@ $
   m_(x_i #ra f_j) = product_(s in N(i) \\ j) m_(f_s #ra x_i)
 $<eq.gbp-variable-to-factor>
 
-Again in this case, the message is sent in the #gaussian.canonical form, and as such the outgoing messages can simply be computed by summing up the information vectors and precision matrices, as seen in @eq.gbp-variable-to-factor-canonical@gbp-visual-introduction:
+Again in this case, the message is sent in the #gaussian.canonical, and as such the outgoing messages can simply be computed by summing up the information vectors and precision matrices, as seen in @eq.gbp-variable-to-factor-canonical@gbp-visual-introduction:
 
 $
   eta_(x_i #ra f_j) = sum_(s in N(i) \\ j) eta_(f_s #ra x_i)
@@ -226,7 +231,7 @@ $<eq.gbp-variable-to-factor-canonical>
 
 === Factor to Variable Message Passing <s.b.gbp.factor-to-variable>
 
-Before marginalising, messages from nerighbouring variables are aggregated into a single message, as seen in @eq.gbp-factor-to-variable@gbp-visual-introduction:
+Before marginalising, messages from neighbouring variables are aggregated into a single message, as seen in @eq.gbp-factor-to-variable@gbp-visual-introduction:
 
 $
   m_(f_i #ra x_j) = product_(s in N(j) \\ i) m_(x_s #ra f_i)
@@ -253,7 +258,7 @@ $<eq.gbp-factor-to-variable>
     )
   $<eq.ex.factor-canonical>
 
-  As described earlier, firstly step is to compute the message to be passed to $x_1$, which is the product of the incoming messages from $x_2$ and $x_3$, as seen in @eq.ex.product-adjacent, as we are on the #gaussian.canonical this is a summation, and yields the Gaussian, $cal(N) (eta_f^prime, Lambda_f^prime)$@gbp-visual-introduction:
+  As described earlier, first step is to compute the message that will passed to $x_1$, which is the product of the incoming messages from $x_2$ and $x_3$, as seen in @eq.ex.product-adjacent, as we are in the #gaussian.canonical. This is a summation, and yields the Gaussian, $cal(N) (eta_f^prime, Lambda_f^prime)$@gbp-visual-introduction:
 
   $
     eta_f^prime = mat(eta_(f"1"); eta_(f"2") + eta_(x_2 #ra f); eta_(f"3") + eta_(x_3 #ra f))

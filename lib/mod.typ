@@ -5,3 +5,5 @@
 #import "note.typ"
 #import "params.typ"
 #import "table.typ": *
+#import "statistics.typ": *
+#import "numbers.typ"

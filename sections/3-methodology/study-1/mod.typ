@@ -1,11 +1,14 @@
 #import "../../../lib/mod.typ": *
 == #study.H-1.full.n <s.r.study-1>
 
+// This section will cover the approach chosen for reproducing the software implementation in the gbpplanner paper@gbpplanner. Focus is put on arguing for places where the internal workings of the reimplementation differs. Why the difference is either deemed necessary due to inherent differences in the capabilities of the programming languages, or why they are seen as desireable/ an improvement. Where multiple different solutions are feasible to solve the same issue comparative arguments are presented to reason for the selected solution.
+
+
+This section outlines the methodology adopted for replicating the software implementation described in the gbpplanner paper@gbpplanner. It details the differences in the reimplementation, justifying necessary deviations due to the distinct capabilities of the programming languages used, and explaining the improvements made. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution.
+
 #include "language.typ"
 #include "architecture.typ"
 #include "graph-representation.typ"
-
-
 
 #jens[
   === Asynchronous Message Passing <s.b.asynchronous-message-passing>

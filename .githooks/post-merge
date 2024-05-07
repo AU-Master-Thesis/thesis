@@ -36,4 +36,4 @@ printf '%sinfo%s: compiling main.typ ...\n' (set_color green) (set_color normal)
 run typst c main.typ; or exit
 printf '%sinfo%s: compiling main.typ ... DONE\n' (set_color green) (set_color normal) >&2
 
-run ./tectonic-compile-all.fish; or exit
+run ./scripts/tectonic-compile-all.fish; or exit

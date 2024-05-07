@@ -138,7 +138,7 @@ This posterior distribution describes our belief of $X$, after observing $D$, wh
     X_"MAP" = "argmax"_X p(X|D)
   $<eq-map-estimate>
 
-+ The marginal posteriors, summarising our beliefs of individual variables in $X$, can be computed by marginalising the posterior distribution, see @eq-marginal-posterior@gbp-visual-introduction:
++ The marginal posteriors, summarising our beliefs of individual variables in $X$, can be computed by marginalising the posterior distribution#note.k[explain $X\x_i$, syntax or self evident?], see @eq-marginal-posterior@gbp-visual-introduction:
 
   $
     p(X_i|D) = sum_(X \\ x_i) p(X|D)

@@ -21,7 +21,12 @@ This metric aims to quantify the smoothness of the robot's trajectories.
 
 $ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") integral_(t_("start"))^(t_("final")) abs(attach(limits(v), t: dot.double)(t))^2 d t)  $ <equ.ldj>
 
-where $t in [t_("start"), t_("final")]$ is the time interval the metric is measured over. $v(t)$ is the velocity of a robot at time $t$, and $v_("max")$ is the maximum velocity along the trajectory.
+// #let ldj(t_start, t_final, )
+
+-  $t in [t_("start"), t_("final")]$ is the time interval the metric is measured over.
+- $v_("max")$ is the maximum velocity along the trajectory.
+- $v(t)$ is the velocity of a robot at time $t$.
+- $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also called the jerk.
 
 4. #metric[Inter robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circle. A collision between two robots happen when their circles intersects.
 
@@ -30,3 +35,6 @@ where $t in [t_("start"), t_("final")]$ is the time interval the metric is measu
 In addition to the metrics used by by Patwardhan _et al._@gbpplanner we also consider the following metrics:
 
 5. #metric[#acr("RMSE")]
+
+
+6. #metric[Environment robot collisions]

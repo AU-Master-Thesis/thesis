@@ -29,7 +29,7 @@ In the context of multi-agent systems, path planning is a key component. It is a
 
 Efficient and safe approaches to multi-agent planning have been studied extensively, with many different approaches and assumptions about the environment and capabilities of the robotic agents. However, none of the existing approaches attempt to be able to operate in changing communication conditions, in a decentralized manner. Morteza@kiadi_synthesized_2021, 2021, implements a modified A\* algorithm that can handle dynamic obstacles in the environment. They also propose an architecture where the path planning optimization is done in a centralized manner on a cloud server. This reduces the number of messages sent between the agents but introduces a single point of failure. Xinjie@liu_learning_2023, 2023, uses a game-theoretic approach to do path planning. Here agents cannot communicate with each other and instead have to predict how other agents will move based on the rules that govern the movement of the agents. Similar to how humans navigate in vehicle traffic, where the driver's own assumption/belief about how other drivers will follow the traffic law, is used to predict how other vehicles will move. Aalok@patwardhan_distributing_2023, 2023, uses Gaussian Belief Propagation to do path planning for multiple agents. It is a decentralized approach using a data structure called a factor graph to model uncertainties about the position and velocity of other agents.
 
-The objective of this project is to build on top of the work of @patwardhan_distributing_2023, and extend it to handle cases with limited communication possibilities, challenging environments, and non-holonomic kinematic constraints. The environment will be a static indoor environment at a logistics facility where robots are integrated into a baggage sorting handling system. Instead of extending the original paper's source code, we will reimplement our version of the Gaussian Belief Propagation Planner algorithm from scratch. The intention of the rewrite is not only to try and improve performance but also to get a better understanding of the algorithm, to make it easier to extend it. The implemented solution will be tested in a simulated environment, with common scenarios found at logistic facilities, such as three-way junctions and intersections.
+The objective of this project is to build on top of the work of @patwardhan_distributing_2023, and extend it to handle cases with limited communication possibilities#note.k[ehh...], challenging environments, and non-holonomic kinematic constraints#note.k[ehh...]. The environment will be a static indoor environment at a logistics facility where robots are integrated into a baggage sorting handling system. Instead of extending the original paper's source code, we will reimplement our version of the Gaussian Belief Propagation Planner algorithm from scratch. The intention of the rewrite is not only to try and improve performance but also to get a better understanding of the algorithm, to make it easier to extend it. The implemented solution will be tested in a simulated environment, with common scenarios found at logistic facilities, such as three-way junctions and intersections.
 
 #todo[Motivations for why our project is interesting]
 
@@ -50,8 +50,10 @@ The objective of this project is to build on top of the work of @patwardhan_dist
 - Modular. New factors can be added to the factor graph to encode different constraints.
 
 == Research Hypothesis <intro-research-hypothesis>
-#let h-amount = context hyp-counter.at(<marker.end-of-hypothesis>).first()
-This thesis poses the following #h-amount hypothesis:
+#let h-amount = context int(hyp-counter.at(<marker.end-of-hypothesis>).first())
+// This thesis poses the following #numbers.written(h-amount) hypothesis:
+// This thesis poses the following #h-amount hypothesis:
+This thesis poses the following four hypothesis:
 
 // #repr(h-amount.get())
 // #todo[Maybe this should multiple hypothesis, or maybe it should be more specific or rephrased.]
@@ -81,8 +83,8 @@ From this point on, anything pertaining to the context of #H(1) will be referred
 // === Study 2
 #study.H-2.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "RQ-2.", color: theme.teal))
-+ Which immediate improvements are obivous#note.wording[too harsh?] from looking at the original work?
-+ Are these improvements possible without transforming the software?
++ Which immediate improvements are evident from looking at the original work?
++ Are these improvements possible without transforming#note.k[modifying the existing] the software?
 + Can these improvements be measured, and if so, how?
 
 // === Study 3
@@ -126,7 +128,7 @@ From this point on, anything pertaining to the context of #H(1) will be referred
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.2", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-2.2.", color: theme.green))
-    + Implement the identified improvements without transforming the software.
+    + Implement the identified improvements without transforming#note.k[modifying the existing] the software.
     + Evaluate whether the improvements are transformative by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.3", weight: 900):*

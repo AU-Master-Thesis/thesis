@@ -10,13 +10,12 @@
 ]
 
 
-There are several different ways of representing graph structures in computer memory. Each with its own advantages and disadvantages. As explained in @s.b.factor-graphs, the factorgraph structure is a bipartite graph with undirected edges.
-Such a graph structure enforces little to no constraints on what kind of memory representation are possible to use #note.kristoffer[find citation for this statement]. In the original work by Patwardhan _et al._@gbpplanner a cyclic reference/pointer structure is used. They represent the graph with a C++ class called `FactorGraph`, which each robot instance inherit from. Variable and factor nodes are stored in two separate vectors; `factors_` and `variables_`, as shown in the top of @code.gbpplanner-factorgraph.
+There are several different methods for representing graph structures in computer memory. Each offering different advantages and disadvantages in regards to memory layout and query efficiency. As explained in @s.b.factor-graphs, the factorgraph structure is a bipartite graph with undirected edges.
+Such a graph structure enforces little to no constraints on what kind of memory representation are possible to use. Allowing for many different choices#note.kristoffer[find citation for this statement]. In the original work by Patwardhan _et al._@gbpplanner a cyclic reference/pointer structure is used. They represent the graph with a C++ class called `FactorGraph`, which each robot instance inherit from. Variable and factor nodes are stored in two separate vectors; `factors_` and `variables_`, as shown in the top of @code.gbpplanner-factorgraph.
 
-#show figure.where(kind: "code"): fig => {
-  fig
-  // fig.caption
-}
+// #show figure.where(kind: "code"): fig => {
+//   fig
+// }
 
 // #figure(
 //   kind: "code",
@@ -24,11 +23,34 @@ Such a graph structure enforces little to no constraints on what kind of memory 
 //   caption: "FactorGraph",
 // )
 
+
+
+//
+//
+// https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Factor.h#L27-L73
+//
+// https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Variable.h#L22-L56
+//
+// https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/GBPCore.h#L57-L77
+
 #kristoffer[Add static link to github, and a line range]
+
+#let gbpplanner = (
+  last-commit-hash: "fd719ce",
+  github: (
+  name: "aalpatya/gbpplanner",
+  permalink: (
+  factorgraph: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Factorgraph.h#L21-L51",
+  factor: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Factor.h#L27-L73",
+  variable: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Variable.h#L22-L56",
+  gbpcore: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/GBPCore.h#L57-L77"
+)
+)
+)
 
 #sourcecode-reference([
   ```cpp
-  // defined in `inc/gbp/FactorGraph.h`
+  // defined in `inc/gbp/FactorGraph.h:21-51`
   class FactorGraph {
   public:
     std::vector<std::shared_ptr<Factor>> factors_;
@@ -36,22 +58,21 @@ Such a graph structure enforces little to no constraints on what kind of memory 
     // ...
   };
 
-  // defined in `inc/gbp/Factor.h`
+  // defined in `inc/gbp/Factor.h:27-73`
   class Factor {
   public:
-    // Vector of pointers to the connected variables. Order of variables matters
+    // Vector of pointers to the connected variables. Order of variables matters.
     std::vector<std::shared_ptr<Variable>> variables_{};
     // ...
   };
 
-  // defined in `inc/gbp/GBPCore.h`
+  // defined in `inc/gbp/GBPCore.h:57-77`
   class Key {
     public:
-    int robot_id_;
-    int node_id_;
+      int robot_id_, node_id_;
   };
 
-  // defined in `inc/gbp/Variable.h`
+  // defined in `inc/gbp/Variable.h:22-56`
   class Variable {
   public:
     // Map of factors connected to the variable, accessed by their key
@@ -59,10 +80,14 @@ Such a graph structure enforces little to no constraints on what kind of memory 
     // ...
   }
   ```
-], caption: [`FactorGraph` class declaration in `inc/gbp/FactorGraph.h` #kristoffer[write proper caption]]) <code.gbpplanner-factorgraph>
+],
+  caption: [Header declarations for the classes that make up the factorgraph data structure in GBPplanner. The code snippets are taken from the latest commit #raw(gbpplanner.last-commit-hash) #todo[] ago as the time of writing of this thesis. `// ...` indicates that there are more fields in the class, but not shown due to not being relevant for graph representation.]
+) <code.gbpplanner-factorgraph>
 
-Edges between variable and factors are not stored as separate index values, but are instead implicitly stored by having each factor storing a `std::shared_ptr<Variable>` to every variable it is connected to. Complementary every variable stores a `std::shared_ptr<Factor>` to every factor it is connected to. This kind of structure is advantageous in that it easy access the neighbours of node, given only a handle to the node. For example to send messages to the neighbours of a node by directly invoking methods on the receiving node directly. #note.k[mention that their representation does not map well/reflect how each robot would represent connections to external robots when running on different hosts]
-This structural pattern however is difficult to implement and discouraged in Rust due to its unique language feature for managing memory; the ownership model. This model is comprised of three rules, that together ensures memory safety and prevents memory issues like use after free and memory leaks@the-rust-book.
+Edges between variable and factors are not stored as separate index values, but are instead implicitly stored by having each factor storing a `std::shared_ptr<Variable>` to every variable it is connected to. Complementary every variable stores a `std::shared_ptr<Factor>` to every factor it is connected to. For both _internal_ edges and _external_ edges between separate factorgraphs this relationship is used. This kind of structure is advantageous in that it easy access the neighbours of node, given only a handle to the node. For example to send messages to the neighbours of a node by directly invoking methods on the receiving node directly. Another advantage is that it abstracts away whether the pointer is to a an external or an internal node. The access and reference patterns are equivalent. #note.k[mention that their representation does not map well/reflect how each robot would represent connections to external robots when running on different hosts]
+This structural pattern however is difficult to implement and discouraged in Rust due to its unique language feature for managing memory; the ownership model. This model is comprised of three rules, that together ensures memory safety and prevents memory issues like invalidated references, use after free and memory leaks@the-rust-book.
+
+#kristoffer[A need for some kind of proxy node abstraction to handle nodes that are in a external graph, on an external host]
 
 + Each value has exactly one _owner_
 + There can only be one owner at a time.

@@ -7,6 +7,10 @@
 
 === Use ray casting instead of sampling an SDF image of the environment
 
+#kristoffer[
+  Obstacle/SDF node will not work if the environment is not static.
+]
+
 - Use different behavior when communication is very bad. Either change the factor graph by adding
 new nodes with different policies or a new algorithm all together e.g. the game theory paper we read at
 the start.
@@ -50,4 +54,38 @@ the start.
   robots on their respective topics.
 
   Consequently, why did we not use ROS2 to begin with?
+]
+
+#kristoffer[
+  Create a factor, that ensures that the position/velocity update is always given the kinematics model of the robot
+]
+
+#kristoffer[
+  Shortly discuss our choice of using static dispatch for the different factors in the graph.
+  For a more expendable design, it would be better to use dynamic dispatch i.e. `dyn Factor` so users of the library
+  can use the public api without having to extend the `FactorKind` enum to add new factors, and recompile the library.
+]
+
+#kristoffer[
+  Explore opportunities to create a mini dsl to declaratively create the graph.
+
+  Maybe use the `dot` language to create a graph.
+   - It is already a common language for expressing graphs declaratively.
+   - The node kind i.e. variable or factor, and the kind of factor, can be specified in the node attributes.
+   - A missing feature of this language is the inability to specify loops, often we want to repeat the same
+     group of nodes multiple times which is not possible in the dot language.
+   - Another approach is to embed a simple scripting language like `Lua`. That gets evaluated in a VM instance by the simulator, that then returns a table with a fixed schema.
+
+
+  ```dot
+  graph {
+    v1 [variable];
+    v2 [variable];
+    f1 [factor:obstacle];
+    f2 [factor:dynamic];
+    v1 -- f1
+    v1 -- f2
+    v2 -- f2
+  }
+  ```
 ]
