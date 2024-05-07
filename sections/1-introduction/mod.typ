@@ -61,6 +61,7 @@ This thesis poses the following #h-amount hypothesis:
 + Reproducing the results of the original GBP Planner in a new programming language will improve the software's scientific communication and its extensibility.
 
 + Improvements can be made to the original work without transforming the software.
+#todo[Add more substance to specifics.]
 
 + Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
 
