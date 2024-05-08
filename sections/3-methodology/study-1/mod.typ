@@ -46,7 +46,7 @@ This section outlines the methodology adopted for replicating the software imple
 ]
 
 ```rust
-trait Factor {
+trait Factor: std::fmt::Display {
   /// Name of the factor. Useful for debugging purposes
   fn name(&self) -> &'static str;
   /// Number of neighbours this factor expects

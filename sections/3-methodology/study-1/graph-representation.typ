@@ -100,7 +100,7 @@ However this structural pattern is difficult to implement and discouraged in Rus
 + There can only be one owner at a time.
 + When the owner goes out of scope, the value is dropped #footnote([In Rust the term "dropped" is the preferred term to communicate that a value is destructed and its memory deallocated.]).
 
-One limitation of this language model is that data structures with interior bidirectional references like the gbpplanners factor graph representation are difficult to express, since there is no conceptual single owner of the graph. If a connected factor and variable, both share a reference to the memory region of each other, then there is not a well defined concept of who owns who. Difficult does not mean impossible, and there are ways to express these kinds of data structures using a Rust specific design pattern called the  _Interior Mutability_ pattern@the-rust-book. With this pattern all borrow checks of the resource is moved from compile time to run time, forcing the programmer to be diligent about ensuring the invariants manually. Due to the added checks that would inevitably be introduced by this pattern it was not utilized. Instead the reimplementation of the factorgraph structure were laid out to work within the intended modelling constructs of the Rust language. In the reimplementation the graph data structure uniqly owns all the variable and factor nodes. And nodes in the in the graph store no interior references to nodes they are connected to. The _petgraph_ library is used for the actual graph datastructure. petgraph is a versatile and performant graph data structure library providing various generic graph data structures with different performance characteristics@petgraph. To choose which graph representation to use the following requirements were considered. The requirements are ordered by priority in descending order:
+One limitation of this language model is that data structures with interior bidirectional references like the gbpplanners factor graph representation are difficult to express, since there is no conceptual single owner of the graph. If a connected factor and variable, both share a reference to the memory region of each other, then there is not a well defined concept of who owns who. Difficult does not mean impossible, and there are ways to express these kinds of data structures using a Rust specific design pattern called the  _Interior Mutability_ pattern@the-rust-book. With this pattern all borrow checks of the resource is moved from compile time to run time, forcing the programmer to be diligent about ensuring the invariants manually. Due to the added checks that would inevitably be introduced by this pattern it was not utilized. Instead the reimplementation of the factorgraph structure were laid out to work within the intended modelling constructs of the Rust language. In the reimplementation the graph data structure uniqly owns all the variable and factor nodes. And nodes in the in the graph store no interior references to nodes they are connected to. The _petgraph_ library is used for the actual graph datastructure. _petgraph_ is a versatile and performant graph data structure library providing various generic graph data structures with different performance characteristics@petgraph. To choose which graph representation to use the following requirements were considered. The requirements are ordered by priority in descending order:
 
 + Dynamic insertion and deletion of nodes. Robots connect to each others factorgraph when they both are within the communication radius of each other and both their communication mediums are active/reachable. Likewise they disconnect when they move out of each others communication or the other one is unreachable. This connection is upheld by the InterRobot factor, which gets added and removed frequently. <req.graph-representation-dynamic> // Indices into the graph needs to be stable across removal, in order to ensure the invariant too prevent issues with maintaining
 
@@ -155,18 +155,17 @@ _petgraph_ supports the following five types of graph representation:
 
 All five graph representations support dynamic insertion and removal of vertices and edges after initialization of the graph. So all of them satisfy the first requirement. Four out of the five graph representations uses a `Vec<N>` as its underlying container for vertex instances. `Vec<N>` are guaranteed to be continuous in memory ensuring fast iteration due to cache locality. At the same time the relative difference in iteration speed of using a the `GraphMap` structure should not really be noticeable, given that it uses an `IndexMap<N>`, which in turn uses a `Vec<(N, E)>` for its underlying storage of vertices. But it adds the additional constraint that vertices needs to be hashable, which is impractical given the lack of non-unique immutable fields of the `Node` struct#note.k[ehh... maybe `node_index` field, but Option???]. So all data structures support the second requirement. Only the `StableGraph` data structure guarantees stable indices across repeated removal and insertion. Leaving it as the sole viable choice left that meets all three requirements. Expressed using the _petgraph_ library the chosen `Graph` type is defined as:
 
-#sourcecode-reference[
+#sourcecode-reference([
   ```rust
 
 type IndexSize = u16; // 2^16 - 1 = 65535
 pub type NodeIndex = petgraph::stable_graph::NodeIndex<IndexSize>;
 pub type Graph = petgraph::stable_graph::StableGraph<Node, (), Undirected, IndexSize>;
 ```
-]
+],
+caption: [How the `Graph` type is defined in the reimplementation. It is defined as type alias over a `StableGraph` data structure parameterized by a `Node` enum. No data is associated with the edges in the graph so the _unit_ type `()` is used. `IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In the experiments, see @s.results no individual factorgraph ever held more more than $~$#note.k[find this number], so a bound of $2^16 - 1 = 65535$ was sufficient, and is more compact in memory than the next possible alternative  $ u 32 = 2^32 - 1$.]
+)
 
-#kristoffer[explain `()` type parameter for edge data]
-
-`IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In our experiments@s.results no individual factorgraph ever held more more than $~$#note.k[find this number], so a bound of $2^16 - 1$ was sufficient, and takes up less space than $2^32 - 1$.
 
 // u32 denotes the space of possible indices i.e. $2^32 - 1$
 
@@ -176,7 +175,7 @@ In terms of space complexity all five candidates are close to equivalent, with f
 
 $ B(T) = "stack allocation of T in bytes" $
 
-The standard library function #raw(block: false, lang: "rust", "std::mem::size_of::<T>()") is used to calculate $B(T)$@rust-std. Then the size of a `VariableNode` and a `FactorNode` is:
+The Rust standard library function #raw(block: false, lang: "rust", "std::mem::size_of::<T>()") is used to calculate $B(T)$@rust-std. Then the size of a `VariableNode` and a `FactorNode` is:
 
 
 $ B("Variable") = 392 "bytes" $
@@ -320,7 +319,10 @@ let heap_size_of_variable_inboxes(variables, connections) = {
 // / GraphMap: asd
 
 
+#kristoffer[Another added benefit of using a singular owning factorgraph structure is that is both feasible and more straightforward to extend the implementation to work with separate hosts, running with their own factorgraph. See discussion for more in depth discussion about the what would have to change to realize a real life implementation.]
+
 Too summarize memory consumption should not be a limiting factor of simulating the system.
+
 
 Not too many nodes in the graph, so we did not spend time benchmarking the various backing memory models.
 
@@ -364,5 +366,4 @@ j
 // The underlying graph rep
 
 
-
-using dedicated indices arrays for factors and variables to speed up iteration for queries only requiring access to the nodes or variables.
+One idea kept from the additional work is too use additional memory to store additional indices arrays. Each factorgraph store a vector of indices for variable nodes, one for factor nodes, and then one for each distinct factor variant. This is done as an cheap optimisation  ... given the memory footprint is low, see above to speed up to speed up iteration for queries only requiring access to the variables or factors. #kristoffer[Refer to the steps in the theory section ] #kristoffer[Another example to refer to is the section about visualization systems.]
