@@ -33,20 +33,28 @@ Such a graph structure enforces little to no constraints on what kind of memory 
 //
 // https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/GBPCore.h#L57-L77
 
-#kristoffer[Add static link to github, and a line range]
+// #kristoffer[Add static link to github, and a line range]
 
-#let gbpplanner = (
-  last-commit-hash: "fd719ce",
-  github: (
-  name: "aalpatya/gbpplanner",
-  permalink: (
-  factorgraph: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Factorgraph.h#L21-L51",
-  factor: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Factor.h#L27-L73",
-  variable: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Variable.h#L22-L56",
-  gbpcore: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/GBPCore.h#L57-L77"
-)
-)
-)
+#let gbpplanner = {
+  let last-commit = (hash: "fd719ce", date: datetime(day: 30, month: 10, year: 2023))
+  last-commit.insert("days-since", datetime.today() - last-commit.date)
+
+  (
+    // last-commit-hash: ,
+    last-commit: last-commit,
+    github: (
+      name: "aalpatya/gbpplanner",
+      permalink: (
+        factorgraph: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Factorgraph.h#L21-L51",
+        factor: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Factor.h#L27-L73",
+        variable: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/Variable.h#L22-L56",
+        gbpcore: "https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/GBPCore.h#L57-L77"
+      )
+    )
+  )
+}
+
+// #let
 
 #sourcecode-reference([
   ```cpp
@@ -81,19 +89,18 @@ Such a graph structure enforces little to no constraints on what kind of memory 
   }
   ```
 ],
-  caption: [Header declarations for the classes that make up the factorgraph data structure in GBPplanner. The code snippets are taken from the latest commit #raw(gbpplanner.last-commit-hash) #todo[] ago as the time of writing of this thesis. `// ...` indicates that there are more fields in the class, but not shown due to not being relevant for graph representation.]
+  caption: [Header declarations for the classes that make up the factorgraph data structure in GBPplanner. The code snippets are taken from the latest commit #raw(gbpplanner.last-commit.hash) #footnote([#durationfmt(gbpplanner.last-commit.days-since) ago at the time of writing of this thesis.]) `// ...` indicates that there are more fields in the class, but not shown due to not being relevant for graph representation. Symbols prefixed with `std::` are provided by the C++ standard library.]
 ) <code.gbpplanner-factorgraph>
 
-Edges between variable and factors are not stored as separate index values, but are instead implicitly stored by having each factor storing a `std::shared_ptr<Variable>` to every variable it is connected to. Complementary every variable stores a `std::shared_ptr<Factor>` to every factor it is connected to. For both _internal_ edges and _external_ edges between separate factorgraphs this relationship is used. This kind of structure is advantageous in that it easy access the neighbours of node, given only a handle to the node. For example to send messages to the neighbours of a node by directly invoking methods on the receiving node directly. Another advantage is that it abstracts away whether the pointer is to a an external or an internal node. The access and reference patterns are equivalent. #note.k[mention that their representation does not map well/reflect how each robot would represent connections to external robots when running on different hosts]
-This structural pattern however is difficult to implement and discouraged in Rust due to its unique language feature for managing memory; the ownership model. This model is comprised of three rules, that together ensures memory safety and prevents memory issues like invalidated references, use after free and memory leaks@the-rust-book.
+Edges between variable and factors are not stored as separate index values, but are instead implicitly stored by having each factor storing a `std::shared_ptr<Variable>` to every variable it is connected to. Complementary every variable stores a `std::shared_ptr<Factor>` to every factor it is connected to. For both _internal_ edges and _external_ edges between separate factorgraphs this relationship is used. Advantageous of this structural design is that it is easy to access the neighbours of node, given only a handle to the node. For example to send messages to the neighbours of a node by directly invoking methods on the receiving node directly. Another advantage is that it abstracts away whether the pointer is to an external or an internal node. The access and reference patterns are equivalent. #note.k[mention that their representation does not map well/reflect how each robot would represent connections to external robots when running on different hosts]
+However this structural pattern is difficult to implement and discouraged in Rust due to its unique language feature for managing memory; the ownership model. This model is comprised of three rules, that together ensures memory safety and prevents memory issues like invalidated references, use after free and memory leaks@the-rust-book.
 
-#kristoffer[A need for some kind of proxy node abstraction to handle nodes that are in a external graph, on an external host]
 
 + Each value has exactly one _owner_
 + There can only be one owner at a time.
 + When the owner goes out of scope, the value is dropped #footnote([In Rust the term "dropped" is the preferred term to communicate that a value is destructed and its memory deallocated.]).
 
-One limitation of this system is that data structures with interior bidirectional references like the gbpplanners factor graph representation are difficult to express, since there is no conceptual single owner of the graph. If a factor and a variable that are connected, both share a reference to the memory region of each other, then there is not a well defined concept of who owns who. Difficult does not mean impossible, and there are ways to express these kinds of data structures using a Rust specific design pattern called the  _Interior Mutability_ pattern@the-rust-book. We decided not to use this pattern and instead work within the intended modelling constructs of the Rust language. In the reimplementation the graph data structure uniqly owns all the variable and factor nodes. And nodes in the in the graph store no interior references to nodes they are connected to. The _petgraph_ library is used for the actual graph datastructure. petgraph is a versatile and performant graph data structure library providing various generic graph data structures with different performance characteristics@petgraph. To choose which graph representation to use the following requirements were considered. The requirements are ordered by priority in descending order:
+One limitation of this language model is that data structures with interior bidirectional references like the gbpplanners factor graph representation are difficult to express, since there is no conceptual single owner of the graph. If a connected factor and variable, both share a reference to the memory region of each other, then there is not a well defined concept of who owns who. Difficult does not mean impossible, and there are ways to express these kinds of data structures using a Rust specific design pattern called the  _Interior Mutability_ pattern@the-rust-book. With this pattern all borrow checks of the resource is moved from compile time to run time, forcing the programmer to be diligent about ensuring the invariants manually. Due to the added checks that would inevitably be introduced by this pattern it was not utilized. Instead the reimplementation of the factorgraph structure were laid out to work within the intended modelling constructs of the Rust language. In the reimplementation the graph data structure uniqly owns all the variable and factor nodes. And nodes in the in the graph store no interior references to nodes they are connected to. The _petgraph_ library is used for the actual graph datastructure. petgraph is a versatile and performant graph data structure library providing various generic graph data structures with different performance characteristics@petgraph. To choose which graph representation to use the following requirements were considered. The requirements are ordered by priority in descending order:
 
 + Dynamic insertion and deletion of nodes. Robots connect to each others factorgraph when they both are within the communication radius of each other and both their communication mediums are active/reachable. Likewise they disconnect when they move out of each others communication or the other one is unreachable. This connection is upheld by the InterRobot factor, which gets added and removed frequently. <req.graph-representation-dynamic> // Indices into the graph needs to be stable across removal, in order to ensure the invariant too prevent issues with maintaining
 

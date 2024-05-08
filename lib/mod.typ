@@ -7,3 +7,4 @@
 #import "table.typ": *
 #import "statistics.typ": *
 #import "numbers.typ"
+#import "durationfmt.typ": *

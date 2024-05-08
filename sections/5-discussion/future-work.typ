@@ -89,3 +89,6 @@ the start.
   }
   ```
 ]
+
+
+#kristoffer[A need for some kind of proxy node abstraction to handle nodes that are in a external graph, on an external host]
