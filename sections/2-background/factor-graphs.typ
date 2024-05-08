@@ -59,7 +59,7 @@ $<eq.map-energy>
 The factor graph is a generalisation of constraint graphs, and can represent any joint function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm.@loeliger_introduction_2004@alevizos_factor_2012 The sum-product algorithm is detailed in @s.b.belief-propagation.
 
 #figure(
-  image("../../figures/out/robot-factor-graph.svg"),
+  image("../../figures/out/robot-factor-graph.svg", width: 60%),
   caption: [Here shown are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in red#sr, #text(theme.maroon, $n$) times-steps into the future, #text(theme.maroon, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.],
 )<fig-robot-factor-graph>
 

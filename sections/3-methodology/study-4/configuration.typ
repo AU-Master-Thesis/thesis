@@ -2,7 +2,7 @@
 
 === Configuration <s.m.s4.configuration>
 
-#kristoffer[talk about design of different config format design, especially `formation` and `environment`
+#todo[talk about design of different config format design, especially `formation` and `environment`
 
 show examples of them, and how they allow for flexibly and declaratively define new simulation scenarios
 

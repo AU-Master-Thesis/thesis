@@ -119,6 +119,7 @@
 
     // Configure the page.
     set page(
+        // fill: theme.base,
         paper: paper-size,
         numbering: "i", // "1/1"
         number-align: center,
