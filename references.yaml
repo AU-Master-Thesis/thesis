@@ -562,6 +562,14 @@ indexmap:
   note: https://github.com/petgraph/indexmap/releases/tag/indexmap%40v2.2.6
 
 
+parry2d:
+  type: repository
+  title: parry2d
+  author:
+  - dimforge
+  date: 2024-05-08
+  note: https://parry.rs/
+
 rust-std:
   type: repository
   title: The Rust Standard Library

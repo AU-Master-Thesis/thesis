@@ -26,9 +26,9 @@ $ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") in
 -  $t in [t_("start"), t_("final")]$ is the time interval the metric is measured over.
 - $v_("max")$ is the maximum velocity along the trajectory.
 - $v(t)$ is the velocity of a robot at time $t$.
-- $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also called the jerk.
+- $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also known as jerk.
 
-4. #metric[Inter robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circle. A collision between two robots happen when their circles intersects.
+4. #metric[Inter Robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circles, equal in radius to the robot's radius. A collision between two robots happen when their circles intersect.
 
 
 
@@ -37,4 +37,7 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner we also con
 5. #metric[#acr("RMSE")]
 
 
-6. #metric[Environment robot collisions]
+6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Opposite to _Inter Robot Collisions_ #acrpl("AABB") are used to check for intersections. The reason for this is that _parry2d_ the library used for checking intersection of geometric shapes do not support checking intersections between bounding circles and #acrpl("AABB")@parry2d#footnote([As of version 0.13.7]). To be conservative the minimum #acr("AABB") is used for both robots and obstacles, instead of bounding spheres, which would cover a significantly larger area in some of the environment obstacles in the _*Circle*_ experiment are non-rectangular, see @s.r.scenarios.circle,
+
+
+_parry2d_

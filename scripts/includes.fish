@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i fish
+#! nix-shell -i fish -p hello
 
 set -g reset (set_color normal)
 set -g bold (set_color --bold)

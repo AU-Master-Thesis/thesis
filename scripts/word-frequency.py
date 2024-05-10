@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i python3
+#! nix-shell -i python3 -p hello
 
 import sys
 import re
@@ -54,7 +54,9 @@ args = parser.parse_args()
 
 
 dictionary: dict[str, int] = {}
-word_regexp = re.compile(r"\b(\D+)\b") if not args.no_digits else re.compile(r"\b(\w+)\b")
+word_regexp = (
+    re.compile(r"\b(\D+)\b") if not args.no_digits else re.compile(r"\b(\w+)\b")
+)
 
 # word_regexp = re.compile(r"\b(\w+)\b")
 
