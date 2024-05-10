@@ -1,5 +1,5 @@
 #import "../../../lib/mod.typ": *
-== #study.H-1.full.n <s.r.study-1>
+== #study.H-1.full.n <s.m.study-1>
 
 // This section will cover the approach chosen for reproducing the software implementation in the gbpplanner paper@gbpplanner. Focus is put on arguing for places where the internal workings of the reimplementation differs. Why the difference is either deemed necessary due to inherent differences in the capabilities of the programming languages, or why they are seen as desireable/ an improvement. Where multiple different solutions are feasible to solve the same issue comparative arguments are presented to reason for the selected solution.
 

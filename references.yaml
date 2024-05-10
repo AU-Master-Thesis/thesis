@@ -567,6 +567,9 @@ parry2d:
   title: parry2d
   author:
   - dimforge
+  url:
+    value: https://github.com/dimforge/parry
+    date: 2024-05-10
   date: 2024-05-08
   note: https://parry.rs/
 
