@@ -233,6 +233,7 @@
 #let sgr = swatch(catppuccin.latte.surface0)
 #let sgr2 = swatch(catppuccin.latte.surface2)
 #let st = swatch(catppuccin.latte.text)
+#let stl = swatch(catppuccin.latte.teal)
 
 #let nameref(label, name, supplement: none) = {
   show link : it => text(accent, it)

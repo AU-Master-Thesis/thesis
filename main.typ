@@ -11,6 +11,14 @@
   )
 }
 
+// #show regex("A") : it => {
+//   box(
+//     inset: (x: 2pt),
+//     outset: (y: 2pt),
+//     image("brickbob.gif", width: 2em)
+//   )
+// }
+
 // #show link: it => underline(text(accent)[#it])
 // #show link: it => text(accent)[#it]
 #show link: it => text(accent, it)
@@ -199,6 +207,12 @@
 #kristoffer[check all libraries we use are in accordance with our terms]
 
 #set page(
+  // footer: context {
+  //   move(
+  //     dx: -7.5em,
+  //     image("brickbob.gif", height: 5em, width: 155%, fit: "stretch")
+  //   )
+  // },
   header: context {
     let h1 = hydra(1)
     let h2 = hydra(2)

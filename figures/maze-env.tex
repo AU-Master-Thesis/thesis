@@ -1,0 +1,29 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[]
+
+	% draw this environment, each character is a tile.
+	% ┌─┼─┬─┐┌
+	% ┼─┘┌┼┬┼┘
+	% ┴┬─┴┼┘│
+	% ┌┴┐┌┼─┴┬
+	% ├─┴┘└──┘
+
+	\def\tileSize{10 * \scale}
+	\def\pathWidth{1 * \scale}
+	\pgfmathsetmacro{\untilPath}{\tileSize / 2 - \pathWidth / 2}
+	\pgfmathsetmacro{\withPath}{\tileSize / 2 + \pathWidth / 2}
+
+	\draw[line, environment] (0, 0)
+						-- ++(\tileSize, 0)
+						-- ++(\untilPath, 0)
+						-- ++(0, \untilPath)
+						-- ++(-\untilPath, 0);
+
+\end{tikzpicture}%
+\end{document}
