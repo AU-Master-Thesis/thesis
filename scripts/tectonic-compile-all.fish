@@ -11,6 +11,8 @@ set -g blue (set_color blue)
 set -g cyan (set_color cyan)
 set -g magenta (set_color magenta)
 
+source ./scripts/lib.fish
+
 set -l options o/outdir=
 
 if not argparse $options -- $argv
@@ -121,7 +123,7 @@ function run
     eval $argv
 end
 
-function compile-to-svg -a document
+function compile-tikz-to-svg -a document
     set -l output_pdf $outdir/(path change-extension pdf (path basename $document))
     set -l output_svg (path change-extension svg $output_pdf)
     set -l --long
@@ -186,7 +188,7 @@ for document in $tex_document_files
         continue
     end
 
-    compile-to-svg $document &
+    compile-tikz-to-svg $document &
 end
 
 printf '%sinfo%s: waiting on compiles to finish ...\n' $green $reset
