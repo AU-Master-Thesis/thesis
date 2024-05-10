@@ -527,6 +527,17 @@ the-rust-book:
 
 
 # --- Rust Crates ---
+repo:
+  type: repository
+  title: gbpplanner-rs
+  author:
+    - Jens Høigaard Jensen
+    - Kristoffer Plagborg Bak Sørensen
+  date: 2024-04-23
+  serial-number:
+    version: 1.1.0
+  note: https://github.com/AU-Master-Thesis/gbp-rs
+
 # https://github.com/bevyengine/bevy/discussions/8098
 bevyengine:
   type: repository

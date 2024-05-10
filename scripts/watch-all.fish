@@ -64,6 +64,7 @@ watchexec -n --exts tex --exts typ --debounce 1500ms --on-busy-update do-nothing
     switch $ext
         case .tex
             compile-tikz-to-svg $file
+            run typst c main.typ
         case .typ
             run typst c main.typ
         case '*'

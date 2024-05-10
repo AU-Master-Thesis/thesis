@@ -52,3 +52,11 @@
   definition: Rapidly-exploring Random Tree
 - acronym: RRT*
   definition: Optimal Rapidly-exploring Random Tree
+- acronym: UI
+  definition: User Interface
+- acronym: GUI
+  definition: Graphical User Interface
+- acronym: UX
+  definition: User Experience
+- acronym: RNG
+  definition: Random Number Generator

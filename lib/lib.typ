@@ -53,14 +53,14 @@
 )
 
 #let sourcecode = sourcecode.with(frame: std-block, numbers-style: (lno) => move(dy: 1pt, text(
-  font: "JetBrains Mono",
+  font: "JetBrainsMono NF",
   size: 0.75em,
   catppuccin.latte.overlay0.lighten(50%),
   lno,
 )))
 
 #let sourcefile = sourcefile.with(frame: std-block, numbers-style: (lno) => move(dy: 1pt, text(
-  font: "JetBrains Mono",
+  font: "JetBrainsMono NF",
   size: 0.75em,
   catppuccin.latte.overlay0.lighten(50%),
   lno,
@@ -70,7 +70,7 @@
   figure(
     content,
     kind: "code",
-    supplement: [Code Reference],
+    supplement: [Listing],
     caption: caption
   )
 }
@@ -546,6 +546,7 @@
 
 #let listing(
   content,
+  line-numbering: auto,
   caption: none,
 ) = {
   let supplement = [Listing]
@@ -554,7 +555,7 @@
   return figure(
     {
       listing-counter.step()
-      sourcecode(content)
+      sourcecode(numbers-style: line-numbering, content)
     },
     caption: caption,
     kind: "listing",

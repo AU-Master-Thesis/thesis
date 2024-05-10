@@ -14,6 +14,7 @@
 	% ┌┴┐┌┼─┴┬
 	% ├─┴┘└──┘
 
+
 	\def\tileSize{10 * \scale}
 	\def\pathWidth{5.0 * \scale}
 
@@ -72,7 +73,8 @@
 							-- ++(-2 * \untilPath - 2* \tileSize, 0)
 							-- ++(0, 2 * \untilPath)
 							-- ++(\untilPath + \withPath + \tileSize, 0)
-							-- ++(0, \withPath + \untilPath);
+							% -- ++(0, \withPath + \untilPath)
+							-- cycle;
 
 	\draw[rrt line, environment] (3 * \tileSize + \withPath, -\tileSize -\withPath)
 		rectangle ++(2 * \untilPath, -2 * \untilPath);
@@ -86,7 +88,7 @@
 							-- ++(-\tileSize -\untilPath, 0)
 							-- ++(0, 2 * \untilPath + \tileSize)
 							-- ++(\untilPath + \withPath, 0)
-							-- ++(0, \withPath + \untilPath)
+							% -- ++(0, \withPath + \untilPath)
 							-- cycle;
 
 	\draw[rrt line, environment] (5 * \tileSize + \withPath, -\tileSize -\withPath)
@@ -95,7 +97,7 @@
 							-- ++(-2 * \untilPath - \tileSize, 0)
 							-- ++(0, 2 * \untilPath)
 							-- ++(\untilPath + \withPath, 0)
-							-- ++(0, \withPath + \untilPath)
+							% -- ++(0, \withPath + \untilPath)
 							-- cycle;
 
 	\draw[rrt line, environment] (0, -\tileSize - \withPath)
@@ -115,7 +117,7 @@
 							-- ++(-2 * \untilPath, 0)
 							-- ++(0, \untilPath + \withPath)
 							-- ++(-\untilPath - \withPath, 0)
-							-- ++(0, 2 * \untilPath)
+							% -- ++(0, 2 * \untilPath)
 							-- cycle;
 
 	\draw[rrt line, environment] (0, -2 * \tileSize - \withPath)
@@ -144,5 +146,10 @@
 							-- ++(\untilPath + 2 * \tileSize + \withPath, 0)
 							-- cycle;
 
+	\draw[line, no rounding, dotted, draw opacity=0.25] (0, 0)
+		grid (8 * \tileSize, -5 * \tileSize);
+
+	\draw[rrt line, draw=ctpGreen, dotted, line width=0.5 * \scale] (5 * \tileSize, -\tileSize)
+	                            rectangle ++(\tileSize, -2 * \tileSize);
 \end{tikzpicture}%
 \end{document}

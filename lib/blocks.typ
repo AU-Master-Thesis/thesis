@@ -17,14 +17,14 @@
   clip: true,
 )
 
-#let blocked(title: none, content, color: catppuccin.latte.base) = {
+#let blocked(title: none, content, color: catppuccin.latte.base, height: auto, divider-stroke: white + 2pt) = {
   set align(left)
-  std-block(fill: color)[
+  std-block(fill: color, height: height)[
     #v(0.25em)
     #text(catppuccin.latte.text, size: 1.2em, weight: 900, title)
     // #v(-0.15em)
 
-    #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: white + 2pt))
+    #move(dx: -0.75em, dy: 0pt, line(length: 100% + 2 * 0.75em, stroke: divider-stroke))
 
     #content
 

@@ -1,0 +1,69 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[]
+
+	% draw this environment, each character is a tile.
+	% ┌─┼─┬─┐┌
+	% ┼─┘┌┼┬┼┘
+	% ┴┬─┴┼┘│
+	% ┌┴┐┌┼─┴┬
+	% ├─┴┘└──┘
+
+
+	\def\tileSize{10 * \scale}
+	\def\pathWidth{5.0 * \scale}
+
+	\def\halfTileSize{0.5 * \tileSize} % 5.0
+	\def\halfPathWidth{0.5 * \pathWidth} % 2.5
+
+	\pgfmathsetlengthmacro{\untilPath}{\halfTileSize - \halfPathWidth} % 5.0 - 2.5 = 2.5
+	\pgfmathsetlengthmacro{\withPath}{\halfTileSize + \halfPathWidth} % 5.0 + 2.5 = 7.5
+
+	\draw[rrt line, environment] (-\untilPath, \untilPath)
+		rectangle ++(\tileSize + 2 * \untilPath, -2 * \untilPath);
+
+	\draw[rrt line, environment] (-\untilPath, -\withPath)
+		rectangle ++(2 * \untilPath, -2 * \untilPath);
+
+	\draw[rrt line, environment] (\withPath, -\withPath)
+		-- ++(2 * \untilPath, 0)
+		-- ++(0, -2 * \untilPath - \tileSize)
+		-- ++(-2 * \untilPath - \tileSize, 0)
+		-- ++(0, 2 * \untilPath)
+		-- ++(\tileSize, 0)
+		-- cycle;
+
+	\draw[rrt line, dotted, draw=ctpGreen] (0, 0)
+		rectangle ++(\tileSize, -2 * \tileSize);
+
+	\draw[rrt line, draw=ctpMaroon] (0, 0)
+		rectangle ++(\tileSize, -\untilPath);
+	\draw[rrt line, draw=ctpMaroon] (0, -\withPath)
+		rectangle ++(\untilPath, -\untilPath);
+	\draw[rrt line, draw=ctpMaroon] (\withPath, -\withPath)
+		rectangle ++(\untilPath, -\untilPath);
+
+	\draw[rrt line, draw=ctpMaroon] (0, -\tileSize)
+		rectangle ++(\untilPath, -\untilPath);
+	\draw[rrt line, draw=ctpMaroon] (\withPath, -\tileSize)
+		rectangle ++(\untilPath, -\tileSize);
+	\draw[rrt line, draw=ctpMaroon] (0, -\tileSize -\withPath)
+		rectangle ++(\withPath, -\untilPath);
+
+	\draw[rrt line, dotted, draw opacity=0.25] (0, \untilPath)
+		-- ++(0, -2 * \untilPath -2 * \tileSize);
+	\draw[rrt line, dotted, draw opacity=0.25] (\tileSize, \untilPath)
+		-- ++(0, -2 * \untilPath -2 * \tileSize);
+	\draw[rrt line, dotted, draw opacity=0.25] (-\untilPath, 0)
+		-- ++(2 * \untilPath + \tileSize, 0);
+	\draw[rrt line, dotted, draw opacity=0.25] (-\untilPath, -\tileSize)
+		-- ++(2 * \untilPath + \tileSize, 0);
+	\draw[rrt line, dotted, draw opacity=0.25] (-\untilPath, -2 * \tileSize)
+		-- ++(2 * \untilPath + \tileSize, 0);
+\end{tikzpicture}%
+\end{document}
