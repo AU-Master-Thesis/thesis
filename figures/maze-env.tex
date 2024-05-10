@@ -15,15 +15,134 @@
 	% ├─┴┘└──┘
 
 	\def\tileSize{10 * \scale}
-	\def\pathWidth{1 * \scale}
-	\pgfmathsetmacro{\untilPath}{\tileSize / 2 - \pathWidth / 2}
-	\pgfmathsetmacro{\withPath}{\tileSize / 2 + \pathWidth / 2}
+	\def\pathWidth{5.0 * \scale}
 
-	\draw[line, environment] (0, 0)
+	\def\halfTileSize{0.5 * \tileSize} % 5.0
+	\def\halfPathWidth{0.5 * \pathWidth} % 2.5
+
+	\pgfmathsetlengthmacro{\untilPath}{\halfTileSize - \halfPathWidth} % 5.0 - 2.5 = 2.5
+	\pgfmathsetlengthmacro{\withPath}{\halfTileSize + \halfPathWidth} % 5.0 + 2.5 = 7.5
+
+	\draw[rrt line, environment] (0, 0)
+						-- ++(\tileSize, 0)
 						-- ++(\tileSize, 0)
 						-- ++(\untilPath, 0)
-						-- ++(0, \untilPath)
-						-- ++(-\untilPath, 0);
+						-- ++(0, -\untilPath)
+						-- ++(-\untilPath, 0)
+						-- ++(-\tileSize, 0)
+						-- ++(-\withPath, 0)
+						-- ++(0, -\withPath)
+						-- ++(0, -\untilPath)
+						-- ++(-\untilPath, 0)
+						-- cycle;
+
+	\draw[rrt line, environment] (2 * \tileSize + \untilPath + \pathWidth, 0)
+							-- ++(\untilPath, 0)
+							-- ++(5 * \tileSize, 0)
+							-- ++(0, -\untilPath)
+							-- ++(-\withPath, 0)
+							-- ++(0, -\withPath)
+							-- ++(0, -\untilPath)
+							-- ++(-\untilPath, 0)
+							-- ++(-\untilPath, 0)
+							-- ++(0, \untilPath)
+							-- ++(0, \withPath)
+							-- ++(-\withPath, 0)
+							-- ++(-3 * \tileSize, 0)
+							-- ++(-\untilPath, 0)
+							-- cycle;
+
+	% ┌─┼─┬─┐┌
+	% ┼─┘┌┼┬┼┘
+	% ┴┬─┴┼┘│
+	% ┌┴┐┌┼─┴┬
+	% ├─┴┘└──┘
+
+	\draw[rrt line, environment] (\withPath, -\withPath)
+		rectangle ++(2 * \untilPath + \tileSize, -2 * \untilPath);
+
+	\draw[rrt line, environment] (4 * \tileSize + \withPath, -\withPath)
+		rectangle ++(2 * \untilPath + \tileSize, -2 * \untilPath);
+
+	\draw[rrt line, environment] (2 * \tileSize + \withPath, -\withPath)
+		                    -- ++(2 * \untilPath + \tileSize, 0)
+							-- ++(0, -2 * \untilPath)
+							-- ++(-\untilPath -\withPath, 0)
+							-- ++(0, -\withPath -\untilPath)
+							-- ++(-2 * \untilPath - 2* \tileSize, 0)
+							-- ++(0, 2 * \untilPath)
+							-- ++(\untilPath + \withPath + \tileSize, 0)
+							-- ++(0, \withPath + \untilPath);
+
+	\draw[rrt line, environment] (3 * \tileSize + \withPath, -\tileSize -\withPath)
+		rectangle ++(2 * \untilPath, -2 * \untilPath);
+
+		\draw[rrt line, environment] (4 * \tileSize + \withPath, -\tileSize -\withPath)
+			rectangle ++(2 * \untilPath, -2 * \untilPath);
+
+	\draw[rrt line, environment] (7 * \tileSize + \withPath, -\withPath)
+		                    -- ++(\untilPath, 0)
+							-- ++(0, -2 * \untilPath - 2 * \tileSize)
+							-- ++(-\tileSize -\untilPath, 0)
+							-- ++(0, 2 * \untilPath + \tileSize)
+							-- ++(\untilPath + \withPath, 0)
+							-- ++(0, \withPath + \untilPath)
+							-- cycle;
+
+	\draw[rrt line, environment] (5 * \tileSize + \withPath, -\tileSize -\withPath)
+	                        -- ++(2 * \untilPath, 0)
+							-- ++(0, -2 * \untilPath - \tileSize)
+							-- ++(-2 * \untilPath - \tileSize, 0)
+							-- ++(0, 2 * \untilPath)
+							-- ++(\untilPath + \withPath, 0)
+							-- ++(0, \withPath + \untilPath)
+							-- cycle;
+
+	\draw[rrt line, environment] (0, -\tileSize - \withPath)
+		rectangle ++(\untilPath, -2 * \untilPath);
+
+	% ┌─┼─┬─┐┌
+	% ┼─┘┌┼┬┼┘
+	% ┴┬─┴┼┘│
+	% ┌┴┐┌┼─┴┬
+	% ├─┴┘└──┘
+
+	\draw[rrt line, environment] (\tileSize + \withPath, -2 * \tileSize - \withPath)
+		                    -- ++(2 * \untilPath + 2 * \tileSize, 0)
+							-- ++(0, -2 * \untilPath)
+							-- ++(-\untilPath - \withPath, 0)
+							-- ++(0, -\withPath - \untilPath)
+							-- ++(-2 * \untilPath, 0)
+							-- ++(0, \untilPath + \withPath)
+							-- ++(-\untilPath - \withPath, 0)
+							-- ++(0, 2 * \untilPath)
+							-- cycle;
+
+	\draw[rrt line, environment] (0, -2 * \tileSize - \withPath)
+	                        -- ++(\tileSize + \untilPath, 0)
+							-- ++(0, -2 * \untilPath)
+							-- ++(-\untilPath - \withPath, 0)
+							-- ++(0, -\withPath -\tileSize)
+							-- ++(-\untilPath, 0)
+							-- cycle;
+
+	\draw[rrt line, environment] (\withPath, -3 * \tileSize - \withPath)
+		rectangle ++(2 * \untilPath + \tileSize, -2 * \untilPath);
+
+	\draw[rrt line, environment] (4 * \tileSize + \withPath, -3 * \tileSize - \withPath)
+		rectangle ++(2 * \untilPath + 2 * \tileSize, -2 * \untilPath);
+
+	\draw[rrt line, environment] (3 * \tileSize + \withPath, -3 * \tileSize - \withPath)
+							-- ++(2 * \untilPath, 0)
+							-- ++(0, -\untilPath - \withPath)
+							-- ++(2 * \withPath + 2 * \tileSize, 0)
+							-- ++(0, \untilPath + \withPath)
+							-- ++(\untilPath, 0)
+							-- ++(0, -\untilPath - \tileSize)
+							-- ++(-7 * \tileSize - \untilPath, 0)
+							-- ++(0, \untilPath)
+							-- ++(\untilPath + 2 * \tileSize + \withPath, 0)
+							-- cycle;
 
 \end{tikzpicture}%
 \end{document}
