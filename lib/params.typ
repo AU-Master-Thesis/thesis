@@ -14,6 +14,7 @@
   speed: $abs(v_0)$,
   n_r: $N_R$,
   s: $s$,
+  comms-radius: $r_C$,
   comms-failure-prob: $gamma$,
   variable-temporal-dist: $t_(K-1)$,
   interrobot-safety-distance: $d_r$,
@@ -41,8 +42,9 @@
   env: (
     radius: $50m$,
     r_r: $tilde.op cal(U)(2,3) m$,
+    comms-radius: $50m$,
     speed: $15m"/"s$,
-    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$,
+    n_r: ${5, 10, ..., 50}$,
     s: $0$,
   ),
 )
@@ -68,11 +70,41 @@
   env: (
     radius: $50m$,
     r_r: $2m$,
+    comms-radius: $50m$,
     speed: $15m"/"s$,
-    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$,
+    n_r: ${5, 10, ..., 50}$,
     s: $0$,
   ),
 )
+
+
+#let varying-network-connectivity = (
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $50$,
+    factor: (
+      sigma_d: $1$,
+      sigma_p: $1 times 10^(-15)$,
+      sigma_r: $0.005$,
+      sigma_o: $0.005$,
+      interrobot-safety-distance: $2.2 C_("radius")$,
+    ),
+    // S_r: $2.2$,
+    comms-failure-prob: $0%$,
+    variable-temporal-dist: todo[...],
+  ),
+  env: (
+    radius: $100m$,
+    r_r: $2m$,
+    comms-radius: ${20, 40, ..., 80}m$,
+    speed: $15m"/"s$,
+    n_r: $30$,
+    s: $0$,
+  ),
+)
+
+
 
 #let junction = (
   // sim: (
@@ -95,8 +127,9 @@
   env: (
     radius: $50m$,
     r_r: $2m$,
+    comms-radius: $50m$,
     speed: $15m"/"s$,
-    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$,
+    n_r: ${5, 10, ..., 50}$,
     s: $0$,
   ),
 )
@@ -122,6 +155,7 @@
   env: (
     radius: $50m$,
     r_r: $tilde.op cal(U)(2,3) m$,
+    comms-radius: $50m$,
     n_r: $21$,
     speed: ${10, 15}m"/"s$,
     s: ${0, 32, 64, 128, 255}$,

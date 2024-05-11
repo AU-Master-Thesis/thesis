@@ -36,8 +36,11 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner we also con
 
 5. #metric[#acr("RMSE")]
 
+6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. For the environment obstacles #acrpl("AABB") are used. For obstacles that are not rectangular like the triangles in the Circle experiment, see @s.r.scenarios.circle the minimum #acr("AABB") fully containing the triangle is used.
 
-6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Opposite to _Inter Robot Collisions_ #acrpl("AABB") are used to check for intersections. The reason for this is that _parry2d_ the library used for checking intersection of geometric shapes do not support checking intersections between bounding circles and #acrpl("AABB")@parry2d#footnote([As of version 0.13.7]). To be conservative the minimum #acr("AABB") is used for both robots and obstacles, instead of bounding spheres, which would cover a significantly larger area in some of the environment obstacles in the _*Circle*_ experiment are non-rectangular, see @s.r.scenarios.circle,
+
+// Opposite to _Inter Robot Collisions_ #acrpl("AABB") are used to check for intersections. The reason for this is that _parry2d_ the library used for checking intersection of geometric shapes do not support checking intersections between bounding circles and #acrpl("AABB")@parry2d#footnote([As of version 0.13.7]). To be conservative the minimum #acr("AABB") is used for both robots and obstacles, instead of bounding spheres, which would cover a significantly larger area in some of the environment obstacles in the _*Circle*_ experiment are non-rectangular, see @s.r.scenarios.circle,
 
 
-_parry2d_
+#kristoffer[Come up with a better name]
+7. #metric[Maximum difference in travel duration] The largest difference between the end time of each robot.

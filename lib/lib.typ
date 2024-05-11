@@ -630,6 +630,7 @@
   clear-circle: "Clear Circle",
   junction: "Junction",
   communications-failure: "Communications Failure",
+  varying-network-connectivity: "Varying Network Connectivity",
 ).pairs().map(
   it => {
     let key = it.at(0)
