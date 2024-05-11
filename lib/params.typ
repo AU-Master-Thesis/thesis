@@ -12,7 +12,11 @@
   radius: $C_("radius")$,
   r_r: $r_R$,
   speed: $abs(v_0)$,
-  n_r: $N_R$
+  n_r: $N_R$,
+  s: $s$,
+  comms-failure-prob: $gamma$,
+  variable-temporal-dist: $t_(K-1)$,
+  interrobot-safety-distance: $d_r$,
 )
 
 // let params = (
@@ -28,14 +32,18 @@
       sigma_p: $1 times 10^(-15)$,
       sigma_r: $0.005$,
       sigma_o: $0.005$,
+      interrobot-safety-distance: $2.2 C_("radius")$,
     ),
     // S_r: $2.2$,
+    comms-failure-prob: $0%$,
+    variable-temporal-dist: todo[...],
   ),
   env: (
     radius: $50m$,
     r_r: $tilde.op cal(U)(2,3) m$,
     speed: $15m"/"s$,
-    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$
+    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$,
+    s: $0$,
   ),
 )
 
@@ -51,14 +59,18 @@
       sigma_p: $1 times 10^(-15)$,
       sigma_r: $0.005$,
       sigma_o: $0.005$,
+      interrobot-safety-distance: $2.2 C_("radius")$,
     ),
     // S_r: $2.2$,
+    comms-failure-prob: $0%$,
+    variable-temporal-dist: todo[...],
   ),
   env: (
     radius: $50m$,
     r_r: $2m$,
     speed: $15m"/"s$,
-    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$
+    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$,
+    s: $0$,
   ),
 )
 
@@ -70,20 +82,53 @@
     m_r: $10$,
     m_i: $50$,
     factor: (
-      sigma_d: $1$,
+      sigma_d: $0.5$,
       sigma_p: $1 times 10^(-15)$,
       sigma_r: $0.005$,
       sigma_o: $0.005$,
+      interrobot-safety-distance: $2.2 C_("radius")$,
     ),
     // S_r: $2.2$,
+    comms-failure-prob: $0%$,
+    variable-temporal-dist: $2s$,
   ),
   env: (
     radius: $50m$,
     r_r: $2m$,
     speed: $15m"/"s$,
-    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$
+    n_r: ${5, 10, 15, 20, 25, 30, 35, 40, 45, 50}$,
+    s: $0$,
   ),
 )
+
+#let communications-failure = (
+  // sim: (
+  // ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $50$,
+    factor: (
+      sigma_d: $1$,
+      sigma_p: $1 times 10^(-15)$,
+      sigma_r: $0.005$,
+      sigma_o: $0.005$,
+      interrobot-safety-distance: $2.2 C_("radius")$,
+    ),
+    comms-failure-prob: ${0, 10, ..., 90}%$,
+    variable-temporal-dist: todo[...],
+    // S_r: $2.2$,
+  ),
+  env: (
+    radius: $50m$,
+    r_r: $tilde.op cal(U)(2,3) m$,
+    n_r: $21$,
+    speed: ${10, 15}m"/"s$,
+    s: ${0, 32, 64, 128, 255}$,
+  ),
+)
+
+
 
 #let make-rows(subdict) = {
   let pair-list = subdict.pairs().filter(it => {
