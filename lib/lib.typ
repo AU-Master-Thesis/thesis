@@ -392,7 +392,7 @@
 
     grid(
       column-gutter: 0pt,
-      columns: (progress, 1fr),
+      columns: (progress, auto),
       row-gutter: 5pt,
       text(colors.complete, [#repr(progress) (#calc.round(normal-pages, digits: 2) pages)]),
       text(colors.incomplete, [#repr(progress-left) (#calc.round(total-pages - normal-pages, digits: 2) pages)]),
@@ -409,12 +409,20 @@
       box(height: 1em, width: 100%, fill: theme.overlay0), box(height: 1em, width: 100%, fill: colors.incomplete), box(height: 1em, width: 100%, fill: theme.overlay0),
     )
 
+
+    v(0.25em)
+    grid(
+      column-gutter: 0pt,
+      columns: (1fr, auto),
+      row-gutter: 5pt,
+      text(colors.incomplete, [#repr(100% - days-left-percent) (#days-gone days)]),
+      text(colors.complete, [#repr(days-left-percent) (#days-left.days() days)]),
+    )
+    v(-0.75em)
     grid(
       column-gutter: 0pt,
       columns: (1fr, days-left-percent),
       row-gutter: 5pt,
-      text(colors.incomplete, [#repr(100% - days-left-percent) (#days-gone days)]),
-      text(colors.complete, [#repr(days-left-percent) (#days-left.days() days)]),
       box(height: 1em, width: 100%, fill: colors.incomplete),
       box(height: 1em, width: 100%, fill: colors.complete),
     )
@@ -497,7 +505,7 @@
     tablex(
       columns: (auto, 10fr),
       column-gutter: 1em,
-      row-gutter: 1em,
+      row-gutter: 0.75em,
       align: (right, left),
       inset: 0pt,
       // (), vlinex(), (),
@@ -546,16 +554,22 @@
 
 #let listing(
   content,
-  line-numbering: auto,
+  line-numbering: none,
   caption: none,
 ) = {
   let supplement = [Listing]
   let n = context listing-counter.get().at(0)
 
+  let ns = if line-numbering != none {
+    (lno) => lno
+  } else {
+    (lno) => none
+  }
+
   return figure(
     {
       listing-counter.step()
-      sourcecode(numbers-style: line-numbering, content)
+      sourcecode(numbers-style: ns, content)
     },
     caption: caption,
     kind: "listing",
@@ -742,4 +756,16 @@
 #let algeq(content) = {
   show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance|MinCostConnection|Rewire|Sample|Nearest|ObstacleFree|Neighbourhood|Cost|Line|Parent)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
   content
+}
+
+#let transpose(matrix) = {
+  assert(type(matrix) == array)
+  let ncols = calc.max(..matrix.map(row => row.len()))
+  let nrows = matrix.len()
+
+  assert(matrix.map(row => row.len()).all(len => len == ncols))
+
+  for col in range(ncols) {
+    (matrix.map(row => row.at(col)),)
+  }
 }

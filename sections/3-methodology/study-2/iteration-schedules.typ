@@ -59,18 +59,6 @@ Scheduling, order in which we call internal and external iteration
   }
 }
 
-#let transpose(matrix) = {
-  assert(type(matrix) == array)
-  let ncols = calc.max(..matrix.map(row => row.len()))
-  let nrows = matrix.len()
-
-  assert(matrix.map(row => row.len()).all(len => len == ncols))
-
-  for col in range(ncols) {
-    (matrix.map(row => row.at(col)),)
-  }
-}
-
 #let schedule-soon-as-possible(..times) = {
   let times = times.pos()
   let N = times.len()
@@ -238,21 +226,10 @@ Scheduling, order in which we call internal and external iteration
   )
 }
 
-// #show-schedule(iterations.values(), interleave-evenly, title: [Interleave Evenly])
-// #show-schedule(iterations.values(), schedule-soon-as-possible, title: [Soon as Possible])
-// #show-schedule(iterations.values(), schedule-late-as-possible, title: [Late as Possible])
-//
-// #show-schedule(iterations.values(), schedule-half-at-the-end-half-at-the-beginning, title: [Half at the beginning, Half at the end])
-// #show-schedule(iterations.values(), schedule-half-at-the-end-half-at-the-beginning, title: [Half at the beginning, Half at the end])
-// #show-schedule(iterations.values(), schedule-centered, title: [Centered])
-//
-// #pagebreak()
-
 #let iterations = (
   internal: 10,
   external: 5,
 )
-
 
 #kristoffer[
   Talk about how the paper make a distuinguishon about that internal and external iteration can be varied in amount per algorithm step. But does not mention how they are ordered relative to each other i.e. what schedule they use.

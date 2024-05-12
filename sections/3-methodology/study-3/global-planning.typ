@@ -12,7 +12,7 @@ Global planning has been made as an extension to the original GBP Planner softwa
   )
   #set par(first-line-indent: 0em)
   #grid(
-    columns: (2.2fr, 3fr),
+    columns: (2.3fr, 3fr),
     blocked(
       title: [*Setup*],
       color: none,
@@ -36,42 +36,7 @@ Global planning has been made as an extension to the original GBP Planner softwa
   )
 ]<ex.global-planning>
 
-The environment for each experiment scenario is generated from an configuration file,
-which is described in @s.m.s4.configuration. The environment shown in @f.m.maze-env is built from the character matrix, shown in @lst.maze. #note.jens[Put this in 3.4.1 Configuration]All supported unicode symbols for automatic environment generation are: `─, │, ┌ , ┐, └, ┘, ├, ┤, ┬, ┴, ┼`. Even though each character is taller than it is wide when written out in most fonts, the map-generation code produces one _square *tile*_ for each character. This makes up for the seeming descrepency in aspect ratio between the character grid in @lst.maze, and the actual environment in @f.m.maze-env.
-
-#listing(
-  line-numbering: (lno) => none,
-  caption: [Character matrix representation of a maze environment.]
-)[
-```
-┌─┼─┬─┐┌
-┼─┘┌┼┬┼┘
-┴┬─┴┼┘│
-┌┴┐┌┼─┴┬
-├─┴┘└──┘
-```
-]<lst.maze>
-
-The resulting grid of _tiles_ in #text(accent, [@f.m.maze-env#h(0pt)A]) is, 5$times$8, where a 2$times$1 segment is highlighted#sg. In #text(accent, [@f.m.maze-env#h(0pt)B]) the highlighted section is shown bigger, where, in red#sr, the resulting #acr("AABB") colliders are shown. These colliders are generated on a per-tile basis, which means that the there are seems between the tiles, where the colliders meet. One could argue that these seems could be elliminated to optimise computational efficiency, as less intersection tests would have to be made in the #acr("RRT*") algorithm.
-
-#figure(
-  grid(
-    columns: (auto, 2.45fr, 1fr, auto),
-    [],
-    std-block[
-      #image("../../../figures/out/maze-env.svg")
-      #v(0.5em)
-      A: Entire Environment
-    ],
-    std-block[
-      #image("../../../figures/out/maze-env-crop.svg")
-      #v(0.5em)
-      B: Cropped Environment
-    ],
-    [],
-  ),
-  caption: [An example of a maze-like environment.],
-)<f.m.maze-env>
+The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.s4.configuration.
 
 // as seen in @f.m.rrt-colliders.
 
