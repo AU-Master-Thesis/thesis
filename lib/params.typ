@@ -16,7 +16,7 @@
   r_r: $r_R$,
   speed: $abs(v_0)$,
   n_r: $N_R$,
-  s: $s$,
+  s: $s e e d$,
   comms-radius: $r_C$,
   comms-failure-prob: $gamma$,
   variable-temporal-dist: $t_(K-1)$,
@@ -41,7 +41,8 @@
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
     // variable-temporal-dist: {let v = 2 * 50 / 15; $#v$},
-    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
   ),
   env: (
     radius: $50m$,
@@ -49,7 +50,7 @@
     comms-radius: $50m$,
     speed: $15m"/"s$,
     n_r: ${5, 10, ..., 50}$,
-    s: $0$,
+    s: $2^*$,
   ),
 )
 
@@ -70,7 +71,8 @@
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
     // variable-temporal-dist: todo[...],
-    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
   ),
   env: (
     radius: $50m$,
@@ -78,7 +80,7 @@
     comms-radius: $50m$,
     speed: $15m"/"s$,
     n_r: ${5, 10, ..., 50}$,
-    s: $0$,
+    s: $2^*$,
   ),
 )
 
@@ -98,7 +100,8 @@
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
     // variable-temporal-dist: todo[...],
-    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
   ),
   env: (
     radius: $100m$,
@@ -106,7 +109,7 @@
     comms-radius: ${20, 40, ..., 80}m$,
     speed: $15m"/"s$,
     n_r: $30$,
-    s: $0$,
+    s: $2^*$,
   ),
 )
 
@@ -131,12 +134,12 @@
     variable-temporal-dist: $2s$,
   ),
   env: (
-    radius: $50m$,
+    radius: $N "/" A$,
     r_r: $2m$,
     comms-radius: $50m$,
     speed: $15m"/"s$,
     n_r: ${5, 10, ..., 50}$,
-    s: $0$,
+    s: $2^*$,
   ),
 )
 
@@ -156,7 +159,8 @@
     m_i: $50$,
     comms-failure-prob: ${0, 10, ..., 90}%$,
     // variable-temporal-dist: todo[...],
-    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
     // S_r: $2.2$,
   ),
   env: (
@@ -165,7 +169,7 @@
     comms-radius: $50m$,
     n_r: $21$,
     speed: ${10, 15}m"/"s$,
-    s: ${0, 32, 64, 128, 255}$,
+    s: ${0, 32, 64, 128, 255}^*$,
   ),
 )
 

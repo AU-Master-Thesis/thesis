@@ -2,16 +2,19 @@
 == Scenarios <s.r.scenarios>
 
 The performance of the reimplementation is evaluated across #numbers.written(scen.len()) different scenarios;
-#scen.circle.s, #scen.clear-circle.s, #scen.varying-network-connectivity.s, #scen.junction.s and #scen.communications-failure.s. These scenarios adhere to the original paper's@gbpplanner experiments.
+#scen.circle.s, #scen.environment-obstacles.s, #scen.varying-network-connectivity.s, #scen.junction.s and #scen.communications-failure.s. These scenarios adhere to the original paper's@gbpplanner experiments.
 
 #set enum(numbering: box-enum.with(prefix: "S-"))
-+ _*Circle:*_ This environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed in the middle of the environment. Robots are placed along the perimeter of a circle centered at $(0, 0)$ with a radius of $r=50m$. Every robot is tasked with reaching the opposite side of the circle.
++ _*Circle*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
 
-+ _*Clear Circle:*_ This environment is similar to the Circle scenario, but without any obstacles. Again robots are placed in a circle, centered at $(0, 0)$ with $r=50m$, and are tasked with reaching the opposite side of the circle.
+
+// + _*Circle:*_ This environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed in the middle of the environment. Robots are placed along the perimeter of a circle centered at $(0, 0)$ with a radius of $r=50m$. Every robot is tasked with reaching the opposite side of the circle.
+
++ _*Environment Obstacles:*_ This scenario is similar to the Circle scenario, but with obstacles near the center of the circle. // Again robots are placed in a circle, centered at $(0, 0)$ with $r=50m$, and are tasked with reaching the opposite side of the circle.
 
 + _*Varying Network Connectivity:*_ Identical environment to the Circle scenario, but with the radius of the robots communication range varied.
 
-+ _*Junction:*_ This environment is much more constrained, only with two roads; a vertical and horizontal one, centered in their cross-axis. Thus creating a simple crossroads the very center of the environment. Robots are spawned repeatedly in two formations. One group begins on the left side with instructions to cross to the right, while the other starts at the top, aiming to reach the bottom.
++ _*Junction:*_ This environment is much more constrained, only with two roads; a vertical and horizontal one, centered in their cross-axis. Thus creating a simple crossroads at the very center of the environment. Robots are spawned repeatedly in two formations. One group begins on the left side with instructions to cross to the right, while the other starts at the top, with a mission to reach the bottom.
 
 + _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. It tests how resilient the #acrpl("GBP") algorithm is to spurious loss of communication between robots. By randomly toggling a robots ability to communicate with others at different probabilities every timestep.
 
@@ -21,14 +24,18 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 // In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
 
 
-Specific details and parameters for each environment are presented in the following sections #numref(<s.r.scenarios.circle>), #numref(<s.r.scenarios.clear-circle>), #numref(<s.r.scenarios.varying-network-connectivity>), #numref(<s.r.scenarios.junction>) and #numref(<s.r.scenarios.communications-failure>). Parameters are selected to be identical to whats presented in @gbpplanner. The numerical value of a few parameters in some of the scenarios are not listed explicitly. In these cases an argument for the selected interpretation is presented to justify the values chosen. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.clear-circle>), and #numref(<f.scenarios.junction>).
+Specific details and parameters for each scenario are presented in the following sections #numref(<s.r.scenarios.circle>), #numref(<s.r.scenarios.environment-obstacles>), #numref(<s.r.scenarios.varying-network-connectivity>), #numref(<s.r.scenarios.junction>) and #numref(<s.r.scenarios.communications-failure>). Parameters are selected to be identical to whats presented in @gbpplanner. The numerical value of a few parameters in some of the scenarios are not listed explicitly. In these cases an argument for the selected interpretation is presented to justify the values chosen. An asterisk is used as a postfix for the values for which this applies, e.g. $x^*$. A lot of the values are the same between scenarios. To make the differences stand out, each value that is different from its value in the Circle scenario is colored #text(theme.red, [red]). Parameters related to the #acr("GBP") algorithm are explained in detail in @s.m.study-2. New parameters not explained previously are:
+/ $C_("radius")$ : The radius of the circle that the robots are spawned in. Omitted in the Junction scenario, as it is not applicable.
+/ $s e e d$  : The seed used for the random number generator. In the work of @gbpplanner, the Mersenne Twister pseudorandom number generator from the C++ standard library is used. #kristoffer[we use WyRand right now, change to mersenne twister https://docs.rs/mersenne_twister/latest/mersenne_twister/]
 
+Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
+
+#show quote: emph
 === #scen.circle.n <s.r.scenarios.circle>
-
 // EXCEPT from their paper
 // Robots of various sizes are initialised in a circle formation of radius 50 m, with an initial speed of 15 m/s, towards a stationary horizon state at the opposite side of the circle. The radii of the robots are sampled randomly from rR ∼ U (2, 3) m. We set tK−1 as the ideal time taken for a single robot moving from the initial speed to rest across the circle at constant acceleration. This would correspond to a smooth (zero jerk) trajectory. Each robot has a communication range rC = 50 m representing a partially connected network of robots. In addition, we set σd = 1 m.
+This scenario is the basis for all the other scenarios expect for the Junction scenario. Robots are placed in a circle of radius $C_("radius") =50m$ and are tasked to reach the opposite side of the circle. e.g. If a robot is placed at an arc length of $theta$, then it has to reach the point at arc length $theta + pi$ of the circle. The challenge of this scenario is that the optimal path for each robot all intersect each other at the same point, at the same time. To handle this case the robots will have to collaboratively arrive at a solution that accomedate all of them. All parameters are listed in @t.scenarios.circle. To make the layout of each table more compact they have been grouped into three categories; _Environment_, _GBP Algorithm_ and _Factor Settings_. Robot radiis are sampled randomly from a uniform distribution over the interval $[2.0, 3.0] m$. For the time horizon $t_(K-1)$ no numerical value is explicitly stated. Instead the following sentence is used to explain its value: #quote[We set $t_(K-1)$ as the ideal time taken for a single robot moving from the initial speed to rest across the circle at constant acceleration. This would correspond to a smooth (zero jerk) trajectory@gbpplanner]. This statement is interpreted as follows. For a robot to move across the circle it has to traverse $2C_("radius") = 100m$. With initial speed $|v_0| = 15 m"/"s$ and final speed $|v_("final")| = 0 m"/"s$ the time taken to traverse at constant acceleration can be computed using the kinematic equations for velocity and displacement@essential-university-physics. Doing this one get $t_(K-1) = 13 1/3 s$. See @appendix.interpretation-of-parameters for the derivation. The value of the _seed_ parameter is not stated either. A value of 2 was selected such that it matches the `"SEED":` key in the simulation config found in the papers code `config/circle_cluttered.json:14`@gbpplanner-code. Note that the parameters in the `config/circle_cluttered.json` and `config/*.json` does not match any of the experimental scenarios listed in @gbpplanner #todo[ref to discussion about mismatch between code and paper experiments].
 
-The challenge of this scenario is that the robots both have to navigate around each other in a a dense area, while also have to evade around the numerous obstacles.
 
 #figure(
   grid(
@@ -40,6 +47,10 @@ The challenge of this scenario is that the robots both have to navigate around e
   ),
   caption: [Circle scenario parameters.],
 )<t.scenarios.circle>
+
+#todo[maybe list number of variables aswell in the GBP section]
+
+#todo[make appendix, for params, Pernilles idea]
 
 
 / $M_I$ : Internal #acr("GBP") messages
@@ -63,8 +74,9 @@ The challenge of this scenario is that the robots both have to navigate around e
   caption: [Visualisation circle scenario.],
 )<f.scenarios.circle>
 
-=== #scen.clear-circle.n <s.r.scenarios.clear-circle>
+=== #scen.environment-obstacles.n <s.r.scenarios.environment-obstacles>
 
+// + _*Circle:*_ This environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed in the middle of the environment. Robots are placed along the perimeter of a circle centered at $(0, 0)$ with a radius of $r=50m$. Every robot is tasked with reaching the opposite side of the circle.
 #figure(
   grid(
     columns: (40%, 30% - 0.5em, 30% - 0.5em),
@@ -73,14 +85,14 @@ The challenge of this scenario is that the robots both have to navigate around e
     params.tabular(params.clear-circle.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.clear-circle.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [Clear Circle scenario parameters.],
+  caption: [Environment Obstacles scenario parameters.],
 )<t.scenarios.clear-circle>
 
 #figure(
   // image("../../../figures/out/clear-circle.svg", width: 30%),
   {},
-  caption: [Visualisation clear Circle scenario.],
-)<f.scenarios.clear-circle>
+  caption: [Visualisation Environment Obstacles scenario.],
+)<f.scenarios.environment-obstacles>
 
 
 === #scen.varying-network-connectivity.n <s.r.scenarios.varying-network-connectivity>

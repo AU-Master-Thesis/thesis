@@ -28,6 +28,30 @@ gbpplanner:
     issue: 2
     volume: 8
 
+gbpplanner-code:
+  type: repository
+  url: https://github.com/aalpatya/gbpplanner/commit/fd719ce6b57c443bc0484fa6bb751867ed0c48f4
+  # url: https://github.com/aalpatya/gbpplanner
+  author:
+  - Patwardhan, Aalok
+  - Murai, Riku
+  - Davison, Andrew J.
+  date: 2023-10-30
+
+  # title: petgraph
+  # author: # Used the people of the `gitub/petgraph` org as the authors
+  # - Anton Kochkov # XVilka
+  # - bluss # bluss
+  # - Agustín Borgna # ABorgna
+  # - Bilal Mahmoud # indietyp
+  # date: 2024-04-24
+  # serial-number:
+  #   version: 0.6.4
+  # note: https://github.com/petgraph/petgraph/releases/tag/petgraph%40v0.6.4
+
+
+
+
 robotweb:
   type: article
   title: A robot web for distributed many-device localisation
@@ -524,6 +548,35 @@ the-rust-book:
   url:
     value: https://doc.rust-lang.org/book/
     date: 2024-04-24
+
+# 3.4 Constant Acceleration:
+
+essential-university-physics:
+  type: chapter
+  page-range: 55
+  parent:
+    type: book
+    title: Essential University Physics Volume 1
+    author: Richard Wolfson
+    date: 2015-01-03
+    publisher: Pearson Education
+    volume: 1
+    edition: 3
+    serial-number:
+      isbn: 0321993721
+
+
+# essential-university-physics:
+#   page-range: 55
+#   type: book
+#   title: Essential University Physics Volume 1
+#   author: Richard Wolfson
+#   date: 2015-01-03
+#   publisher: Pearson Education
+#   volume: 1
+#   edition: 3
+#   serial-number:
+#     isbn: 0321993721
 
 
 # --- Rust Crates ---

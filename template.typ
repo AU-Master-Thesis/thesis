@@ -105,7 +105,13 @@
     },
 
     prebody: none,
-    postbody: none,
+    // postbody: none,
+    postbody: [
+        #pagebreak(weak: true)
+        #start-appendix(show-title: true)
+        #set heading(numbering: "A:", supplement: "Appendix")
+        #include "sections/appendix.typ"
+    ],
 
     // The paper's content.
     body
