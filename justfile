@@ -2,6 +2,7 @@ set shell := ["fish", "--no-config", "-c"]
 # theme := "latte"
 # theme := "frappe"
 theme := "macchiato"
+pdf-viewer := "zathura"
 # theme := "mocha"
 
 default:
@@ -14,7 +15,14 @@ build:
 alias w := dev
 dev:
     test -f main.pdf; and xdg-open main.pdf >&2 >/dev/null &; disown
-    typst watch --input catppuccin={{theme}} main.typ
+    watch --input catppuccin={{theme}} main.typ
+
+alias k := kdev
+kdev:
+    test -f main.pdf; and zathura main.pdf >&2 >/dev/null &; disown
+    # test -f brickbob.gif; and kitty -e timg brickbob.gif &; disown
+    kitty -e typst watch --input catppuccin={{theme}} main.typ &; disown
+    nvim main.typ
 
 alias p := pdf
 pdf:

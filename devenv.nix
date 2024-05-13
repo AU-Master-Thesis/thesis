@@ -46,6 +46,7 @@ in {
       sqlite
       nushell
       xsv
+      timg
       # (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "ComicShannsMono" "Hack" ]; })
     ]
     ++ python-packages;
