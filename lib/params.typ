@@ -1,5 +1,8 @@
 #import "catppuccin.typ": *
 #import "lib.typ": *
+#import "diff.typ": diffdict
+#import "dict.typ": leafmap, leafzip, leafflatten
+
 
 #let syms = (
   delta_t: $Delta_t$,
@@ -24,10 +27,6 @@
 #let circle = (
   // sim: (
   // ),
-  gbp: (
-    delta_t: $0.1$,
-    m_r: $10$,
-    m_i: $50$,
     factor: (
       sigma_d: $1$,
       sigma_p: $1 times 10^(-15)$,
@@ -35,9 +34,14 @@
       sigma_o: $0.005$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $50$,
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
-    variable-temporal-dist: todo[...],
+    // variable-temporal-dist: {let v = 2 * 50 / 15; $#v$},
+    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
   ),
   env: (
     radius: $50m$,
@@ -52,10 +56,6 @@
 #let clear-circle = (
   // sim: (
   // ),
-  gbp: (
-    delta_t: $0.1$,
-    m_r: $10$,
-    m_i: $50$,
     factor: (
       sigma_d: $1$,
       sigma_p: $1 times 10^(-15)$,
@@ -63,9 +63,14 @@
       sigma_o: $0.005$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $50$,
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
-    variable-temporal-dist: todo[...],
+    // variable-temporal-dist: todo[...],
+    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
   ),
   env: (
     radius: $50m$,
@@ -79,10 +84,6 @@
 
 
 #let varying-network-connectivity = (
-  gbp: (
-    delta_t: $0.1$,
-    m_r: $10$,
-    m_i: $50$,
     factor: (
       sigma_d: $1$,
       sigma_p: $1 times 10^(-15)$,
@@ -90,9 +91,14 @@
       sigma_o: $0.005$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $50$,
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
-    variable-temporal-dist: todo[...],
+    // variable-temporal-dist: todo[...],
+    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
   ),
   env: (
     radius: $100m$,
@@ -109,10 +115,6 @@
 #let junction = (
   // sim: (
   // ),
-  gbp: (
-    delta_t: $0.1$,
-    m_r: $10$,
-    m_i: $50$,
     factor: (
       sigma_d: $0.5$,
       sigma_p: $1 times 10^(-15)$,
@@ -120,6 +122,10 @@
       sigma_o: $0.005$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $50$,
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
     variable-temporal-dist: $2s$,
@@ -137,10 +143,6 @@
 #let communications-failure = (
   // sim: (
   // ),
-  gbp: (
-    delta_t: $0.1$,
-    m_r: $10$,
-    m_i: $50$,
     factor: (
       sigma_d: $1$,
       sigma_p: $1 times 10^(-15)$,
@@ -148,8 +150,13 @@
       sigma_o: $0.005$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $50$,
     comms-failure-prob: ${0, 10, ..., 90}%$,
-    variable-temporal-dist: todo[...],
+    // variable-temporal-dist: todo[...],
+    variable-temporal-dist: $6.67s$, // 2 * 50m / 15m/s
     // S_r: $2.2$,
   ),
   env: (
@@ -164,20 +171,40 @@
 
 
 
-#let make-rows(subdict) = {
-  let pair-list = subdict.pairs().filter(it => {
-    not type(it.at(1)) == dictionary
-  }).map(it => {
-    let key = it.at(0)
-    let val = it.at(1)
-    (syms.at(key), val)
-  })
+#let make-rows(subdict, previous: none) = {
+  let diff = if previous == none {
+    leafmap(subdict, (k, v) => false) } else {
+    diffdict(previous, subdict)
+  }
 
-  pair-list.flatten()
+  assert(type(diff) == dictionary, message: "expected `diff` to have type 'dictionary', got " + type(diff))
+
+  let dict = leafzip(subdict, diff)
+  let dict_flattened = leafflatten(dict)
+  for (k, pair) in dict_flattened {
+    let v = pair.at(0)
+    let different = pair.at(1)
+
+    let k = syms.at(k)
+    if different {
+      (k, text(theme.red, v))
+    } else {
+      (k, v)
+    }
+  }
+
+  // let pair-list = subdict.pairs().filter(it => {
+  //   not type(it.at(1)) == dictionary
+  // }).map(it => {
+  //   let key = it.at(0)
+  //   let val = it.at(1)
+  //   (syms.at(key), val)
+  // })
+  //
+  // pair-list.flatten()
 }
 
-#let tabular(subdict, title: none, extra-rows: 0) = {
-
+#let tabular(subdict, title: none, extra-rows: 0, previous: none) = {
   let header = table.header(
     [Param], [Value]
   )
@@ -216,7 +243,7 @@
         theme.lavender.lighten(50%)
       } else if calc.even(y) { theme.crust } else { theme.mantle },
       gutter: -1pt,
-      ..make-rows(subdict),
+      ..make-rows(subdict, previous: previous),
       ..rep((" ", " "), extra-rows).flatten()
     )
   )

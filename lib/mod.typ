@@ -9,3 +9,6 @@
 #import "numbers.typ"
 #import "durationfmt.typ": *
 #import "@preview/wrap-it:0.1.0": wrap-content
+// #import "diff.typ": diffarray, diffdict
+#import "diff.typ": *
+#import "dict.typ": *

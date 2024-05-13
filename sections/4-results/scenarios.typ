@@ -9,7 +9,7 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 
 + _*Clear Circle:*_ This environment is similar to the Circle scenario, but without any obstacles. Again robots are placed in a circle, centered at $(0, 0)$ with $r=50m$, and are tasked with reaching the opposite side of the circle.
 
-+ _*Varying Network Connectivity:*_ Similar as the Circle scenario, but with the radius of the robots communication radius varied.
++ _*Varying Network Connectivity:*_ Identical environment to the Circle scenario, but with the radius of the robots communication range varied.
 
 + _*Junction:*_ This environment is much more constrained, only with two roads; a vertical and horizontal one, centered in their cross-axis. Thus creating a simple crossroads the very center of the environment. Robots are spawned repeatedly in two formations. One group begins on the left side with instructions to cross to the right, while the other starts at the top, aiming to reach the bottom.
 
@@ -21,7 +21,7 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 // In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
 
 
-Specific details and parameters for each environment are presented in the following sections #numref(<s.r.scenarios.circle>), #numref(<s.r.scenarios.clear-circle>), #numref(<s.r.scenarios.varying-network-connectivity>), #numref(<s.r.scenarios.junction>) and #numref(<s.r.scenarios.communications-failure>). Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.clear-circle>), and #numref(<f.scenarios.junction>).
+Specific details and parameters for each environment are presented in the following sections #numref(<s.r.scenarios.circle>), #numref(<s.r.scenarios.clear-circle>), #numref(<s.r.scenarios.varying-network-connectivity>), #numref(<s.r.scenarios.junction>) and #numref(<s.r.scenarios.communications-failure>). Parameters are selected to be identical to whats presented in @gbpplanner. The numerical value of a few parameters in some of the scenarios are not listed explicitly. In these cases an argument for the selected interpretation is presented to justify the values chosen. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.clear-circle>), and #numref(<f.scenarios.junction>).
 
 === #scen.circle.n <s.r.scenarios.circle>
 
@@ -36,7 +36,7 @@ The challenge of this scenario is that the robots both have to navigate around e
     column-gutter: 0.5em,
     params.tabular(params.circle.env, title: [Environment]),
     params.tabular(params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
-    params.tabular(params.circle.gbp.factor, title: [Factor Settings]),
+    params.tabular(params.circle.factor, title: [Factor Settings]),
   ),
   caption: [Circle scenario parameters.],
 )<t.scenarios.circle>
@@ -69,9 +69,9 @@ The challenge of this scenario is that the robots both have to navigate around e
   grid(
     columns: (40%, 30% - 0.5em, 30% - 0.5em),
     column-gutter: 0.5em,
-    params.tabular(params.clear-circle.env, title: [Environment]),
-    params.tabular(params.clear-circle.gbp, title: [GBP Algorithm], extra-rows: 0),
-    params.tabular(params.clear-circle.gbp.factor, title: [Factor Settings]),
+    params.tabular(params.clear-circle.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.clear-circle.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.clear-circle.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
   caption: [Clear Circle scenario parameters.],
 )<t.scenarios.clear-circle>
@@ -89,9 +89,9 @@ The challenge of this scenario is that the robots both have to navigate around e
   grid(
     columns: (40%, 30% - 0.5em, 30% - 0.5em),
     column-gutter: 0.5em,
-    params.tabular(params.varying-network-connectivity.env, title: [Environment]),
-    params.tabular(params.varying-network-connectivity.gbp, title: [GBP Algorithm], extra-rows: 0),
-    params.tabular(params.varying-network-connectivity.gbp.factor, title: [Factor Settings]),
+    params.tabular(params.varying-network-connectivity.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.varying-network-connectivity.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.varying-network-connectivity.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
   caption: [Junction scenario parameters.],
 )<t.scenarios.junction>
@@ -102,9 +102,9 @@ The challenge of this scenario is that the robots both have to navigate around e
   grid(
     columns: (40%, 30% - 0.5em, 30% - 0.5em),
     column-gutter: 0.5em,
-    params.tabular(params.junction.env, title: [Environment]),
-    params.tabular(params.junction.gbp, title: [GBP Algorithm], extra-rows: 0),
-    params.tabular(params.junction.gbp.factor, title: [Factor Settings]),
+    params.tabular(params.junction.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.junction.gbp, previous: params.circle.gbp,  title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.junction.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
   caption: [Junction scenario parameters.],
 )<t.scenarios.junction>
@@ -125,12 +125,12 @@ The challenge of this scenario is that the robots both have to navigate around e
   grid(
     columns: (40%, 30% - 0.5em, 30% - 0.5em),
     column-gutter: 0.5em,
-    params.tabular(params.communications-failure.env, title: [Environment]),
-    params.tabular(params.communications-failure.gbp, title: [GBP Algorithm], extra-rows: 0),
-    params.tabular(params.communications-failure.gbp.factor, title: [Factor Settings]),
+    params.tabular(params.communications-failure.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.communications-failure.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.communications-failure.factor, previous: params.circle.factor, title: [Factor Settings]),
   )
   , caption: [Communications Failure scenario parameters.],
 ) <t.scenarios.communications-failure>
 
 
-tttt
+#line(length: 100%, stroke: 10pt + red)

@@ -32,6 +32,10 @@ This section outlines the methodology adopted for replicating the software imple
   caption: [Variable timesteps, #kristoffer[explain figure, and review design, use same variable names as rest of document]]
 ) <f.variable-timesteps>
 
+#kristoffer[
+  Explain how we have added a setting to decouple the number of variables from the velocity and time horizon of the robot.
+]
+
 
 #kristoffer[
   Explain the marginalization step/ algorithm
