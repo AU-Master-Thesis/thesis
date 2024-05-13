@@ -76,7 +76,7 @@
   ),
   env: (
     radius: $50m$,
-    r_r: $2m$,
+    r_r: $tilde.op cal(U)(2,3) m$,
     comms-radius: $50m$,
     speed: $15m"/"s$,
     n_r: ${5, 10, ..., 50}$,
@@ -105,11 +105,11 @@
   ),
   env: (
     radius: $100m$,
-    r_r: $2m$,
+    r_r: $tilde.op cal(U)(2,3) m$,
     comms-radius: ${20, 40, ..., 80}m$,
     speed: $15m"/"s$,
     n_r: $30$,
-    s: $2^*$,
+    s: ${0, 32, 64, 128, 255}^*$,
   ),
 )
 

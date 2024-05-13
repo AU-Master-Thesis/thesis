@@ -8,11 +8,10 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 + _*Circle*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
 
 
-// + _*Circle:*_ This environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed in the middle of the environment. Robots are placed along the perimeter of a circle centered at $(0, 0)$ with a radius of $r=50m$. Every robot is tasked with reaching the opposite side of the circle.
 
 + _*Environment Obstacles:*_ This scenario is similar to the Circle scenario, but with obstacles near the center of the circle. // Again robots are placed in a circle, centered at $(0, 0)$ with $r=50m$, and are tasked with reaching the opposite side of the circle.
 
-+ _*Varying Network Connectivity:*_ Identical environment to the Circle scenario, but with the radius of the robots communication range varied.
++ _*Varying Network Connectivity:*_ Identical environment to the Environment Obstacles scenario, but with larger spawning radius. The radius of the robots communication range varied.
 
 + _*Junction:*_ This environment is much more constrained, only with two roads; a vertical and horizontal one, centered in their cross-axis. Thus creating a simple crossroads at the very center of the environment. Robots are spawned repeatedly in two formations. One group begins on the left side with instructions to cross to the right, while the other starts at the top, with a mission to reach the bottom.
 
@@ -76,7 +75,11 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 === #scen.environment-obstacles.n <s.r.scenarios.environment-obstacles>
 
-// + _*Circle:*_ This environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed in the middle of the environment. Robots are placed along the perimeter of a circle centered at $(0, 0)$ with a radius of $r=50m$. Every robot is tasked with reaching the opposite side of the circle.
+// EXCEPT from their paper
+// Environment obstacles: Also shown in figure 6 with dotted lines are the makespans for ORCA and our GBP planner when 6 polygonal obstacles are placed in the middle of the circle. The paths can be seen in figure 3. The results are for one layout of obstacles averaged over 5 seeds. For NR = 25 and 30 some robots using ORCA became deadlocked with the obstacle configuration. Our method performs well with obstacles, producing makespans that are only slightly higher than in those in free space
+In this scenario the robots are placed in a circle similar to the Circle scenario, see @s.r.scenarios.circle. The environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed near the middle of the environment. This change adds to the difficultly. Not only does the robots have to find collision free paths around each other. They also have to adjust their solution to not collide with the obstacles that obstruct the optimal path straight across the circle.
+
+
 #figure(
   grid(
     columns: (40%, 30% - 0.5em, 30% - 0.5em),
@@ -86,7 +89,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
     params.tabular(params.clear-circle.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
   caption: [Environment Obstacles scenario parameters.],
-)<t.scenarios.clear-circle>
+)<t.scenarios.environment-obstacles>
 
 #figure(
   // image("../../../figures/out/clear-circle.svg", width: 30%),
@@ -96,6 +99,13 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 
 === #scen.varying-network-connectivity.n <s.r.scenarios.varying-network-connectivity>
+
+// EXCEPT from their paper
+// Varying network connectivity: Robots within a communication range rC of each other form a partially connected network, and can collaboratively modify their planned paths. We investigate the effect of varying rC for NR = 30 for the 100 m diameter circle formation with obstacles. Table I shows that as rC increases robots take more of their neighbours into account, resulting in greater makespans but small changes in the distances travelled and path smoothness. This highlights the applicability of our method to real networks where sensing and communication range may be limited.
+
+This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles.
+
+
 
 #figure(
   grid(
