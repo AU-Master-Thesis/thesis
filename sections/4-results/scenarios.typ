@@ -27,7 +27,7 @@ Specific details and parameters for each scenario are presented in the following
 / $C_("radius")$ : The radius of the circle that the robots are spawned in. Omitted in the Junction scenario, as it is not applicable.
 / $s e e d$  : The seed used for the random number generator. In the work of @gbpplanner, the Mersenne Twister pseudorandom number generator from the C++ standard library is used. #kristoffer[we use WyRand right now, change to mersenne twister https://docs.rs/mersenne_twister/latest/mersenne_twister/]
 
-Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
+For a full summary of all experimental parameters used in the reproduction experiments see @appendix.reproduction-experiment-parameters. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
 
 #show quote: emph
 === #scen.circle.n <s.r.scenarios.circle>
@@ -47,25 +47,6 @@ This scenario is the basis for all the other scenarios expect for the Junction s
   caption: [Circle scenario parameters.],
 )<t.scenarios.circle>
 
-#todo[maybe list number of variables aswell in the GBP section]
-
-#todo[make appendix, for params, Pernilles idea]
-
-
-/ $M_I$ : Internal #acr("GBP") messages
-/ $M_R$ : External inter-robot #acr("GBP") messages
-/ $N_R$ : Number of robots
-/ $r_R$ : Robot radius
-/ $r_C$ : Robot communication radius
-/ $s$ : prng seed
-/ $|v_0|$ : Initial speed
-/ $gamma$ : probability of communication failure
-/ $t_K-1$ : #todo[...]
-/ $sigma_d$ : sigma value of Dynamic factor
-/ $sigma_p$ : sigma value of Pose factor
-/ $sigma_r$ : sigma value of Range factor
-/ $sigma_o$ : sigma value of Obstacle factor
-/ $d_r$ : Inter-robot safety distance
 
 #figure(
   // image("../../../figures/out/circle.svg", width: 30%),
