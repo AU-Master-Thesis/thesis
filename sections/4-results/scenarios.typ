@@ -84,9 +84,10 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
 // EXCEPT from their paper
 // Varying network connectivity: Robots within a communication range rC of each other form a partially connected network, and can collaboratively modify their planned paths. We investigate the effect of varying rC for NR = 30 for the 100 m diameter circle formation with obstacles. Table I shows that as rC increases robots take more of their neighbours into account, resulting in greater makespans but small changes in the distances travelled and path smoothness. This highlights the applicability of our method to real networks where sensing and communication range may be limited.
 
-This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles.
 
+This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. Robots within a communication range $r_C$ of each other form a partially connected network. The more robots that are connected with each other the more
 
+#line(length: 100%, stroke: 10pt + red)
 
 #figure(
   grid(
@@ -123,6 +124,18 @@ This scenario uses the same environment as the Environment Obstacles scenario, s
 
 // EXCEPT from their paper
 // Our GBP planner relies on per-timestep peer-to-peer communication between robots. It is assumed that each robot follows a protocol similar to [11]; it always broadcasts its state information. We consider a communications failure scenario where a robot is not able to receive messages from robots it is connected to. We would expect more cautious behaviour when planning a trajectory. We simulate a communication failure fraction γ: at each timestep the robot cannot receive any messages from a randomly sampled proportion γ of its connected neighbours. We repeat the circle experiment with 21 robots at two different initial speeds of 10 m/s and 15 m/s, measuring the makespan. The reported result is an average over 5 different random seeds. To be fair, at any timestep for any robot, the failed communications are exactly the same given a fixed seed for both initial velocities considered.
+
+
+This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. To purpose of this scenario is to test the #acrpl("GBP") planning algorithm to work under less than optimal external communication conditions.
+Phenomenas that can lead to this in the real world would be loss of transmitted packages in case of Radio Frequency band being congested or too high interference between two robots, due to physicals obstructions between them. For example in a ware house scenario where two robots do not have a clear line of sight of each other due being obstructed by some pillars#note.k[run through chatGPT]. $C_("radius")$ is extended to $100m$, and
+
+To simulate this the same non-zero probability $gamma$ is assigned to each robot. At every simulated timestep a robots ability to communicate with other factorgraphs through any established interrobot factors are toggled with probability $gamma$. For two robots $A$ and $B$ with variable $v_n^A$ and $v_n^B$, connected by interrobot factors $f_(r_n)^A (v_n^A, v_n^B)$ and $f_(r_n)^B (v_n^A, v_n^B)$. There are four possible states the system can be in.
++ The communication medium of both $A$ and $B$ are active allowing the factors and variable to exchange messages between each other during external message passing.
++ The communication medium of both $A$ and $B$ are inactive, preventing the factors and variable from exchanging messages.
++ The communication medium of $A$ is active, preventing $B$ from exchanging messages with $A$ during external message passing.
++ The communication medium of $B$ is active, preventing $A$ from exchanging messages with $B$ during external message passing.
+
+#line(length: 100%, stroke: 10pt + red)
 
 #figure(
   grid(
