@@ -1,0 +1,28 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[]
+
+    \def\s{40*\scale}
+    %\def\line{
+    %    \draw[line] (0, 0) -- ++(0, -\s);
+    %}
+
+    %\def\polyline{
+    %    \def\a{360 / 6}
+    %    \draw[line] (0, 0) -- ++(-\a * 3:\s / 3) -- ++(-90:\s / 3) -- ++(-\a * 2:\s / 3);
+    %}
+
+    %\line
+    %\polyline
+
+    %\draw[line] (0, 0) -- ++(0, -\s);
+
+    \draw[line] (0, 0) -- ++(\s, -\s);
+
+\end{tikzpicture}%
+\end{document}

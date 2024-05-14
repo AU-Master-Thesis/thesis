@@ -29,7 +29,12 @@ A datastructure for describing the static environment has been developed, and in
   ([╵], [U+2575]),
   ([╶], [U+2576]),
   ([╷], [U+2577]),
-)
+).map(it => {
+  (
+    text(font: "JetBrainsMono NF", it.at(0)),
+    text(font: "JetBrainsMono NF", it.at(1))
+  )
+})
 
 #let unicode-fig = [
   #v(1.5em)
