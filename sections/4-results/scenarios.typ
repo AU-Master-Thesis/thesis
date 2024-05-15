@@ -58,7 +58,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 // EXCEPT from their paper
 // Environment obstacles: Also shown in figure 6 with dotted lines are the makespans for ORCA and our GBP planner when 6 polygonal obstacles are placed in the middle of the circle. The paths can be seen in figure 3. The results are for one layout of obstacles averaged over 5 seeds. For NR = 25 and 30 some robots using ORCA became deadlocked with the obstacle configuration. Our method performs well with obstacles, producing makespans that are only slightly higher than in those in free space
-In this scenario the robots are placed in a circle similar to the Circle scenario, see @s.r.scenarios.circle. The environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed near the middle of the environment. This change adds to the difficultly. Not only does the robots have to find collision free paths around each other. They also have to adjust their solution to not collide with the obstacles that obstruct the optimal path straight across the circle.
+In this scenario the robots are placed in a circle similar to the Circle scenario, see @s.r.scenarios.circle. The environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed near the middle of the environment. This change adds to the difficultly. Not only does the robots have to find collision free paths around each other. They also have to adjust their solution to not collide with the obstacles that obstruct the optimal path straight across the interior of the circle.
 
 
 #figure(
@@ -85,9 +85,12 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
 // Varying network connectivity: Robots within a communication range rC of each other form a partially connected network, and can collaboratively modify their planned paths. We investigate the effect of varying rC for NR = 30 for the 100 m diameter circle formation with obstacles. Table I shows that as rC increases robots take more of their neighbours into account, resulting in greater makespans but small changes in the distances travelled and path smoothness. This highlights the applicability of our method to real networks where sensing and communication range may be limited.
 
 
-This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. Robots within a communication range $r_C$ of each other form a partially connected network. The more robots that are connected with each other the more
+This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. Now each robots communication range $r_C$ is varied from $20m$ up to $80m$ at $20m$ intervals. The purpore of this scenario is to check what affect connectivity between factorgraphs has on the robots capability to plan collaboratively. When $r_C$ is small it is more likely that robots have few connected neighbours, resulting in multiple smaller disjoint subclusters. When $r_C$ grows larger the connectivity of the overall network will grow as disjoint subclusters are merged into larger connected ones.
 
-#line(length: 100%, stroke: 10pt + red)
+// As $r_C$
+// Robots within a communication range $r_C$ of each other form a partially connected network. By varying $r_C$ most
+
+// As more robots are connected with each other the more information about each others uncertainty is available during the variable optimisation step. As a result each robot should arrive
 
 #figure(
   grid(

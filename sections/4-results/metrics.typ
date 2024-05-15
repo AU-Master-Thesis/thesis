@@ -29,6 +29,10 @@ $ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") in
 - $v(t)$ is the velocity of a robot at time $t$.
 - $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also known as jerk.
 
+#kristoffer[
+ Mention which method we use for numerical integration. Probably Simpsons
+]
+
 4. #metric[Inter Robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circles, equal in radius to the robot's radius. A collision between two robots happen when their circles intersect.
 
 
