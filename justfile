@@ -14,8 +14,12 @@ build:
 
 alias w := dev
 dev:
+    typst watch --input catppuccin={{theme}} main.typ
+
+alias wo := devo
+devo:
     test -f main.pdf; and xdg-open main.pdf >&2 >/dev/null &; disown
-    watch --input catppuccin={{theme}} main.typ
+    typst watch --input catppuccin={{theme}} main.typ
 
 alias k := kdev
 kdev:

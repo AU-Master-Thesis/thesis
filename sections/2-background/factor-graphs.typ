@@ -341,10 +341,24 @@ $<eq.linearised-factor>
 The underlying potential non-linearities of factors is exemplified in @ex.non-linearities, and visualised in @fig.non-linearities.
 
 #example[
-  #jens[make this example with similar figure as to @gbp-visual-introduction]
+  Consider a 2D world, where a robot exists alongside a landmark. As seen in @fig.non-linearities, the robot is located at $r_0$, and the landmark at $l_0$. This figure visualises the contour plot for the factor $f(r_0, l)$, assuming the robot's true position is known to be $r_0$ without uncertainties. The true non-linear belief of the landmark's position is visualised as a grey#sgr2 contour plot. The factor measurement function $m(r,l)$ in @eq.non-linear-measurement@gbp-visual-introduction is non-linear.
+
+  $
+    h(r,l) = mat(abs(r - l); arctan((l_y - r_y) / (l_x - r_x)))
+  $<eq.non-linear-measurement>
+
+  As such, the factor is linearised around $(r_0, l_0)$, which is shown as blue contours#sl in @fig.non-linearities. In the @fig.non-linearities#text(accent, "A"), the measurement noise model corresponds to covariance $Sigma_A$, and in @fig.non-linearities#text(accent, "B") the covariance is $Sigma_B$.
+
+  $
+    Sigma_A = mat(0.25, 0; 0, 0.25)
+    #h(1em)"and"#h(1em)
+    Sigma_B = mat(0.25, 0; 0, 1.0)
+  $
 
   #figure(
     image("../../figures/out/non-linearities.svg", width: 60%),
     caption: [A non-linear factor is visualised, where the measurement function $m(X_n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualised as a grey#sgr2 contour plot underneat the linearised gaussian distribution#sl on top.],
   )<fig.non-linearities>
+
+  The purpose of this example is to make it clear, that the accuracy of a gaussian factor is dependent on the linearity of the measurement function, $m$. As in @fig.non-linearities#text(accent, "A"), the measurement model is reasonably smooth, and the linearised gaussian factor is a fairly good approximation, however, in @fig.non-linearities#text(accent, "B") highlights how a larger variance can lead to a very poor approximation, even without straying too far from the linearisation point.
 ]<ex.non-linearities>
