@@ -24,7 +24,7 @@ A datastructure for describing the static environment has been developed, and in
   ([┬], [U+252C]),
   ([┴], [U+2534]),
   ([┼], [U+253C]),
-  ([], []),
+  ([█], [U+2588]),
   ([╴], [U+2574]),
   ([╵], [U+2575]),
   ([╶], [U+2576]),
