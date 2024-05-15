@@ -27,6 +27,8 @@ Specific details and parameters for each scenario are presented in the following
 / $C_("radius")$ : The radius of the circle that the robots are spawned in. Omitted in the Junction scenario, as it is not applicable.
 / $s e e d$  : The seed used for the #acr("PRNG"). Randomness is used in one place throughout the different scenarios. For randomly selecting a robots radius $r_R$ in the scenarios using a circle formation. In the work of @gbpplanner, the Mersenne Twister pseudorandom number generator from the C++ standard library is used. In the reimplementation the WyRand algorithm is used as it was more easily available through@bevy_prng. This of course introduces a slight potential for deviation between results. Nevertheless this is deemed acceptable given that the randomness does not have a large affect on the #acr("GBP") algorithm. And secondly the seeds used for the tested scenarios is not listed explicitly in @gbpplanner.
 
+#kristoffer[write about selection of seeds]
+
 // #kristoffer[we use WyRand right now, change to mersenne twister https://docs.rs/mersenne_twister/latest/mersenne_twister/]
 
 For a full summary of all experimental parameters used in the reproduction experiments see @appendix.reproduction-experiment-parameters. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).

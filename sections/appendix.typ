@@ -69,6 +69,10 @@ $
   &<=>  t = (100 m) / (7.5 m / s) = 13 1/3 s
 $
 
+=== Graphviz Representation of FactorGraphs <appendix.graphviz-representation-of-factorgraphs>
+
+#kristoffer[Insert one or two images of the compiled graphviz output]
+
 === JSON Schema for exported data <appendix.json-schema-for-exported-data>
 
 

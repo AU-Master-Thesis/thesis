@@ -579,6 +579,21 @@ essential-university-physics:
 #     isbn: 0321993721
 
 
+graphviz:
+  type: article
+  title: An Open Graph Visualization System and Its Applications to Software Engineering
+  author:
+  - Gansner, Emden
+  - North, Stephen
+  date: 1997
+  page-range: ''
+  serial-number:
+    doi: 10.1002/1097-024X(200009)30:11<1203::AID-SPE338>3.0.CO;2-N
+  parent:
+    type: periodical
+    title: Software - Practice and Experience - SPE
+    volume: 30
+
 # --- Rust Crates ---
 repo:
   type: repository
