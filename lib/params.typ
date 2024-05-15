@@ -2,6 +2,10 @@
 #import "lib.typ": *
 #import "diff.typ": diffdict
 #import "dict.typ": leafmap, leafzip, leafflatten
+#import "equation.typ"
+
+
+#let seeds = (0, 31, 227, 252, 805)
 
 
 #let syms = (
@@ -52,7 +56,9 @@
     comms-radius: $50m$,
     speed: $15m"/"s$,
     n_r: ${5, 10, ..., 50}$,
-    s: $2^*$,
+
+    // s: $2^*$,
+  s: equation.as-set(seeds),
   ),
 )
 
@@ -83,7 +89,8 @@
     comms-radius: $50m$,
     speed: $15m"/"s$,
     n_r: ${5, 10, ..., 50}$,
-    s: $2^*$,
+    // s: $2^*$,
+  s: equation.as-set(seeds),
   ),
 )
 
@@ -113,7 +120,8 @@
     comms-radius: ${20, 40, ..., 80}m$,
     speed: $15m"/"s$,
     n_r: $30$,
-    s: ${0, 32, 64, 128, 255}^*$,
+    // s: ${0, 32, 64, 128, 255}^*$,
+  s: equation.as-set(seeds),
   ),
 )
 
@@ -144,7 +152,8 @@
     comms-radius: $50m$,
     speed: $15m"/"s$,
     n_r: ${5, 10, ..., 50}$,
-    s: $2^*$,
+    // s: $2^*$,
+  s: equation.as-set(seeds),
   ),
 )
 
@@ -175,7 +184,8 @@
     comms-radius: $50m$,
     n_r: $21$,
     speed: ${10, 15}m"/"s$,
-    s: ${0, 32, 64, 128, 255}^*$,
+    // s: ${0, 32, 64, 128, 255}^*$,
+  s: equation.as-set(seeds),
   ),
 )
 
