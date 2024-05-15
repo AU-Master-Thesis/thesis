@@ -4,7 +4,7 @@
 // This section will cover the approach chosen for reproducing the software implementation in the gbpplanner paper@gbpplanner. Focus is put on arguing for places where the internal workings of the reimplementation differs. Why the difference is either deemed necessary due to inherent differences in the capabilities of the programming languages, or why they are seen as desireable/ an improvement. Where multiple different solutions are feasible to solve the same issue comparative arguments are presented to reason for the selected solution.
 
 
-This section outlines the methodology adopted for replicating the software implementation described in the gbpplanner paper@gbpplanner. It details the differences in the reimplementation, justifying necessary deviations due to the distinct capabilities of the programming languages used, and explaining the improvements made. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution.
+This section outlines the methodology adopted for replicating the software implementation described in the gbpplanner paper@gbpplanner. It details the differences in the reimplementation, justifying necessary deviations due to distinct capabilities or limitations of the programming language used aswell as libraries, and explaining the improvements made. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution.
 
 #include "language.typ"
 #include "architecture.typ"
@@ -67,3 +67,37 @@ trait Factor: std::fmt::Display {
   fn first_order_jacobian(&self, state: &FactorState, x: Vector<f64>) -> Matrix<f64> { ... }
 }
 ```
+
+
+#line(length: 100%, stroke: 10pt + red)
+
+#kristoffer[
+  Algo
+]
+
+
+
+maintains two sets of ids, one for any robot within communication radius, and one for any robot connected with.
+
+// #algorithm(
+//   caption: [Rewiring],
+//   [
+//     #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+//     #set text(size: 0.85em)
+//     #let ind() = h(2em)
+//     *Input:* $V_"near", x_"new"$ \ \
+//
+//     *for* $x_"near" in V_"near"$ *do* \
+//     #ind()$c_"near" #la "Cost"(x_"new") + c("Line"(x_"new", x_"near"))$ \
+//     #ind()*if* $"CollisionFree"(x_"new", x_"near") and c_"near" < "Cost"(x_"near")$ *then* \
+//     #ind()#ind()$x_"parent" #la "Parent"(x_"near")$ \
+//     #ind()#ind()$E #la E \\ {[x_"parent", x_"near"]}$ \
+//     #ind()#ind()$E #la E union {[x_"new", x_"near"]}$ \
+//     #ind()*end* \
+//     *end* \ \
+//
+//     *Output:* None
+//   ]
+// )<alg.rrt-star.rewire>
+//
+//

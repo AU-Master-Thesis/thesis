@@ -230,7 +230,7 @@
 With the modifications made, the #acr("RRT*") algorithm is shown in @alg.rrt-star@erc-rrt-star. Two important blocks of the algorithm has been sectioned out in sub-algorithms @alg.rrt-star.min-cost-connection and #numref(<alg.rrt-star.rewire>), which are described along side the other new functions of #acr("RRT*") under @s.b.rrt-star.functions. The main parts of the algorithm are visualised in @f.rrt-rewire as three steps:
 #set enum(numbering: box-enum.with(prefix: "Step ", suffix: ":", color: theme.mauve))
 + A new point has been sampled, deemed collision-free, and thus node $v_"new"$ can be added to the tree. But first, we need to find which existing node to connect to. Here, $v_"nearest"$ is chosen by the `MinCostConnection` algorithm, as it is the node that minimizes the total cost from the root to $v_"new"$, within the step-length radius $s$.
-+ In preparation, rewiring candidates will be found, by looking at all nodes in the tree, that are withing a certain reqiring radius, $r$, from $v_"new"$. This is done by the `Neighbourhood` function, which returns the set $V_"near" = {n_1, n_2, dots, n_n}$.
++ In preparation, rewiring candidates will be found, by looking at all nodes in the tree, that are within a certain requiring radius, $r$, from $v_"new"$. This is done by the `Neighbourhood` function, which returns the set $V_"near" = {n_1, n_2, dots, n_n}$.
 #[
   #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
   + This step is where the rewiring takes place. By looking at the nodes in $V_"near"$, we can compute each node's cost, $c_"new"$ with equation @eq.rrt-star-cost
@@ -276,7 +276,7 @@ This function is a main part of the #acr("RRT*") modification, as it attached th
     #ind()*end* \
     *end* \ \
 
-    *Ouput:* $x_"min"$
+    *Output:* $x_"min"$
   ]
 )<alg.rrt-star.min-cost-connection>
 

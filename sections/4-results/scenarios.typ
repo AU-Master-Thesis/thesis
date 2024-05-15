@@ -25,9 +25,13 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 
 Specific details and parameters for each scenario are presented in the following sections #numref(<s.r.scenarios.circle>), #numref(<s.r.scenarios.environment-obstacles>), #numref(<s.r.scenarios.varying-network-connectivity>), #numref(<s.r.scenarios.junction>) and #numref(<s.r.scenarios.communications-failure>). Parameters are selected to be identical to whats presented in @gbpplanner. The numerical value of a few parameters in some of the scenarios are not listed explicitly. In these cases an argument for the selected interpretation is presented to justify the values chosen. An asterisk is used as a postfix for the values for which this applies, e.g. $x^*$. A lot of the values are the same between scenarios. To make the differences stand out, each value that is different from its value in the Circle scenario is colored #text(theme.red, [red]). Parameters related to the #acr("GBP") algorithm are explained in detail in @s.m.study-2. New parameters not explained previously are:
 / $C_("radius")$ : The radius of the circle that the robots are spawned in. Omitted in the Junction scenario, as it is not applicable.
-/ $s e e d$  : The seed used for the random number generator. In the work of @gbpplanner, the Mersenne Twister pseudorandom number generator from the C++ standard library is used. #kristoffer[we use WyRand right now, change to mersenne twister https://docs.rs/mersenne_twister/latest/mersenne_twister/]
+/ $s e e d$  : The seed used for the #acr("PRNG"). Randomness is used in one place throughout the different scenarios. For randomly selecting a robots radius $r_R$ in the scenarios using a circle formation. In the work of @gbpplanner, the Mersenne Twister pseudorandom number generator from the C++ standard library is used. In the reimplementation the WyRand algorithm is used as it was more easily available through@bevy_prng. This of course introduces a slight potential for deviation between results. Nevertheless this is deemed acceptable given that the randomness does not have a large affect on the #acr("GBP") algorithm. And secondly the seeds used for the tested scenarios is not listed explicitly in @gbpplanner.
 
-Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
+#kristoffer[write about selection of seeds]
+
+// #kristoffer[we use WyRand right now, change to mersenne twister https://docs.rs/mersenne_twister/latest/mersenne_twister/]
+
+For a full summary of all experimental parameters used in the reproduction experiments see @appendix.reproduction-experiment-parameters. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
 
 #show quote: emph
 === #scen.circle.n <s.r.scenarios.circle>
@@ -47,25 +51,6 @@ This scenario is the basis for all the other scenarios expect for the Junction s
   caption: [Circle scenario parameters.],
 )<t.scenarios.circle>
 
-#todo[maybe list number of variables aswell in the GBP section]
-
-#todo[make appendix, for params, Pernilles idea]
-
-
-/ $M_I$ : Internal #acr("GBP") messages
-/ $M_R$ : External inter-robot #acr("GBP") messages
-/ $N_R$ : Number of robots
-/ $r_R$ : Robot radius
-/ $r_C$ : Robot communication radius
-/ $s$ : prng seed
-/ $|v_0|$ : Initial speed
-/ $gamma$ : probability of communication failure
-/ $t_K-1$ : #todo[...]
-/ $sigma_d$ : sigma value of Dynamic factor
-/ $sigma_p$ : sigma value of Pose factor
-/ $sigma_r$ : sigma value of Range factor
-/ $sigma_o$ : sigma value of Obstacle factor
-/ $d_r$ : Inter-robot safety distance
 
 #figure(
   // image("../../../figures/out/circle.svg", width: 30%),
@@ -77,7 +62,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 // EXCEPT from their paper
 // Environment obstacles: Also shown in figure 6 with dotted lines are the makespans for ORCA and our GBP planner when 6 polygonal obstacles are placed in the middle of the circle. The paths can be seen in figure 3. The results are for one layout of obstacles averaged over 5 seeds. For NR = 25 and 30 some robots using ORCA became deadlocked with the obstacle configuration. Our method performs well with obstacles, producing makespans that are only slightly higher than in those in free space
-In this scenario the robots are placed in a circle similar to the Circle scenario, see @s.r.scenarios.circle. The environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed near the middle of the environment. This change adds to the difficultly. Not only does the robots have to find collision free paths around each other. They also have to adjust their solution to not collide with the obstacles that obstruct the optimal path straight across the circle.
+In this scenario the robots are placed in a circle similar to the Circle scenario, see @s.r.scenarios.circle. The environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed near the middle of the environment. This change adds to the difficultly. Not only does the robots have to find collision free paths around each other. They also have to adjust their solution to not collide with the obstacles that obstruct the optimal path straight across the interior of the circle.
 
 
 #figure(
@@ -103,9 +88,13 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
 // EXCEPT from their paper
 // Varying network connectivity: Robots within a communication range rC of each other form a partially connected network, and can collaboratively modify their planned paths. We investigate the effect of varying rC for NR = 30 for the 100 m diameter circle formation with obstacles. Table I shows that as rC increases robots take more of their neighbours into account, resulting in greater makespans but small changes in the distances travelled and path smoothness. This highlights the applicability of our method to real networks where sensing and communication range may be limited.
 
-This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles.
 
+This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. Now each robots communication range $r_C$ is varied from $20m$ up to $80m$ at $20m$ intervals. The purpore of this scenario is to check what affect connectivity between factorgraphs has on the robots capability to plan collaboratively. When $r_C$ is small it is more likely that robots have few connected neighbours, resulting in multiple smaller disjoint subclusters. When $r_C$ grows larger the connectivity of the overall network will grow as disjoint subclusters are merged into larger connected ones.
 
+// As $r_C$
+// Robots within a communication range $r_C$ of each other form a partially connected network. By varying $r_C$ most
+
+// As more robots are connected with each other the more information about each others uncertainty is available during the variable optimisation step. As a result each robot should arrive
 
 #figure(
   grid(
@@ -119,6 +108,15 @@ This scenario uses the same environment as the Environment Obstacles scenario, s
 )<t.scenarios.junction>
 
 === #scen.junction.n <s.r.scenarios.junction>
+
+Robots working in crowded environments may need to operate at high speeds with high levels of coordination, such as when traversing junctions between shelves in a warehouse. This scenario simulates one such junction with channel widths of 16 meters and robots moving at 15 $m "/" s$. $t_(K-1) = 2s$ to force the robots to have a short horizon to plan a path within when they reach the junction center. In addition $sigma_d =0.5m$ #kristoffer[explain why?] A desirable trait of multirobot systems is to maintain a high flow rate without causing blockages at junctions. To test this the the rate $Q_("in")$ at which robots enter the central section of the junction is adjusted, and the rate $Q_("out")$ at which they exit is measured. To measure flow, the central section is observed over 500 timesteps to represent steady-state behavior. Robots must exit the junction in the same direction they entered, without collisions. $Q_("in")$ is adjusted over the list of values
+
+$ Q_("in") in [0.5, 1, ..., 6] $
+
+// - $Q_("in")$ vary $"robots" "/" s$
+// - $Q_("out")$ measure $"robots" "/" s$
+// - $Q_("in")$ should equal $Q_("out")$
+
 
 #figure(
   grid(
@@ -143,6 +141,14 @@ This scenario uses the same environment as the Environment Obstacles scenario, s
 // EXCEPT from their paper
 // Our GBP planner relies on per-timestep peer-to-peer communication between robots. It is assumed that each robot follows a protocol similar to [11]; it always broadcasts its state information. We consider a communications failure scenario where a robot is not able to receive messages from robots it is connected to. We would expect more cautious behaviour when planning a trajectory. We simulate a communication failure fraction γ: at each timestep the robot cannot receive any messages from a randomly sampled proportion γ of its connected neighbours. We repeat the circle experiment with 21 robots at two different initial speeds of 10 m/s and 15 m/s, measuring the makespan. The reported result is an average over 5 different random seeds. To be fair, at any timestep for any robot, the failed communications are exactly the same given a fixed seed for both initial velocities considered.
 
+This scenario uses the same environment as the Environment Obstacles scenario (see @s.r.scenarios.environment-obstacles). The purpose of this scenario is to test the planning algorithm's performance under sub-optimal external communication conditions. In real-world situations, this could be caused by phenomena such as packet loss due to congestion in the radio frequency band or high interference from other electrical equipment transmitting messages. Under these conditions, the expected behavior is for the planning algorithm to exhibit increased caution when determining a trajectory. #note.k[should probably be in the dedicated section about interrobot factor] To simulate this the same non-zero probability $gamma$ is assigned to each robot. At every simulated timestep a robots ability to communicate with other factorgraphs through any established interrobot factors are toggled with probability $gamma$. For two robots $A$ and $B$ with variable $v_n^A$ and $v_n^B$, connected by interrobot factors $f_(r_n)^A (v_n^A, v_n^B)$ and $f_(r_n)^B (v_n^A, v_n^B)$. There are four possible states the system can be in.
++ The communication medium of both $A$ and $B$ are active allowing the factors and variable to exchange messages between each other during external message passing.
++ The communication medium of both $A$ and $B$ are inactive, preventing the factors and variable from exchanging messages.
++ The communication medium of $A$ is active, preventing $B$ from exchanging messages with $A$ during external message passing.
++ The communication medium of $B$ is active, preventing $A$ from exchanging messages with $B$ during external message passing.
+
+The scenario is tested with 21 robots at two different initial speeds of 10 m/s and 15 m/s.
+
 #figure(
   grid(
     columns: (40%, 30% - 0.5em, 30% - 0.5em),
@@ -153,6 +159,3 @@ This scenario uses the same environment as the Environment Obstacles scenario, s
   )
   , caption: [Communications Failure scenario parameters.],
 ) <t.scenarios.communications-failure>
-
-
-#line(length: 100%, stroke: 10pt + red)

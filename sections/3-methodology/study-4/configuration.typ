@@ -10,7 +10,7 @@ To make the developed software more flexible and easier to use, several configur
 + `Visualisation:` Contains the parameters for the visual elements. This includes which properties to draw to the screen like communication radius, interrobot connections, planning horizon, waypoints, etc. Furthermore, some scaling factors, i.e. for the variable uncertainties, to make them visible on the screen, are defined here. Again, more are described in @repo.
 
 ==== Environment Configuration <s.m.s4.configuration.environment>
-A datastructure for describing the static environment has been developed, and includes two main parts; the overall environment, and the option to specifiy several placeable shapes.
+A datastructure for describing the static environment has been developed, and includes two main parts; the overall environment, and the option to specify several placeable shapes.
 
 #let unicodes = (
   ([─], [U+2500]),
@@ -29,7 +29,12 @@ A datastructure for describing the static environment has been developed, and in
   ([╵], [U+2575]),
   ([╶], [U+2576]),
   ([╷], [U+2577]),
-)
+).map(it => {
+  (
+    text(font: "JetBrainsMono NF", it.at(0)),
+    text(font: "JetBrainsMono NF", it.at(1))
+  )
+})
 
 #let unicode-fig = [
   #v(1.5em)
@@ -48,7 +53,7 @@ A datastructure for describing the static environment has been developed, and in
 #let b = [
   ===== The Main Environment
 
-  This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the coloured-in parts of the characters are the free paths and the rest are walls. The path-widht is configurable as a percentage of the tile side-length.
+  This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the coloured-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
 ]
 
 #grid(
@@ -60,7 +65,7 @@ A datastructure for describing the static environment has been developed, and in
 #v(-0.5em)
 The environment shown in @f.m.maze-env is built from the character matrix, in @f.m.maze-env#text(accent, "A"). Even though each character is taller than it is wide when written out in most fonts, the map-generation code produces one _square *tile*_ for each character. This makes up for the seeming descrepency in aspect ratio between the character grid in @f.m.maze-env#text(accent, "A"), and the actual environment in @f.m.maze-env#text(accent, "B").
 
-The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, where a 2$times$1 segment is highlighted#sg. In @f.m.maze-env#text(accent, "C") the highlighted section is shown bigger, where, in red#sr, the resulting #acr("AABB") colliders are shown. These colliders are generated on a per-tile basis, which means that the there are seams between the tiles, where the colliders meet. One could argue that these seams could be elliminated to optimise computational efficiency, as less intersection tests would have to be made in the #acr("RRT*") algorithm.
+The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, where a 2$times$1 segment is highlighted#sg. In @f.m.maze-env#text(accent, "C") the highlighted section is shown bigger, where, in red#sr, the resulting #acr("AABB") colliders are shown. These colliders are generated on a per-tile basis, which means that the there are seams between the tiles, where the colliders meet. One could argue that these seams could be eliminated to optimise computational efficiency, as less intersection tests would have to be made in the #acr("RRT*") algorithm.
 
 #figure(
   {
@@ -142,7 +147,7 @@ shapes listed in @t.environment-shapes. The list in @t.environment-shapes also d
 ==== Formation Configuration <s.m.s4.configuration.formation>
 The formation configuration is used to define how the robots are spawned in the environment. A great deal of care has gone into making this a highly flexible and declarative way to define new ways to spawn robots, and define their waypoints. The formation configuration is a list of formations, where each formation is a set of parameters for how to spawn the robots, and how to layout their waypoints.
 
-Formations are described with the concept of _ditribution shapes_. These shapes are an abstract way of representing dynamically placed points, but within some constraints. Say the shape is a line from $(0,0)$ to $(1,0)$, and we want this line to desribe how to place 5 points. To know where to place these points, we need a technique to define where along the line, the points should be placed. The placement strategy could be random, which is self-explanatory, or it could be an even-spacing. These ideas are visualised in @f.m.formation-shapes.
+Formations are described with the concept of _distribution shapes_. These shapes are an abstract way of representing dynamically placed points, but within some constraints. Say the shape is a line from $(0,0)$ to $(1,0)$, and we want this line to describe how to place 5 points. To know where to place these points, we need a technique to define where along the line, the points should be placed. The placement strategy could be random, which is self-explanatory, or it could be an even-spacing. These ideas are visualised in @f.m.formation-shapes.
 
 #figure(
   [],

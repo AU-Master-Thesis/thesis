@@ -21,6 +21,7 @@
   comms-failure-prob: $gamma$,
   variable-temporal-dist: $t_(K-1)$,
   interrobot-safety-distance: $d_r$,
+  variables: $|V|$,
 )
 
 // let params = (
@@ -43,6 +44,7 @@
     // variable-temporal-dist: {let v = 2 * 50 / 15; $#v$},
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
     variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+  variables: todo[...],
   ),
   env: (
     radius: $50m$,
@@ -73,6 +75,7 @@
     // variable-temporal-dist: todo[...],
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
     variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+    variables: todo[...],
   ),
   env: (
     radius: $50m$,
@@ -102,6 +105,7 @@
     // variable-temporal-dist: todo[...],
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
     variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+    variables: todo[...],
   ),
   env: (
     radius: $100m$,
@@ -132,6 +136,7 @@
     // S_r: $2.2$,
     comms-failure-prob: $0%$,
     variable-temporal-dist: $2s$,
+    variables: todo[...],
   ),
   env: (
     radius: $N "/" A$,
@@ -161,6 +166,7 @@
     // variable-temporal-dist: todo[...],
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
     variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+    variables: todo[...],
     // S_r: $2.2$,
   ),
   env: (

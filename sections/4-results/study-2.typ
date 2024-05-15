@@ -6,3 +6,8 @@
 
   They do not have this, and just send zero messages where the precision matrix and information vector are all zeros. With the option wrapping we can skip work if it is empty.
 ]
+
+#todo[
+  Construct experiment that test the effect of varying the number of variables.
+  Especially for sharp corners like 90 degree turns in the junction.
+]

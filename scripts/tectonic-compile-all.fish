@@ -58,13 +58,13 @@ end
 # set -l tex_include_files ./figures/include/*.tex
 set -l tex_include_files figures/include/*.tex
 
-set -l figure_mtime_cache_path /tmp/(status filename).cache
+set -l figure_mtime_cache_path /tmp/(path basename (status filename)).cache
 if not test -f $figure_mtime_cache_path
     printf '%sinfo%s: creating figure mtime cache at %s%s%s\n' $green $reset $blue $figure_mtime_cache_path $reset
     touch $figure_mtime_cache_path
 end
 
-set -l include_mtime_cache_path /tmp/(status filename).include.cache
+set -l include_mtime_cache_path /tmp/(path basename (status filename)).include.cache
 if not test -f $include_mtime_cache_path
     printf '%sinfo%s: creating include mtime cache at %s%s%s\n' $green $reset $blue $include_mtime_cache_path $reset
     touch $include_mtime_cache_path

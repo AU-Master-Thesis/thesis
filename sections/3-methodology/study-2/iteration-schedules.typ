@@ -227,8 +227,8 @@ Scheduling, order in which we call internal and external iteration
 }
 
 #let iterations = (
-  internal: 10,
-  external: 5,
+  internal: 30,
+  external: 10,
 )
 
 #kristoffer[

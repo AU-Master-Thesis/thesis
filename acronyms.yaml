@@ -60,3 +60,7 @@
   definition: User Experience
 - acronym: RNG
   definition: Random Number Generator
+- acronym: PRNG
+  definition: Pseudo-Random Number Generator
+- acronym: JSON
+  definition: JavaScript Object Notation

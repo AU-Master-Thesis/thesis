@@ -24,4 +24,7 @@ disown
 kitty -e typst watch --input catppuccin=$theme main.typ &
 disown
 
+kitty -e ./scripts/watch-and-compile-tex.fish &
+disown
+
 nvim $file_to_edit
