@@ -645,3 +645,19 @@ rust-std:
   serial-number:
     version: 1.77.0
   note: https://doc.rust-lang.org/std/
+
+bevy_prng:
+  type: repository
+  title: bevy_prng
+  author:
+    - Gonçalo Rica Pais da Silva
+    # - The Rust Project Developers
+    # - The Rand Project Developers
+  url:
+    value: https://github.com/Bluefinger/bevy_rand
+    # value: https://github.com/rust-random/rand
+    date: 2024-05-15
+  serial-number:
+    version: 0.6.0
+  note: https://docs.rs/bevy_prng/0.6.0/bevy_prng/
+  # note: https://crates.io/crates/rand
