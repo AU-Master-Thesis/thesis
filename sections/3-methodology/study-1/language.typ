@@ -24,7 +24,7 @@ of time fighting its idiosyncrasies
 ]
 
 
-A desire to learn the tecnology is one of the reasons why Rust was chosen. A lot of new systems are developed using Rust, and a lot of prominent authorities have publicly urged that new software project not be developed in unsafe languages such as C++.
+A desire to learn the technology is one of the reasons why Rust was chosen. A lot of new systems are developed using Rust, and a lot of prominent authorities have publicly urged that new software project not be developed in unsafe languages such as C++.
 
 #kristoffer[
   Explain some of the unique benefits of Rust.

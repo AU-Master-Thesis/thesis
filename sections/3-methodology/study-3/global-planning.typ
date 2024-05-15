@@ -44,7 +44,7 @@ The environment for each experiment scenario is generated from an configuration 
 
 === Environment Integration <s.m.planning.environment-integration>
 
-// #todo[Something somehting `parry`]
+// #todo[Something something `parry`]
 
 As mentioned earlier in #todo[describe how the environment i built], the environment is built from several #acr("AABB") colliders. This is done using the 2D collision detection library `parry2d`@parry2d. @f.m.rrt-colliders shows how the environment#sl, is broken into smaller #acr("AABB") collider rectangles#sr. The #acr("RRT*") algorithm defines a collision problem between all the environment colliders, and a circle#stl with radius $r_C$. Every time the #acr("RRT*") algorithm wants to place a new node, it checks if this circle, placed at the position of the new node, intersects with any of the environment colliders; where the node is abondened if it does. The radius of this circle is important, as it defines how close the path will get to the obstacles. If the radius is small, the path will tend to get closer to the obstacles, as seen in @f.m.rrt-colliders#text(accent, "A"). If the radius is equal to the step length, $s$, the path will tend towards the middle of the free space, staying far from the environment, as seen in @f.m.rrt-colliders#text(accent, "B").
 
