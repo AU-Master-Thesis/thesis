@@ -107,12 +107,13 @@ This scenario uses the same environment as the Environment Obstacles scenario, s
 
 === #scen.junction.n <s.r.scenarios.junction>
 
+Robots working in crowded environments may need to operate at high speeds with high levels of coordination, such as when traversing junctions between shelves in a warehouse. This scenario simulates one such junction with channel widths of 16 meters and robots moving at 15 $m "/" s$. $t_(K-1) = 2s$ to force the robots to have a short horizon to plan a path within when they reach the junction center. In addition $sigma_d =0.5m$ #kristoffer[explain why?] A desirable trait of multirobot systems is to maintain a high flow rate without causing blockages at junctions. To test this the the rate $Q_("in")$ at which robots enter the central section of the junction is adjusted, and the rate $Q_("out")$ at which they exit is measured. To measure flow, the central section is observed over 500 timesteps to represent steady-state behavior. Robots must exit the junction in the same direction they entered, without collisions. $Q_("in")$ is adjusted over the list of values
 
-16 m
+$ Q_("in") in [0.5, 1, ..., 6] $
 
-#line(length: 100%, stroke: 20pt + theme.red)
-
-
+// - $Q_("in")$ vary $"robots" "/" s$
+// - $Q_("out")$ measure $"robots" "/" s$
+// - $Q_("in")$ should equal $Q_("out")$
 
 
 #figure(
