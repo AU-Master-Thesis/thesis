@@ -194,6 +194,13 @@ end
 printf '%sinfo%s: waiting on compiles to finish ...\n' $green $reset
 wait
 
+# pushd figures
+for typ in figures/*.typ
+    test $typ = figures/template.typ; and continue
+    set -l output (path change-extension svg (path basename $typ))
+    run typst c --format=svg --root $PWD $typ $outdir/$output
+end
+
 printf '%sinfo%s: updating figure mtime cache ...\n' $green $reset
 printf '%s\n' $new_figure_cache >$figure_mtime_cache_path
 

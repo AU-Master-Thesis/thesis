@@ -8,9 +8,11 @@ This section presents the architectural patterns used in the design of the simul
 
 #acr("ECS") is an architectural software design pattern specifically designed for data oriented programming #note.kristoffer[explain what is meant by data oriented programing]. At the heart of it are three complementary concepts, from which its name comes from: entities, components and systems:
 
-/ Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer.
+/ Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or cylinder.
 / Component: Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
 / System: Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
+
+It leads to a different approach to software design in comparison to more traditional #acr("OOP") based ways of modelling simulated environments as traditionally found in other trad
 
 It if different from traditional #acr("OOP") based ways of modelling
 
@@ -70,6 +72,8 @@ Cache Locality
 
 data oriented design vs object oriented design
 
+
+node hierarchies
 
 The #acr("ECS") architecture is not limited to game engines and simulations.
 
@@ -189,3 +193,10 @@ fn move_robots(mut query: Query<(&mut Transform, &Velocity2d), With<Robot>>) {
 The `With<Robot>` is a
 
 where
+
+
+#kristoffer[decoupling between modules. Little hierarchy like traditional OOP methods]
+
+#todo[
+  briefly mention intermediate mode GUI vs retained mode
+]

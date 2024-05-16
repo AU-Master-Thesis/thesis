@@ -44,7 +44,19 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
 
 5. #metric[#acr("RMSE") of Perpendicular Path Deviation]
 
-#kristoffer[Explain]
+#kristoffer[improve figure and layout]
+#grid(
+  columns: (1fr, 1fr),
+  column-gutter: 0em,
+  // [#lorem(50)],
+  [
+  At each sampled position the distance between it and the closest projection onto each line segment of the planned path is measured and accumulated using the #acr("RMSE") score. A visual depiction of this is shown in @f.perpendicular-path-deviation. This is measured to test the effect of the proposed tracking factor, see #todo[ref], as some applications might require that robots follow a path with little deviation.],
+[#figure(
+  image("../../figures/out/perpendicular-path-deviation.svg"),
+    caption: [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
+) <f.perpendicular-path-deviation>]
+)
+
 
 6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. Each environment obstacle is equipped with a collider of the same geometric layout. // For obstacles that are not rectangular like the triangles in the Circle experiment, see @s.r.scenarios.circle the minimum #acr("AABB") fully containing the triangle is used.
 
