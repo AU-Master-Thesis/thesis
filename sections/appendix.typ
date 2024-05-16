@@ -76,6 +76,8 @@ $
 = JSON Schema for exported data <appendix.json-schema-for-exported-data>
 
 
+#kristoffer[update with new velocity timestamp info]
+
 #listing(
   [
 
@@ -113,4 +115,20 @@ $
 ```
   ],
   caption: [JSON Schema for exported data. `...` denotes one or more repetitions of the the array or object just before it.],
+)
+
+
+=== #acr("LDJ") Metric computation <appendix.ldj-metric-computation>
+
+#kristoffer[
+  Insert the code for how the metric is computed here. When we are sure about how to compute it
+]
+
+#listing(
+  [```py
+
+  def foo():
+
+  ```],
+  caption: [The script can also be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/ldj.py")]
 )

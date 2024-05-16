@@ -31,7 +31,7 @@ The obstacle factor makes sure that the robot doesn't collide with any of the st
   caption: [Example of a signed distance field, where the lightness of the pixel represents the distance to the closest obstacle.]
 ) <f.sdf-example>
 
-And example #acr("SDF") is shown in @f.sdf-example. The #acr("SDF") is a greyscale image, where white regions are obstacle-free, and black regions are occupied by obstacles in the environment. Furthermore, the image has image is blurred as to represent distances to objects as values in grey. That is, eveything between a lightness of 0% and 100% conceptually represents the distance to the closest object, but not in what direction it lies.
+And example #acr("SDF") is shown in @f.sdf-example. The #acr("SDF") is a greyscale image, where white regions are obstacle-free, and black regions are occupied by obstacles in the environment. Furthermore, the image has image is blurred as to represent distances to objects as values in grey. That is, everything between a lightness of 0% and 100% conceptually represents the distance to the closest object, but not in what direction it lies.
 
 #todo[Obstacle factor math]
 

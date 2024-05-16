@@ -7,11 +7,11 @@
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-4.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #repo()@repo.
+As described in hypothesis #study.H-4.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo.
 
 ==== Live Configuration <s.m.s4.settings>
 
-Most of the configurable settings desribed in #nameref(<s.m.s4.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool-settings, which includes all these and more useful options.
+Most of the configurable settings described in #nameref(<s.m.s4.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool-settings, which includes all these and more useful options.
 
 #figure(
   std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -73,6 +73,12 @@ The simulation tool allows for control of the simulated time. In @f.m.simulation
 
 The simulation tool supports visualisations of most aspects of the simulation. All possible visualisations are listed and described in @table.simulation-visualisations. The visualisations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool-settings. The visualisations are updated in real-time as the simulation progresses.
 
+
+#let edges = (
+  on: box(line(length: 10pt, stroke: theme.green), height: 0.25em),
+  off: box(line(length: 10pt, stroke: theme.red), height: 0.25em),
+)
+
 #figure(
   tablec(
     columns: 2,
@@ -81,7 +87,10 @@ The simulation tool supports visualisations of most aspects of the simulation. A
       [Settings], [Description]
     ),
     [Robots], table.vline(), [A large sphere at the estimated position of each robot.],
-    [Communication graph], [A graph that shows an edge between all currently communicating robots. Shown in yellow#sy.],
+    [Communication graph], [A graph that shows an edge between all currently communicating robots. Each edge is colored dependent on the robots radio state. If the antenna is active then half of the edge from the robot to the center is green#sg, and red#sr if turned off. For three robots $R_a, R_b, R_c$, this could look like
+
+    #align(center, [$R_a$ #edges.on #edges.off $R_b$ #edges.off #edges.off $R_c$])
+  ],
     [Predicted trajectories], [All of each robot's factor graph variables, visualised as small spheres with a line between.],
     [Waypoints], [A small sphere at each waypoint for each robot.],
     [Uncertainty], [A 2D ellipse for each variable in each robot's factor graph, visualising the covariance of the internal Gaussian belief.],
@@ -89,7 +98,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Generated map], [A 3D representation of the map generated from the environment configuration.],
     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it's occupied.],
     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
-    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradiant; #box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: 10em, fill: gradient.linear(theme.green, theme.yellow, theme.red)).],
+    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: 10em, fill: gradient.linear(theme.green, theme.yellow, theme.red)).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating. The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.],
     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors.],
