@@ -151,12 +151,42 @@
   print-toc: false,
   toc-depth: 2,
   accent: accent,
-  // postbody: [
-  //     #pagebreak(weak: true)
-  //     #start-appendix()
-  //     #set heading(numbering: "A:", supplement: "Appendix")
-  //     #include "sections/appendix.typ"
-  // ]
+  postbody: context [
+    #let resume-page = counter(page).at(<nomenclature>).first()
+    // #repr(resume-page)
+    #counter(page).update(resume-page + 2)
+    #set page(numbering: "i")
+    #pagebreak(weak: true)
+    #start-appendix(show-toc: true)
+
+    #show heading : it => text(
+      black,
+    )[
+      #set par(justify: false)
+      #v(0.25em)
+      #block({
+        box(width: 15mm, text(counter(heading).display(), weight: 600))
+        text(it.body, weight: 600)
+      })
+      #v(0.15em)
+    ]
+
+    #show heading.where(level: 1) : it => text(
+      black,
+    )[
+      #pagebreak(weak: true)
+      #set par(justify: false)
+      #v(0.25em)
+      #block({
+        box(width: 15mm, text(counter(heading).display(), weight: 600))
+        text(it.body, weight: 600)
+      })
+      #v(0.15em)
+    ]
+
+    #set heading(numbering: "A.1:", supplement: "Appendix")
+    #include "sections/appendix.typ"
+  ]
 )
 
 // This is important! Call it whenever your page is reconfigured.
@@ -190,7 +220,9 @@
 #v(1em)
 #toc-printer(target: heading.where(numbering: main-numbering))
 #v(1em)
-#toc-printer(target: heading.where(numbering: none).after(<contents-1>))
+#toc-printer(target: heading.where(numbering: none).after(<contents-1>).before(<references>))
+#v(1em)
+#toc-printer(target: heading.where(numbering: none).after(<appendix>))
 
 #show: word-count
 #stats()
@@ -275,7 +307,7 @@
 // Hello. bad sentence. This is a better one. although this could be it as well
 // it goes across lines.
 
-#heading([References], level: 1, numbering: none)
+#heading([References], level: 1, numbering: none)<references>
 #bibliography(
   "./references.yaml",
   style: "future-science",

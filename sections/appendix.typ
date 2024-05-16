@@ -3,7 +3,7 @@
 // == Appendix <s.appendix>
 
 
-=== Reproduction Experiment Parameters <appendix.reproduction-experiment-parameters>
+= Reproduction Experiment Parameters <appendix.reproduction-experiment-parameters>
 
 #figure(
   tablec(
@@ -33,7 +33,7 @@
 ) <t.appendix.reproduction-experiment-parameters>
 
 
-=== Interpretation of parameters <appendix.interpretation-of-parameters>
+= Interpretation of parameters <appendix.interpretation-of-parameters>
 
 #set par(first-line-indent: 0em)
 
@@ -69,11 +69,11 @@ $
   &<=>  t = (100 m) / (7.5 m / s) = 13 1/3 s
 $
 
-=== Graphviz Representation of FactorGraphs <appendix.graphviz-representation-of-factorgraphs>
+= Graphviz Representation of FactorGraphs <appendix.graphviz-representation-of-factorgraphs>
 
 #kristoffer[Insert one or two images of the compiled graphviz output]
 
-=== JSON Schema for exported data <appendix.json-schema-for-exported-data>
+= JSON Schema for exported data <appendix.json-schema-for-exported-data>
 
 
 #listing(
