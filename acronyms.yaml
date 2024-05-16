@@ -44,6 +44,8 @@
   definition: Single Instruction, Single Data
 - acronym: OOP
   definition: Object Oriented Programming
+- acronym: DOP
+  definition: Data Oriented Programming
 - acronym: LDJ # metric used in gbpplanner
   definition: Log Dimensionless Jerk
 - acronym: CSR

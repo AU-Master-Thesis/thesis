@@ -580,6 +580,36 @@ simpsons-rule:
 
 
 
+li2023potato:
+  type: misc
+  title: 'Potato: A Data-Oriented Programming 3D Simulator for Large-Scale Heterogeneous Swarm Robotics'
+  author:
+  - Li, Jinjie
+  - Han, Liang
+  - Yu, Haoyang
+  - Wang, Zhaotian
+  - Yang, Pengzhi
+  - Yan, Ziwei
+  - Ren, Zhang
+  date: 2023
+  serial-number:
+    arxiv: '2308.12698'
+
+
+papagiannakis2023project:
+  type: misc
+  title: 'Project Elements: A computational entity-component-system in a scene-graph pythonic framework, for a neural, geometric computer graphics curriculum'
+  author:
+  - Papagiannakis, George
+  - Kamarianakis, Manos
+  - Protopsaltis, Antonis
+  - Angelis, Dimitris
+  - Zikas, Paul
+  date: 2023
+  serial-number:
+    arxiv: '2302.07691'
+
+
 # essential-university-physics:
 #   page-range: 55
 #   type: book

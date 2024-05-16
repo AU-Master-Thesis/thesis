@@ -214,6 +214,8 @@ Scheduling, order in which we call internal and external iteration
     text(size: 12pt, [*#title*])
   }
   table(
+    gutter: 0.1em,
+    stroke: none,
     columns: range(max).map(_ => 1fr),
     rows: range(N).map(_ => 1.5em),
     ..schedules_transposed.zip(on-colors).map(pair => {
@@ -222,6 +224,7 @@ Scheduling, order in which we call internal and external iteration
       schedule.map(activate => if activate { color } else { [] })
     }).flatten(),
 
+    table.hline(stroke: 1pt + gray),
     ..range(max).map(i => i + 1).map(i => [#i])
   )
 }
@@ -237,9 +240,8 @@ Scheduling, order in which we call internal and external iteration
 
 // #let cmap = (red.lighten(20%), blue.lighten(20%))
 #let cmap = (theme.maroon.lighten(30%), theme.blue.lighten(30%))
-#text(size: 18pt, cmap.at(0), [Internal #iterations.internal])
-
-#text(size: 18pt, cmap.at(1), [Internal #iterations.external])
+// #text(size: 18pt, cmap.at(0), [Internal #iterations.internal])
+// #text(size: 18pt, cmap.at(1), [Internal #iterations.external])
 
 #show-schedule(iterations.values(), interleave-evenly, cmap: cmap, title: [Interleave Evenly])
 #show-schedule(iterations.values(), schedule-soon-as-possible, cmap: cmap, title: [Soon as Possible])

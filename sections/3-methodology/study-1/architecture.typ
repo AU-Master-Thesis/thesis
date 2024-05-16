@@ -6,30 +6,39 @@ This section presents the architectural patterns used in the design of the simul
 
 ==== Entity Component System
 
-#acr("ECS") is an architectural software design pattern specifically designed for data oriented programming #note.kristoffer[explain what is meant by data oriented programing]. At the heart of it are three complementary concepts, from which its name comes from: entities, components and systems:
+#acr("ECS") is an architectural software design pattern specifically tailored for #acr("DOP"). #acr("DOP") is a design paradigm that focuses on organizing and processing data efficiently, by structuring the layout of data to play well with the caching mechanisms built into modern CPU's. #kristoffer[short example of AOS vs SOA?] This approach is characterized by the separation of data storage from behavior and logic at the programming level. ECS architecture is commonly employed in computer games and intensive data analytics to enhance performance. Additionally, it has been utilized in robotic simulation projects such as the Potato simulator, which models large-scale heterogeneous swarm robotics@li2023potato.
 
-/ Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or cylinder.
-/ Component: Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
-/ System: Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
+// At the programming level this is visible by the separation of data storage from behaviour and logic. This architecture is commonly used in computer games and intensive data analytics computations to achieve higher performance. It has also been used in other robotic simulations projects such as @li2023potato, that uses it simulate large scale heterogeneous swarm robotics.
 
-It leads to a different approach to software design in comparison to more traditional #acr("OOP") based ways of modelling simulated environments as traditionally found in other trad
+At the heart of #acrpl("ECS") are three complementary concepts, from which its name comes from: _entities_, _components_ and _systems_:
 
-It if different from traditional #acr("OOP") based ways of modelling
-
-At first glance this representation/organisazation
-
-
-that is designed to fully utilize modern computer hardware
-
-
-memory hierarchies
-
-Cache Locality
-
-
-#kristoffer[
-  point out how it is different compared to traditional game engines/simulators like Unity, Unreal, autodesk Isaac Sim
+#table(
+  columns: 2,
+  stroke: none,
+  row-gutter: 0.25em,
+  // gutter: none,
+  [*Entity*], table.vline(stroke: gray), [A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.],
+  [*Component*], [Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
+  ],
+  [*System*], [Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
 ]
+
+)
+
+// / Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.
+// / Component: Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
+// / System: Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
+
+It leads to a different approach to software design in comparison to more traditional #acr("OOP") based ways of modelling simulated environments. Instead of using object hierarchies facilitated by inheritance all components are logically laid out in a flat hierarchy, managed by a single instance of some "data store" structure. This data store is then queried and mutated by systems. All of this leads to a conceptual model which is close to relational database models. In this perspective entities are equivalent to primary keys. Components to table columns and systems to SQL queries@papagiannakis2023project. @f.ecs-entity-component-table shows an example of how the data store structures components into one large table indexed by entity ids.
+
+
+
+// memory hierarchies / Cache Locality
+
+
+// #kristoffer[
+//   point out how it is different compared to traditional game engines/simulators like Unity, Unreal, autodesk Isaac Sim
+// ]
 
 
 // it is a structural pattern
@@ -64,20 +73,15 @@ Cache Locality
 
 // #note.kristoffer[talk about how ECS changes traditional design]
 
-#kristoffer[create figure explaining why ECS is cache friendly]
+// #kristoffer[create figure explaining why ECS is cache friendly]
 // #ref(<s.m.architecture>)
 
 
-#kristoffer[Make a remark about the similarities with relational databases and query synteax like SQL. Also point out how the data is stored differently, to handle concern about cache friendlyness]
+// #kristoffer[Make a remark about the similarities with relational databases and query synteax like SQL. Also point out how the data is stored differently, to handle concern about cache friendlyness]
 
-data oriented design vs object oriented design
+// node hierarchies
 
-
-node hierarchies
-
-The #acr("ECS") architecture is not limited to game engines and simulations.
-
-is versatile
+// The #acr("ECS") architecture is not limited to game engines and simulations.
 
 // https://dl.acm.org/doi/10.1145/3286689.3286703
 
@@ -94,30 +98,26 @@ is versatile
 // ```
 
 
-#kristoffer[what are its drawbacks?]
-#kristoffer[cite ecs papers]
-#kristoffer[create figure explaining ECS data store]
 
-entity similar to a primary key in a relational database
+// #kristoffer[cite ecs papers]
 
 
-#kristoffer[clarify that the data representation used by bevy is not one to one of the table example]
+// entity similar to a primary key in a relational database
 
-#{
-  let cm = emoji.checkmark
-  show raw: it => it
-  let gray = catppuccin.theme.subtext0
 
-  set align(center)
-  set table(stroke: gray)
 
-  let header = ([`Entity` (*ID*)], [`Transform`], [`Robot`], [`Camera`], [`Velocity2d`], [`Obstacle`], [...])
-  let columns = header.map(it => 1fr)
+
+// #kristoffer[clarify that the data representation used by bevy is not one to one of the table example]
+
+
+#let header = ([`Entity` (*ID*)], [`Transform`], [`Robot`], [`Camera`], [`Velocity2d`], [`Obstacle`], [...])
+#let columns = header.map(it => 1fr)
   // let columns = header.map(it => 1fr).remove(header.len())
-  let columns = (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 0.33fr)
+#let columns = (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 0.33fr)
 
-  let table-stroke = gray
-  let table-fill-with-header = (x, y) => {
+#let gray = catppuccin.theme.subtext0
+#let table-stroke = gray
+#let table-fill-with-header = (x, y) => {
     if y == 0 {
       gray.lighten(60%)
     } else if x == 0 {
@@ -125,9 +125,18 @@ entity similar to a primary key in a relational database
     }
   }
 
-  figure(
+#let cm = emoji.checkmark
+
+#set table(stroke: gray)
+#show raw: it => it
+
+#figure(
     {
-  table(columns: columns, stroke: table-stroke, fill: table-fill-with-header,
+  table(columns: columns,
+    stroke: gray,
+
+    // stroke: table-stroke,
+    fill: table-fill-with-header,
 
     table.header(..header),
     table.hline(stroke: 1pt),
@@ -147,13 +156,22 @@ entity similar to a primary key in a relational database
 
 )
   }, caption: [Structural layout of an #acr("ECS") data store. Conceptually it is analogous to a table in relational database. #cm in a component column denotes that the entity has an instance of that component type e.g. entity $a + 2$ has components: ${$ `Transform`, `Robot`, `Velocity2d` $}$]
-) //  <f.ecs-entity-component-table>
+)   <f.ecs-entity-component-table>
 
 
 // In Bevy systems are ordinary functions
 
+For this thesis the Bevy game engine is used, as the underline framework for both rendering and #acr("ECS") implementation@bevyengine. Its #acr("ECS") implementation utilizes Rusts powerful type system, to encode queries as variadic generic types encoded that are verified at compile time. To get a sense for how queries are expressed using the type system, have a look at @l.example-ecs-query. It showcases how the three concepts of #acr("ECS") blends well together with the Rust language. Systems are ordinary functions, with `Query<...>` arguments. Components are structs and enums implementing the `Component` trait. And entities are simply type aliases for unsigned integers.
 
-// sourcecode[
+
+
+// ```sql
+// select Transform, Velocity2d, Robot as _ from world
+// ```
+
+
+#listing(
+  [
 ```rust
 fn move_robots(mut query: Query<(&mut Transform, &Velocity2d), With<Robot>>) {
   for (mut transform, velocity) in &mut query {
@@ -161,18 +179,25 @@ fn move_robots(mut query: Query<(&mut Transform, &Velocity2d), With<Robot>>) {
   }
 }
 ```
-// ]
+],
+
+  line-numbering: none,
+caption: [An example of how bevy uses the Rust type system to implement #acr("ECS") queries with a high level of expressitivity. The constructed type can be read as. "Give me a mutable reference to a `Transform` component, and immutable reference to a `Velocity2d` component. But only for the entities with a `Robot` marker component."]
+) <l.example-ecs-query>
+
+
+
+Executing the system in @l.example-ecs-query against the data store in @f.ecs-entity-component-table would result in an tuple iterator over the cells colored green#swatch(catppuccin.latte.green.lighten(75%)) as shown in @f.ecs-query.
+
 
   // let q-match-data = table.cell.with(fill: green.lighten(75%))
-  let q-match-data = table.cell.with(fill: catppuccin.theme.green.lighten(75%))
-  // let q-match-filter = table.cell.with(fill: blue.lighten(75%))
-  let q-match-filter = table.cell.with(fill: catppuccin.theme.blue.lighten(75%))
+#let q-match-data = table.cell.with(fill: catppuccin.theme.green.lighten(75%))
+//   // let q-match-filter = table.cell.with(fill: blue.lighten(75%))
+#let q-match-filter = table.cell.with(fill: catppuccin.theme.blue.lighten(75%))
 
-
+#figure({
   table(columns: columns, fill: table-fill-with-header,
-
-  ..header
-  ,
+  ..header,
 
   [$a$], [#cm], [], [#cm], [#cm $[0.0, 1.0]$], [], [],
   q-match-data[$a+1$], q-match-data[#cm], q-match-filter[#cm], [], q-match-data[#cm $[0.2, 0.8]$], [], [],
@@ -186,17 +211,21 @@ fn move_robots(mut query: Query<(&mut Transform, &Velocity2d), With<Robot>>) {
   table(columns: columns,
   q-match-data[$a+n$], q-match-data[#cm], q-match-filter[#cm], [], q-match-data[#cm $[1.0, 0.0]$], [], []
 
-)
+)},
+  caption: [
+  Result of executing the query `Query<(&mut Transform, &Velocity2d), With<Robot>>` against the data store in @f.ecs-entity-component-table. Cells colored green#swatch(catppuccin.latte.green.lighten(75%)) are selected by the query. The cells colored blue #swatch(catppuccin.latte.blue.lighten(75%)) show how the `With<Robot>` constraint limits the query to only select the components on entities ${a + 1, a + 2, a +n}$.
+]
 
-}
-
-The `With<Robot>` is a
-
-where
+) <f.ecs-query>
 
 
-#kristoffer[decoupling between modules. Little hierarchy like traditional OOP methods]
+
+// #kristoffer[decoupling between modules. Little hierarchy like traditional OOP methods]
 
 #todo[
   briefly mention intermediate mode GUI vs retained mode
+]
+
+#todo[
+  Mention that bevy will try to automatically schedule systems in parallel when the queries mutability allow for it.
 ]

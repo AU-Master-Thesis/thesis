@@ -44,18 +44,59 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
 
 5. #metric[#acr("RMSE") of Perpendicular Path Deviation]
 
+
+      // std-block(
+      //   breakable: false,
+      // )[
+      //   #image("../../../figures/out/rrt-optimisation-no-env.svg")
+      //   #v(0.5em)
+      //   #text(theme.text, [A: Path Optimisation])
+      // ],
+
 #kristoffer[improve figure and layout]
 #grid(
   columns: (1fr, 1fr),
-  column-gutter: 0em,
+  column-gutter: 1em,
   // [#lorem(50)],
   [
-  At each sampled position the distance between it and the closest projection onto each line segment of the planned path is measured and accumulated using the #acr("RMSE") score. A visual depiction of this is shown in @f.perpendicular-path-deviation. This is measured to test the effect of the proposed tracking factor, see #todo[ref], as some applications might require that robots follow a path with little deviation.],
-[#figure(
+  At each sampled position the distance between it and the closest projection onto each line segment of the planned path is measured and accumulated using the #acr("RMSE") score. A visual depiction of this is shown in @f.perpendicular-path-deviation. This is measured to test the effect of the proposed tracking factor, see #todo[ref], as some applications might require that robots follow a path with little deviation.
+
+],
+
+  std-block(
+    breakable: false,
+  )[
+#figure(
   image("../../figures/out/perpendicular-path-deviation.svg"),
-    caption: [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
-) <f.perpendicular-path-deviation>]
+    // caption: figure.caption(
+    //     position: top,
+    //     [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
+    //   )
+    caption:  [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
+
+) <f.perpendicular-path-deviation>
+  ]
+
+
+// [#figure(
+//   image("../../figures/out/perpendicular-path-deviation.svg"),
+//     caption: [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
+// ) <f.perpendicular-path-deviation>]
+//
+//
 )
+
+// $ proj $
+  // $ d = ||P - P'|| = || P - (A + "proj"_(A B) A P) $
+
+  $ { L_1, L_2, ..., L_m } $
+  $ { P_1, P_2, ..., P_n } $
+  $ d_j = min_i {"distance"(P_j, L_i)} $
+
+$ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {"distance"(P_j, L_i)})^2 ) $
+
+#kristoffer[compress equations more]
+// $ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {d(P_j, L_i)})^2 ) $
 
 
 6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. Each environment obstacle is equipped with a collider of the same geometric layout. // For obstacles that are not rectangular like the triangles in the Circle experiment, see @s.r.scenarios.circle the minimum #acr("AABB") fully containing the triangle is used.

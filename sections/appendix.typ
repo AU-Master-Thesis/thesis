@@ -126,8 +126,47 @@ $
 
 #listing(
   [```py
+import numpy as np
+from scipy.integrate import simpson
 
-  def foo():
+def ldj(velocities: np.ndarray, timesteps: np.ndarray) -> float:
+    """ Calculate the Log Dimensionless Jerk (LDJ) metric. """
+    assert len(velocities) > 0
+    assert velocities.shape == (len(velocities), 2)
+    assert len(timesteps) == len(velocities)
+    assert np.all(np.diff(timesteps) > 0)
+    assert timesteps.shape == (len(timesteps),)
+
+    t_start: float = timesteps[0]
+    t_final: float = timesteps[-1]
+    assert t_start < t_final
+
+    dt: float = np.mean(np.diff(timesteps))
+
+    vx = velocities[:, 0]
+    vy = velocities[:, 1]
+    # Estimate acceleration components
+    ax = np.gradient(vx, dt)
+    ay = np.gradient(vy, dt)
+
+    # Estimate jerk components
+    jx = np.gradient(ax, dt)
+    jy = np.gradient(ay, dt)
+
+    # Square of the jerk magnitude
+    squared_jerk = jx**2 + jy**2
+
+    time_samples = np.linspace(t_start, t_final, len(velocities))
+
+    # Numerical integration of the squared jerk using Simpson's rule
+    integral_squared_jerk = simpson(squared_jerk, x=time_samples)
+
+    # LDJ calculation
+    v_max = np.max(np.sqrt(vx**2 + vy**2))  # Max speed (magnitude of velocity vector)
+
+    ldj = -np.log((t_final - t_start)**3 / v_max**2 * integral_squared_jerk)
+
+    return ldj
 
   ```],
   caption: [The script can also be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/ldj.py")]

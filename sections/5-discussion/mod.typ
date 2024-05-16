@@ -15,4 +15,7 @@
   discuss why their implementation has a higher throughput that ours #emoji.face.sad due to graph representation. They use OpenMP
 ]
 
+
+#kristoffer[what are the drawbacks of ECS?]
+
 #include "./future-work.typ"

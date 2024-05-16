@@ -19,7 +19,8 @@ if test -n $latest_file
     set file_to_edit $latest_file
 end
 
-test -f main.pdf; and zathura main.pdf >&2 >/dev/null &
+# test -f main.pdf; and zathura main.pdf >&2 >/dev/null &
+test -f main.pdf; and evince main.pdf >&2 >/dev/null &
 disown
 kitty -e typst watch --input catppuccin=$theme main.typ &
 disown
