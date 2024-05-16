@@ -6,14 +6,10 @@
 
 This section outlines the methodology adopted for replicating the software implementation described in the gbpplanner paper@gbpplanner. It details the differences in the reimplementation, justifying necessary deviations due to distinct capabilities or limitations of the programming language used aswell as libraries, and explaining the improvements made. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution.
 
+#include "factors.typ"
 #include "language.typ"
 #include "architecture.typ"
 #include "graph-representation.typ"
-
-#jens[
-  === Asynchronous Message Passing <s.b.asynchronous-message-passing>
-]
-
 
 #kristoffer[
   show screenshots side by side of different elements of the simulation from theirs and ours,

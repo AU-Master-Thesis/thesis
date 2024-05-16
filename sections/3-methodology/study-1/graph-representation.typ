@@ -95,20 +95,25 @@ Such a graph structure enforces little to no constraints on what kind of memory 
 Edges between variable and factors are not stored as separate index values, but are instead implicitly stored by having each factor storing a `std::shared_ptr<Variable>` to every variable it is connected to. Complementary every variable stores a `std::shared_ptr<Factor>` to every factor it is connected to. For both _internal_ edges and _external_ edges between separate factorgraphs this relationship is used. Advantageous of this structural design is that it is easy to access the neighbours of node, given only a handle to the node. For example to send messages to the neighbours of a node by directly invoking methods on the receiving node directly. Another advantage is that it abstracts away whether the pointer is to an external or an internal node. The access and reference patterns are equivalent. #note.k[mention that their representation does not map well/reflect how each robot would represent connections to external robots when running on different hosts]
 However this structural pattern is difficult to implement and discouraged in Rust due to its unique language feature for managing memory; the ownership model. This model is comprised of three rules, that together ensures memory safety and prevents memory issues like invalidated references, use after free and memory leaks@the-rust-book.
 
-
-+ Each value has exactly one _owner_
-+ There can only be one owner at a time.
-+ When the owner goes out of scope, the value is dropped #footnote([In Rust the term "dropped" is the preferred term to communicate that a value is destructed and its memory deallocated.]).
+#[
+  #set enum(numbering: box-enum.with(prefix: "Property "))
+  + Each value has exactly one _owner_
+  + There can only be one owner at a time.
+  + When the owner goes out of scope, the value is dropped #footnote([In Rust the term "dropped" is the preferred term to communicate that a value is destructed and its memory deallocated.]).
+]
 
 One limitation of this language model is that data structures with interior bidirectional references like the gbpplanners factor graph representation are difficult to express, since there is no conceptual single owner of the graph. If a connected factor and variable, both share a reference to the memory region of each other, then there is not a well defined concept of who owns who. Difficult does not mean impossible, and there are ways to express these kinds of data structures using a Rust specific design pattern called the  _Interior Mutability_ pattern@the-rust-book. With this pattern all borrow checks of the resource is moved from compile time to run time, forcing the programmer to be diligent about ensuring the invariants manually. Due to the added checks that would inevitably be introduced by this pattern it was not utilized. Instead the reimplementation of the factorgraph structure were laid out to work within the intended modelling constructs of the Rust language. In the reimplementation the graph data structure uniqly owns all the variable and factor nodes. And nodes in the in the graph store no interior references to nodes they are connected to. The _petgraph_ library is used for the actual graph datastructure. _petgraph_ is a versatile and performant graph data structure library providing various generic graph data structures with different performance characteristics@petgraph. To choose which graph representation to use the following requirements were considered. The requirements are ordered by priority in descending order:
 
-+ Dynamic insertion and deletion of nodes. Robots connect to each others factorgraph when they both are within the communication radius of each other and both their communication mediums are active/reachable. Likewise they disconnect when they move out of each others communication or the other one is unreachable. This connection is upheld by the InterRobot factor, which gets added and removed frequently. <req.graph-representation-dynamic> // Indices into the graph needs to be stable across removal, in order to ensure the invariant too prevent issues with maintaining
+#[
+  #set enum(numbering: box-enum.with(prefix: "R-"))
+  + Dynamic insertion and deletion of nodes. Robots connect to each others factorgraph when they both are within the communication radius of each other and both their communication mediums are active/reachable. Likewise they disconnect when they move out of each others communication or the other one is unreachable. This connection is upheld by the InterRobot factor, which gets added and removed frequently. <req.graph-representation-dynamic> // Indices into the graph needs to be stable across removal, in order to ensure the invariant too prevent issues with maintaining
 
-+ Fast node iteration and neighbour search: In order to ensure collision free paths at tolerable speeds, the #acr("GBP") algorithm will have to run many times a second. The faster each factorgraph can be traversed the better. <req.graph-representation-fast-iteration>
+  + Fast node iteration and neighbour search: In order to ensure collision free paths at tolerable speeds, the #acr("GBP") algorithm will have to run many times a second. The faster each factorgraph can be traversed the better. <req.graph-representation-fast-iteration>
 
-+ The index of a node is valid for the lifetime of the node. Without this a lot of checks have to be added every time the factorgraph is indexed to get a reference to a node. <req.graph-representation-stable-indices>
+  + The index of a node is valid for the lifetime of the node. Without this a lot of checks have to be added every time the factorgraph is indexed to get a reference to a node. <req.graph-representation-stable-indices>
+]
 
-_petgraph_ supports the following five types of graph representation:
+_petgraph_ supports the following five types of graph representation; `Graph`, `StableGraph`, `GraphMap`, `MatrixGraph`, and `CSR`. The properties of these are compared in @table.graph-representations.
 
 // #tablec(
 //     columns: 2,
@@ -129,43 +134,45 @@ _petgraph_ supports the following five types of graph representation:
   let no = text(theme.red, [x])
   // let no = emoji.crossmark
   set align(center)
-  figure(
-    tablec(
-      // columns: (1fr, 3fr, 1fr, 1fr, 1fr, 1fr),
-      columns: 7,
-      align: (left, left, center, center, center, center, center),
-      header: table.header([Name], [Description], [Space Complexity], [Backing Vertex Structure], [D], [SI], [HV]),
-      [`Graph`], [Uses an _Adjacency List_ to store vertices.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
-      [`StableGraph`], [Similar to `Graph`, but it keeps indices stable across removals.], [$O(|E| + |V|)$], [`Vec<N>`],[#yes], [#yes], [#no],
-      [`GraphMap`], [Uses an associative array, but instead of storing vertices sequentially it uses generated vertex identifiers as keys into a hash table, where the value is a list of the vertices' connected edges.], [$O(|E| + |V|)*$],
-      // [`IndexMap<N>`],
-      // [`IndexMap<N, Vec<(N, CompactDirection)>>`],
-      [`IndexMap<N, Vec<N>>`],
-      [#yes], [#no], [#yes],
-      [`MatrixGraph`], [Uses an _Adjacency Matrix_ to store vertices.], [$O(|V^2|)$], [`Vec<N>`], [#yes], [#no], [#no],
-      [`CSR`], [Uses a sparse adjacency matrix to store vertices, in the #acr("CSR") format.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
-    ),
-    caption: [Available Graph Representations in the `petgraph` library. $|E|$ is the number of edges and $|V|$ is the number of nodes. The "Backing Node Structure" lists which underlying data structure is used to store the associated of each vertex. `Vec<N>` #footnote([Part of Rust's standard library]) is a growable array where items are placed continuous in memory@rust-std. `IndexMap<N>` is a special hash map structure that uses a hash table for key-value indices, and a growable array of key-value pairs. Allows for very fast iteration over nodes since their memory are densely stored in memory@indexmap. The "Dynamic" column labels if the data structure supports vertices/edges being removed after initialization. The "Hashable vertices" columns list if the data structure requires that the vertex type must be hashable. In the context of this table; D = Dynamic, SI = Stable Indices, HV = Hashable Vertices],
-    // Graph - An adjacency list graph with arbitrary associated data.
-    // StableGraph - Similar to Graph, but it keeps indices stable across removals.gn
-    // GraphMap - An adjacency list graph backed by a hash table. The node identifiers are the keys into the table.
-    // MatrixGraph - An adjacency matrix graph.
-    // CSR - A sparse adjacency matrix graph with arbitrary associated data.
-  )
+  [
+    #figure(
+      tablec(
+        // columns: (1fr, 3fr, 1fr, 1fr, 1fr, 1fr),
+        columns: 7,
+        align: (left, left, center, center, center, center, center),
+        header: table.header([Name], [Description], [Space Complexity], [Backing Vertex Structure], [D], [SI], [HV]),
+        [`Graph`], [Uses an _Adjacency List_ to store vertices.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
+        [`StableGraph`], [Similar to `Graph`, but it keeps indices stable across removals.], [$O(|E| + |V|)$], [`Vec<N>`],[#yes], [#yes], [#no],
+        [`GraphMap`], [Uses an associative array, but instead of storing vertices sequentially it uses generated vertex identifiers as keys into a hash table, where the value is a list of the vertices' connected edges.], [$O(|E| + |V|)*$],
+        // [`IndexMap<N>`],
+        // [`IndexMap<N, Vec<(N, CompactDirection)>>`],
+        [`IndexMap<N, Vec<N>>`],
+        [#yes], [#no], [#yes],
+        [`MatrixGraph`], [Uses an _Adjacency Matrix_ to store vertices.], [$O(|V^2|)$], [`Vec<N>`], [#yes], [#no], [#no],
+        [`CSR`], [Uses a sparse adjacency matrix to store vertices, in the #acr("CSR") format.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
+      ),
+      caption: [Available Graph Representations in the `petgraph` library. $|E|$ is the number of edges and $|V|$ is the number of nodes. The "Backing Node Structure" lists which underlying data structure is used to store the associated of each vertex. `Vec<N>` #footnote([Part of Rust's standard library]) is a growable array where items are placed continuous in memory@rust-std. `IndexMap<N>` is a special hash map structure that uses a hash table for key-value indices, and a growable array of key-value pairs. Allows for very fast iteration over nodes since their memory are densely stored in memory@indexmap. The "Dynamic" column labels if the data structure supports vertices/edges being removed after initialization. The "Hashable vertices" columns list if the data structure requires that the vertex type must be hashable. In the context of this table; D = Dynamic, SI = Stable Indices, HV = Hashable Vertices],
+      // Graph - An adjacency list graph with arbitrary associated data.
+      // StableGraph - Similar to Graph, but it keeps indices stable across removals.gn
+      // GraphMap - An adjacency list graph backed by a hash table. The node identifiers are the keys into the table.
+      // MatrixGraph - An adjacency matrix graph.
+      // CSR - A sparse adjacency matrix graph with arbitrary associated data.
+    )<table.graph-representations>
+  ]
 }
 
-All five graph representations support dynamic insertion and removal of vertices and edges after initialization of the graph. So all of them satisfy the first requirement. Four out of the five graph representations uses a `Vec<N>` as its underlying container for vertex instances. `Vec<N>` are guaranteed to be continuous in memory ensuring fast iteration due to cache locality. At the same time the relative difference in iteration speed of using a the `GraphMap` structure should not really be noticeable, given that it uses an `IndexMap<N>`, which in turn uses a `Vec<(N, E)>` for its underlying storage of vertices. But it adds the additional constraint that vertices needs to be hashable, which is impractical given the lack of non-unique immutable fields of the `Node` struct#note.k[ehh... maybe `node_index` field, but Option???]. So all data structures support the second requirement. Only the `StableGraph` data structure guarantees stable indices across repeated removal and insertion. Leaving it as the sole viable choice left that meets all three requirements. Expressed using the _petgraph_ library the chosen `Graph` type is defined as:
+All five graph representations support dynamic insertion and removal of vertices and edges after initialization of the graph. So all of them satisfy the first requirement. Four out of the five graph representations uses a `Vec<N>` as its underlying container for vertex instances. `Vec<N>` are guaranteed to be continuous in memory ensuring fast iteration due to cache locality. At the same time the relative difference in iteration speed of using a the `GraphMap` structure should not really be noticeable, given that it uses an `IndexMap<N>`, which in turn uses a `Vec<(N, E)>` for its underlying storage of vertices. But it adds the additional constraint that vertices needs to be hashable, which is impractical given the lack of non-unique immutable fields of the `Node` struct#note.k[ehh... maybe `node_index` field, but Option???]. So all data structures support the second requirement. Only the `StableGraph` data structure guarantees stable indices across repeated removal and insertion. Leaving it as the sole viable choice left that meets all three requirements. Expressed using the _petgraph_ library the chosen `Graph` type is defined as in @lst.graph-representation.
 
-#sourcecode-reference([
-  ```rust
-
-type IndexSize = u16; // 2^16 - 1 = 65535
-pub type NodeIndex = petgraph::stable_graph::NodeIndex<IndexSize>;
-pub type Graph = petgraph::stable_graph::StableGraph<Node, (), Undirected, IndexSize>;
-```
-],
-caption: [How the `Graph` type is defined in the reimplementation. It is defined as type alias over a `StableGraph` data structure parameterized by a `Node` enum. No data is associated with the edges in the graph so the _unit_ type `()` is used. `IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In the experiments, see @s.results no individual factorgraph ever held more more than $~$#note.k[find this number], so a bound of $2^16 - 1 = 65535$ was sufficient, and is more compact in memory than the next possible alternative  $ u 32 = 2^32 - 1$.]
-)
+#listing(
+  [
+    ```rust
+    type IndexSize = u16; // 2^16 - 1 = 65535
+    pub type NodeIndex = petgraph::stable_graph::NodeIndex<IndexSize>;
+    pub type Graph = petgraph::stable_graph::StableGraph<Node, (), Undirected, IndexSize>;
+    ```
+  ],
+  caption: [How the `Graph` type is defined in the reimplementation. It is defined as type alias over a `StableGraph` data structure parameterized by a `Node` enum. No data is associated with the edges in the graph so the _unit_ type `()` is used. `IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In the experiments, see @s.results no individual factorgraph ever held more more than $~$#note.k[find this number], so a bound of $2^16 - 1 = 65535$ was sufficient, and is more compact in memory than the next possible alternative  $ u 32 = 2^32 - 1$.]
+)<lst.graph-representation>
 
 
 // u32 denotes the space of possible indices i.e. $2^32 - 1$

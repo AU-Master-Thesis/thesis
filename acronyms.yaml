@@ -64,3 +64,5 @@
   definition: Pseudo-Random Number Generator
 - acronym: JSON
   definition: JavaScript Object Notation
+- acronym: SDF
+  definition: Signed Distance Field

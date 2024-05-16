@@ -6,7 +6,7 @@
   } else if type(columns) == array {
     columns.len()
   } else {
-    0
+    1
   }
 
   let header-rows = range(int(header.children.len() / column-amount))
@@ -26,6 +26,7 @@
 
   set align(center)
   set par(justify: false)
+  set table.vline(stroke: white)
 
   cut-block(
     table(

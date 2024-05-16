@@ -2,7 +2,7 @@
 #import "blocks.typ": *
 #import "catppuccin.typ": *
 // #import "template.typ": *
-#import "@preview/codelst:1.0.0": sourcecode, codelst, sourcefile
+#import "@preview/codelst:2.0.1": sourcecode, codelst, sourcefile
 
 #import "@preview/tablex:0.0.6": *
 #import "@preview/drafting:0.2.0": *
@@ -67,7 +67,7 @@
 )))
 
 #let sourcecode-reference(content, caption: none) = {
-  figure(
+  return figure(
     content,
     kind: "code",
     supplement: [Listing],
@@ -232,6 +232,7 @@
 #let sl = swatch(catppuccin.latte.lavender)
 #let sgr = swatch(catppuccin.latte.surface0)
 #let sgr2 = swatch(catppuccin.latte.surface2)
+#let sgr3 = swatch(catppuccin.latte.overlay2)
 #let st = swatch(catppuccin.latte.text)
 #let stl = swatch(catppuccin.latte.teal)
 
@@ -554,22 +555,31 @@
 
 #let listing(
   content,
-  line-numbering: none,
+  line-numbering: auto,
   caption: none,
 ) = {
   let supplement = [Listing]
-  let n = context listing-counter.get().at(0)
+  // let n = context listing-counter.get().at(0)
 
-  let ns = if line-numbering != none {
-    (lno) => lno
+  // let ns = if line-numbering == auto {
+  //   (lno) => {
+  //     set text(theme.surface2, font: "JetBrainsMono NF", size: 0.75em)
+  //     lno
+  //   }
+  // } else if line-numbering == none {
+  //   (lno) => none
+  // }
+
+  let sourcecode = if line-numbering == none {
+    sourcecode.with(numbers-style: (lno) => none)
   } else {
-    (lno) => none
+    sourcecode
   }
 
   return figure(
     {
-      listing-counter.step()
-      sourcecode(numbers-style: ns, content)
+      // listing-counter.step()
+      sourcecode(content)
     },
     caption: caption,
     kind: "listing",
@@ -671,6 +681,7 @@
     block(text(size: 14pt, weight: 900, it))
   },
   H-1: (
+    box: boxed(text(weight: 900, "H-1")),
     prefix: [_*Study 1*_],
     name: [_*Reproduction*_],
     full: (
@@ -679,6 +690,7 @@
     )
   ),
   H-2: (
+    box: boxed(text(weight: 900, "H-2")),
     prefix: [_*Study 2*_],
     name: [_*Improvements*_],
     full: (
@@ -687,6 +699,7 @@
     )
   ),
   H-3: (
+    box: boxed(text(weight: 900, "H-3")),
     prefix: [_*Study 3*_],
     name: [_*Extension*_],
     full: (
@@ -695,6 +708,7 @@
     )
   ),
   H-4: (
+    box: boxed(text(weight: 900, "H-4")),
     prefix: [_*Study 4*_],
     name: [_*Tooling & Design*_],
     full: (
@@ -769,4 +783,14 @@
   for col in range(ncols) {
     (matrix.map(row => row.at(col)),)
   }
+}
+
+
+#let repo(content: none) = {
+  let name = if content == none {
+    "GitHub repository"
+  } else {
+    content
+  }
+  link("https://github.com/AU-Master-Thesis/gbp-rs", name)
 }
