@@ -3,6 +3,9 @@
 
 To objectively compare our reimplementation with the original GBP Planner, we measure and compare the same four metrics: distance travelled, makespan, smoothness, and inter robot collisions@gbpplanner:
 
+
+#set enum(numbering: box-enum.with(prefix: "Metric-"))
+
 #let metric(name) = [_ #name _ #h(1em)]
 
 + #metric[Distance travelled] The cumulative distance covered by the robot until it reaches its destination. Effective trajectories aim to minimize this measure.
@@ -31,23 +34,22 @@ $ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") in
 - $v(t)$ is the velocity of a robot at time $t$.
 - $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also known as jerk.
 
-Each robots velocity is sampled and recorded with an interval of $20 H z$. For numerical integration Simpson's method is used. The code for how the metric is computed can be found in the accompaniing source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/ldj.py"), and at @appendix.ldj-metric-computation.
+Each robots velocity is sampled and recorded with an interval of $20 H z$. For numerical integration Simpson's rule is used@simpsons-rule. The code for how the metric is computed can be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/ldj.py"), and in @appendix.ldj-metric-computation.
 
 
 
 4. #metric[Inter Robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circles, equal in radius to the robot's radius. A collision between two robots happen when their circles intersect.
 
+In addition to the metrics used by by Patwardhan _et al._@gbpplanner the following metrics are also looked at:
 
+5. #metric[#acr("RMSE") of Perpendicular Path Deviation]
 
-In addition to the metrics used by by Patwardhan _et al._@gbpplanner we also consider the following metrics:
+#kristoffer[Explain]
 
-5. #metric[#acr("RMSE")]
-
-6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. For the environment obstacles #acrpl("AABB") are used. For obstacles that are not rectangular like the triangles in the Circle experiment, see @s.r.scenarios.circle the minimum #acr("AABB") fully containing the triangle is used.
+6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. Each environment obstacle is equipped with a collider of the same geometric layout. // For obstacles that are not rectangular like the triangles in the Circle experiment, see @s.r.scenarios.circle the minimum #acr("AABB") fully containing the triangle is used.
 
 
 // Opposite to _Inter Robot Collisions_ #acrpl("AABB") are used to check for intersections. The reason for this is that _parry2d_ the library used for checking intersection of geometric shapes do not support checking intersections between bounding circles and #acrpl("AABB")@parry2d#footnote([As of version 0.13.7]). To be conservative the minimum #acr("AABB") is used for both robots and obstacles, instead of bounding spheres, which would cover a significantly larger area in some of the environment obstacles in the _*Circle*_ experiment are non-rectangular, see @s.r.scenarios.circle,
 
 
-#kristoffer[Come up with a better name]
-7. #metric[Maximum difference in travel duration] The largest difference between the end time of each robot.
+7. #metric[Maximum Task Completion Time Difference] This metric represents the largest difference between the end times of each robot's task. In a collaborative setting, it is desirable for robots with similar tasks to finish in roughly the same amount of time to ensure high task throughput. Especially when there is inter-task dependencies between robots.

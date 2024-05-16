@@ -11,7 +11,7 @@ As described in hypothesis #study.H-4.box, this thesis poses the idea the extens
 
 ==== Live Configuration <s.m.s4.settings>
 
-Most of the configurable settings desribed in #nameref(<s.m.s4.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool-settings, which includes all these and more useful options.
+Most of the configurable settings described in #nameref(<s.m.s4.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool-settings, which includes all these and more useful options.
 
 #figure(
   std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -98,7 +98,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Generated map], [A 3D representation of the map generated from the environment configuration.],
     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it's occupied.],
     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
-    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradiant; #box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: 10em, fill: gradient.linear(theme.green, theme.yellow, theme.red)).],
+    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: 10em, fill: gradient.linear(theme.green, theme.yellow, theme.red)).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating. The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.],
     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors.],

@@ -564,6 +564,22 @@ essential-university-physics:
       isbn: 0321993721
 
 
+simpsons-rule:
+  type: chapter
+  page-range: 105
+  parent:
+    type: book
+    title: Numerical Recipes The Art of Scientific Computing
+    author:
+      - William H. Press
+      - Saul A. Teukolsky
+      - William T. Vetterling
+      - Brian P. Flannery
+    publisher: Cambridge University Press
+    date: 1986
+
+
+
 # essential-university-physics:
 #   page-range: 55
 #   type: book
