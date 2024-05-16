@@ -7,7 +7,7 @@
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-4.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #repo()@repo.
+As described in hypothesis #study.H-4.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo.
 
 ==== Live Configuration <s.m.s4.settings>
 
@@ -73,6 +73,12 @@ The simulation tool allows for control of the simulated time. In @f.m.simulation
 
 The simulation tool supports visualisations of most aspects of the simulation. All possible visualisations are listed and described in @table.simulation-visualisations. The visualisations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool-settings. The visualisations are updated in real-time as the simulation progresses.
 
+
+#let edges = (
+  on: box(line(length: 10pt, stroke: theme.green), height: 0.25em),
+  off: box(line(length: 10pt, stroke: theme.red), height: 0.25em),
+)
+
 #figure(
   tablec(
     columns: 2,
@@ -81,7 +87,10 @@ The simulation tool supports visualisations of most aspects of the simulation. A
       [Settings], [Description]
     ),
     [Robots], table.vline(), [A large sphere at the estimated position of each robot.],
-    [Communication graph], [A graph that shows an edge between all currently communicating robots. Shown in yellow#sy.],
+    [Communication graph], [A graph that shows an edge between all currently communicating robots. Each edge is colored dependent on the robots radio state. If the antenna is active then half of the edge from the robot to the center is green#sg, and red#sr if turned off. For three robots $R_a, R_b, R_c$, this could look like
+
+    #align(center, [$R_a$ #edges.on #edges.off $R_b$ #edges.off #edges.off $R_c$])
+  ],
     [Predicted trajectories], [All of each robot's factor graph variables, visualised as small spheres with a line between.],
     [Waypoints], [A small sphere at each waypoint for each robot.],
     [Uncertainty], [A 2D ellipse for each variable in each robot's factor graph, visualising the covariance of the internal Gaussian belief.],

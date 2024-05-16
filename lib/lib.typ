@@ -785,8 +785,22 @@
   }
 }
 
+// https://github.com/AU-Master-Thesis/gbp-rs/blob/main/scripts/ldj.py
+#let github(owner, repo, branch: "main", path: none, content: none) = {
+  let url = "https://github.com/" + owner + "/" + repo
+  if path != none {
+    url = url + "/blob/" + branch + "/" + path
+  }
+  let name = if path == none {
+    raw(repo)
+  } else {
+    raw(path)
+  }
 
-#let repo(content: none) = {
+  link(url, name)
+}
+
+#let gbp-rs(content: none) = {
   let name = if content == none {
     "GitHub repository"
   } else {

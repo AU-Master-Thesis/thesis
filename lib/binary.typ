@@ -24,6 +24,7 @@
   // Reverse the bits to get the correct binary representation
   let bits = bits.rev()
 
+
   if min-length != none and bits.len() < min-length {
     bits = range(min-length - bits.len()).map(_ => 0) + bits
   }

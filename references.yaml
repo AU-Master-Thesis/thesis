@@ -50,8 +50,6 @@ gbpplanner-code:
   # note: https://github.com/petgraph/petgraph/releases/tag/petgraph%40v0.6.4
 
 
-
-
 robotweb:
   type: article
   title: A robot web for distributed many-device localisation
@@ -578,6 +576,21 @@ essential-university-physics:
 #   serial-number:
 #     isbn: 0321993721
 
+ldj-metric:
+  type: article
+  title: On the analysis of movement smoothness
+  author:
+  - Balasubramanian, Sivakumar
+  - Melendez-Calderon, Alejandro
+  - Roby-Brami, Agnes
+  - Burdet, Etienne
+  date: 2015
+  serial-number:
+    doi: 10.1186/s12984-015-0090-9
+  parent:
+    type: periodical
+    title: Journal of NeuroEngineering and Rehabilitation
+    volume: 12
 
 graphviz:
   type: article
