@@ -13,16 +13,20 @@
   appendix.update(true)
   heading-supplement.update("Appendix")
   if show-title {
-    heading(
-      level: 1,
-      numbering: none,
-      supplement: heading-supplement.display(),
-    //   text(size: 30pt, [Appendix])
-      [Appendix]
-    )
+    [
+      #heading(
+        level: 1,
+        numbering: none,
+        supplement: heading-supplement.display(),
+        [Appendix]
+      )<appendix>
+    ]
   }
+
   if show-toc {
+    // [#heading([Contents], level: 2, numbering: none, outlined: false)<contents-1>]
     outline(
+      title: none,
       indent: auto,
       fill: grid(
         columns: 1,
@@ -105,13 +109,13 @@
     },
 
     prebody: none,
-    // postbody: none,
-    postbody: [
-        #pagebreak(weak: true)
-        #start-appendix(show-title: true)
-        #set heading(numbering: "A:", supplement: "Appendix")
-        #include "sections/appendix.typ"
-    ],
+    postbody: none,
+    // postbody: [
+    //     #pagebreak(weak: true)
+    //     #start-appendix(show-title: true)
+    //     #set heading(numbering: "A:", supplement: "Appendix")
+    //     #include "sections/appendix.typ"
+    // ],
 
     // The paper's content.
     body

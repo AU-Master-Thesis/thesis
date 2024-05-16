@@ -51,7 +51,7 @@ A datastructure for describing the static environment has been developed, and in
 ]
 
 #let b = [
-  ===== The Main Environment
+  ===== The Main Environment<s.m.s4.configuration.environment.main>
 
   This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the coloured-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
 ]
@@ -186,3 +186,14 @@ Now that we understand _distribution shapes_, we can look at their use-cases. Th
   ],
   caption: [Formation configuration example.],
 )<f.m.formation-config>
+
+=== Environment <s.m.s4.environment>
+As described above in @s.m.s4.configuration.environment, the environment is generated from a matrix of characters, and a list of placeable obstacles. The advantage of being able to describe the environment in a constrained text format comes from the declarative nature of the format. You simply describe the geometrical shapes from their underlying data, and where to place them, and as such there will never be any dispute as to how that environment should look within the constraints of the format. This also provides a simple and compact single source of truth for the environment, which can be read for multiple purposes.
+
+The simulation tool, described in @s.m.s4.simulation-tool, displays the environment in the _viewport_ as 3D meshes, showing the user what the world looks like. Furthermore, the tool also uses the environment configuration to automatically generate an #acr("SDF") file, which is then used by the obstacle factors, refer to #nameref(<s.m.factors.obstacle-factor>, [Obstacle Factor $f_o$]), as a way to measure the distance to nearest obstacle.
+
+#figure(
+  std-block(todo[Generated SDF, probably from circle with obstacles.])
+)
+
+#jens[Talk about automatic SDF generation]

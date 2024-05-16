@@ -355,6 +355,8 @@ The underlying potential non-linearities of factors is exemplified in @ex.non-li
     Sigma_B = mat(0.25, 0; 0, 1.0)
   $
 
+  #jens[split this figure into A and B, showcasing two different covariances, as described above.]
+
   #figure(
     image("../../figures/out/non-linearities.svg", width: 60%),
     caption: [A non-linear factor is visualised, where the measurement function $m(X_n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualised as a grey#sgr2 contour plot underneat the linearised gaussian distribution#sl on top.],
