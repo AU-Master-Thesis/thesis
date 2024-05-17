@@ -1,0 +1,30 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[
+    robot/.style={dot, line, fill=none, draw=ctpMaroon, draw opacity=0.75, minimum size=4 * \scale},
+]
+
+    \def\s{30*\scale}
+    \def\pointAmount{6}
+    % 7, 9, 10, 11, 18
+    \pgfmathsetseed{7} % Seed for random number generator
+    \pgfmathsetmacro{\o}{\s / \pointAmount / 2}
+
+    \lineP
+    \linePointsRandom
+    \lineRobots
+
+    \tikzset{shift={(\s, 0)}}
+
+    \circleP
+    \circlePointsRandom
+    \circleRobots
+
+
+\end{tikzpicture}%
+\end{document}

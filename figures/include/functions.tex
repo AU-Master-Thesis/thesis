@@ -84,3 +84,62 @@
 					\pgfextra{\vectornormalised{\tikztostart}{\tikztotarget}} (tempc) -- (\tikztotarget) \tikztonodes
 				}}}
 \makeatother
+
+
+
+\def\lineP{
+	\draw[line] (0, 0) -- ++(0, \s);
+}
+
+\def\linePointsEven{
+	\foreach \i in {1, ..., \pointAmount} {
+		\coordinate (cp\i) at (0, \i * \s / \pointAmount - \o);
+		\node at (cp\i) [dot, fill=ctpLavender] {};
+	}
+}
+
+\def\linePointsRandom{
+	\foreach \i in {1, ..., \pointAmount} {
+		% \pgfmathsetmacro{\rando}{4 * (rand - 0.5)}
+		% \coordinate (cp\i) at (0, \i * \s / \pointAmount + \rando - 0.8 * \o);
+		\pgfmathsetmacro{\rando}{0.5 * (rand - 0.5)}
+		\coordinate (cp\i) at (0, \i * \s / \pointAmount + \o * \rando - 0.8 * \o);
+		\node at (cp\i) [dot, fill=ctpLavender] {};
+	}
+}
+
+\def\lineRobots{
+	\foreach \i in {1, ..., \pointAmount} {
+		\node at (cp\i) [robot] {};
+	}
+}
+
+\def\circleP{
+	\def\hs{\s / 2.4}
+	\def\radius{\s / 2}
+	\draw[line] (0, \radius) circle (\radius);
+}
+
+\def\circlePointsEven{
+	\pgfmathsetmacro{\a}{360 / \pointAmount}
+	\foreach \i in {1, ..., \pointAmount} {
+		\draw[none] (0, \radius) -- ++(\i * \a:\radius) coordinate (cp\i);
+		\node at (cp\i) [dot, fill=ctpLavender] {};
+	}
+}
+
+% similar to linePointsRandom but where its the angle that is random
+\def\circlePointsRandom{
+	\pgfmathsetmacro{\a}{360 / \pointAmount}
+	\foreach \i in {1, ..., \pointAmount} {
+		\pgfmathsetmacro{\rando}{(rand - 0.5) / 2}
+		\draw[none] (0, \radius) -- ++(\i * \a + \a * \rando:\radius) coordinate (cp\i);
+		\node at (cp\i) [dot, fill=ctpLavender] {};
+	}
+}
+
+\def\circleRobots{
+	\foreach \i in {1, ..., \pointAmount} {
+		\node at (cp\i) [robot] {};
+	}
+}
