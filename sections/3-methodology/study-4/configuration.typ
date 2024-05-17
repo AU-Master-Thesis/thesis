@@ -150,7 +150,22 @@ The formation configuration is used to define how the robots are spawned in the 
 Formations are described with the concept of _distribution shapes_. These shapes are an abstract way of representing dynamically placed points, but within some constraints. Say the shape is a line from $(0,0)$ to $(1,0)$, and we want this line to describe how to place 5 points. To know where to place these points, we need a technique to define where along the line, the points should be placed. The placement strategy could be random, which is self-explanatory, or it could be an even-spacing. These ideas are visualised in @f.m.formation-shapes.
 
 #figure(
-  std-block(todo[Formation shapes and placement strategies.]),
+  {
+    set text(theme.text)
+    grid(
+      columns: 2,
+      std-block[
+        #image("../../../figures/out/distribution-shapes-even.svg", height: 12em, fit: "contain") \
+
+        A: Even Distribution
+      ],
+      std-block[
+        #image("../../../figures/out/distribution-shapes-random.svg", height: 12em, fit: "contain") \
+
+        B: Random Distribution
+      ],
+    )
+  },
   caption: [Different formation shapes and placement strategies.],
 )<f.m.formation-shapes>
 
@@ -193,7 +208,50 @@ As described above in @s.m.s4.configuration.environment, the environment is gene
 The simulation tool, described in @s.m.s4.simulation-tool, displays the environment in the _viewport_ as 3D meshes, showing the user what the world looks like. Furthermore, the tool also uses the environment configuration to automatically generate an #acr("SDF") file, which is then used by the obstacle factors, refer to #nameref(<s.m.factors.obstacle-factor>, [Obstacle Factor $f_o$]), as a way to measure the distance to nearest obstacle.
 
 #figure(
-  std-block(todo[Generated SDF, probably from circle with obstacles.])
+  {
+    set text(theme.text)
+    let cut-amount = 8em
+    grid(
+      columns: 3,
+      std-block[
+        #box(
+          clip: true,
+          pad(
+            x: -cut-amount,
+            y: -cut-amount,
+              image("../../../figures/img/img.png")
+          )
+        )
+
+        A: Rasterised Environment
+      ],
+      std-block[
+        #box(
+          clip: true,
+          pad(
+            x: -cut-amount,
+            y: -cut-amount,
+              image("../../../figures/img/img_exp.png")
+          )
+        )
+
+        B: Expanded Environment
+      ],
+      std-block[
+        #box(
+          clip: true,
+          pad(
+            x: -cut-amount,
+            y: -cut-amount,
+              image("../../../figures/img/sdf.png")
+          )
+        )
+
+        C: Blurred
+      ],
+    )
+  },
+  caption: [An example of an automatically generated SDF file. A) Rasterise the environment into a black and white image. B) Expand the obstacles to make the eventual blur eat less into the obstacles. C) Blur the image to create the final SDF.],
 )
 
 #jens[Talk about automatic SDF generation]
