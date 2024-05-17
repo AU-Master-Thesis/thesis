@@ -9,6 +9,7 @@
   in a scenario where the algorithm run on different computer hosts, or just computer processes on the same host.
 ]
 
+#jonas[The start of this section is relevant, where the ending is a black hole. I left a note where you can stop to not waste your time.]
 
 There are several different methods for representing graph structures in computer memory. Each offering different advantages and disadvantages in regards to memory layout and query efficiency. As explained in @s.b.factor-graphs, the factorgraph structure is a bipartite graph with undirected edges.
 Such a graph structure enforces little to no constraints on what kind of memory representation are possible to use. Allowing for many different choices#note.kristoffer[find citation for this statement]. In the original work by Patwardhan _et al._@gbpplanner a cyclic reference/pointer structure is used. They represent the graph with a C++ class called `FactorGraph`, which each robot instance inherit from. Variable and factor nodes are stored in two separate vectors; `factors_` and `variables_`, as shown in the top of @code.gbpplanner-factorgraph.
@@ -174,7 +175,7 @@ All five graph representations support dynamic insertion and removal of vertices
   caption: [How the `Graph` type is defined in the reimplementation. It is defined as type alias over a `StableGraph` data structure parameterized by a `Node` enum. No data is associated with the edges in the graph so the _unit_ type `()` is used. `IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In the experiments, see @s.results no individual factorgraph ever held more more than $~$#note.k[find this number], so a bound of $2^16 - 1 = 65535$ was sufficient, and is more compact in memory than the next possible alternative  $ u 32 = 2^32 - 1$.]
 )<lst.graph-representation>
 
-
+#jonas[No need to read beyond this point. If you do you will sucked into the singularity.]
 // u32 denotes the space of possible indices i.e. $2^32 - 1$
 
 

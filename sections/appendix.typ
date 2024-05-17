@@ -118,7 +118,7 @@ $
 )
 
 
-=== #acr("LDJ") Metric computation <appendix.ldj-metric-computation>
+== #acr("LDJ") Metric computation <appendix.ldj-metric-computation>
 
 #kristoffer[
   Insert the code for how the metric is computed here. When we are sure about how to compute it

@@ -130,6 +130,7 @@
 #let jens = remark.with(color: theme.teal, prefix: "Jens: ")
 #let yens = remark.with(color: theme.pink, prefix: "Yens: ")
 #let kristoffer = remark.with(color: theme.green, prefix: "Kristoffer: ")
+#let jonas = remark.with(color: theme.mauve, prefix: "Jonas: ")
 
 #let boxed-enum(
   prefix: "",

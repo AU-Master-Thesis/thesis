@@ -1,6 +1,8 @@
 #import "../../lib/mod.typ": *
 == Scenarios <s.r.scenarios>
 
+#jonas[Read this, and all subsections]
+
 The performance of the reimplementation is evaluated across #numbers.written(scen.len()) different scenarios;
 #scen.circle.s, #scen.environment-obstacles.s, #scen.varying-network-connectivity.s, #scen.junction.s and #scen.communications-failure.s. These scenarios adhere to the original paper's@gbpplanner experiments.
 
@@ -24,13 +26,20 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 
 
 Specific details and parameters for each scenario are presented in the following sections #numref(<s.r.scenarios.circle>), #numref(<s.r.scenarios.environment-obstacles>), #numref(<s.r.scenarios.varying-network-connectivity>), #numref(<s.r.scenarios.junction>) and #numref(<s.r.scenarios.communications-failure>). Parameters are selected to be identical to whats presented in @gbpplanner. The numerical value of a few parameters in some of the scenarios are not listed explicitly. In these cases an argument for the selected interpretation is presented to justify the values chosen. An asterisk is used as a postfix for the values for which this applies, e.g. $x^*$. A lot of the values are the same between scenarios. To make the differences stand out, each value that is different from its value in the Circle scenario is colored #text(theme.red, [red]). Parameters related to the #acr("GBP") algorithm are explained in detail in @s.m.study-2. New parameters not explained previously are:
-/ $C_("radius")$ : The radius of the circle that the robots are spawned in. Omitted in the Junction scenario, as it is not applicable.
-/ $s e e d$  : The seed used for the #acr("PRNG"). Randomness is used in one place throughout the different scenarios. For randomly selecting a robots radius $r_R$ in the scenarios using a circle formation. In the work of @gbpplanner, the Mersenne Twister pseudorandom number generator from the C++ standard library is used. In the reimplementation the WyRand algorithm is used as it was more easily available through@bevy_prng. This of course introduces a slight potential for deviation between results. Nevertheless this is deemed acceptable given that the randomness does not have a large affect on the #acr("GBP") algorithm. And secondly the seeds used for the tested scenarios is not listed explicitly in @gbpplanner. To make the results more robust each scenario is executed five times each with a different seed. Note in @gbpplanner this approach is only used for the _Communication Failure Experiment_. The seeds chosen are:
 
+#{
+  set table.vline(stroke: 0.5pt + black)
+  table(
+    columns: 2,
+    stroke: none,
+    $C_("radius")$, table.vline(), [The radius of the circle that the robots are spawned in. Omitted in the Junction scenario, as it is not applicable.],
+    $s e e d$, [
+      The seed used for the #acr("PRNG"). Randomness is used in one place throughout the different scenarios. For randomly selecting a robots radius $r_R$ in the scenarios using a circle formation. In the work of @gbpplanner, the Mersenne Twister pseudorandom number generator from the C++ standard library is used. In the reimplementation the WyRand algorithm is used as it was more easily available through@bevy_prng. This of course introduces a slight potential for deviation between results. Nevertheless this is deemed acceptable given that the randomness does not have a large affect on the #acr("GBP") algorithm. And secondly the seeds used for the tested scenarios is not listed explicitly in @gbpplanner. To make the results more robust each scenario is executed five times each with a different seed. Note in @gbpplanner this approach is only used for the _Communication Failure Experiment_. The seeds chosen are:
 
-
-
-$ #equation.as-set(params.seeds) $
+      $ #equation.as-set(params.seeds) $
+    ]
+  )
+}
 
 They have been chosen such that all seeds have a minimum Hamming Distance of $5$, to ensure a moderate amount of entropy@review-of-methodologies-and-metrics-for-assessing-the-quality-of-random-number-generators.
 
@@ -61,7 +70,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 #figure(
   // image("../../../figures/out/circle.svg", width: 30%),
-  {},
+  std-block(todo[Add image]),
   caption: [Visualisation circle scenario.],
 )<f.scenarios.circle>
 
@@ -85,7 +94,7 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
 
 #figure(
   // image("../../../figures/out/clear-circle.svg", width: 30%),
-  {},
+  std-block(todo[Add image]),
   caption: [Visualisation Environment Obstacles scenario.],
 )<f.scenarios.environment-obstacles>
 
@@ -138,7 +147,7 @@ $ Q_("in") in [0.5, 1, ..., 6] $
 
 #figure(
   // image("../../../figures/out/junction.svg", width: 30%),
-  {},
+  std-block(todo[Add image]),
   caption: [Visualisation junction scenario.],
 )<f.scenarios.junction>
 

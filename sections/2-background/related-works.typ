@@ -1,6 +1,8 @@
 #import "../../lib/mod.typ": *
 == Related Works <s.b.related-works>
 
+#jonas[Not close to done. No need to spend time in this section.]
+
 // things to cover
 
 // at @multi-robot-path-planning-review
@@ -40,5 +42,7 @@
 Originally Murai _et al._ showed, with their _A Robot Web for Distributed Many-Device Localisation_, that #acr("GBP") can be utilised to solve multi-agent _localisation_. Then Patwardhan _et al._ showed that the same algorithm structure can be adapted to multi-agent _planning_. This thesis aims to extend the work by Patwardhan _et al._@gbpplanner to include a global planning layer, which can provide a more robust solution to the multi-agent planning in highly complex environments. As such @gbpplanner will be covered more thoroughly in its own dedicated section below, see @background-related-works-gbp-planner.
 
 #todo[maybe the 'dedicated section' is simply the rest of the background which contains the relevant theory.]
+
+#todo[Split the related works into a subsection for each important work.]
 
 === GBP Planner <background-related-works-gbp-planner>

@@ -1,10 +1,13 @@
 #import "../../../lib/mod.typ": *
 === Architecture <s.m.architecture>
+#jonas[This section is 50/50. I will leave notes through it]
 
 This section presents the architectural patterns used in the design of the simulation. First by presenting the major architectural paradigm used, the ECS paradigm. What it is, how it works and why it was chosen. Second how it results in changes compared to the original implementation of the gbplanner algorithm.
 
 
 ==== Entity Component System
+
+#jonas[This section wants your attention.]
 
 #acr("ECS") is an architectural software design pattern specifically tailored for #acr("DOP"). #acr("DOP") is a design paradigm that focuses on organizing and processing data efficiently, by structuring the layout of data to play well with the caching mechanisms built into modern CPU's. #kristoffer[short example of AOS vs SOA?] This approach is characterized by the separation of data storage from behavior and logic at the programming level. ECS architecture is commonly employed in computer games and intensive data analytics to enhance performance. Additionally, it has been utilized in robotic simulation projects such as the Potato simulator, which models large-scale heterogeneous swarm robotics@li2023potato.
 

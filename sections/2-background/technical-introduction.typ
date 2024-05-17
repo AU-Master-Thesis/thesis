@@ -1,5 +1,6 @@
 #import "../../lib/mod.typ": *
 == Gaussian Models <s.b.gaussian-models>
+#jonas[From here on and the rest of the background we would love the feedback as described on the front page!]
 
 // Reasons from @gbp-visual-introduction
 // (1) they accurately represent the distribution for many real world events , (2) they have a simple analytic form, (3) complex operations can be expressed with simple formulae and (4) they are closed under marginalization, conditioning and taking products (up to normalization).
