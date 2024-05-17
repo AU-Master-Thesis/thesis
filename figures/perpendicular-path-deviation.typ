@@ -1,4 +1,4 @@
-#set page(width: auto, height: auto)
+#set page(width: auto, height: auto, margin: 0pt)
 
 #import "@preview/cetz:0.2.2"
 #import "@preview/funarray:0.4.0": windows

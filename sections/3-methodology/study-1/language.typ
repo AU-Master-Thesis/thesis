@@ -1,6 +1,8 @@
 #import "../../../lib/mod.typ": *
 === Implementation Language
 
+#jonas[No need to read this section]
+
 This subsection describes the choice of implementation programming language used in both the simulation and the reimplementation of the gbpplanner paper. Motivations for why the language was chosen is laid out and argued for.
 
 Both the simulator and the gbplanner reimplementation are written in the Rust programming language. Rust is a popular modern systems programming language with a lot of powerful capabilities to handle and manage complex software systems.

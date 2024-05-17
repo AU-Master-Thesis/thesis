@@ -13,6 +13,8 @@ $<eq.state>
 
 Hence, the variables and thus robots all have four #acr("DOF") each.
 
+#todo[variables math]
+
 ==== Pose Factor $bold(f_p)$ <s.m.factors.pose-factor>
 The pose factor is the most basic, but also quite a crucial factor in the factor graph. It expresses a strictness on a variables belief at a given timestep. The pose factor can thereby be used to enforce a "known" position. For example, the robot is known to be at its current position and therefore the first variable in the chain has a strict pose factor attached. The same is the deal for the last variable in the chain, which enforces a _want_ to be at that position in the future. Every variable inbetween doesn't have a pose factor, as they are free to move within the constraints of the other factors. This is what allows the robot to diverge from its trajectory to collaboratively avoid other agents while maintaining a trajectory that will eventually lead to the goal.
 

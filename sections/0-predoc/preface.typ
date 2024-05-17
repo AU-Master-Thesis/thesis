@@ -22,6 +22,7 @@
 This master thesis is titled _"Multi-agent Collaborative Path Planning"_ and is devised by #a.jens and #a.kristoffer. Both authors are students at Aarhus University, Department of Electrical and Computer Engineering, enrolled in the Computer Engineering Master's programme. Both authors have completed a Bachelor's degree in Computer Engineering under the same conditions.
 
 The thesis has been conducted in the period from #important-datetimes.project.start.display("[day]-[month]-[year]") to #important-datetimes.project.end.display("[day]-[month]-[year]"), and supervised by Assistant Professor Andriy Sarabakha and co-supervised by PhD Jonas le-Fevre Sejersen.
+#jonas[What else in here?]
 \ \
 
 // Sign off

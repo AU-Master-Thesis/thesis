@@ -2,7 +2,6 @@
 = Introduction <introduction>
 
 == Motivation <intro-motivation>
-#todo[A lot of this is probably in the original contract.]
 
 // From the original contract:
 // 1. Motivation
@@ -18,8 +17,11 @@ With this development, the possibility and thus also demand for multi-agent syst
 In the context of multi-agent systems, path planning is a key component. It is a process of optimization to find the most efficient path for an agent to reach its goal. This is especially important in the context of multi-agent systems, where multiple agents need to coordinate their movements to avoid collisions and reach their goals as efficiently as possible. This requires a high level of collaboration and communication between the agents, as well as a high level of collision avoidance to ensure that the agents do not collide with each other or with obstacles.
 
 
+#jonas[Is more needed here?]
+
+
 == Problem Definition <intro-problem-definition>
-#todo[A lot of this is probably in the original contract.]
+#jonas[A lot of this is copied directly from the original contract, and thus not relevant anymore. You don't have to spend time on this section.]
 
 // From the original contract:
 // 2. Problem Definition & Objectives
@@ -60,10 +62,14 @@ This thesis poses the following four hypothesis:
 
 
 #set enum(numbering: h-enum)
-+ Reproducing the results of the original GBP Planner in a new programming language will improve the software's scientific communication and its extensibility.
++ Reproducing the results of the original GBP Planner, with thought to its architecture and design, and in a new programming language will improve the software's scientific communication and its extensibility.
 
-+ Improvements can be made to the original work without transforming the software.
-#todo[Add more substance to specifics.]
+// + Improvements, such as future work left by the authors of the original GBP Planner, can be made to the original work without transforming the software. These improvements include implementing and testing different iteration schedules, steps towards a realistic
++ The original work can be improved without transforming it. Specifically, these improvements include testing different GBP iteration schedules, and taking minor steps towards a more distributed approach.
+  #jonas[
+    This is where you told me to add more specifics. Before it looked like: \
+    "Improvements can be made to the original software without transforming it."
+  ]
 
 + Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
 
@@ -99,7 +105,7 @@ From this point on, anything pertaining to the context of #H(1) will be referred
 #study.H-4.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-4", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "RQ-4.", color: theme.teal))
 + What kind of tooling will be most beneficial for the software?
-+ How can tooling help with future reproducibility and engagement with the software?#todo[maybe chance these or rephrase]
++ How can tooling help with future reproducibility and engagement with the software?#todo[maybe change these or rephrase]
 + How can tooling help with understanding and extending the software?#todo[maybe chance these or rephrase]
 
 // #todo[1 hypothesis to many research question]
@@ -160,14 +166,14 @@ From this point on, anything pertaining to the context of #H(1) will be referred
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.2", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-4.2.", color: theme.green))
-    + Implement tooling to help with future reproducibility and engagement with the software.#todo[maybe chance these or rephrase]
+    + Implement tooling to help with future reproducibility and engagement with the software.#todo[maybe change these or rephrase]
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.3", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-4.3.", color: theme.green))
-    + Implement tooling to help with understanding and extending the software.#todo[maybe chance these or rephrase]
+    + Implement tooling to help with understanding and extending the software.#todo[maybe change these or rephrase]
   ]
 }
 
-#todo[Part of the argument for H-2: Furthermore, a language with that shares qualities#kristoffer[wording] with modelling languages will improve the software's ability to communicate scientific results.]
-#todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
+// #todo[Part of the argument for H-2: Furthermore, a language with that shares qualities#kristoffer[wording] with modelling languages will improve the software's ability to communicate scientific results.]
+// #todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
 #jens[make figure that shows the connection of all these, including outlining which parts are which study.]

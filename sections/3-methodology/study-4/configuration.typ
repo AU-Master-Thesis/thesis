@@ -150,7 +150,7 @@ The formation configuration is used to define how the robots are spawned in the 
 Formations are described with the concept of _distribution shapes_. These shapes are an abstract way of representing dynamically placed points, but within some constraints. Say the shape is a line from $(0,0)$ to $(1,0)$, and we want this line to describe how to place 5 points. To know where to place these points, we need a technique to define where along the line, the points should be placed. The placement strategy could be random, which is self-explanatory, or it could be an even-spacing. These ideas are visualised in @f.m.formation-shapes.
 
 #figure(
-  [],
+  std-block(todo[Formation shapes and placement strategies.]),
   caption: [Different formation shapes and placement strategies.],
 )<f.m.formation-shapes>
 

@@ -98,7 +98,7 @@ Inference on a factor graph is achieved by passing messages between the variable
   caption: [The four steps of propagating messages in a factor graph. Firstly, the variables#sr are internally updated, and new messages are sent to neighbouring factors#sl, who then update internally, sending the updated messaages back to neighbouring variables#sr. \ _Note that this figure shows the #iteration.variable first, however, performing the #iteration.factor first is also a valid, the main idea is simply that they are alternating._],
 )<fig.message-passing>
 
-#jens[context for BP and the sum-product algorithm]
+// #jonas[Is more context for BP and the sum-product algorithm needed?]
 
 In #step.s1 the computation of the marginal distribution of a variable $x_i$ takes place. This is done by finding the product of all messages from neighbouring factors $f_j$ to $x_i$, as seen in  @eq.mp-variable-update@gbpplanner@gbp-visual-introduction@robotweb.
 
@@ -117,19 +117,17 @@ $
   m_(f_j #ra x_i) = sum_(X_j \\ x_i) f_j (X_j) product_(k in N(j) \\ i) m_(x_k #ra f_j)
 $<eq.mp-factor-to-variable>
 
-#jens[finish this section]
-
 Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction#jens[more citation for loopy BP]
 
 The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
 
 Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm isn't guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loppy #acr("BP") is very capable of converging to the true marginals, as long as the graphs aren't highly cyclic#note.wording[too loopy? Is loopy and cyclic the same thing?].@gbp-visual-introduction
 
-#todo[later mention that the specific factorgraph structure is non-cyclic in our case]
+// #todo[later mention that the specific factorgraph structure is non-cyclic in our case]
 
 == Gaussian Belief Propagation <s.b.gaussian-belief-propagation>
 
-#jens[do this #emoji.face.smile]
+// #jens[do this #emoji.face.smile]
 
 Having introduced both Gaussian models, and #acr("BP"), we can now take a look at #acr("GBP"). #acr("GBP") is a variant of #acr("BP"), where, due to the closure properties#jens[cite] of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix, #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$). As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"); exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guaranteed.@gbp-visual-introduction
 
@@ -211,6 +209,7 @@ $
 $<eq.gbp-variable-to-factor-canonical>
 
 === Factor Update <s.b.gbp.factor-update>
+#jonas[Even though this is in a todo-box, you can read it as it will give context for the rest.]
 #jens[
   describe how factor distance is marginalised and factors are updated
   + Update linearisation point
@@ -300,7 +299,7 @@ $<eq.gbp-factor-to-variable>
 
 == Non-Linearities <s.b.non-linearities>
 
-#jens[and this]
+// #jens[and this]
 
 Non-linear factors can exist, however, to understand the impact, let's first look at linear factors. A factor is usually modeled with data $d$. Equation @eq.gaussian-factor@gbp-visual-introduction shows how this is written:
 
@@ -355,7 +354,11 @@ The underlying potential non-linearities of factors is exemplified in @ex.non-li
     Sigma_B = mat(0.25, 0; 0, 1.0)
   $
 
-  #jens[split this figure into A and B, showcasing two different covariances, as described above.]
+  #jens[
+    split this figure into A and B, showcasing two different covariances, as described above.
+
+    #jonas[This would make it such that A is closer to circular an thus almost looks the same, where B would have a more extreme curve as is currently seen here.]
+  ]
 
   #figure(
     image("../../figures/out/non-linearities.svg", width: 60%),

@@ -1,6 +1,8 @@
 #import "../../lib/mod.typ": *
 = Nomenclature <nomenclature>
 
+#jonas[This section is very WIP, no need to think about this.]
+
 - Interior Mutability
 
 - `Test<T>` denotes a type `Test` which is generic over any type T
@@ -19,7 +21,9 @@
   (it.acronym: v)
 }))
 
+
 #init-acronyms(acrostiche-acronyms)
 == Acronym Index
 #v(1em)
+#todo[Make acronym table break, so it starts on this page]
 #print-index(title: "", delimiter: "")

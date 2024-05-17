@@ -1,6 +1,7 @@
 #import "../../../lib/mod.typ": *
 
 === Simulation Tool <s.m.s4.simulation-tool>
+#jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
 
 // Hypothesis 4:
 // Extensive tooling will create a great environment for others to understand the software
