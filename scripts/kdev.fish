@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i fish -p fish zathura
+#! nix-shell -i fish -p zathura evince kitty
 
 set -l theme macchiato
 
@@ -20,12 +20,12 @@ if test -n $latest_file
 end
 
 # test -f main.pdf; and zathura main.pdf >&2 >/dev/null &
-test -f main.pdf; and evince main.pdf >&2 >/dev/null &
+test -f main.pdf; and evince main.pdf >&2 2>/dev/null &
 disown
 kitty -e typst watch --input catppuccin=$theme main.typ &
 disown
 
-kitty -e ./scripts/watch-and-compile-tex.fish &
+kitty -e ./scripts/watch-compile-all-figures.fish &
 disown
 
 nvim $file_to_edit
