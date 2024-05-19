@@ -758,3 +758,61 @@ review-of-methodologies-and-metrics-for-assessing-the-quality-of-random-number-g
     title: Electronics
     issue: 3
     volume: 12
+
+
+# related works
+
+bazzana_handling_2023:
+  type: article
+  title: Handling Constrained Optimization in Factor Graphs for Autonomous Navigation
+  author:
+  - Bazzana, Barbara
+  - Guadagnino, Tiziano
+  - Grisetti, Giorgio
+  date: 2023-01
+  page-range: 432–439
+  url:
+    value: http://arxiv.org/abs/2208.06325
+    date: 2024-05-19
+  serial-number:
+    arxiv: 2208.06325 [cs]
+    doi: 10.1109/LRA.2022.3228175
+    issn: 2377-3766, 2377-3774
+  abstract: Factor graphs are graphical models used to represent a wide variety of problems across robotics, such as Structure from Motion ({SfM}), Simultaneous Localization and Mapping ({SLAM}) and calibration. Typically, at their core, they have an optimization problem whose terms only depend on a small subset of variables. Factor graph solvers exploit the locality of problems to drastically reduce the computational time of the Iterative Least-Squares ({ILS}) methodology. Although extremely powerful, their application is usually limited to unconstrained problems. In this paper, we model constraints over variables within factor graphs by introducing a factor graph version of the method of Lagrange Multipliers. We show the potential of our method by presenting a full navigation stack based on factor graphs. Differently from standard navigation stacks, we can model both optimal control for local planning and localization with factor graphs, and solve the two problems using the standard {ILS} methodology. We validate our approach in real-world autonomous navigation scenarios, comparing it with the de facto standard navigation stack implemented in {ROS}. Comparative experiments show that for the application at hand our system outperforms the standard nonlinear programming solver Interior-Point Optimizer ({IPOPT}) in runtime, while achieving similar solutions.
+  parent:
+    type: periodical
+    title: '{IEEE} Robotics and Automation Letters'
+    issue: 1
+    volume: 8
+
+
+# siciliano_reciprocal_2011:
+orca:
+  type: anthos
+  title: Reciprocal n-Body Collision Avoidance
+  author:
+  - Van Den Berg, Jur
+  - Guy, Stephen J.
+  - Lin, Ming
+  - Manocha, Dinesh
+  date: 2011
+  editor:
+  - Pradalier, Cédric
+  - Siegwart, Roland
+  - Hirzinger, Gerhard
+  - Siciliano, Bruno
+  - Khatib, Oussama
+  - Groen, Frans
+  page-range: 3–19
+  url:
+    value: http://link.springer.com/10.1007/978-3-642-19457-3_1
+    date: 2024-05-19
+  serial-number:
+    doi: 10.1007/978-3-642-19457-3_1
+    isbn: 978-3-642-19456-6 978-3-642-19457-3
+  parent:
+    type: anthology
+    title: Robotics Research
+    publisher: Springer Berlin Heidelberg
+    location: Berlin, Heidelberg
+    volume: 70
