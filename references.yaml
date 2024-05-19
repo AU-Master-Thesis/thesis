@@ -816,3 +816,26 @@ orca:
     publisher: Springer Berlin Heidelberg
     location: Berlin, Heidelberg
     volume: 70
+
+# artificial potential fields
+matoui_contribution_2020:
+  type: article
+  title: 'Contribution to the path planning of a multi-robot system: centralized architecture'
+  author:
+  - Matoui, Fethi
+  - Boussaid, Boumedyen
+  - Metoui, Brahim
+  - Abdelkrim, Mohamed Naceur
+  date: 2020-01
+  page-range: 147–158
+  url:
+    value: http://link.springer.com/10.1007/s11370-019-00302-w
+    date: 2024-05-19
+  serial-number:
+    doi: 10.1007/s11370-019-00302-w
+    issn: 1861-2776, 1861-2784
+  parent:
+    type: periodical
+    title: Intelligent Service Robotics
+    issue: 1
+    volume: 13

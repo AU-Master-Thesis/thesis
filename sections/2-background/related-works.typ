@@ -1,7 +1,11 @@
 #import "../../lib/mod.typ": *
 == Related Works <s.b.related-works>
 
-#jonas[Not close to done. No need to spend time in this section.]
+The field of multi-agent path planning has a rich literature spanning several decades, with numerous proposed methods. One of the key taxonomies that can be used to classify existing methods are in respect to how they distribute the computation of the jointly planned path among the robotic agents. In the majority of cases, methods attempt to solve the problem by one of three ways: _Centralized_, _Decentralized_ or _Distributed_@multi-robot-path-planning-review. A depiction of what is meant by each is shown in @f.multi-robot-path-planning-classification.
+// differing significantly based on their underlying taxonomies.
+
+
+// #jonas[Not close to done. No need to spend time in this section.]
 
 // things to cover
 
@@ -40,6 +44,75 @@
 
 // is there a need to synchronize in time the ordering of operations/messages?
 
+
+
+
+
+#let coordinator = box(circle(radius: 0.35em, fill: theme.peach.lighten(70%), stroke: theme.peach.lighten(20%)), baseline: 0.05em)
+#let follower = box(circle(radius: 0.35em, fill: theme.blue.lighten(70%), stroke: theme.blue.lighten(20%)), baseline: 0.05em)
+
+#let communication-line = {
+  let l = line(length: 5pt, stroke: theme.overlay2)
+  let n = 3
+  let lines = range(n).map(_ => l)
+  box(grid(rows: 1, columns: n, column-gutter: 0.3em, ..lines), baseline: -0.25em)
+}
+
+#let velocity-vector = {
+// #polygon(
+//   fill: blue.lighten(80%),
+//   stroke: blue,
+//   (20%, 0pt),
+//   (60%, 0pt),
+//   (80%, 2cm),
+//   (0%,  2cm),
+// )
+  let c = theme.maroon.lighten(30%)
+  let arrow-head = polygon(fill: c, (0em, 0em), (0em, -0.7em), (0.7em, -0.35em))
+  let dots = 3
+  let dotted = grid(rows: 1, columns: dots, column-gutter: 0.1em, ..range(dots).map(_ => text(c, [.])))
+  box(dotted, baseline: -0.25em)
+  box(arrow-head, baseline: 0.05em)
+  // box(grid(rows: 1, columns: 2, column-gutter: 0.3em, dotted, arrow-head, ), baseline: -0.5em)
+  // box(polygon(fill: c, (0pt, 0pt), (0pt, -8pt), (8pt, -4pt)), baseline: -0.5em)
+}
+
+
+  // line(from, to, stroke: (dash: "dashed", paint: theme.overlay2))
+
+
+  // velocity
+  // let c = theme.maroon.lighten(30%)
+#figure(
+  std-block(
+    image("../../figures/out/multi-robot-path-planning-classification.svg", width: 80%),
+  ),
+  caption: [Multi-robot path planning can at a high level be classified as: Centralized or Decentralized, Distributed, depending on how decisions are arrived at across the group of robots. Orange #coordinator are robotic agents that take part in path planning. Blue #follower are ones that receive instructions on how to update its state. An #communication-line edge represent communication between the two vertices. #velocity-vector represent the planned velocity at the current timestep.
+]
+) <f.multi-robot-path-planning-classification>
+
+In the centralized case path planning solutions are laid out in hiearchial structure, where a single computing unit, either a server or another robotic agent, is responsible for generating a joint path for all robots to follow. In this model robots will unicast relevant information about their current state to the decision maker. And receive instructions from it on what trajectory they have to follow.
+
+Fethi Matoui et al@matoui_contribution_2020 explore a centralized approach where they make use of an #acr("APF") to
+
+
+#line(length: 100%, stroke: 10pt + theme.maroon)
+
+When a viable set of paths are found they are
+
+
+more fault tolerant and robust in complex dynamic environments
+
+
+// Each approach has its pros and cons and can be equally applicable depending on the
+
+
+Central solver
+
+increased coordination
+
+
+
 #k[
   Good words/sentences to use:
   - static/holonomic and dynamic/non-holonomically-constrained systems
@@ -51,24 +124,7 @@
 ]
 
 
-The field of multi-agent path planning has a rich literature, with numerous methods differing significantly based on their underlying taxonomies.
-
-These approaches vary in assumptions about the environment and the holonomic constraints of the robots. A critical element in multi-robot systems, path planning exhibits large dichotomies, such as whether an algorithm is centralized, with a single decision-making entity, or decentralized. The guarantees offered by these algorithms also differ, addressing factors like travel time, distance, and feasible trajectories based on the robot's motion model. Additionally, robustness to dynamic environments and communication interference is crucial. The methods range from classical approaches to modern AI-driven techniques, including sampling-based, graph-based, and potential field methods. Key indicators of a good path planning algorithm include path length, computational speed, smoothness, energy cost, and safety. Furthermore, it's important to distinguish between path planning and trajectory planning, as the former focuses solely on finding an obstacle-free path without considering the temporal aspects of motion.
-
-
-#let coordinator = box(circle(radius: 0.5em, fill: orange.lighten(50%), stroke: orange), outset: 0.25em)
-#figure(
-  std-block(
-    image("../../figures/out/multi-robot-path-planning-classification.svg", width: 80%),
-  ),
-  caption: [Multi-robot path planning can at a high level be classified as: Centralized, Decentralized, Distributed. #box(circle(radius: 0.5em, fill: orange.lighten(50%), stroke: orange)),
-  #coordinator
-]
-) <f.multi-robot-path-planning-classification>
-
-
-
-#line(length: 100%, stroke: 10pt + theme.maroon)
+Approaches vary in assumptions about the environment and the holonomic constraints of the robots. A critical element in multi-robot systems, path planning exhibits large dichotomies, such as whether an algorithm is centralized, with a single decision-making entity, or decentralized. The guarantees offered by these algorithms also differ, addressing factors like travel time, distance, and feasible trajectories based on the robot's motion model. Additionally, robustness to dynamic environments and communication interference is crucial. The methods range from classical approaches to modern AI-driven techniques, including sampling-based, graph-based, and potential field methods. Key indicators of a good path planning algorithm include path length, computational speed, smoothness, energy cost, and safety. Furthermore, it's important to distinguish between path planning and trajectory planning, as the former focuses solely on finding an obstacle-free path without considering the temporal aspects of motion such as the velocity and jerk needed to safely executed the planned path.
 
 
 Originally Murai _et al._ showed, with their _A Robot Web for Distributed Many-Device Localisation_, that #acr("GBP") can be utilised to solve multi-agent _localisation_. Then Patwardhan _et al._ showed that the same algorithm structure can be adapted to multi-agent _planning_. This thesis aims to extend the work by Patwardhan _et al._@gbpplanner to include a global planning layer, which can provide a more robust solution to the multi-agent planning in highly complex environments. As such @gbpplanner will be covered more thoroughly in its own dedicated section below, see @background-related-works-gbp-planner.
@@ -121,3 +177,9 @@ The paper presents a formal approach to reciprocal n-body collision avoidance fo
 
 
 === #todo[Some approach using deep learning ...]
+
+
+=== Game Theory
+
+
+here @liu_learning_2023
