@@ -8,29 +8,60 @@
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-4.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo.
+As described in hypothesis #study.H-4.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation.
+
+#figure(
+  // std-block(todo[screenshot of settings panel, or at least a part of it]),
+  std-block[
+    #set text(theme.text)
+    #show table.cell : it => {
+      if it.x == 0 {
+        set text(theme.lavender)
+        it
+      }
+      else {
+        set text(theme.maroon)
+        it
+      }
+    }
+
+    #image("../../../figures/img/tool-settings-latte.png")
+    #v(-2em)
+    #table(
+      columns: (1fr, 36%),
+      row-gutter: 0em,
+      column-gutter: -1em,
+      stroke: none,
+      layout(size => {
+        $underbrace(#h(size.width))$
+      }),
+      layout(size => {
+        $underbrace(#h(size.width))$
+      }),
+      panel.viewport, panel.settings
+    )
+  ],
+  caption: [Screenshot of the simulation tool with the #panel.settings open. On the left hand side, the #panel.viewport is shown. The settings panel is scrollable, hence only a part of it is is visible here.],
+)<f.m.simulation-tool>
 
 ==== Live Configuration <s.m.s4.settings>
 
-Most of the configurable settings described in #nameref(<s.m.s4.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool-settings, which includes all these and more useful options.
-
-#figure(
-  std-block(todo[screenshot of settings panel, or at least a part of it]),
-  caption: [The settings panel in the simulation tool.],
-)<f.m.simulation-tool-settings>
-
-Some of the sections in the settings panel are off-screen in @f.m.simulation-tool-settings, but they are accessible by scrolling down. The significant#note.wording[different word?] sections are described in the following sections.
+Most of the configurable settings described in #nameref(<s.m.s4.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
+Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The significant#note.wording[different word?] sections are described in the following sections.
 
 #jens[Live configuration editing allows for rapid testing]
 
 ==== Hot Loading Scenarios <s.m.s4.hot-loading>
 
-Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu can be seen in @f.m.simulation-tool-scenario-dropdown.
+Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios.
 
-#figure(
-  std-block(todo[screenshot of dropdown menu]),
-  caption: [The scenario dropdown in the simulation tool.],
-)<f.m.simulation-tool-scenario-dropdown>
+// The dropdown menu can be seen in @f.m.simulation-tool-scenario-dropdown.
+
+// #figure(
+//   // std-block(todo[screenshot of dropdown menu]),
+//   std-block(image("../../../figures/img/tool-settings-scenarios-latte.png", width: 50%)),
+//   caption: [The scenario dropdown in the simulation tool.],
+// )<f.m.simulation-tool-scenario-dropdown>
 
 #kristoffer[
   Simulation loader
@@ -41,16 +72,10 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
 The simulation tool allows for control of the simulated time. In @f.m.simulation-tool-time-control the time controls are shown under the #text(theme.lavender, "Simulation") section in the settings panel. Here the user can see the simulation time, and the frequency at which the fixed #acr("GBP") simulation steps are computed. Additionally, the user has access to a pause/play button to stop and start the simulation, and a manual step button to step through the simulation $n$ fixed timesteps at a time. As a default $n=1$. The user can only use the manual stepping when the simulation is paused.
 
 #figure(
-  std-block(todo[screenshot of time control]),
-  caption: [The time control section in the simulation tool.],
+  // std-block(todo[screenshot of time control]),
+  std-block(image("../../../figures/img/tool-settings-simulation-latte.png")),
+  caption: [The time control section in the simulation tool. From left to right, top to bottom: Reload current scenario, scenario dropdown selctor, simulation time, simulation frequency, simulation speed, manual step, play/pause.],
 )<f.m.simulation-tool-time-control>
-
-#todo[
-  Controlling time
-  + Pause and play
-  + Speed control
-  + Manual simulation stepping
-]
 
 ==== Visualisation <s.m.s4.visualisation>
 
@@ -72,7 +97,7 @@ The simulation tool allows for control of the simulated time. In @f.m.simulation
 // robot-robot-collisions             = true
 // robot-environment-collisions       = true
 
-The simulation tool supports visualisations of most aspects of the simulation. All possible visualisations are listed and described in @table.simulation-visualisations. The visualisations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool-settings. The visualisations are updated in real-time as the simulation progresses.
+The simulation tool supports visualisations of most aspects of the simulation. All possible visualisations are listed and described in @table.simulation-visualisations. The visualisations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool. The visualisations are updated in real-time as the simulation progresses.
 
 
 #let edges = (
@@ -114,21 +139,9 @@ The simulation tool supports visualisations of most aspects of the simulation. A
 
 ==== Viewport <s.m.s4.viewport>
 
-The viewport is where the action happens. This is what the user is represented with when the simulation tool is initially loaded. All visualisations described in the previous section #numref(<s.m.s4.visualisation>) are drawn in the viewport. Technically, the viewport is the user's eyes in the simulated environment, which happens through a camera in a 3D scene. The camera is a perspective camera, which is initially placed directly above the center of the environment, looking at it from a top-down perspective. The user can directly interact with the viewport, both through the keybindings, but also the mouse. The user can choose to stay in this top-down, pseudo-2D perspective, which gives a great overview, or switch the camera to orbital controls, which allows the user to rotate around the environment and zoom in and out. The viewport is shown in @f.m.simulation-tool-viewport. Through the viewport, the user gets a live update of the #acr("GBP") mathematical simulation happening under the surface.
-
-#figure(
-  std-block(todo[screenshot of viewport]),
-  caption: [The viewport in the simulation tool.],
-)<f.m.simulation-tool-viewport>
+The viewport is where the action happens. This is what the user is represented with when the simulation tool is initially loaded. All visualisations described in the previous section #numref(<s.m.s4.visualisation>) are drawn in the viewport. Technically, the viewport is the user's eyes in the simulated environment, which happens through a camera in a 3D scene. The camera is a perspective camera, which is initially placed directly above the center of the environment, looking at it from a top-down perspective. The user can directly interact with the viewport, both through the keybindings, but also the mouse. The user can choose to stay in this top-down, pseudo-2D perspective, which gives a great overview, or switch the camera to orbital controls, which allows the user to rotate around the environment and zoom in and out. The #panel.viewport is shown in @f.m.simulation-tool. Through the viewport, the user gets a live update of the #acr("GBP") mathematical simulation happening under the surface.
 
 Additionally to providing a visual representation of the underlying mathematics, the user can use the interface to extract information. Most objects in the viewport are clickable, and when clicked, relevant information and measurements are printed out into the console. This is both a useful tool for rapid development and debugging, but also to aid in understanding the computations and theory in the background.
-
-#todo[
-  Viewport provides
-  + Visualisation
-  + 2D and 3D interaction
-  + Inspect elements
-]
 
 ==== Export Formats <s.m.s4.export-formats>
 
