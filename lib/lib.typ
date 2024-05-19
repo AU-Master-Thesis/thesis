@@ -810,3 +810,19 @@
   }
   link("https://github.com/AU-Master-Thesis/gbp-rs", name)
 }
+
+#let panel = (
+  bindings: text(theme.green, [*Keybindings Panel*]),
+  viewport: text(theme.lavender, [*Viewport*]),
+  settings: text(theme.maroon, [*Settings Panel*]),
+  metrics: text(theme.peach, [*Metrics Panel*]),
+)
+
+#let z-stack(..items) = {
+  grid(
+    columns: items.pos().len() * (1fr,),
+    column-gutter: -100%,
+    rows: 1,
+    ..items
+  )
+}
