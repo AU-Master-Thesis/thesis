@@ -71,6 +71,8 @@ in {
 
   # https://devenv.sh/languages/
   # languages.nix.enable = true;
+  languages.java.enable = true;
+
   languages.python.enable = true;
   languages.python.uv.enable = true;
 

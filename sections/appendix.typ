@@ -2,6 +2,31 @@
 
 // == Appendix <s.appendix>
 
+= Internal External Iteration Schedules <appendix.iteration-schedules>
+
+#listing(
+```rust
+#[derive(Clone, Copy PartialEq, Eq)]
+pub struct GbpScheduleAtIteration {
+    pub internal: bool,
+    pub external: bool,
+}
+
+#[derive(Clone, Copy)]
+pub struct GbpScheduleParams {
+    pub internal: u8,
+    pub external: u8,
+}
+
+pub trait GbpScheduleIterator: std::iter::Iterator<Item = GbpScheduleAtIteration> {}
+
+pub trait GbpSchedule {
+    fn schedule(params: GbpScheduleParams) -> impl GbpScheduleIterator;
+}
+```,
+  caption: [The schedule for the internal and external message passing iterations modelled by the trait `GbpSchedule`. Every implementor must implement a static method called `schedule(params: GbpScheduleParams)` that returns an iterator of `GbpScheduleAtIteration` structs. The boolean fields `.internal` and `.external` are interpreted such that `true` means that a message pass of that kind should be executed this iteration step.]
+)
+
 
 = Reproduction Experiment Parameters <appendix.reproduction-experiment-parameters>
 
@@ -9,25 +34,26 @@
   tablec(
     columns: (1fr, 3fr, 1fr),
     align: (center, left, center),
-    header: table.header([*Parameter*], [*Description*], [*Unit*]),
+    header: table.header([*Parameter*], [*Description*], [*Unit* / *Domain*]),
     [$C_("radius")$], [Radius of the circle that the robots spawn in circle scenarios like @s.r.scenarios.circle], [$m$],
     [$r_R$], [Robot radius], [$m$],
     [$r_C$], [Robot communication radius], [$m$],
     [$|v_0|$], [Initial speed], [$m"/"s$],
-    [$N_r$], [Number of robots], [],
-    [$s$], [prng seed], [],
+    [$N_r$], [Number of robots], [$NN_1$],
+    [$s$], [prng seed], [$NN_0$],
     [$delta_t$], [Time passed between each simulation step], [$s$],
-    [$M_i$], [Internal #acr("GBP") messages], [],
-    [$M_r$], [External inter-robot #acr("GBP") messages], [],
+    [$M_i$], [Internal #acr("GBP") message passing iterations], [$NN_0$],
+    [$M_r$], [External inter-robot #acr("GBP") messages], [$NN_0$],
     [$gamma$], [probability for the communication module to be toggled on/off], [$percent$],
     [$t_K-1$], [Extend of time horizon. The time it should take for the current variable to reach the horizon variable], [$s$],
-    [$|V|$], [Number of variables in each factorgraph], [],
-    [$sigma_d$], [sigma value of Dynamic factor], [],
-    [$sigma_p$], [sigma value of Pose factor], [],
-    [$sigma_r$], [sigma value of Range factor], [],
-    [$sigma_o$], [sigma value of Obstacle factor], [],
+    [$|V|$], [Number of variables in each factorgraph], [$NN_1 \\ {1}$],
+    [$sigma_d$], [sigma value of Dynamic factor], [#todo[...]],
+    [$sigma_p$], [sigma value of Pose factor], [#todo[...]],
+    [$sigma_r$], [sigma value of Range factor], [#todo[...]],
+    [$sigma_o$], [sigma value of Obstacle factor], [#todo[...]],
     [$d_r$], [Inter-robot safety distance. When two variables connected by a interrobot factor are within this distance, the factor will send factor messages to alternate the course of both robot's path.], [$C_("radius")$],
-    [$Q_("in")$], [Rate at which robots enter the central section in the Junction scenario (see @s.r.scenarios.junction)], [$"robots""/"s$]
+    [$Q_("in")$], [Rate at which robots enter the central section in the Junction scenario (see @s.r.scenarios.junction)], [$"robots""/"s$],
+    [$Q_("out")$], [Rate at which robots exit the central section in the Junction scenario (see @s.r.scenarios.junction)], [$"robots""/"s$],
   ),
   caption: [Experiment parameters for all reproduction scenarios. See @s.r.scenarios for an writeup of the scenarios.]
 ) <t.appendix.reproduction-experiment-parameters>
