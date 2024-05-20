@@ -37,7 +37,7 @@
 #let supervisors = (
   andriy: [Andriy Sarabakha],
   jonas: [Jonas le Fevre Sejersen],
-  
+
 )
 
 #let authors = ((
