@@ -147,9 +147,9 @@
       row-gutter: 0em,
       align: (x, y) => (right, left).at(x),
       [*Supervisor:*],
-      [Andriy Sarabakha],
+      supervisors.andriy,
       [*Co-supervisor:*],
-      [Jonas le-Fevre Sejersen],
+      supervisors.jonas,
     )
     #v(2mm, weak: true)
     \{andriy, jonas.le.fevre\}\@ece.au.dk

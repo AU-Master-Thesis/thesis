@@ -6,8 +6,25 @@
 
 \makeatletter
 \def\nonlinearGaussian{%
-	\pgfmathsetmacro{\myX}{\pgf@x}
-	\pgfmathsetmacro{\myY}{0.0075*\pgf@x*\pgf@x + \pgf@y}
+    % \pgfmathsetmacro{\myX}{\pgf@x}
+    % \pgfmathsetmacro{\myY}{0.0075*\pgf@x*\pgf@x + \pgf@y}
+
+    \def\a{1}
+
+    % \pgfmathsetmacro{\theta}{\a * (\pgf@x / pi - pi / 2)}
+    % \pgfmathsetmacro{\r}{\pgf@y}
+
+    \pgfmathsetmacro{\theta}{\a * (\pgf@y / pi - pi / 2)}
+    \pgfmathsetmacro{\r}{\pgf@x}
+
+    \pgfmathsetmacro{\myX}{\r * cos(\theta)}
+    \pgfmathsetmacro{\myY}{\r * sin(\theta)}
+
+    % \pgfmathsetmacro{\myY}{10}
+
+    % \pgfmathsetmacro{\myX}{\r * sin(\theta)}
+    % \pgfmathsetmacro{\myY}{\r * cos(\theta)}
+
 	\setlength{\pgf@x}{\myX pt}
 	\setlength{\pgf@y}{\myY pt}
 }

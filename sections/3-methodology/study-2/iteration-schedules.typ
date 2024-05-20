@@ -206,7 +206,7 @@ Five different iteration schedules are experimented with. Each schedule is liste
   }
 
   // let colors = every(cmap, 50).slice(0, N)
-  let on-colors = colors.map(c => table.cell(fill: c, []))
+  // let on-colors = colors.map(c => table.cell(fill: c, []))
 
   // max
   set align(center)
@@ -215,41 +215,70 @@ Five different iteration schedules are experimented with. Each schedule is liste
   }
 
 
+  // let xticks = if show-xticks {
+  //   let k = 9
+  //   (table.hline(stroke: 1pt + gray), ) + if max <= k {
+  //     range(max).map(i => i + 1).map(i => [#i])
+  //   }  else {
+  //     let rest = max - k
+  //     let empty = rest - 2
+  //     let lower = calc.floor(empty / 2)
+  //     let upper = calc.ceil(empty / 2)
+  //     range(k).map(i => i + 1).map(i => [#i]) + range(lower).map(_ => []) + ($...$,) + range(upper).map(_ => []) + ([#max],)
+  //   }
+  // } else {
+  //   ()
+  // }
+
+
   let xticks = if show-xticks {
     let k = 9
-    (table.hline(stroke: 1pt + gray), ) + if max <= k { range(max).map(i => i + 1).map(i => [#i]) }  else {
-    let rest = max - k
-    let empty = rest - 2
-    let lower = calc.floor(empty / 2)
-    let upper = calc.ceil(empty / 2)
-    range(k).map(i => i + 1).map(i => [#i]) + range(lower).map(_ => []) + ($...$,) + range(upper).map(_ => []) + ([#max],)
+    if max <= k {
+      range(max).map(i => i + 1).map(i => [#i])
+    }  else {
+      let rest = max - k
+      let empty = rest - 2
+      let lower = calc.floor(empty / 2)
+      let upper = calc.ceil(empty / 2)
+      range(k).map(i => i + 1).map(i => [#i]) + range(lower).map(_ => []) + ($dots.c$,) + range(upper).map(_ => []) + ([#max],)
+    }
   }
 
-  } else {
-    ()
-  }
-
-  table(
+  grid(
     gutter: 0.1em,
-    row-gutter: 0.25em,
     stroke: none,
-    // stroke: (y: gray, x: none),
-    columns: range(max).map(_ => 1fr), // + (1fr,),
+    columns: range(max).map(_ => 1fr),
     rows: range(N).map(_ => 1.0em),
-    // [$M_I$],
-    ..schedules_transposed.zip(on-colors).map(pair => {
+    ..schedules_transposed.zip(colors).map(pair => {
       let schedule = pair.at(0)
       let color = pair.at(1)
-      schedule.map(activate => if activate { color } else { table.cell(fill: inactive-color, []) })
-      // schedule.map(activate => if activate { color } else { table.cell(fill: theme.overlay0.lighten(50%), []) })
+
+      schedule.map(
+        activate => {
+          let col = if activate { color } else { inactive-color }
+          box(
+            fill: col,
+            radius: 2pt,
+            height: 100%,
+            width: 100%,
+          )
+        }
+      )
     }).flatten(),
-    // [bar],
-
-    ..xticks,
-
-    // table.hline(stroke: 1pt + gray),
-    // ..range(max).map(i => i + 1).map(i => [#i])
   )
+
+  if show-xticks {
+    set text(theme.text)
+    v(-0.5em)
+    line(stroke: (thickness: 1pt, paint: gray, cap: "round"), length: 100%)
+    v(-0.5em)
+    grid(
+      gutter: 0.1em,
+      stroke: none,
+      columns: rep(1fr, max),
+      ..xticks
+    )
+  }
 }
 
 #let iterations = (

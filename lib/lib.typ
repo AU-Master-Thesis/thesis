@@ -29,7 +29,16 @@
 
 #let hr = line(length: 100%)
 
-#let project-name = "Multi-agent Collaborative Path Planning"
+// #let project-name = "Multi-agent Collaborative Path Planning"
+// Better titles:
+// #let project-name = "Hybrid Multi-agent Path Planning: Gaussian Belief Propagation and Global Path Finding"
+#let project-name = "Merging Gaussian Belief Propagation and Global Path Finding for Multi-agent Path Planning in Complex Environments"
+
+#let supervisors = (
+  andriy: [Andriy Sarabakha],
+  jonas: [Jonas le Fevre Sejersen],
+  
+)
 
 #let authors = ((
   name: "Kristoffer Plagborg Bak Sørensen",

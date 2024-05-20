@@ -100,7 +100,7 @@ In the exponential energy form, a Gaussian model can be represented in two ways;
           #v(-0.5em)
         ]
       ),
-      caption: [Camparison between the moments form and the canonical form of representing Gaussian models.@gbp-visual-introduction#note.jonas[Is it necessary to say "Figure from"]]
+      caption: [Camparison between the moments form and the canonical form of representing Gaussian models.@gbp-visual-introduction]
     )<f.gaussian-models>
   ]
 }

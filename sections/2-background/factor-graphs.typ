@@ -209,36 +209,43 @@ $
 $<eq.gbp-variable-to-factor-canonical>
 
 === Factor Update <s.b.gbp.factor-update>
-#jonas[Even though this is in a todo-box, you can read it as it will give context for the rest.]
-#jens[
-  describe how factor distance is marginalised and factors are updated
-  + Update linearisation point
-  + Measurement & jacobian around linearisation point
-    The measurement residual is
+
+Note that this step is not written out in @gbpplanner, as it is not a step like the rest, where some state is updated. Instead, the updating of a factor here describe the mathematical steps taken before passing messages to neighbouring variables. Writing this step out also represents the developed software@repo more directly. The following steps take place:
+#[
+  #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve, suffix: ":"))
+  // #set par(first-line-indent: 0em)
+  + *Aggregate Messages:* Messages from neighbouring variables are aggregated into a single message, as seen in @eq.gbp-factor-to-variable@gbp-visual-introduction:
+
     $
-      m_r = m(X_0) - m(X_n) \
+      m_(f_i #ra x_j) = product_(s in N(j) \\ i) m_(x_s #ra f_i)
+    $<eq.gbp-factor-to-variable>
+
+  + *Update Linearisation Point:* As the factor has received new messages from neighbouring variables, the linearisation point is updated to the new mean, $mu_f$.
+
+  + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the linearisation point, $m(X_0)$, and the current measurement, $m(X_n)$, see @eq.factor-measurement@gbp-visual-introduction:
+
     $
+      m_r = m(X_0) - m(X_n)
+    $<eq.factor-measurement>
+
     Where $X_0$ is the configuration at $t_0$, and $X_n$ is the configuration at the current timestep $t_n$.
-  + Factor potential update
+
+  + *Factor Potential Update:* The factor potential is updated by computing the precision matrix and information vector of the factor potential, as seen in @eq.factor-potential@gbp-visual-introduction:
+
     $
-      #m.Lambda _p = #jacobian^top Lambda_M #jacobian \
-      #m.eta _p = #jacobian^top Lambda_M (#jacobian l_p + m_r)
-    $
-    Where $#m.Lambda _p$ and $#m.eta _p$ denotes the precision matrix and information vector of the factor _potential_, and $Lambda_M$ is the measurement precision matrix.
-  + Factor marginalisation
+      #m.Lambda _p = jacobian^top #m.Lambda _M jacobian
+      #h(1em)"and"#h(1em)
+      #m.eta _p = jacobian^top #m.Lambda _M (jacobian l_p + m_r)
+    $<eq.factor-potential>
+
+    Where $#m.Lambda _p$ and $#m.eta _p$ denotes the measurement precision matrix and information vector of the factor potential, respectively. Lastly, $#m.Lambda _M$ is the measurement precision matrix.
 ]
 
-=== Factor to Variable Message Passing <s.b.gbp.factor-to-variable>
+=== Factor to Variable Message <s.b.gbp.factor-to-variable>
 
-Before marginalising, messages from neighbouring variables are aggregated into a single message, as seen in @eq.gbp-factor-to-variable@gbp-visual-introduction:
+As the factor has been updated, it is now possible to pass messages to neighbouring variables. The messages to each neighbouring variables has to be marginalised with respect to all other variables, that is; to find the message to varible $x_i$, margininalise out its own contribution to the aggregated message. This is best described through an example, see @ex.factor-to-variable@gbp-visual-introduction.
 
-$
-  m_(f_i #ra x_j) = product_(s in N(j) \\ i) m_(x_s #ra f_i)
-$<eq.gbp-factor-to-variable>
-
-
-
-#example[
+#example(caption: [Factor Message Marginalisation])[
   Consider a factor $f$ connected to 3 variables; $x_1,x_2,x_3$, and we want to compute the message to be passed to variable $x_1$. Write the factor out as a Gaussian distribution, see @eq.ex.factor@gbp-visual-introduction:
 
   $
@@ -297,6 +304,8 @@ $<eq.gbp-factor-to-variable>
     _In our case $a = x_1$ and $b = mat(x_2, x_3)$._
 ]<ex.factor-to-variable>
 
+As such, each neighbouring variable receives an updated message from the factor, in effect imposing the factor's constraints on the variables.
+
 == Non-Linearities <s.b.non-linearities>
 
 // #jens[and this]
@@ -339,7 +348,7 @@ $<eq.linearised-factor>
 
 The underlying potential non-linearities of factors is exemplified in @ex.non-linearities, and visualised in @fig.non-linearities.
 
-#example[
+#example(caption: [Factor Linearisation])[
   Consider a 2D world, where a robot exists alongside a landmark. As seen in @fig.non-linearities, the robot is located at $r_0$, and the landmark at $l_0$. This figure visualises the contour plot for the factor $f(r_0, l)$, assuming the robot's true position is known to be $r_0$ without uncertainties. The true non-linear belief of the landmark's position is visualised as a grey#sgr2 contour plot. The factor measurement function $m(r,l)$ in @eq.non-linear-measurement@gbp-visual-introduction is non-linear.
 
   $

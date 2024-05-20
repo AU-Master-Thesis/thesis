@@ -62,16 +62,16 @@ This thesis poses the following four hypothesis:
 
 
 #set enum(numbering: h-enum)
-+ Reproducing the results of the original GBP Planner, with thought to its architecture and design, and in a new programming language will improve the software's scientific communication and its extensibility.
++ Reproducing the results of the original #acr("GBP") Planner, with thought to its architecture and design, and in a new programming language will improve the software's scientific communication and its extensibility.
 
-// + Improvements, such as future work left by the authors of the original GBP Planner, can be made to the original work without transforming the software. These improvements include implementing and testing different iteration schedules, steps towards a realistic
-+ The original work can be improved without transforming it. Specifically, these improvements include testing different GBP iteration schedules, and taking minor steps towards a more distributed approach.
+// + Improvements, such as future work left by the authors of the original #acr("GBP") Planner, can be made to the original work without transforming the software. These improvements include implementing and testing different iteration schedules, steps towards a realistic
++ The original work can be improved without transforming it. Specifically, these improvements include testing different #acr("GBP") iteration schedules, and taking minor steps towards a more distributed approach.
   #jonas[
     This is where you told me to add more specifics. Before it looked like: \
     "Improvements can be made to the original software without transforming it."
   ]
 
-+ Extending the original GBP Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
++ Extending the original #acr("GBP") Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance#note.layout[How to measure, frame time, fps].
 
 + Extensive tooling will create a great environment for others to understand the software and extend it further. Furthermore, such tooling will make it easier to reproduce and engage with the developed solution software.
 
@@ -85,7 +85,7 @@ From this point on, anything pertaining to the context of #H(1) will be referred
 #study.H-1.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-1", weight: 900):
 #set enum(numbering: req-enum.with(prefix: "RQ-1.", color: theme.teal))
 + Which programming language will be optimal for scientific communication and extensibility?
-+ Is it possible to reproduce the results of the original GBP Planner in the chosen programming language?
++ Is it possible to reproduce the results of the original #acr("GBP") Planner in the chosen programming language?
 
 // === Study 2
 #study.H-2.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
