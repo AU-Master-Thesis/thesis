@@ -243,7 +243,7 @@ Note that this step is not written out in @gbpplanner, as it is not a step like 
 
 === Factor to Variable Message <s.b.gbp.factor-to-variable>
 
-As the factor has been updated, it is now possible to pass messages to neighbouring variables. The messages to each neighbouring variables has to be marginalised with respect to all other variables, that is; to find the message to varible $x_i$, margininalise out its own contribution to the aggregated message. This is best described through an example, see @ex.factor-to-variable@gbp-visual-introduction.
+As the factor has been updated, it is now possible to pass messages to neighbouring variables. The messages to each neighbouring variables has to be marginalised with respect to all other variables, that is; to find the message to variable $x_i$, margininalise out its own contribution to the aggregated message. This is best described through an example, see @ex.factor-to-variable@gbp-visual-introduction.
 
 #example(caption: [Factor Message Marginalisation])[
   Consider a factor $f$ connected to 3 variables; $x_1,x_2,x_3$, and we want to compute the message to be passed to variable $x_1$. Write the factor out as a Gaussian distribution, see @eq.ex.factor@gbp-visual-introduction:

@@ -197,3 +197,6 @@ def ldj(velocities: np.ndarray, timesteps: np.ndarray) -> float:
   ```],
   caption: [The script can also be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/ldj.py")]
 )
+
+
+#todo[insert code for other non-trivial metrics, like perpendicular distance]

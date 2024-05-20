@@ -839,3 +839,17 @@ matoui_contribution_2020:
     title: Intelligent Service Robotics
     issue: 1
     volume: 13
+
+
+zhang2023multirobot:
+  type: misc
+  title: Multi-robot Path Planning with Rapidly-exploring Random Disjointed-Trees
+  author:
+  - Zhang, Biru
+  - Wang, Jiankun
+  - name: Meng
+    given-name: Max Q.
+    prefix: -H.
+  date: 2023
+  serial-number:
+    arxiv: '2308.01533'

@@ -91,25 +91,80 @@ The field of multi-agent path planning has a rich literature spanning several de
 ]
 ) <f.multi-robot-path-planning-classification>
 
-In the centralized case path planning solutions are laid out in hiearchial structure, where a single computing unit, either a server or another robotic agent, is responsible for generating a joint path for all robots to follow. In this model robots will unicast relevant information about their current state to the decision maker. And receive instructions from it on what trajectory they have to follow.
+In the centralized case path planning solutions are laid out in hiearchial structure, where a single computing unit, either a remote server or another robotic agent, is responsible for generating a joint path for all robots to follow. In this model robots will unicast relevant information about their current state to the decision maker. And receive instructions from it on what trajectory they have to follow.
 
-Fethi Matoui et al@matoui_contribution_2020 explore a centralized approach where they make use of an #acr("APF") to
+Fethi Matoui et al@matoui_contribution_2020 explore a centralized approach for the coordination of multiple unicycle robots in a two-dimensional workspace where they make use of an #acr("APF") to generate collision free trajectories. #acrpl("APF") are an intuitive way of thinking about trajectory planning. The entire workspace is overlaid with a vector field, where obstacles, be they static or other moving elements, are assigned repulsive forces. And target destinations are given an attractive force to pull the robot towards it. The gradient descent algorithm is then used to solve for an admissible trajectory. Than is each robot's next pose is determined by moving in the direction of the negative gradient of the total potential field. This gradient represents the combined influence of attractive and repulsive forces acting on the robot. Similar to other problems using gradient descent like the #acr("SGD") method often used in training of deep learning models, care must be taken to not construct a vector field, where the robot gets stuck in a local minima. #acr("APF") alone is not enough to do conflict resolution when two or more robots are close to each and follow the same slope. To handle this their supervisor node assign a numeric priority to each robot such that they form a total ordering. When two robots are within a configurable distance of each other the priority assignment is used to scale the repulsive force each robot exhibit on each other. The total ordering ensures that the repulsive force excerted is never equal. They motivate their choice of architecture by the argument that by having the core processing at a single supervisor node the other robots do not need to have have sophisticated sensors or a powerful computing unit. Which is advantageous for operations cost. But at the same time they admit that their method does not scale well, when the number of robots increases as the compute can only be scaled vertically and not horizontally as is the case for both the distributed and decentralized architecture@multi-robot-path-planning-review.
+
+A general trend in more recent literature is a stronger focus on strategies that do not rely on a centralized architecture@zhang2023multirobot@gbpplanner@orca@liu_learning_2023@bazzana_handling_2023. Reasons often brought up to discourage centralized approaches include their limitations in vertical scaling of compute resources, as seen in@matoui_contribution_2020, as the configuration space often grows exponentially with the number of robots. Additionally, coordination can become a significant bottleneck when all communication must go back and forth from a centralized service. This bottleneck not only increases latency but also risks single points of failure that can incapacitate the entire system. Consequently, decentralized and distributed approaches are increasingly favored for their scalability, robustness, and ability to handle complex, dynamic environments more efficiently.
+
+A prominent method for doing decentralized path planning is #acr("ORCA") proposed by van den Berg et al. @orca.
 
 
 #line(length: 100%, stroke: 10pt + theme.maroon)
 
-When a viable set of paths are found they are
+
+//
+// A general trend in more recent literature is a stronger focus on strategies that do not rely on a centralized architecture@zhang2023multirobot@gbpplanner@orca@liu_learning_2023@bazzana_handling_2023. Reasons often brought up to discourage
+//
+// - limited by vertical scaling
+// - Configuration space often grows exponentially with the number of robots
+// - Coordiation can become a bottleneck when all communication has to go back and fourth from a centralized service.
+//
+
+// and possibility of more easily doing hkorizontal scaling in other to encompass a larger problem. #kristoffer[but there is a limit for how much vertical scaling you can do of the supervisor unit]
+
+// - admit that their method does not scale well, when the number of robots increases
+
+// Each robot's next pose is determined by moving in the direction of the negative gradient of the total potential field. This gradient represents the combined influence of attractive and repulsive forces acting on the robot.
+
+// - conflict resolution
+
+// This alone is not enough to ensure that
+
+// robots do not collide, as it does not guarantee temporal consistency
+
+// Local minima
 
 
-more fault tolerant and robust in complex dynamic environments
+
+// - That further ensures a state update that is feasible for the dynamics/kinematics of the unicycle model
+// - Each robot receives from the centralized controller the angular control speeds applied to the right and left wheels.
+
+
+// - Does not mention how they make state estimation of the robots
+
+// - Known environment with static obstacles and moving/dynamic robots
+
+
+// - Split over four modules
+  // + Localization module
+  // + Attraction towards the target module
+  // + Collision avoidance module
+  // + Conflict resolution module
+
+// - APF simulating attractive and repulsive forces
+// - Attractive Force: The goal exerts an attractive force on the robot, pulling it towards the target.
+// - Repulsive Force: Obstacles exert a repulsive force, pushing the robot away to avoid collisions.
+// - Total Force: The robot's movement is determined by the combination of these forces. The robot follows the path of the resultant force vector, moving towards the goal while avoiding obstacles.
+// - Potential Function: The environment is represented as a potential field where the goal has a low potential, and obstacles have high potential. The robot moves along the gradient of this field, aiming to reach the minimum potential at the goal.
+
+// QUOTE
+// First, the robots used do not need embedded sensors or a powerful computing unit. This greatly reduces their cost. In addition, the concentration of sensors at a supervisor level provides a better understanding of the overall environment.
+
+
+
+// When a viable set of paths are found they are
+
+
+// more fault tolerant and robust in complex dynamic environments
 
 
 // Each approach has its pros and cons and can be equally applicable depending on the
 
 
-Central solver
+// Central solver
 
-increased coordination
+// increased coordination
 
 
 
@@ -136,7 +191,7 @@ Originally Murai _et al._ showed, with their _A Robot Web for Distributed Many-D
 
 - A Robot Web for Distributed Many-Device Localisation
 
-proposes the idea of modelling the communication scheme using for exchaning messages between robots similar to how hypermedia is exchanged on the world wide web using a protocol like HTTP
+proposes the idea of modelling the communication scheme using for exchanging messages between robots similar to how hypermedia is exchanged on the world wide web using a protocol like HTTP
 
 - Distributing Collaborative Multi-Robot Planning with Gaussian Belief Propagation
 
@@ -183,3 +238,8 @@ The paper presents a formal approach to reciprocal n-body collision avoidance fo
 
 
 here @liu_learning_2023
+
+
+#kristoffer[
+  In the decentralized case knowledge about the state of other robots are acquired through sensor measurements and not through communication.
+]

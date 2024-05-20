@@ -303,7 +303,8 @@ Five different iteration schedules are experimented with. Each schedule is liste
 // #text(size: 18pt, cmap.at(1), [Internal #iterations.external])
 
 
-#let cell(fill) = box(rect(fill: fill, width: 0.9em, height: 0.9em), baseline: 15%)
+// #let cell(fill) = box(rect(fill: fill, width: 0.9em, height: 0.9em), baseline: 15%)
+#let cell(fill) = box(rect(fill: fill, width: 0.9em, height: 0.9em, radius: 2pt), baseline: 15%)
 
 #figure(
 {

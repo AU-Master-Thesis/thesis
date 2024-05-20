@@ -70,3 +70,9 @@
   definition: Signed Distance Field
 - acronym: APF
   definition: Artificial Potential Field
+- acronym: MPC
+  definition: Model Predictive Control
+- acronym: SGD
+  definition: Stochastic Gradient Descent
+- acronym: ORCA
+  definition: Optimal Reciprocal Collision Avoidance
