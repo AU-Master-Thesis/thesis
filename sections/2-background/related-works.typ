@@ -97,7 +97,30 @@ Fethi Matoui et al@matoui_contribution_2020 explore a centralized approach for t
 
 A general trend in more recent literature is a stronger focus on strategies that do not rely on a centralized architecture@zhang2023multirobot@gbpplanner@orca@liu_learning_2023@bazzana_handling_2023. Reasons often brought up to discourage centralized approaches include their limitations in vertical scaling of compute resources, as seen in@matoui_contribution_2020, as the configuration space often grows exponentially with the number of robots. Additionally, coordination can become a significant bottleneck when all communication must go back and forth from a centralized service. This bottleneck not only increases latency but also risks single points of failure that can incapacitate the entire system. Consequently, decentralized and distributed approaches are increasingly favored for their scalability, robustness, and ability to handle complex, dynamic environments more efficiently.
 
-A prominent method for doing decentralized path planning is #acr("ORCA") proposed by van den Berg et al. @orca.
+// A prominent method for doing decentralized collision avoidance and trajectory planning is #acr("ORCA") proposed by van den Berg et al. @orca. They utilize the concept of velocity obstacles to define sets of velocities that could lead to collisions between robots over a configurable time horizon $tau$. Robots exists in a 2D workspace and are modelled as a circle having a center point $p$ and radius $r$ and velocity $v$. A strong assumption made is that these three state properties can be observed by all other robots at any given time with _perfect_ accuracy. Furthermore robots are considered to be holonomic. The core of their method, computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept by modelling each obstacle as a set of line segments that together enclose a convex polygon. As each obstable is static their preferred velocity emposed on the surrounding robots as velocity constraints are set to $0$. In densely packed scenarios it can happen that the solver outputs that no feasible solution exists to satisfy the robots preferred velocity $v_("pref")$. When this happens the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. Permitted velocities for the robot with respect to obstacles should be hard, as collisions with obstacles should be strongly avoided. Therefore the constraints imposed by obstacles are not relaxed. They demontrate in simulation that their method can be used even with thousands of robots in close proximity of each other. And still achieve smooth trajectories.
+
+
+A prominent method for decentralized collision avoidance and trajectory planning is #acr("ORCA"), proposed by Van Den Berg et al.@orca. They utilize the concept of velocity obstacles to define sets of velocities that could lead to collisions between robots over a configurable time horizon $tau$. Robots exist in a 2D workspace and are modeled as circles with a center point $p$, radius $r$, and velocity $v$. A significant assumption made is that these state properties can be observed by all other robots at any given time with perfect accuracy. Furthermore, robots are considered to be holonomic. The core of their method computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept, modeling each obstacle as a set of line segments that together enclose a convex polygon. As each obstacle is static, the preferred velocity imposed on the surrounding robots as velocity constraints is set to zero. In densely packed scenarios, it can happen that the solver finds no feasible solution to satisfy the robots' preferred velocities $v_("pref")$. When this occurs, the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. However, constraints imposed by obstacles are not relaxed, as collisions with obstacles must be strongly avoided. They demonstrate in simulations that their method can be used with thousands of robots in close proximity, still achieving smooth trajectories.
+
+#line(length: 100%, stroke: 10pt + theme.yellow)
+
+// - reducing the problem to solving a low-dimensional linear program.
+// - assume that the robot is holonomic, i.e. it can move in any direction, such that the control input of each robot is simply given by a two-dimensional velocity vector. Also, we assume that each robot has perfect sensing, and is able to infer the exact shape, position and velocity of obstacles and other robots in the environment
+// - Our approach is velocity-based. That implies that each robot takes into account the observed velocity of other robots in order to avoid collisions with them, and also that the robot selects its own velocity from its velocity space in which certain regions are marked as ‘forbidden’ because of the presence of other robots
+
+// - Our formulation, “optimal reciprocal collision avoidance”, infers for each other robot a half-plane (in velocity-space) of velocities that are allowed to be selected in order to guarantee collision avoidance. The robot then selects its optimal velocity from the intersection of all permitted half-planes, which can be done efficiently using linear programming. Under certain conditions with densely packed robots, the resulting linear program may be infeasible, in which case we select the ‘safest possible’ velocity using a three-dimensional linear program.
+
+
+// - Demonstrate their technique to work in simulation with thousands of robots
+
+// - It is assumed that each robot has a center point $p$ of its circular or convex polygonal shape, a radius $r$ and a velocity $v$ that can all be observed *perfectly* by other robots in the workspace.
+
+// - The optimization function is the distance to the preferred velocity vpref A .Even though this is a quadratic optimization function, it does not invalidate the linear programming characteristics, as it has only one local minimum
+
+// - On the other hand, the constraints on the permitted velocities for the robot with respect to obstacles should be hard, as collisions with obstacles should be avoided at all cost. Therefore, when the linear program of Section 5.1 is infeasible due to a high density of robots, the constraints of the obstacles are not relaxed
+
+// - We note that the half-planes of permitted velocities with respect to obstacles as defined above only make sure that the robot avoids collisions with the obstacle; they do not make the robot move around them. The direction of motion around obstacles towards the robot’s goal should be reflected in the robot’s preferred velocity,which could be obtained using (efficient) global path planning techniques.
+
 
 
 #line(length: 100%, stroke: 10pt + theme.maroon)
@@ -202,25 +225,20 @@ proposes the idea of modelling the communication scheme using for exchanging mes
 -  Factor Graphs: Exploiting Structure in Robotics
 
 
-- ORCA
-
-@orca
-
-
 === GBP Planner <background-related-works-gbp-planner>
 
-=== ORCA <background-related-works-orca>
+// === ORCA <background-related-works-orca>
 
-formulate the problem as _reciprocal n-body collision avoidance_
-
-
-The paper presents a formal approach to reciprocal n-body collision avoidance for multiple mobile robots. The methodology hinges on the concept of velocity obstacles, which are used to derive sufficient conditions for collision-free motion. The core idea is to compute collision-free actions for each robot independently by solving a low-dimensional linear program. The authors introduce the Optimal Reciprocal Collision Avoidance (ORCA) algorithm, which optimizes each robot's velocity to avoid collisions while maintaining a preferred trajectory. The method assumes each robot can sense the positions and velocities of other robots, and does not rely on communication or central coordination.
+// formulate the problem as _reciprocal n-body collision avoidance_
 
 
-- Linear problem to solve
-- Robot entities does not communicate
+// The paper presents a formal approach to reciprocal n-body collision avoidance for multiple mobile robots. The methodology hinges on the concept of velocity obstacles, which are used to derive sufficient conditions for collision-free motion. The core idea is to compute collision-free actions for each robot independently by solving a low-dimensional linear program. The authors introduce the Optimal Reciprocal Collision Avoidance (ORCA) algorithm, which optimizes each robot's velocity to avoid collisions while maintaining a preferred trajectory. The method assumes each robot can sense the positions and velocities of other robots, and does not rely on communication or central coordination.
 
-- holonomic, can move in any direction in the plane, i.e. control input is simply given as a 2d vector
+
+// - Linear problem to solve
+// - Robot entities does not communicate
+
+// - holonomic, can move in any direction in the plane, i.e. control input is simply given as a 2d vector
 
 
 === Handling Constrained Optimization in Factor Graphs for Autonomous Navigation <s.background-related-works.handling>
