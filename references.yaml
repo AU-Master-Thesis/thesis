@@ -853,3 +853,42 @@ zhang2023multirobot:
   date: 2023
   serial-number:
     arxiv: '2308.01533'
+
+
+distributed-optimization-methods-for-multi-robot-systems-part-2-a-survey:
+  type: article
+  title: 'Distributed Optimization Methods for Multi-robot Systems: Part 2—A Survey'
+  author:
+  - Shorinwa, Ola
+  - Halsted, Trevor
+  - Yu, Javier
+  - Schwager, Mac
+  date: 2024
+  page-range: 2–17
+  serial-number:
+    doi: 10.1109/MRA.2024.3352852
+  parent:
+    type: periodical
+    title: IEEE Robotics & Automation Magazine
+    issue: ''
+    volume: 0
+
+review-of-distributed-robotic-systems:
+  type: article
+  title: 'Distributed Robotic Systems in the Edge-Cloud Continuum with ROS 2: a Review on Novel Architectures and Technology Readiness'
+  author:
+  - Zhang, Jiaqiang
+  - Keramat, Farhad
+  - Yu, Xianjia
+  - Hernández, Daniel Montero
+  - Queralta, Jorge Peña
+  - Westerlund, Tomi
+  date: 2022
+  page-range: 1–8
+  serial-number:
+    doi: 10.1109/FMEC57183.2022.10062523
+  parent:
+    type: proceedings
+    title: 2022 Seventh International Conference on Fog and Mobile Edge Computing (FMEC)
+    issue: ''
+    volume: 0
