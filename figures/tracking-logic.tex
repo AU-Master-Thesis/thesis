@@ -1,0 +1,55 @@
+\documentclass[tikz]{standalone}
+
+\input{include/package}
+\input{include/functions}
+\input{include/style}
+
+\begin{document}
+\begin{tikzpicture}[]
+
+    \def\a{0}
+    \def\b{-135}
+    \def\c{-70}
+
+    \def\s{20 * \scale}
+    \draw[rrt line] (0, 0)    coordinate (wp1)
+               -- ++(\a:\s)    coordinate (wp2)
+               -- ++(\b:\s) coordinate (wp3)
+               -- ++(\c:\s)  coordinate (wp4);
+
+    \foreach \i in {1,...,4} {
+        \node[dot] at (wp\i) {};
+    }
+
+    \node[line, dot, draw=ctpMaroon, fill=none, minimum size=10 * \scale, dashed] at (wp2) {};
+
+    \def\hs{0.2 * \s}
+    \draw[none] (0, 0)
+           -- ++(\a:\hs) coordinate (v1)
+           -- ++(\a:\hs) coordinate (v2)
+           -- ++(\a:\hs) coordinate (v3)
+           -- ++(\a:\hs) coordinate (v4);
+
+    \draw[none] (wp2)
+           -- ++(\b:0.5 * \hs) coordinate (v5)
+           -- ++(\b:\hs) coordinate (v6)
+           -- ++(\b:\hs) coordinate (v7)
+           -- ++(\b:\hs) coordinate (v8)
+           -- ++(\b:\hs) coordinate (v9);
+
+    \draw[none] (wp3)
+           -- ++(\c:0.5 * \hs) coordinate (v10)
+           -- ++(\c:\hs) coordinate (v11)
+           -- ++(\c:\hs) coordinate (v12)
+           -- ++(\c:\hs) coordinate (v13)
+           -- ++(\c:\hs) coordinate (v14);
+
+    \pgfmathsetmacro{\angle}{(\b + 180 + \c) / 2}
+    \draw[none] (wp3) -- ++(\angle:0.8 * \hs) coordinate (v15);
+
+    \foreach \i in {1,...,15} {
+        \node[dot, fill=ctpLavender, minimum size=0.75 * \scale] at (v\i) {};
+    }
+
+\end{tikzpicture}%
+\end{document}

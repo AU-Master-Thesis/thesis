@@ -28,19 +28,6 @@
     outline(
       title: none,
       indent: auto,
-      fill: grid(
-        columns: 1,
-        block(
-          fill: black,
-          height: 0.5pt,
-          width: 100%,
-        ),
-        block(
-          fill: none,
-          height: 0.25em,
-          width: 100%,
-        ),
-      ),
       target: heading.where(numbering: "A.1:"),
     )
   }
