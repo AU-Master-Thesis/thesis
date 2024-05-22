@@ -72,6 +72,8 @@
   definition: Artificial Potential Field
 - acronym: MPC
   definition: Model Predictive Control
+- acronym: NMPC
+  definition: Nonlinear Model Predictive Control
 - acronym: SGD
   definition: Stochastic Gradient Descent
 - acronym: ORCA

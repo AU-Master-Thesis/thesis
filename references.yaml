@@ -892,3 +892,35 @@ review-of-distributed-robotic-systems:
     title: 2022 Seventh International Conference on Fog and Mobile Edge Computing (FMEC)
     issue: ''
     volume: 0
+
+bekris2010distributed:
+  type: article
+  title: A distributed protocol for safe real-time planning of communicating vehicles with second-order dynamics
+  author:
+  - Bekris, Kostas E
+  - Tsianos, Konstantinos I
+  - Kavraki, Lydia E
+  date: 2010
+  parent:
+    type: proceedings
+    title: 1st International ICST Conference on Robot Communication and Coordination
+
+
+distributed-nonlinear-trajectory-optimization-for-multi-robot-motion-planning:
+  type: article
+  title: Distributed Nonlinear Trajectory Optimization for Multi-Robot Motion Planning
+  author:
+  - Ferranti, Laura
+  - Lyons, Lorenzo
+  - Negenborn, Rudy R.
+  - Keviczky, Tamás
+  - Alonso-Mora, Javier
+  date: 2023
+  page-range: 809–824
+  serial-number:
+    doi: 10.1109/TCST.2022.3211130
+  parent:
+    type: periodical
+    title: IEEE Transactions on Control Systems Technology
+    issue: 2
+    volume: 31

@@ -22,10 +22,8 @@ in {
       hayagriva
       graphviz
       python3
-      # poppler-utils
       poppler_utils # pdf utilities
       languagetool
-
       just
       ltex-ls # languagetool lsp
       typos
@@ -38,7 +36,6 @@ in {
       ripgrep
       gcc
       git
-      # tree
       as-tree
       just
       fish
@@ -116,16 +113,16 @@ in {
     #   pass_filenames = false;
     # };
 
-    #   # typ-files-compiles = {
-    #   main-typ-compiles = {
-    #     enable = true;
-    #     name = "typ file compiles";
-    #     entry = "${pkgs.typst}/bin/typst compile --root . ";
-    #     # files = "\\.typ$";
-    #     excludes = ["sections/.*\\.typ"];
-    #     files = "./main.typ";
-    #     pass_filenames = true;
-    #   };
+    # typ-files-compiles = {
+    main-typ-compiles = {
+      enable = true;
+      name = "typ file compiles";
+      entry = "${pkgs.typst}/bin/typst compile --root . ";
+      # files = "\\.typ$";
+      excludes = ["sections/.*\\.typ"];
+      files = "./main.typ";
+      pass_filenames = true;
+    };
 
     #   all-citations-used = {
     #     enable = true;
