@@ -175,10 +175,9 @@
     )[
       #set par(justify: false)
       #v(0.25em)
-      #block({
-        box(width: 15mm, text(counter(heading).display(), weight: 600))
-        text(it.body, weight: 600)
-      })
+      #block([
+        #text(counter(heading).display()) #text(it.body, weight: 600)
+      ])
       #v(0.15em)
     ]
 
@@ -188,10 +187,9 @@
       #pagebreak(weak: true)
       #set par(justify: false)
       #v(0.25em)
-      #block({
-        box(width: 15mm, text(counter(heading).display(), weight: 600))
-        text(it.body, weight: 600)
-      })
+      #block([
+        #text(counter(heading).display()) #text(it.body, weight: 600)
+      ])
       #v(0.15em)
     ]
 

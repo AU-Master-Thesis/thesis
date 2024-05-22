@@ -570,16 +570,6 @@
   caption: none,
 ) = {
   let supplement = [Listing]
-  // let n = context listing-counter.get().at(0)
-
-  // let ns = if line-numbering == auto {
-  //   (lno) => {
-  //     set text(theme.surface2, font: "JetBrainsMono NF", size: 0.75em)
-  //     lno
-  //   }
-  // } else if line-numbering == none {
-  //   (lno) => none
-  // }
 
   let sourcecode = if line-numbering == none {
     sourcecode.with(numbers-style: (lno) => none)
@@ -589,7 +579,6 @@
 
   return figure(
     {
-      // listing-counter.step()
       sourcecode(content)
     },
     caption: caption,
