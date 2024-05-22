@@ -91,18 +91,48 @@ The field of multi-agent path planning has a rich literature spanning several de
 ]
 ) <f.multi-robot-path-planning-classification>
 
+=== Centralized approaches <s.related-works-centralized>
+
 In the centralized case path planning solutions are laid out in hiearchial structure, where a single computing unit, either a remote server or another robotic agent, is responsible for generating a joint path for all robots to follow. In this model robots will unicast relevant information about their current state to the decision maker. And receive instructions from it on what trajectory they have to follow.
 
 Fethi Matoui et al@matoui_contribution_2020 explore a centralized approach for the coordination of multiple unicycle robots in a two-dimensional workspace where they make use of an #acr("APF") to generate collision free trajectories. #acrpl("APF") are an intuitive way of thinking about trajectory planning. The entire workspace is overlaid with a vector field, where obstacles, be they static or other moving elements, are assigned repulsive forces. And target destinations are given an attractive force to pull the robot towards it. The gradient descent algorithm is then used to solve for an admissible trajectory. Than is each robot's next pose is determined by moving in the direction of the negative gradient of the total potential field. This gradient represents the combined influence of attractive and repulsive forces acting on the robot. Similar to other problems using gradient descent like the #acr("SGD") method often used in training of deep learning models, care must be taken to not construct a vector field, where the robot gets stuck in a local minima. #acr("APF") alone is not enough to do conflict resolution when two or more robots are close to each and follow the same slope. To handle this their supervisor node assign a numeric priority to each robot such that they form a total ordering. When two robots are within a configurable distance of each other the priority assignment is used to scale the repulsive force each robot exhibit on each other. The total ordering ensures that the repulsive force excerted is never equal. They motivate their choice of architecture by the argument that by having the core processing at a single supervisor node the other robots do not need to have have sophisticated sensors or a powerful computing unit. Which is advantageous for operations cost. But at the same time they admit that their method does not scale well, when the number of robots increases as the compute can only be scaled vertically and not horizontally as is the case for both the distributed and decentralized architecture@multi-robot-path-planning-review.
+
+=== Decentralized approaches <s.related-works-decentralized>
 
 A general trend in more recent literature is a stronger focus on strategies that do not rely on a centralized architecture@zhang2023multirobot@gbpplanner@orca@liu_learning_2023@bazzana_handling_2023. Reasons often brought up to discourage centralized approaches include their limitations in vertical scaling of compute resources, as seen in@matoui_contribution_2020, as the configuration space often grows exponentially with the number of robots. Additionally, coordination can become a significant bottleneck when all communication must go back and forth from a centralized service. This bottleneck not only increases latency but also risks single points of failure that can incapacitate the entire system. Consequently, decentralized and distributed approaches are increasingly favored for their scalability, robustness, and ability to handle complex, dynamic environments more efficiently.
 
 // A prominent method for doing decentralized collision avoidance and trajectory planning is #acr("ORCA") proposed by van den Berg et al. @orca. They utilize the concept of velocity obstacles to define sets of velocities that could lead to collisions between robots over a configurable time horizon $tau$. Robots exists in a 2D workspace and are modelled as a circle having a center point $p$ and radius $r$ and velocity $v$. A strong assumption made is that these three state properties can be observed by all other robots at any given time with _perfect_ accuracy. Furthermore robots are considered to be holonomic. The core of their method, computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept by modelling each obstacle as a set of line segments that together enclose a convex polygon. As each obstable is static their preferred velocity emposed on the surrounding robots as velocity constraints are set to $0$. In densely packed scenarios it can happen that the solver outputs that no feasible solution exists to satisfy the robots preferred velocity $v_("pref")$. When this happens the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. Permitted velocities for the robot with respect to obstacles should be hard, as collisions with obstacles should be strongly avoided. Therefore the constraints imposed by obstacles are not relaxed. They demontrate in simulation that their method can be used even with thousands of robots in close proximity of each other. And still achieve smooth trajectories.
 
 
-A prominent method for decentralized collision avoidance and trajectory planning is #acr("ORCA"), proposed by Van Den Berg et al.@orca. They utilize the concept of velocity obstacles to define sets of velocities that could lead to collisions between robots over a configurable time horizon $tau$. Robots exist in a 2D workspace and are modeled as circles with a center point $p$, radius $r$, and velocity $v$. A significant assumption made is that these state properties can be observed by all other robots at any given time with perfect accuracy. Furthermore, robots are considered to be holonomic. The core of their method computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept, modeling each obstacle as a set of line segments that together enclose a convex polygon. As each obstacle is static, the preferred velocity imposed on the surrounding robots as velocity constraints is set to zero. In densely packed scenarios, it can happen that the solver finds no feasible solution to satisfy the robots' preferred velocities $v_("pref")$. When this occurs, the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. However, constraints imposed by obstacles are not relaxed, as collisions with obstacles must be strongly avoided. They demonstrate in simulations that their method can be used with thousands of robots in close proximity, still achieving smooth trajectories.
+A prominent method for decentralized collision avoidance and trajectory planning is #acr("ORCA"), proposed by Van Den Berg et al.@orca. They utilize the concept of velocity obstacles to define sets of velocities that can lead to collisions between robots over a configurable time horizon $tau$. Robots exist in a 2D workspace and are modeled as circles with a center point $p$, radius $r$, and velocity $v$. A significant assumption made is that these state properties can be observed by all other robots at any given time with perfect accuracy. Furthermore, robots are considered to be holonomic. The core of their method computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept, modeling each obstacle as a set of line segments that together enclose a convex polygon. As each obstacle is static, the preferred velocity imposed on the surrounding robots as velocity constraints is set to zero. In densely packed scenarios, it can happen that the solver finds no feasible solution to satisfy the robots' preferred velocities $v_("pref")$. When this occurs, the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. However, constraints imposed by obstacles are not relaxed, as collisions with obstacles must be strongly avoided. They demonstrate in simulations that their method can be used with thousands of robots in close proximity, still achieving smooth trajectories. This demonstrates one of the clear benefits of scalability in comparison to centralised methods.
 
-#line(length: 100%, stroke: 10pt + theme.yellow)
+==== Game Theory
+
+#k[read through and improve language]
+
+In a recent paper published in 2023, Xinjie et al. @liu_learning_2023 presented a unique game-theoretic approach for decentralized path planning and collision avoidance using game theory as the fundamental model for doing collision avoidance. Contrary to #acr("ORCA")@orca they make no assumption that other moving agents operate under the same algorithm as the robot itself. Rather they consider the objective of others as being initially unknown to the robot .i.e. the robots perspective of the world is ego-centric. The game theoretical concept of forward- and inverse games are then used to iteratively update the robots model of others objective, and strategy for how they are going to achieve that object. In forward games, the objectives of players are known, and the task is to find players’ strategies. By contrast, inverse games take (partial) observations of strategies as inputs to recover initially unknown objectives. This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing other drivers true objective but by observing their behaviour you are able to form a likelihood model over their objective and how that partial information influence your prediction about how they are going to move. The strength of their method is that it allows robot agents to better handle environments with heterogenous agents. For example a factory floor where there might be other vehicles and humans moving around, that the robot is not able to communicate with in order to obtain their objective. Their method, is designed to operate with partial and noisy observations, by employing a Gaussian observation model for state estimations coming from sensors. Another key quality for deploying such a approach in the real world. Through both simulation and rea-world experiments they demonstrate that their method is robust and able to run in real-time on hardware.
+
+
+maximum likelihood estimation
+
+// - This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing other drivers true objective but by observing their behaviour you are able to form a likelihood model over their objective and how that partial information influence your prediction about how they are going to move.
+
+
+// Their method, designed to operate with partial and noisy observations, involves an adaptive model-predictive game solver that infers the objectives of other agents in real-time. Their algorithms works as follows. At each timestemp
+
+// The key innovation in their approach is the integration of a differentiable trajectory game solver. This solver computes the gradients of the game solution, enabling the use of gradient descent for estimating the unknown objectives of other agents. This process involves solving the game’s first-order necessary conditions, framed as a mixed complementarity problem (MCP). The differentiable nature of this solver allows it to be combined with other differentiable components, such as neural networks, enhancing its adaptability and efficiency.
+
+
+// - The strength of their method is ...
+
+// - adaptive model-predictive game solver
+
+// - a model-predictive game solver, which adapts to unknown opponents’ objectives and solves for generalized Nash equilibrium (GNE) strategies. The adaptivity of our approach is enabled by a differentiable trajectory game solver whose gradient signal is used for MLE of opponents’ objectives.
+
+// - computes forward game solutions while estimating player objectives.
+
+// - objectives of other agents, such as humans are often initially unknown to a robot.
+
 
 // - reducing the problem to solving a low-dimensional linear program.
 // - assume that the robot is holonomic, i.e. it can move in any direction, such that the control input of each robot is simply given by a two-dimensional velocity vector. Also, we assume that each robot has perfect sensing, and is able to infer the exact shape, position and velocity of obstacles and other robots in the environment
@@ -124,6 +154,8 @@ A prominent method for decentralized collision avoidance and trajectory planning
 
 
 #line(length: 100%, stroke: 10pt + theme.maroon)
+
+=== Distributed approaches <s.related-works-distributed>
 
 
 //
@@ -250,14 +282,3 @@ proposes the idea of modelling the communication scheme using for exchanging mes
 
 
 === #todo[Some approach using deep learning ...]
-
-
-=== Game Theory
-
-
-here @liu_learning_2023
-
-
-#kristoffer[
-  In the decentralized case knowledge about the state of other robots are acquired through sensor measurements and not through communication.
-]

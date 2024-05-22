@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i python3 -p hello
+#! nix-shell -i python3 -p pastel
 
 import sys
 import re
@@ -7,25 +7,106 @@ import os
 import argparse
 import subprocess
 import statistics
+import shutil
+
+GRADIENT = [
+    "#ff0000",
+    "#fc0800",
+    "#fa1500",
+    "#f71d00",
+    "#f52900",
+    "#f23000",
+    "#f03c00",
+    "#ed4300",
+    "#ea4e00",
+    "#e85500",
+    "#e55c00",
+    "#e26600",
+    "#e06c00",
+    "#dd7600",
+    "#db7c00",
+    "#d88500",
+    "#d68b00",
+    "#d39400",
+    "#d19900",
+    "#cea100",
+    "#cba600",
+    "#c8aa00",
+    "#c6b200",
+    "#c3b600",
+    "#c1be00",
+    "#bbbe00",
+    "#afbc00",
+    "#a7b900",
+    "#9bb700",
+    "#93b400",
+    "#8bb100",
+    "#80ae00",
+    "#78ac00",
+    "#6ea900",
+    "#67a700",
+    "#5da400",
+    "#56a200",
+    "#4d9f00",
+    "#469d00",
+    "#3e9a00",
+    "#389700",
+    "#329500",
+    "#299200",
+    "#248f00",
+    "#1c8d00",
+    "#178a00",
+    "#108800",
+    "#0b8500",
+    "#048300",
+    "#008000",
+]
 
 
-def get_gradient(n: int) -> list[str] | None:
-    output = subprocess.run(
-        f"pastel gradient red green -s HSL -n {n} | pastel format hex",
-        shell=True,
-        capture_output=True,
-        text=True,
-    )
+def get_gradient(steps) -> list[str] | None:
+    global GRADIENT
+    return GRADIENT[:steps]
 
-    # Check if the command was successful
-    if output.returncode == 0:
-        # Split the output into lines and store in a list
-        output_lines = output.stdout.splitlines()
-        # Print the list
-        return output_lines
-    else:
-        # If the command failed, print the error message
-        print("Error:", output.stderr)
+
+assert shutil.which("pastel")
+
+# from colormap import rgb2hex, hex2rgb
+#
+# def get_gradient(start_color, end_color, steps):
+#     start_rgb = hex2rgb(start_color)
+#     end_rgb = hex2rgb(end_color)
+#     gradient = []
+#
+#     for step in range(steps):
+#         interp = step / (steps - 1)
+#         r = int(start_rgb[0] + interp * (end_rgb[0] - start_rgb[0]))
+#         g = int(start_rgb[1] + interp * (end_rgb[1] - start_rgb[1]))
+#         b = int(start_rgb[2] + interp * (end_rgb[2] - start_rgb[2]))
+#         gradient.append(rgb2hex(r, g, b))
+#
+#     return gradient
+
+
+# def get_gradient(n: int) -> list[str] | None:
+#     print(f"{n=}")
+#     output = subprocess.run(
+#         f"{shutil.which('pastel')} gradient red green -s HSL -n {n} | pastel format hex",
+#         shell=True,
+#         capture_output=True,
+#         text=True,
+#     )
+#
+#     print(f"{output=}")
+#
+#     # Check if the command was successful
+#     if output.returncode == 0:
+#         # Split the output into lines and store in a list
+#         output_lines = output.stdout.splitlines()
+#         # Print the list
+#         return output_lines
+#     else:
+#         # If the command failed, print the error message
+#         print("Error:", output.stderr)
 
 
 def hex_to_ansi(hex_color):
@@ -85,7 +166,7 @@ word_count_to_gradient_index: dict[int, int] = {
 # print(word_count_to_gradient_index)
 # sys.exit(0)
 
-print(f"{unique_word_length = }")
+# print(f"{unique_word_length = }")
 
 gradient = get_gradient(unique_word_length)
 # print(gradient)
@@ -105,6 +186,8 @@ RED = "\033[31m"
 YELLOW = "\033[33m"
 BLUE = "\033[34m"
 
+# print(f"{gradient=}")
+
 N = len(dictionary) if args.top == 0 else args.top
 # Print in sorted order by frequency
 for word in sorted(dictionary, key=dictionary.get, reverse=True)[:N]:
@@ -121,6 +204,7 @@ for word in sorted(dictionary, key=dictionary.get, reverse=True)[:N]:
         # histogram_bar = "+" * (int(count / total_words * width_available))
 
         color = gradient[word_count_to_gradient_index[count]]
+        print(f"{color=}")
         color = hex_to_ansi(color)
         # color = hex_to_ansi(gradient[dictionary[word] - 1])
         # print(f"{YELLOW}{text}{RESET} {color}{histogram_bar}{RESET}")
