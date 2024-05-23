@@ -1,7 +1,5 @@
 #import "../../lib/mod.typ": *
 == Gaussian Models <s.b.gaussian-models>
-#jonas[From here on and the rest of the background we would love the feedback as described on the front page!]
-
 // Reasons from @gbp-visual-introduction
 // (1) they accurately represent the distribution for many real world events , (2) they have a simple analytic form, (3) complex operations can be expressed with simple formulae and (4) they are closed under marginalization, conditioning and taking products (up to normalization).
 // reword these reasons!
@@ -105,7 +103,7 @@ In the exponential energy form, a Gaussian model can be represented in two ways;
   ]
 }
 
-As outlined in @f.gaussian-models the _Canonical Form_ is much more computationally efficient when it comes to conditioning and taking products, while the _Moments Form_ excels at marginalisation.@gbp-visual-introduction #jens[explain why this is the case]
+As outlined in @f.gaussian-models the #gaussian.canonical is much more computationally efficient when it comes to conditioning and taking products, while the #gaussian.moments excels at marginalisation. This is due to the fact that the canonical form is closed under conditioning and taking products, while the moments form is closed under marginalisation.@gbp-visual-introduction In the context of factor graphs in software, the #gaussian.moments is often preferred due to its efficiency in marginalisation, which is a common operation in factor graph inference.@gbp-visual-introduction#jonas[Is this better?]
 
 // why is that?
 
@@ -146,3 +144,5 @@ This posterior distribution describes our belief of $X$, after observing $D$, wh
   $<eq-marginal-posterior>
 
 // The most common methods for probabilistic inference are exact inference and approximate inference.
+
+#jonas[haven't gotten around to rounding this section off]

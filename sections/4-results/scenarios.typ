@@ -1,10 +1,9 @@
 #import "../../lib/mod.typ": *
 == Scenarios <s.r.scenarios>
 
-#jonas[Read this, and all subsections]
-
-The performance of the reimplementation is evaluated across #numbers.written(scen.len()) different scenarios;
-#scen.circle.s, #scen.environment-obstacles.s, #scen.varying-network-connectivity.s, #scen.junction.s and #scen.communications-failure.s. These scenarios adhere to the original paper's@gbpplanner experiments.
+// #jonas[Read this, and all subsections]
+The performance of the reimplementation is evaluated across #numbers.written(scen.len()) different scenarios. The scenarios adhere to the original paper's@gbpplanner experiments, and are described in the following listing
+#jonas[fixed the boldness overload here]
 
 #set enum(numbering: box-enum.with(prefix: "S-"))
 + _*Circle*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
@@ -25,7 +24,7 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 // In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
 
 
-Specific details and parameters for each scenario are presented in the following sections #numref(<s.r.scenarios.circle>), #numref(<s.r.scenarios.environment-obstacles>), #numref(<s.r.scenarios.varying-network-connectivity>), #numref(<s.r.scenarios.junction>) and #numref(<s.r.scenarios.communications-failure>). Parameters are selected to be identical to whats presented in @gbpplanner. The numerical value of a few parameters in some of the scenarios are not listed explicitly. In these cases an argument for the selected interpretation is presented to justify the values chosen. An asterisk is used as a postfix for the values for which this applies, e.g. $x^*$. A lot of the values are the same between scenarios. To make the differences stand out, each value that is different from its value in the Circle scenario is colored #text(theme.red, [red]). Parameters related to the #acr("GBP") algorithm are explained in detail in @s.m.study-2. New parameters not explained previously are:
+Specific details and parameters for each scenario are presented in the following sections #numref(<s.r.scenarios.circle>)-#numref(<s.r.scenarios.communications-failure>). Parameters are selected to be identical to whats presented in @gbpplanner. The numerical value of a few parameters in some of the scenarios are not listed explicitly. In these cases an argument for the selected interpretation is presented to justify the values chosen. An asterisk is used as a postfix for the values for which this applies, e.g. $x^*$. A lot of the values are the same between scenarios. To make the differences stand out, each value that is different from its value in the Circle scenario is colored #text(theme.red, [red]). Parameters related to the #acr("GBP") algorithm are explained in detail in @s.m.study-2. New parameters not explained previously are:
 
 #{
   set table.vline(stroke: 0.5pt + black)

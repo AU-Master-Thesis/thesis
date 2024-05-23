@@ -38,7 +38,7 @@ Global planning has been made as an extension to the original GBP Planner softwa
   )
 ]<ex.global-planning>
 
-The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.s4.configuration.
+The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.configuration.
 
 // as seen in @f.m.rrt-colliders.
 
@@ -75,6 +75,8 @@ As mentioned earlier in #todo[describe how the environment i built], the environ
 )<f.m.rrt-colliders>
 
 === Path Adherence <s.m.planning.path-adherence>
+
+#jonas[Take a look at this section and then at the top, where I have described a separate study (4) for the path tracking stuff. Does it make sense to separate it out, or is it good to have it in this context. I feel like you're biased towards wanting it in this context, but I am not too sure, since the path tracking is a general factor graph addition, which works no matter how the path is found or given, where the global planning is path-finding stuff, which is separate from figuring out how to follow the path right?]
 
 In general the path-finding algorithm chosen doesn't matter for either of the approaches described here. What is required is; 1) the path that is found, places waypoints near most of the bends in the path, and 2) the path avoids big obstacles. The possible approaches for the path adherence are as follows:
 

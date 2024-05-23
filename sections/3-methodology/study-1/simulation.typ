@@ -1,6 +1,6 @@
 #import "../../../lib/mod.typ": *
 
-=== Simulation Tool <s.m.s4.simulation-tool>
+=== Simulation Tool <s.m.simulation-tool>
 #jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
 
 // Hypothesis 4:
@@ -46,7 +46,7 @@ As described in hypothesis #study.H-4.box, this thesis poses the idea the extens
 
 ==== Live Configuration <s.m.s4.settings>
 
-Most of the configurable settings described in #nameref(<s.m.s4.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
+Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
 Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The significant#note.wording[different word?] sections are described in the following sections.
 
 #jens[Live configuration editing allows for rapid testing]

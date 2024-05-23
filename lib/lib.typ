@@ -32,7 +32,8 @@
 // #let project-name = "Multi-agent Collaborative Path Planning"
 // Better titles:
 // #let project-name = "Hybrid Multi-agent Path Planning: Gaussian Belief Propagation and Global Path Finding"
-#let project-name = "Merging Gaussian Belief Propagation and Global Path Finding for Multi-agent Path Planning in Complex Environments"
+// #let project-name = "Merging Gaussian Belief Propagation and Global Path Finding for Multi-agent Path Planning in Complex Environments"
+#let project-name = "Simulating Multi-agent Path Planning in Complex Environments using Gaussian Belief Propagation and Global Path Finding"
 
 #let supervisors = (
   andriy: [Andriy Sarabakha],
@@ -141,6 +142,7 @@
 #let kristoffer = remark.with(color: theme.green, prefix: "Kristoffer: ")
 #let k = kristoffer
 #let jonas = remark.with(color: theme.mauve, prefix: "Jonas: ")
+#let att(content) = text(theme.peach, content)
 
 #let boxed-enum(
   prefix: "",
@@ -683,37 +685,37 @@
   H-1: (
     box: boxed(text(weight: 900, "H-1")),
     prefix: [_*Study 1*_],
-    name: [_*Reproduction*_],
+    name: [_*Simulation Framework*_],
     full: (
-      s: [_*Study 1: Reproduction*_],
-      n: [Study 1: Reproduction],
+      s: [_*Study 1: Simulation Framework*_],
+      n: [Study 1: Simulation Framework],
     )
   ),
   H-2: (
     box: boxed(text(weight: 900, "H-2")),
     prefix: [_*Study 2*_],
-    name: [_*Improvements*_],
+    name: [_*Algorithm Enhancements*_],
     full: (
-      s: [_*Study 2: Improvements*_],
-      n: [Study 2: Improvements],
+      s: [_*Study 2: Algorithm Enhancements*_],
+      n: [Study 2: Algorithm Enhancements],
     )
   ),
   H-3: (
     box: boxed(text(weight: 900, "H-3")),
     prefix: [_*Study 3*_],
-    name: [_*Extension*_],
+    name: [_*Global Planning Layer*_],
     full: (
-      s: [_*Study 3: Extension*_],
-      n: [Study 3: Extension],
+      s: [_*Study 3: Global Planning Layer*_],
+      n: [Study 3: Global Planning Layer],
     )
   ),
   H-4: (
     box: boxed(text(weight: 900, "H-4")),
     prefix: [_*Study 4*_],
-    name: [_*Tooling & Design*_],
+    name: [_*GBP Path Tracking*_],
     full: (
-      s: [_*Study 4: Tooling & Design*_],
-      n: [Study 4: Tooling & Design],
+      s: [_*Study 4: GBP Path Tracking*_],
+      n: [Study 4: GBP Path Tracking],
     )
   ),
 )

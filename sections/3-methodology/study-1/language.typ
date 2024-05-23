@@ -1,7 +1,7 @@
 #import "../../../lib/mod.typ": *
 === Implementation Language
 
-#jonas[No need to read this section]
+#jonas[No need to read this section still. However how do we talk about choosing a specific language when we haven't performed rigorous tests on which one would be best for the implementation?]
 
 This subsection describes the choice of implementation programming language used in both the simulation and the reimplementation of the gbpplanner paper. Motivations for why the language was chosen is laid out and argued for.
 
