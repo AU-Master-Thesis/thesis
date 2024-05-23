@@ -21,6 +21,8 @@ of time fighting its idiosyncrasies
   What other alternatives were available?
   C++
   Zig
+  Odin
+
   Julia
   Python, too slow, and lack of a strong (enforced) type system had us worried about managing the implementation as the project codebase would grow.
 ]

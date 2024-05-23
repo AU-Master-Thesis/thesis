@@ -315,6 +315,7 @@ Five different iteration schedules are experimented with. Each schedule is liste
   show-schedule(iterations.values(), schedule-centered, cmap: cmap.values(), inactive-color: inactive-color, title: [Centered])
 },
   caption: [
+  #k[reformulate]
   Visual representation of each schedule for $M_I = 50$, $M_R = 10$. Cells colored teal #cell(cmap.internal) indicate that internal message passing should happen at the iteration of that column. Red #cell(cmap.external) represent external message passing and gray #cell(inactive-color) that no message passing should happen at that iteration.
 ]
 ) <f.iteration-schedules>

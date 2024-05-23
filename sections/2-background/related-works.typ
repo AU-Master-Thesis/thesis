@@ -1,4 +1,8 @@
 #import "../../lib/mod.typ": *
+
+#let etal = [_et al._]
+
+
 == Related Works <s.b.related-works>
 
 The field of multi-agent path planning has a rich literature spanning several decades, with numerous proposed methods. One of the key taxonomies that can be used to classify existing methods are in respect to how they distribute the computation of the jointly planned path among the robotic agents. In the majority of cases, methods attempt to solve the problem by one of three ways: _Centralized_, _Decentralized_ or _Distributed_@multi-robot-path-planning-review. A depiction of what is meant by each is shown in @f.multi-robot-path-planning-classification.
@@ -95,7 +99,7 @@ The field of multi-agent path planning has a rich literature spanning several de
 
 In the centralized case path planning solutions are laid out in hiearchial structure, where a single computing unit, either a remote server or another robotic agent, is responsible for generating a joint path for all robots to follow. In this model robots will unicast relevant information about their current state to the decision maker. And receive instructions from it on what trajectory they have to follow.
 
-Fethi Matoui et al@matoui_contribution_2020 explore a centralized approach for the coordination of multiple unicycle robots in a two-dimensional workspace where they make use of an #acr("APF") to generate collision free trajectories. #acrpl("APF") are an intuitive way of thinking about trajectory planning. The entire workspace is overlaid with a vector field, where obstacles, be they static or other moving elements, are assigned repulsive forces. And target destinations are given an attractive force to pull the robot towards it. The gradient descent algorithm is then used to solve for an admissible trajectory. Than is each robot's next pose is determined by moving in the direction of the negative gradient of the total potential field. This gradient represents the combined influence of attractive and repulsive forces acting on the robot. Similar to other problems using gradient descent like the #acr("SGD") method often used in training of deep learning models, care must be taken to not construct a vector field, where the robot gets stuck in a local minima. #acr("APF") alone is not enough to do conflict resolution when two or more robots are close to each and follow the same slope. To handle this their supervisor node assign a numeric priority to each robot such that they form a total ordering. When two robots are within a configurable distance of each other the priority assignment is used to scale the repulsive force each robot exhibit on each other. The total ordering ensures that the repulsive force excerted is never equal. They motivate their choice of architecture by the argument that by having the core processing at a single supervisor node the other robots do not need to have have sophisticated sensors or a powerful computing unit. Which is advantageous for operations cost. But at the same time they admit that their method does not scale well, when the number of robots increases as the compute can only be scaled vertically and not horizontally as is the case for both the distributed and decentralized architecture@multi-robot-path-planning-review.
+Fethi Matoui #etal@matoui_contribution_2020 explore a centralized approach for the coordination of multiple unicycle robots in a two-dimensional workspace where they make use of an #acr("APF") to generate collision free trajectories. #acrpl("APF") are an intuitive way of thinking about trajectory planning. The entire workspace is overlaid with a vector field, where obstacles, be they static or other moving elements, are assigned repulsive forces. And target destinations are given an attractive force to pull the robot towards it. The gradient descent algorithm is then used to solve for an admissible trajectory. Than is each robot's next pose is determined by moving in the direction of the negative gradient of the total potential field. This gradient represents the combined influence of attractive and repulsive forces acting on the robot. Similar to other problems using gradient descent like the #acr("SGD") method often used in training of deep learning models, care must be taken to not construct a vector field, where the robot gets stuck in a local minima. #acr("APF") alone is not enough to do conflict resolution when two or more robots are close to each and follow the same slope. To handle this their supervisor node assign a numeric priority to each robot such that they form a total ordering. When two robots are within a configurable distance of each other the priority assignment is used to scale the repulsive force each robot exhibit on each other. The total ordering ensures that the repulsive force excerted is never equal. They motivate their choice of architecture by the argument that by having the core processing at a single supervisor node the other robots do not need to have have sophisticated sensors or a powerful computing unit. Which is advantageous for operations cost. But at the same time they admit that their method does not scale well, when the number of robots increases as the compute can only be scaled vertically and not horizontally as is the case for both the distributed and decentralized architecture@multi-robot-path-planning-review.
 
 === Decentralized approaches <s.related-works-decentralized>
 
@@ -104,13 +108,13 @@ A general trend in more recent literature is a stronger focus on strategies that
 // A prominent method for doing decentralized collision avoidance and trajectory planning is #acr("ORCA") proposed by van den Berg et al. @orca. They utilize the concept of velocity obstacles to define sets of velocities that could lead to collisions between robots over a configurable time horizon $tau$. Robots exists in a 2D workspace and are modelled as a circle having a center point $p$ and radius $r$ and velocity $v$. A strong assumption made is that these three state properties can be observed by all other robots at any given time with _perfect_ accuracy. Furthermore robots are considered to be holonomic. The core of their method, computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept by modelling each obstacle as a set of line segments that together enclose a convex polygon. As each obstable is static their preferred velocity emposed on the surrounding robots as velocity constraints are set to $0$. In densely packed scenarios it can happen that the solver outputs that no feasible solution exists to satisfy the robots preferred velocity $v_("pref")$. When this happens the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. Permitted velocities for the robot with respect to obstacles should be hard, as collisions with obstacles should be strongly avoided. Therefore the constraints imposed by obstacles are not relaxed. They demontrate in simulation that their method can be used even with thousands of robots in close proximity of each other. And still achieve smooth trajectories.
 
 
-A prominent method for decentralized collision avoidance and trajectory planning is #acr("ORCA"), proposed by Van Den Berg et al.@orca. They utilize the concept of velocity obstacles to define sets of velocities that can lead to collisions between robots over a configurable time horizon $tau$. Robots exist in a 2D workspace and are modeled as circles with a center point $p$, radius $r$, and velocity $v$. A significant assumption made is that these state properties can be observed by all other robots at any given time with perfect accuracy. Furthermore, robots are considered to be holonomic. The core of their method computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept, modeling each obstacle as a set of line segments that together enclose a convex polygon. As each obstacle is static, the preferred velocity imposed on the surrounding robots as velocity constraints is set to zero. In densely packed scenarios, it can happen that the solver finds no feasible solution to satisfy the robots' preferred velocities $v_("pref")$. When this occurs, the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. However, constraints imposed by obstacles are not relaxed, as collisions with obstacles must be strongly avoided. They demonstrate in simulations that their method can be used with thousands of robots in close proximity, still achieving smooth trajectories. This demonstrates one of the clear benefits of scalability in comparison to centralised methods.
+A prominent method for decentralized collision avoidance and trajectory planning is #acr("ORCA"), proposed by Van Den Berg #etal.@orca. They utilize the concept of velocity obstacles to define sets of velocities that can lead to collisions between robots over a configurable time horizon $tau$. Robots exist in a 2D workspace and are modeled as circles with a center point $p$, radius $r$, and velocity $v$. A significant assumption made is that these state properties can be observed by all other robots at any given time with perfect accuracy. Furthermore, robots are considered to be holonomic. The core of their method computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept, modeling each obstacle as a set of line segments that together enclose a convex polygon. As each obstacle is static, the preferred velocity imposed on the surrounding robots as velocity constraints is set to zero. In densely packed scenarios, it can happen that the solver finds no feasible solution to satisfy the robots' preferred velocities $v_("pref")$. When this occurs, the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. However, constraints imposed by obstacles are not relaxed, as collisions with obstacles must be strongly avoided. They demonstrate in simulations that their method can be used with thousands of robots in close proximity, still achieving smooth trajectories. This demonstrates one of the clear benefits of scalability in comparison to centralised methods.
 
 ==== Game Theory
 
 #k[read through and improve language]
 
-In a recent paper published in 2023, Xinjie et al. @liu_learning_2023 presented a unique game-theoretic approach for decentralized path planning and collision avoidance using game theory as the fundamental model for doing collision avoidance. Contrary to #acr("ORCA")@orca they make no assumption that other moving agents operate under the same algorithm as the robot itself. Rather they consider the objective of others as being initially unknown to the robot .i.e. the robots perspective of the world is ego-centric. The game theoretical concept of forward- and inverse games are then used to iteratively update the robots model of others objective, and strategy for how they are going to achieve that object. In forward games, the objectives of players are known, and the task is to find players’ strategies. By contrast, inverse games take (partial) observations of strategies as inputs to recover initially unknown objectives. This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing other drivers true objective but by observing their behaviour you are able to form a likelihood model over their objective and how that partial information influence your prediction about how they are going to move. The strength of their method is that it allows robot agents to better handle environments with heterogenous agents. For example a factory floor where there might be other vehicles and humans moving around, that the robot is not able to communicate with in order to obtain their objective. Their method, is designed to operate with partial and noisy observations, by employing a Gaussian observation model for state estimations coming from sensors. Another key quality for deploying such a approach in the real world. Through both simulation and rea-world experiments they demonstrate that their method is robust and able to run in real-time on hardware.
+In a recent paper published in 2023, Xinjie #etal. @liu_learning_2023 presented a unique game-theoretic approach for decentralized path planning and collision avoidance using game theory as the fundamental model for doing collision avoidance. Contrary to #acr("ORCA")@orca they make no assumption that other moving agents operate under the same algorithm as the robot itself. Rather they consider the objective of others as being initially unknown to the robot .i.e. the robots perspective of the world is ego-centric. The game theoretical concept of forward- and inverse games are then used to iteratively update the robots model of others objective, and strategy for how they are going to achieve that object. In forward games, the objectives of players are known, and the task is to find players’ strategies. By contrast, inverse games take (partial) observations of strategies as inputs to recover initially unknown objectives. This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing other drivers true objective but by observing their behaviour you are able to form a likelihood model over their objective and how that partial information influence your prediction about how they are going to move. The strength of their method is that it allows robot agents to better handle environments with heterogenous agents. For example a factory floor where there might be other vehicles and humans moving around, that the robot is not able to communicate with in order to obtain their objective. Their method, is designed to operate with partial and noisy observations, by employing a Gaussian observation model for state estimations coming from sensors. Another key quality for deploying such a approach in the real world. Through both simulation and real-world experiments they demonstrate that their method is robust and able to run in real-time on hardware.
 
 
 #k[maximum likelihood estimation]
@@ -118,7 +122,7 @@ In a recent paper published in 2023, Xinjie et al. @liu_learning_2023 presented 
 // - This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing other drivers true objective but by observing their behaviour you are able to form a likelihood model over their objective and how that partial information influence your prediction about how they are going to move.
 
 
-// Their method, designed to operate with partial and noisy observations, involves an adaptive model-predictive game solver that infers the objectives of other agents in real-time. Their algorithms works as follows. At each timestemp
+// Their method, designed to operate with partial and noisy observations, involves an adaptive model-predictive game solver that infers the objectives of other agents in real-time. Their algorithms works as follows. At each timestamp
 
 // The key innovation in their approach is the integration of a differentiable trajectory game solver. This solver computes the gradients of the game solution, enabling the use of gradient descent for estimating the unknown objectives of other agents. This process involves solving the game’s first-order necessary conditions, framed as a mixed complementarity problem (MCP). The differentiable nature of this solver allows it to be combined with other differentiable components, such as neural networks, enhancing its adaptability and efficiency.
 
@@ -158,133 +162,41 @@ In a recent paper published in 2023, Xinjie et al. @liu_learning_2023 presented 
 
 The third architectural approach to multi-robot path planning models the robot system as a distributed one, where agents communicate to jointly arrive at collision-free paths. This methodology allows robots to share their internal states and external observations. It also enables coordination for higher-level goals, such as changing routes to optimize for robots with different priorities or urgent tasks. However, it introduces challenges common to traditional distributed systems, such as synchronizing shared states, ensuring fault tolerance against unavailable peers due to network latency, and handling variable message arrival times caused by network congestion@review-of-distributed-robotic-systems@distributed-optimization-methods-for-multi-robot-systems-part-2-a-survey. The content of messages exchanged between robots varies between different methods.
 
-Laura Ferranti et al. demonstrates how to utilize #acr("NMPC") in an asynchronous message passing scenario to solve for collision free paths under the possible presence of packet delay. Messages from a robot $R_i$ to $R_j$ are composed of its estimated difference in position between its center point and $R_j$. Together with its estimated heading of $R_j$ wrt. $R_i$ body frame. In the presence of packet delay from nearby robots to $R_i$, robot $R_i$ will inflate its collision region by an amount proportional to the possible error $R_i$’s neighbors might have on the current position of $R_i$ to preserve safety. The predictions generated by the #acr("NMPC") solver are adjusted by the necessary number of steps to account for asynchronous communications and packet losses, interpolating the end of the horizon based on their predicted speed. They test their method with real-world hardware in an intersection crossing scenario with varying number of robots. Their results demonstrate that the asynchronous algorithm successfully achieved the planning goals while handling packet losses resulting from the robots falling out of sync during coordination@distributed-nonlinear-trajectory-optimization-for-multi-robot-motion-planning.
+Laura Ferranti #etal. demonstrates how to utilize #acr("NMPC") in an asynchronous message passing scenario to solve for collision free paths under the possible presence of packet delay. Messages from a robot $R_i$ to $R_j$ are composed of its estimated difference in position between its center point and $R_j$. Together with its estimated heading of $R_j$ wrt. $R_i$ body frame. In the presence of packet delay from nearby robots to $R_i$, robot $R_i$ will inflate its collision region by an amount proportional to the possible error $R_i$’s neighbors might have on the current position of $R_i$ to preserve safety. The predictions generated by the #acr("NMPC") solver are adjusted by the necessary number of steps to account for asynchronous communications and packet losses, interpolating the end of the horizon based on their predicted speed. They test their method with real-world hardware in an intersection crossing scenario with varying number of robots. Their results demonstrate that the asynchronous algorithm successfully achieved the planning goals while handling packet losses resulting from the robots falling out of sync during coordination@distributed-nonlinear-trajectory-optimization-for-multi-robot-motion-planning.
 
+Another method with contributions from multiple authors is the use of factor graphs to represent probabilistic relationships between variables with potentially coupled constraints@factor-graphs-exploiting-structure-in-robotics@robotweb@patwardhan_distributing_2023@bazzana_handling_2023. Factor graphs are undirected bipartite graph structures with two types of nodes: variables and factors. Variables represent possible states or unknowns, while factors represent constraints or relationships between these variables. This versatile structure solves optimization problems with constraints iteratively and has been used in various important areas of robotics such as #acr("SLAM"), #acr("SfM"), and optimal control to name a few@factor-graphs-exploiting-structure-in-robotics. In #acr("SLAM"), factor graphs can be used for estimating a robot's pose over time, the robot poses and landmark measurements are variables connected by binary factors representing measurements that correlate them.
+
+#line(length: 100%, stroke: 10pt + theme.yellow)
+
+
+Patwardhan #etal presents the idea of using factor graphs for multi-agent path planning in _Distributing Collaborative Multi-Robot Planning with Gaussian Belief Propagation_@gbpplanner. In their formulation each robot has a factor graph where variables are possible future states spread out over a forward time window. Four different factors are used; pose, obstacle, dynamics and inter-robot. Each one encodes a different constraint needed for efficient and collision-free paths. As this thesis aims to reimplement and extend the work by Patwardhan #etal a detailed explanation of each factor will be omitted here, and instead be presented in detail in @s.m.factor-graph. The most important factor to mention here is the interrobot factor which is used to facilitate message passing between robots. These factors are ephemeral and are added whenever two robots are within communication range of each other. They add a shared constraints of minimum tolerable distance between variables in each robots factorgraph. Their approach incorporates #acr("GBP") as the inference algorithm used to determine marginal distributions for the future poses which best satisfy all constraints. Robot exchange messages between each other where the payload are marginalised multivariable gaussian distributions that describe a robots belief about the other robots future states. They demonstrate in simulation how their method is able to handle high density scenarios securely while achieving significantly shorter makespans compared to #acr("ORCA"), while still able to generate smooth paths, which #acr("ORCA") begins to struggle with with higher number of robots in close proximity. One of the key strength of their approach is that it is robust even in the presence of some communication failure. Likewise as new messages are incorporated iteratively into the other robots factorgraph abouts its certainly there are no hard constraints on messages having to arrive out of order or strong guarantees about at which frequency messages has to arrive. Both qualities that allow it too tacle some of the previously listed challenges common in distributed multi-robot path planning systems. These strong qualities and others to be presented are motivating arguments for the choice of us selecting it as the basis for further analysis and improvement.
 
 #line(length: 100%, stroke: 10pt + theme.maroon)
 
+// // _A Robot Web for Distributed Many-Device Localisation_, by incorporating #acr("GBP") as the messaging scheme used for doing inference on a joint factorgraph shared between robots.
 //
-// A general trend in more recent literature is a stronger focus on strategies that do not rely on a centralized architecture@zhang2023multirobot@gbpplanner@orca@liu_learning_2023@bazzana_handling_2023. Reasons often brought up to discourage
+// earlier showed that large parts of the same approach can be used fro multi robot localization demonstrating the versatility of their method.
 //
-// - limited by vertical scaling
-// - Configuration space often grows exponentially with the number of robots
-// - Coordiation can become a bottleneck when all communication has to go back and fourth from a centralized service.
+// that #acr("GBP") can be utilised to solve multi-agent _localisation_
 //
-
-// and possibility of more easily doing hkorizontal scaling in other to encompass a larger problem. #kristoffer[but there is a limit for how much vertical scaling you can do of the supervisor unit]
-
-// - admit that their method does not scale well, when the number of robots increases
-
-// Each robot's next pose is determined by moving in the direction of the negative gradient of the total potential field. This gradient represents the combined influence of attractive and repulsive forces acting on the robot.
-
-// - conflict resolution
-
-// This alone is not enough to ensure that
-
-// robots do not collide, as it does not guarantee temporal consistency
-
-// Local minima
-
-
-
-// - That further ensures a state update that is feasible for the dynamics/kinematics of the unicycle model
-// - Each robot receives from the centralized controller the angular control speeds applied to the right and left wheels.
-
-
-// - Does not mention how they make state estimation of the robots
-
-// - Known environment with static obstacles and moving/dynamic robots
-
-
-// - Split over four modules
-  // + Localization module
-  // + Attraction towards the target module
-  // + Collision avoidance module
-  // + Conflict resolution module
-
-// - APF simulating attractive and repulsive forces
-// - Attractive Force: The goal exerts an attractive force on the robot, pulling it towards the target.
-// - Repulsive Force: Obstacles exert a repulsive force, pushing the robot away to avoid collisions.
-// - Total Force: The robot's movement is determined by the combination of these forces. The robot follows the path of the resultant force vector, moving towards the goal while avoiding obstacles.
-// - Potential Function: The environment is represented as a potential field where the goal has a low potential, and obstacles have high potential. The robot moves along the gradient of this field, aiming to reach the minimum potential at the goal.
-
-// QUOTE
-// First, the robots used do not need embedded sensors or a powerful computing unit. This greatly reduces their cost. In addition, the concentration of sensors at a supervisor level provides a better understanding of the overall environment.
-
-
-
-// When a viable set of paths are found they are
-
-
-// more fault tolerant and robust in complex dynamic environments
-
-
-// Each approach has its pros and cons and can be equally applicable depending on the
-
-
-// Central solver
-
-// increased coordination
-
-
-
-
-#k[
-  Good words/sentences to use:
-  - static/holonomic and dynamic/non-holonomically-constrained systems
-  - Taxonomy of different approaches
-
-  - Factorgraphs used for other areas of robotics such as
-    - SLAM (Simultaneous Localization and Mapping)
-    - SfM (Structure-from-Motion)
-]
-
-
-// Approaches vary in assumptions about the environment and the holonomic constraints of the robots. A critical element in multi-robot systems, path planning exhibits large dichotomies, such as whether an algorithm is centralized, with a single decision-making entity, or decentralized. The guarantees offered by these algorithms also differ, addressing factors like travel time, distance, and feasible trajectories based on the robot's motion model. Additionally, robustness to dynamic environments and communication interference is crucial. The methods range from classical approaches to modern AI-driven techniques, including sampling-based, graph-based, and potential field methods. Key indicators of a good path planning algorithm include path length, computational speed, smoothness, energy cost, and safety. Furthermore, it's important to distinguish between path planning and trajectory planning, as the former focuses solely on finding an obstacle-free path without considering the temporal aspects of motion such as the velocity and jerk needed to safely executed the planned path.
-
-
-Originally Murai _et al._ showed, with their _A Robot Web for Distributed Many-Device Localisation_, that #acr("GBP") can be utilised to solve multi-agent _localisation_. Then Patwardhan _et al._ showed that the same algorithm structure can be adapted to multi-agent _planning_. This thesis aims to extend the work by Patwardhan _et al._@gbpplanner to include a global planning layer, which can provide a more robust solution to the multi-agent planning in highly complex environments. As such @gbpplanner will be covered more thoroughly in its own dedicated section below, see @background-related-works-gbp-planner.
-
-#todo[maybe the 'dedicated section' is simply the rest of the background which contains the relevant theory.]
-
-#todo[Split the related works into a subsection for each important work.]
-
-
-- A Robot Web for Distributed Many-Device Localisation
-
-proposes the idea of modelling the communication scheme using for exchanging messages between robots similar to how hypermedia is exchanged on the world wide web using a protocol like HTTP
-
-- Distributing Collaborative Multi-Robot Planning with Gaussian Belief Propagation
-
-- A comprehensive review of the latest path planning developments for multirobot formation systems
-
-- Handling Constrained Optimization in Factor Graphs for Autonomous Navigation
-
--  Factor Graphs: Exploiting Structure in Robotics
-
-
-=== GBP Planner <background-related-works-gbp-planner>
-
-// === ORCA <background-related-works-orca>
-
-// formulate the problem as _reciprocal n-body collision avoidance_
-
-
-// The paper presents a formal approach to reciprocal n-body collision avoidance for multiple mobile robots. The methodology hinges on the concept of velocity obstacles, which are used to derive sufficient conditions for collision-free motion. The core idea is to compute collision-free actions for each robot independently by solving a low-dimensional linear program. The authors introduce the Optimal Reciprocal Collision Avoidance (ORCA) algorithm, which optimizes each robot's velocity to avoid collisions while maintaining a preferred trajectory. The method assumes each robot can sense the positions and velocities of other robots, and does not rely on communication or central coordination.
-
-
-// - Linear problem to solve
-// - Robot entities does not communicate
-
-// - holonomic, can move in any direction in the plane, i.e. control input is simply given as a 2d vector
-
-
-=== Handling Constrained Optimization in Factor Graphs for Autonomous Navigation <s.background-related-works.handling>
-
-@bazzana_handling_2023
-
-
-// Barbara Bazzana
-
-
-=== #todo[Some approach using deep learning ...]
+// // *good*
+//
+// - This partitioning allows robots to operate on smaller, manageable segments of the overall graph.
+// // - over a forward time window
+// - local planner
+//
+// - The idea of encoding obstacle avoidance constraints into a unary factor is not unique to @gbpplanner and @robotweb. @bazzana_handling_2023 integrates factors with and #acr("MPC") solver for optimal control, and uses the similar concept of an obstacle factor that measures into a static #acr("APF") #k[ehh...].
+//
+// - constraint and obstacle factors
+//  - obstacle factors models the minimization of an artificial potential field #k[quickly refer to express the flexibility of encoding constraints with factors]
+//
+// @bazzana_handling_2023
+//
+// - A Robot Web for Distributed Many-Device Localisation
+//
+// proposes the idea of modelling the communication scheme using for exchanging messages between robots similar to how hypermedia is exchanged on the world wide web using a protocol like HTTP
+//
+// - constraint and obstacle factors
+//  - obstacle factors models the minimization of an artificial potential field #k[quickly refer to express the flexibility of encoding constraints with factors]
+//
+// @bazzana_handling_2023

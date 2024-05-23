@@ -78,3 +78,9 @@
   definition: Stochastic Gradient Descent
 - acronym: ORCA
   definition: Optimal Reciprocal Collision Avoidance
+- acronym: LQR
+  definition: Linear Quadratic Regulator
+- acronym: SLAM
+  definition: Simultaneous Localization and Mapping
+- acronym: SfM
+  definition: Structure from Motion

@@ -924,3 +924,16 @@ distributed-nonlinear-trajectory-optimization-for-multi-robot-motion-planning:
     title: IEEE Transactions on Control Systems Technology
     issue: 2
     volume: 31
+
+factor-graphs-exploiting-structure-in-robotics:
+  type: article
+  title: 'Factor Graphs: Exploiting Structure in Robotics'
+  author: Dellaert, Frank
+  date: 2021
+  page-range: ''
+  serial-number:
+    doi: 10.1146/annurev-control-061520-010504
+  parent:
+    type: periodical
+    title: Annual Review of Control, Robotics, and Autonomous Systems
+    volume: 4

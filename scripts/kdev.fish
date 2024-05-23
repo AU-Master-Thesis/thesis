@@ -28,4 +28,4 @@ disown
 kitty -e ./scripts/watch-compile-all-figures.fish &
 disown
 
-nvim $file_to_edit
+exec neovide $file_to_edit

@@ -232,3 +232,7 @@ Executing the system in @l.example-ecs-query against the data store in @f.ecs-en
 #todo[
   Mention that bevy will try to automatically schedule systems in parallel when the queries mutability allow for it.
 ]
+
+#k[
+  write about how we use bevy and ECS. what components are central, and how is the algorithm composed using systums and run schedules.
+]
