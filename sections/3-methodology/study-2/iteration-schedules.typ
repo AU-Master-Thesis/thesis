@@ -10,16 +10,17 @@ One of the appreciative properties of the #acr("GBP") algorithm is the relaxed c
 - Messages being temporarily dropped
 
 
-global convergence can still be achieved. This quality is especially important in multi robotics systems where robots use wireless communication and can only achieve intermittent radio contact. Each robot "hosts" its own factorgraph, and then use InterRobot factors to partake in a joint factorgraph with other robots. From the perspective of the #acr("GBP") algorithm there is no functional distintion between messages sent across edges internal to the robots factorgraph, and messages sent along edges between two robots' factorgraph. But in the real-world case these two cases; _internal_ and _external_ message passing involves different steps to perform and different guarantees about latency:
+global convergence can still be achieved. This quality is especially important in multi robotics systems where robots use wireless communication and can only achieve intermittent radio contact. Each robot "hosts" its own factorgraph, and then use interrobot factors to partake in a joint factorgraph with other robots. From the perspective of the #acr("GBP") algorithm there is no functional distintion between messages sent across edges internal to the robots factorgraph, and messages sent along edges between two robots' factorgraph. But in the real-world case these two cases; _internal_ and _external_ message passing involves different steps to perform and different guarantees about latency:
 
 - Internal message passes are cheap to compute in relation to external message passing, as the messages only have to copied between structures within the virtual memory of the process running the #acr("GBP") algorithm on the robot.
 - External message passes are more expensive to perform. Messages has to be serialized and be transmitted over a wireless connection to then be received and deserialized into its in-memory representation.
 
-To accomedate this discrepancy the gbpplanner algorithm is #k[...] can be configured to run a different amount of internal and external message passing iterations per $Delta_t$, through the parameters $M_I$ and $M_R$ respectively.
 
-- As it is desirable to run execute more internal message passes than external.
+// - As it is desirable to run execute more internal message passes than external.
 
-The effect of varying $M_I$ and $M_R$ are not experimented with in @gbpplanner. All the provided experimental scenarios use $M_I = 50$ and $M_R = 10$. Furthermore it is not explained in which order internal and external message passing are scheduled relative to each other, in cases where $M_I != M_R$. The accompanying source code@gbpplanner-code does not answer this question either, and does in fact not implement a way to handle when $M_I != M_R$. #k[insert github link to where this can be seen]
+To accomedate this discrepancy the gbpplanner algorithm can be configured to run a different amount of internal and external message passing iterations per $Delta_t$, through the parameters $M_I$ and $M_R$ respectively. The effect of varying $M_I$ and $M_R$ are not experimented with in @gbpplanner. All the provided experimental scenarios use $M_I = 50$ and $M_R = 10$. Furthermore it is not explained in which order internal and external message passing are scheduled relative to each other, in cases where $M_I != M_R$. The accompanying source code@gbpplanner-code does not answer this question either, and does in fact not implement a way to handle when $M_I != M_R$ as seen here #link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/src/Simulator.cpp#L82-L87", [`gbpplanner/src/Simulatior.cpp:82-87`]). Contrary to what they report in their paper.
+
+// #k[insert github link to where this can be seen]
 
 // These variations are not experimented with in the paper@gbpplanner. They only present scenarios where $M_I = 50$ and $M_R = 10$. And make no remark on the how they schedule the different iterations. Likewise their published code ...
 
@@ -293,8 +294,10 @@ Five different iteration schedules are experimented with. Each schedule is liste
 // #let cmap = (red.lighten(20%), blue.lighten(20%))
 // #let cmap = (internal: theme.maroon.lighten(30%), external: theme.blue.lighten(30%))
 #let cmap = (
-  internal: theme.teal.lighten(25%),
-  external: theme.maroon.lighten(25%),
+  // internal: theme.teal.lighten(25%),
+  // external: theme.maroon.lighten(25%),
+  internal: rgb("#189BCF").lighten(30%),
+  external: rgb("#CF3E4B").saturate(30%).lighten(30%),
   // inactive: gray
 )
 
@@ -315,10 +318,10 @@ Five different iteration schedules are experimented with. Each schedule is liste
   show-schedule(iterations.values(), schedule-centered, cmap: cmap.values(), inactive-color: inactive-color, title: [Centered])
 },
   caption: [
-  #k[reformulate]
-  Visual representation of each schedule for $M_I = 50$, $M_R = 10$. Cells colored teal #cell(cmap.internal) indicate that internal message passing should happen at the iteration of that column. Red #cell(cmap.external) represent external message passing and gray #cell(inactive-color) that no message passing should happen at that iteration.
+  Visual representation of each schedule for $M_I = 50$, $M_R = 10$. Teal cells #cell(cmap.internal) indicate internal message passing at that iteration. Red #cell(cmap.external) represent external message passing and gray #cell(inactive-color) cells indicate no message passing.
 ]
 ) <f.iteration-schedules>
+
 
 The effect of each schedule is experimented with and compared in @s.r.study-2. To make experimentation easy discoverable the UI settings panel of the simulator has a dedicated section to control $M_I, M_R$ and the schedule live as the simulation is running. A screenshot of the section is shown in @f.ui-schedule-settings.
 
@@ -334,8 +337,8 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 
 
 #let inline-schedule-example = {
-  let r = color.rgb("#D68A90")
-  let c = color.rgb("#82C1CC")
+  // let r = color.rgb("#D68A90")
+  // let c = color.rgb("#82C1CC")
   let g = color.rgb("#63677F").lighten(80%)
 
   let schedules = interleave-evenly(30, 10)
@@ -343,8 +346,8 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
   let internal = schedules_transposed.at(0)
   let external = schedules_transposed.at(1)
 
-  let internal-active = line(length: 4pt, stroke: c)
-  let external-active = line(length: 4pt, stroke: r)
+  let internal-active = line(length: 4pt, stroke: cmap.internal)
+  let external-active = line(length: 4pt, stroke: cmap.external)
   let external-inactive = line(length: 4pt, stroke: g)
 
   // schedules_transposed
@@ -362,8 +365,10 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 
 // #inline-schedule-example
 
+#jens[take screenshot of this. My tool sucks and add a black outline]
+
 #figure(
-  image("../../../img/screenshots/gbp-schedule-section.png"),
+  std-block(image("../../../figures/img/tool-settings-schedule-latte.png")),
   caption: [
     Screenshot of the subection of the simulators settings panel which displays the current schedule. Both $M_i$ and $M_r$ can be changed dynamically while the simulation runs. The active schedule is displayed aswell and can be changed through a combobox list. The active schedule is displayed with the #box(inline-schedule-example, height: 1em) component. Similar to how its displayed in @f.iteration-schedules.
 ]
