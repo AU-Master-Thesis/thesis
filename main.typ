@@ -130,14 +130,14 @@
     #jonas[
       #set align(left)
       \
-      Hi Jonas, some guidance on what feedback we're seeking. \
-      No need for you to spend time on typos, grammar or layouting at this point. We would rather you comment on the content of what we're writing. Then when we have the content down we can correct grammar and typos. \
-      - Are we going too much into detail? Are we missing some important aspects? \
-      - Are we explaining things in a way that is understandable? \
-      - Are we maybe repeating ourselves somewhere? \
-      - When reading do you feel like you're missing some context? \ \
+      Hi Jonas \
+      - Check out the structure, since things have been merged like we talked about. And ECS moved to background.
+      - Related works is getting there, do please check it out.
+      - We would like to know what you think about the updated research questions and objectives too.
+      - Overall some more content is added in methodology, along with new figures and such. \
+
+      Again a lot of notes have been left throughout for you. I have removed the ones from last time, only a few remain as no difference was made there. But do please give feedback on all the new ones. \
     ]
-    #jonas[Is this a fitting title? #sym.arrow.t] \
     #todo[Front page picture of intertwining robots.]
   ]),
   title-page-footer: align(center)[

@@ -1,6 +1,6 @@
 #import "../../../lib/mod.typ": *
 
-=== Configuration <s.m.s4.configuration>
+=== Configuration <s.m.configuration>
 
 To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `configuration.toml`, uses `TOML`, and is used to define all the general parameters for the simulation, visualisation, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualisation`. The smaller sections are described in the code documentation itself.@repo
 #set enum(numbering: box-enum.with(prefix: "Section "))
@@ -9,7 +9,7 @@ To make the developed software more flexible and easier to use, several configur
 + `Simulation:` Contains the parameters for the simulation itself, such as the maximum simulation time, the #acr("RNG") seed, and the fixed time-step frequency to run the #acr("GBP") algorithm at. More are described in @repo.
 + `Visualisation:` Contains the parameters for the visual elements. This includes which properties to draw to the screen like communication radius, interrobot connections, planning horizon, waypoints, etc. Furthermore, some scaling factors, i.e. for the variable uncertainties, to make them visible on the screen, are defined here. Again, more are described in @repo.
 
-==== Environment Configuration <s.m.s4.configuration.environment>
+==== Environment Configuration <s.m.configuration.environment>
 A datastructure for describing the static environment has been developed, and includes two main parts; the overall environment, and the option to specify several placeable shapes.
 
 #let unicodes = (
@@ -51,7 +51,7 @@ A datastructure for describing the static environment has been developed, and in
 ]
 
 #let b = [
-  ===== The Main Environment<s.m.s4.configuration.environment.main>
+  ===== The Main Environment<s.m.configuration.environment.main>
 
   This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the coloured-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
 ]
@@ -132,7 +132,7 @@ The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, 
 ]
 
 #let b = [
-  ===== Placeable Obstacles<s.m.s4.configuration.environment.obstacles>
+  ===== Placeable Obstacles<s.m.configuration.environment.obstacles>
 
   Another section in the environment configuration is the `obstacles` list. This is a list of shapes that are completely configurable within each tile. That is, the shapes can be placed anywhere within the tile, and have any size.#h(0.155em) The#h(0.155em) map-generator#h(0.155em) supports#h(0.155em) the shapes listed in @t.environment-shapes. @t.environment-shapes also#h(0.3625em)details#h(0.3625em)all#h(0.3625em)configurable#h(0.3625em)parame-
 ]
@@ -246,7 +246,7 @@ ters for each shape.
 Furthermore, which tile to place the shape in is given as a tile-$x$ and $y$ coordinate, to index which tile to place the obstacle in, along with a within-tile 2D translation. Important to note is that the parameters for the shapes are given in the local coordinate system of the tile, and as scalable percentage values of the tile side-length. As such, the placed obstacles are scaled along with the tile size, which produces a consistent environment, regardless of the size of the tiles. This way it's the tile-size that acts as a global scale. Another approach would be to have absolute coordinates for all these parameters, however, this is a more frictionfull approach, as understanding which tile you're attempting to place an obstacle inside will be harder to understand, along with the obstacles placement in relation to each other. Basically, this approach splits the global coordinate into a grid of local coordinates, which are easier to keep track of when a user is designing the environment. And example of an environment configuration with multiple placeable shapes is shown in @lst.env-obstacle-config.
 
 
-==== Formation Configuration <s.m.s4.configuration.formation>
+==== Formation Configuration <s.m.configuration.formation>
 The formation configuration is used to define how the robots are spawned in the environment. A great deal of care has gone into making this a highly flexible and declarative way to define new ways to spawn robots, and define their waypoints. The formation configuration is a list of formations, where each formation is a set of parameters for how to spawn the robots, and how to layout their waypoints.
 
 Formations are described with the concept of _distribution shapes_. These shapes are an abstract way of representing dynamically placed points, but within some constraints. Say the shape is a line from $(0,0)$ to $(1,0)$, and we want this line to describe how to place 5 points. To know where to place these points, we need a technique to define where along the line, the points should be placed. Two techniques have been implemented; `random` and `even`. These two strategies inform whether to place the points with even spacing as in @f.m.formation-shapes#text(accent, "A"), or randomly as in @f.m.formation-shapes#text(accent, "B"). Note, that with the `random` strategy, each robot's size is taken into account, as, when spawned they cannot be intersecting with each other.
@@ -315,9 +315,9 @@ Now that we understand _distribution shapes_, we can look at their use-cases. Th
 )<f.m.formation-config>
 
 === Signed Distance Field <s.m.s4.sdf>
-As described above in @s.m.s4.configuration.environment, the environment is generated from a matrix of characters, and a list of placeable obstacles. The advantage of being able to describe the environment in a constrained text format comes from the declarative nature of the format. You simply describe the geometrical shapes from their underlying data, and where to place them, and as such there will never be any dispute as to how that environment should look within the constraints of the format. This also provides a simple and compact single source of truth for the environment, which can be read for multiple purposes.
+As described above in @s.m.configuration.environment, the environment is generated from a matrix of characters, and a list of placeable obstacles. The advantage of being able to describe the environment in a constrained text format comes from the declarative nature of the format. You simply describe the geometrical shapes from their underlying data, and where to place them, and as such there will never be any dispute as to how that environment should look within the constraints of the format. This also provides a simple and compact single source of truth for the environment, which can be read for multiple purposes.
 
-The simulation tool, described in @s.m.s4.simulation-tool, displays the environment in the _viewport_ as 3D meshes, showing the user what the world looks like. Furthermore, the tool also uses the environment configuration to automatically generate an #acr("SDF") file, which is then used by the obstacle factors, refer to #nameref(<s.m.factors.obstacle-factor>, [Obstacle Factor $f_o$]), as a way to measure the distance to nearest obstacle.
+The simulation tool, described in @s.m.simulation-tool, displays the environment in the _viewport_ as 3D meshes, showing the user what the world looks like. Furthermore, the tool also uses the environment configuration to automatically generate an #acr("SDF") file, which is then used by the obstacle factors, refer to #nameref(<s.m.factors.obstacle-factor>, [Obstacle Factor $f_o$]), as a way to measure the distance to nearest obstacle.
 
 #figure(
   {

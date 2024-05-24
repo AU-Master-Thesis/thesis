@@ -2,10 +2,13 @@
 
 #let etal = [_et al._]
 
+#jonas[do please read the stuff in here]
 
 == Related Works <s.b.related-works>
 
 The field of multi-agent path planning has a rich literature spanning several decades, with numerous proposed methods. One of the key taxonomies that can be used to classify existing methods are in respect to how they distribute the computation of the jointly planned path among the robotic agents. In the majority of cases, methods attempt to solve the problem by one of three ways: _Centralized_, _Decentralized_ or _Distributed_@multi-robot-path-planning-review. A depiction of how to conceptualize each is shown in @f.multi-robot-path-planning-classification.
+
+
 // differing significantly based on their underlying taxonomies.
 
 

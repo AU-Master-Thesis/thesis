@@ -11,15 +11,18 @@
   margin-note(side: left, stroke: c + 1pt, note)
 }
 
-#let kristoffer = note-gen.with(c: catppuccin.latte.yellow, scope: "Kristoffer")
+#let kristoffer = note-gen.with(c: catppuccin.latte.blue, scope: "Kristoffer")
 #let k = kristoffer
 #let jens = note-gen.with(c: catppuccin.latte.teal, scope: "Jens")
 #let j = jens
 #let jonas = note-gen.with(c: catppuccin.latte.mauve, scope: "Jonas")
+#let jo = jonas
 #let layout = note-gen.with(c: catppuccin.latte.maroon, scope: "Layout")
 #let l = layout
-#let wording = note-gen.with(c: catppuccin.latte.peach, scope: "Wordings")
+#let wording = note-gen.with(c: catppuccin.latte.green, scope: "Wordings")
 #let w = wording
+#let attention = note-gen.with(c: catppuccin.latte.peach, scope: "Attention")
+#let a = attention
 
 // #let krisoffer(note) = {
 //   let c = catppuccin.latte.yellow

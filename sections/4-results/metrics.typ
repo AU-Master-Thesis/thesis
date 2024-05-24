@@ -1,6 +1,6 @@
 #import "../../lib/mod.typ": *
 == Metrics <s.r.metrics>
-#jonas[This section mostly is simply missing some layouting concern. And also some equations other than that please do comment on content.]
+// #jonas[This section mostly is simply missing some layouting concern. And also some equations other than that please do comment on content.]
 
 To objectively compare our reimplementation with the original GBP Planner, we measure and compare the same four metrics: distance travelled, makespan, smoothness, and inter robot collisions@gbpplanner:
 
