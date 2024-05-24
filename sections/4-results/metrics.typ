@@ -39,11 +39,17 @@ Each robots velocity is sampled and recorded with an interval of $20 H z$. For n
 
 
 
-4. #metric[Inter Robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circles, equal in radius to the robot's radius. A collision between two robots happen when their circles intersect.
+4. #metric[Inter Robot Collisions] Number of collisions between robots. The physical size of each robot is represented by a bounding circles, equal in radius to the robot's radius. A collision between two robots happen when their circles intersect. That is a collision is only registered if robots $R_a$ and $R_b$ intersect at timestep $t_n$ but not at $t_(n - 1)$.
 
 In addition to the metrics used by by Patwardhan _et al._@gbpplanner the following metrics are also looked at:
 
-5. #metric[#acr("RMSE") of Perpendicular Path Deviation]
+#let explanation = [
+  At each sampled position the distance between it and the closest projection onto each line segment of the planned path is measured and accumulated using the #acr("RMSE") score. A visual depiction of this is shown in @f.perpendicular-path-deviation. This is measured to test the effect of the proposed tracking factor, presented in @s.m.planning.path-adherence, as some applications might require that robots follow a dictated path with little deviation. Written mathematically the metric is defined as shown in @equ.perpendicular-path-deviation.
+]
+
+// #explanation
+
+// 5. #metric[#acr("RMSE") of Perpendicular Path Deviation] #explanation
 
 
       // std-block(
@@ -54,15 +60,22 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
       //   #text(theme.text, [A: Path Optimisation])
       // ],
 
-#kristoffer[improve figure and layout]
+
+
+#let math-explanation = [
+//   #align(left)[
+// $ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {"d"(P_j, L_i)})^2 ) $
+//   ]
+]
+
+// #kristoffer[improve figure and layout]
 #grid(
   columns: (1fr, 1fr),
   column-gutter: 1em,
   // [#lorem(50)],
-  [
-  At each sampled position the distance between it and the closest projection onto each line segment of the planned path is measured and accumulated using the #acr("RMSE") score. A visual depiction of this is shown in @f.perpendicular-path-deviation. This is measured to test the effect of the proposed tracking factor, see #todo[ref], as some applications might require that robots follow a path with little deviation.
 
-],
+[5. #metric[#acr("RMSE") of Perpendicular Path Deviation] #explanation],
+  // math-explanation,
 
   std-block(
     breakable: false,
@@ -90,20 +103,29 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
 // $ proj $
   // $ d = ||P - P'|| = || P - (A + "proj"_(A B) A P) $
 
-  $ { L_1, L_2, ..., L_m } $
-  $ { P_1, P_2, ..., P_n } $
-  $ d_j = min_i {"distance"(P_j, L_i)} $
+  // $ { L_1, L_2, ..., L_m } $
+  // $ { P_1, P_2, ..., P_n } $
+  // $ d_j = min_i {"distance"(P_j, L_i)} $
 
-$ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {"distance"(P_j, L_i)})^2 ) $
+// $ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {"d"(P_j, L_i)})^2 ) $
 
-#kristoffer[compress equations more]
-// $ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {d(P_j, L_i)})^2 ) $
+$ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {||P_j - p(P_j, L_i)||^2})^2 ) $ <equ.perpendicular-path-deviation>
+
+- $L_i in {L_1, L_2, ..., L_m}$ is the set of line segments making up the planned path.
+- $P_j in {P_1, P_2, ..., P_n}$ is the set of sampled positions.
+- $||P_j - p(P_j, L_i)||^2$ is the squared distance between the sampled position $P_j$ and the projection of $P_j$ onto the line segment $L_i$.
+
+The code for how the metric is computed can be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/perpendicular-path-deviation.py"), and in @appendix.perpendicular-path-deviation-metric-code.
 
 
-6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. Each environment obstacle is equipped with a collider of the same geometric layout. // For obstacles that are not rectangular like the triangles in the Circle experiment, see @s.r.scenarios.circle the minimum #acr("AABB") fully containing the triangle is used.
+
+6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. Each environment obstacle is equipped with a collider of the same geometric layout. The same detection registration used for _Inter Robot Collisions_ is used here.
+
 
 
 // Opposite to _Inter Robot Collisions_ #acrpl("AABB") are used to check for intersections. The reason for this is that _parry2d_ the library used for checking intersection of geometric shapes do not support checking intersections between bounding circles and #acrpl("AABB")@parry2d#footnote([As of version 0.13.7]). To be conservative the minimum #acr("AABB") is used for both robots and obstacles, instead of bounding spheres, which would cover a significantly larger area in some of the environment obstacles in the _*Circle*_ experiment are non-rectangular, see @s.r.scenarios.circle,
 
 
 7. #metric[Maximum Task Completion Time Difference] This metric represents the largest difference between the end times of each robot's task. In a collaborative setting, it is desirable for robots with similar tasks to finish in roughly the same amount of time to ensure high task throughput. Especially when there is inter-task dependencies between robots.
+
+#todo[we do not have a script for this yet]
