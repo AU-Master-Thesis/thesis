@@ -30,6 +30,26 @@ The methodology for developing an extensive simulation tool is outlined in this 
   List out all the configuration parameters both the algorithm exposes and the sim. Which one is identical to gbpplanner, and what values are sensible to use as defaults
 ]
 
+
+maintains two sets of ids, one for any robot within communication radius, and one for any robot connected with.
+
+
+=== Variable Structure <s.variable-structure>
+
+
+
+- Fixed number of variable settings
+- Trait
+
+
+
+Variable Timesteps
+
+
+
+
+
+
 #figure(
   image("../../../figures/out/variable-timesteps.svg"),
   caption: [Variable timesteps, #kristoffer[explain figure, and review design, use same variable names as rest of document]]
@@ -51,6 +71,8 @@ The methodology for developing an extensive simulation tool is outlined in this 
   How our implementation uses Composition instead of inheritance in C++
     - What pros/cons does this bring?
 ]
+
+=== Factor Structure <s.factor-structure>
 
 #listing([
 ```rust
@@ -74,15 +96,8 @@ caption: [Factor]
 )
 
 
-#line(length: 100%, stroke: 10pt + red)
+- Used tagged union for static dispatch
 
-#kristoffer[
-  Algo
-]
-
-
-
-maintains two sets of ids, one for any robot within communication radius, and one for any robot connected with.
 
 // #algorithm(
 //   caption: [Rewiring],

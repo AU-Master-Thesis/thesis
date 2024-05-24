@@ -28,6 +28,73 @@ pub trait GbpSchedule {
 )
 
 
+= Variable Timestep Placement <appendix.variable-timestep-placement>
+
+#listing(
+```rust
+#[derive(Debug)]
+struct VariableTimestepPlacementParamsError {
+  NLessThan2,
+  HorizonNotPositive,
+}
+
+impl std::fmt::Display for VariableTimestepPlacementParamsError {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    match self {
+      Self::NLessThan2 => write!(f, ""),
+      Self::HorizonNotPositive => write!(f, ""),
+    }
+  }
+}
+
+impl std::error::Error for VariableTimestepPlacementParamsError {}
+
+struct VariableTimestepPlacementParams {
+  pub (self) n: usize,
+  pub (self) horizon: f32,
+  pub (self) lookahead_multiple: NonZeroUsize,
+}
+
+impl VariableTimestepPlacementParams {
+  pub fn new(n: usize, horizon: f32) -> Result<Self, VariableTimestepPlacementParamsError> {
+    if n < 2 {
+      Err()
+    } else if horizon <= 0.0 {
+      Err()
+    } else {
+      Ok(Self {
+        n,
+        horizon,
+        lookahead_multiple: 3.try_into().unwrap()
+      })
+    }
+  }
+
+  pub fn with_lookahead_multiple(self, lookahead_multiple: NonZeroUsize) -> Self {
+    self.lookahead_multiple = lookahead_multiple;
+    self
+  }
+}
+
+trait VariableTimestepPlacement {
+  // provided method
+  fn place(params: VariableTimestepPlacementParams) -> Vec<f32> {
+    let mut timesteps = vec![0.0; params.n];
+    Self::place_into(params, &mut timesteps);
+    assert_eq!(0, timesteps[0]);
+    assert_eq!(params.horizon, timesteps[params.n - 1]);
+    timesteps
+  }
+
+  /// Guarantees:
+  /// `params.n == timesteps.len()`
+  fn place_into(params: VariableTimestepPlacementParams, timesteps: &mut[f32]);
+}
+```,
+  caption: [`VariableTimestepPlacement` trait used to provide an interface for placing variable nodes between the current variable $v_0$ and the horizon $v_("horizon")$. The ith index in the vector returned by the `VariableTimestepPlacement::place` is interpreted as the time in seconds the variable should be placed into the future, capped at $t_("horizon")$]
+)
+
+
 = Reproduction Experiment Parameters <appendix.reproduction-experiment-parameters>
 
 #figure(
