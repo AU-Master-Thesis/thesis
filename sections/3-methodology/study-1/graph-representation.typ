@@ -2,12 +2,6 @@
 
 === Graph Representation <s.graph-representation>
 
-#kristoffer[
-  talk about how our graph representation is different from theirs.
-  Ours is more faithful to how robots would represent the other robots in the environment
-  compared to theirs, since they use bidirectional `std::shared_ptr`, which is not useable
-  in a scenario where the algorithm run on different computer hosts, or just computer processes on the same host.
-]
 
 There are several different methods for representing graph structures in computer memory. Each offering different advantages and disadvantages in regards to memory layout and query efficiency. As explained in @s.b.factor-graphs, the factorgraph structure is a bipartite graph with undirected edges.
 Such a graph structure enforces little to no constraints on what kind of memory representation are possible to use. Allowing for many different choices@algorithms-fourth-edition. In the original work by Patwardhan _et al._@gbpplanner a cyclic reference/pointer structure is used. They represent the graph with a C++ class called `FactorGraph`, which each robot instance inherit from. Variable and factor nodes are stored in two separate vectors; `factors_` and `variables_`, as shown in the top of @code.gbpplanner-factorgraph.
@@ -92,11 +86,7 @@ Such a graph structure enforces little to no constraints on what kind of memory 
   caption: [Header declarations for the classes that make up the factorgraph data structure in GBPplanner. The code snippets are taken from the latest commit #raw(gbpplanner.last-commit.hash) #footnote([#durationfmt(gbpplanner.last-commit.days-since) ago at the time of writing of this thesis.]) `// ...` indicates that there are more fields in the class, but not shown due to not being relevant for graph representation. Symbols prefixed with `std::` are provided by the C++ standard library.]
 ) <code.gbpplanner-factorgraph>
 
-Edges between variable and factors are not stored as separate index values, but are instead implicitly stored by having each factor store a `std::shared_ptr<Variable>` to every variable it is connected to. Complementary every variable stores a `std::shared_ptr<Factor>` to every factor it is connected to. For both _internal_ edges and _external_ edges between separate factorgraphs this relationship is used. Advantages of this structural design is that it is easy to access the neighbours of a node, given only a handle to the node. For example to send messages to the neighbours of a node by directly invoking methods on the receiving node directly. Another advantage is that it abstracts away whether the pointer is to an external or an internal node. The access and reference patterns are equivalent. #note.k[mention that their representation does not map well/reflect how each robot would represent connections to external robots when running on different hosts]
-
-
-
-However this structural pattern is difficult to implement and discouraged in Rust due to its unique language feature for managing memory; the ownership model. This model is comprised of three rules, that together ensures memory safety and prevents memory issues like invalidated references, use after free and memory leaks@the-rust-book.
+Edges between variable and factors are not stored as separate index values, but are instead implicitly stored by having each factor store a `std::shared_ptr<Variable>` to every variable it is connected to. Complementary every variable stores a `std::shared_ptr<Factor>` to every factor it is connected to. For both _internal_ edges and _external_ edges between separate factorgraphs this relationship is used. Advantages of this structural design is that it is easy to access the neighbours of a node, given only a handle to the node. For example to send messages to the neighbours of a node by directly invoking methods on the receiving node directly. Another advantage is that it abstracts away whether the pointer is to an external or an internal node. The access and reference patterns are equivalent. However this structural pattern is difficult to implement and discouraged in Rust due to its unique language feature for managing memory; the ownership model. This model is comprised of three rules, that together ensures memory safety and prevents memory issues like invalidated references, use after free and memory leaks@the-rust-book.
 
 #[
   #set enum(numbering: box-enum.with(prefix: "Property "))
@@ -180,11 +170,41 @@ All five graph representations support dynamic insertion and removal of vertices
     pub type Graph = petgraph::stable_graph::StableGraph<Node, (), Undirected, IndexSize>;
     ```
   ],
-  caption: [How the `Graph` type is defined in the reimplementation. It is defined as type alias over a `StableGraph` data structure parameterized by a `Node` enum. No data is associated with the edges in the graph so the _unit_ type `()` is used for data associated with edges. `IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In the experiments, see @s.results, no individual factorgraph ever held more more than $794$ nodes#footnote[Happens in Circle Experiment with $N_R = 50$, when all robots form a fully connected graph near the center], so a bound of $2^16 - 1 = 65535$ was plenty sufficient, and is more compact in memory than the next possible alternative  $ u 32 = 2^32 - 1$.]
+  caption: [How the `Graph` type is defined in the reimplementation. It is defined as type alias over a `StableGraph` data structure parameterized by a `Node` enum. No data is associated with the edges in the graph so the _unit_ type `()` is used for data associated with edges. `IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In the experiments, see @s.results, no individual factorgraph ever held more more than $794$ nodes#footnote[Happens in Circle Experiment with $N_R = 50$, when all robots form a fully connected graph near the center of the circle.], so a bound of $2^16 - 1 = 65535$ was plenty sufficient, and is more compact in memory than the next possible alternative  $ u 32 = 2^32 - 1$.]
 )<lst.graph-representation>
 
-#jonas[Stil no need to read beyond this point. If you do you will sucked into the singularity.]
+Another key motivation for using a graph data structure that fully owns all its nodes is that it maps more faithfully to the conditions an implementation would have to meet for deployment in a real-world multi-robot scenario. #k[expand on what is advantageous about this structure]
+
+
+When the algorithm is deployed across multiple computing units the use of bidirectional `std::shared_ptr` is no longer feasiable. The reason for this is straightforward. Pointers are addresses into virtual memory that are only meaningful/valid within the context of the computer process that created the pointer.  When the algorithm is split across multiple hosts, it runs on multiple processes and hence there would be more than one virtual memory. Furthermore the use of pointers as identifiers would limit its capability to work across heterogenous computer units as you would be limited to one of 32 bit or 64 bit architectures. 32 bit are common for in embedded devices.
+For the algorithm to work with the bidirectional structure an RPC abstraction would be needed. Where the node is instead an abstract interface with two implementors; an owned variant for the nodes that belong to the robots factorgraph, such as obstacle factors. And a proxy variant that used the Proxy structural pattern that would forward read and write calls to communication stack used between the robots.
+
+
+- Although no real world experiments have been performed as part of this thesis, ... it was still believed important ... to better assess the practical feasibility of the algorithm outside of simulation.
+
+#line(length: 100%, stroke: red + 1em)
+
+
+
+#k[
+  Le Chat
+
+Another key motivation for using a graph data structure that fully owns all its nodesthat it maps more faithfully to the conditions an implementation would have to meet for deployment in a real-world multi-robot scenario.
+
+In this graph representation, each robot is depicted as a node that fully owns its connections, mirroring how each robot would independently perceive and interact with other robots in a distributed environment. This ensures that each robot maintains an accurate and autonomous representation of its surroundings, which is essential for effective coordination and communication in a multi-robot system.
+
+In contrast, alternative representations using bidirectional std::shared_ptr do not align well with the realities of multi-robot deployments. This method relies on shared ownership of connections, which is impractical in scenarios where robots operate on different hosts or separate processes on the same host. Shared pointers are not designed to function across distinct memory spaces, leading to significant limitations in real-world applications.
+
+The graph structure's independence in node ownership mirrors the operational environment of multi-robot systems more accurately, facilitating seamless interactions and robust performance across diverse deployment conditions. This fidelity to real-world scenarios makes this approach superior for practical implementations.
+]
+
+#jonas[Still no need to read beyond this point. If you do you will sucked into the singularity.]
 // u32 denotes the space of possible indices i.e. $2^32 - 1$
+
+
+One idea kept from the additional work is too use additional memory to store additional indices arrays. Each factorgraph store a vector of indices for variable nodes, one for factor nodes, and then one for each distinct factor variant. This is done as an cheap optimisation  ... given the memory footprint is low, see above to speed up to speed up iteration for queries only requiring access to the variables or factors. #kristoffer[Refer to the steps in the theory section ] #kristoffer[Another example to refer to is the section about visualization systems.]
+
+- used and expanded upon with arrays per factor kind
 
 
 
@@ -321,7 +341,6 @@ let heap_size_of_variable_inboxes(variables, connections) = {
 //     ty: PhantomData<Ty>,
 // }
 
-#line(length: 100%, stroke: red + 1em)
 
 // Iteration is very fast since it is on the dense key-values
 // A raw hash table of key-value indices, and a vector of key-value pairs
@@ -338,49 +357,13 @@ let heap_size_of_variable_inboxes(variables, connections) = {
 
 #kristoffer[Another added benefit of using a singular owning factorgraph structure is that is both feasible and more straightforward to extend the implementation to work with separate hosts, running with their own factorgraph. See discussion for more in depth discussion about the what would have to change to realize a real life implementation.]
 
-Too summarize memory consumption should not be a limiting factor of simulating the system.
+- Too summarize memory consumption should not be a limiting factor of simulating the system.
+
+- Not too many nodes in the graph, so we did not spend time benchmarking the various backing memory models.
 
 
-Not too many nodes in the graph, so we did not spend time benchmarking the various backing memory models.
+- Since the memory required for each graph is not very high, we can afford to use more space for additional indices arrays
 
+- In addition to storing the graph itself each factorgraph use additional memory to store arrays of node indices of each node kind, to speed iteration
 
-// closer to real distribution
-
-Since the memory required for each graph is not very high, we can afford to use more space for additional indices arrays
-
-// In Rust every piece of data i.e. every variable and allocated block of memory has a single owner
-
-In addition to storing the graph itself each factorgraph use additional memory to store arrays of node indices of each node kind, to speed iteration
-
-// A disadvantage of this structure
-// promote hiearchial data structures
-
-
-
-Adjacency matrix
-Adjacency list
-
-one requirement the chosen graph model would need to satisfy, is the ability to update the graph structure over time,
-
-supported fast repeated iteration
-
-trade some speed for edge lookup time, for having indices not being invalidated
-
-consider insertion/deletion of nodes and edges as influencers of the graph data structure.
-j
-// The "naive"
-
-// interior mutability
-
-// This pattern is diffecult to implement and discouraged in Rust due to its ownership model.
-
-// #kristoffer[
-//   explain ownership model
-// ]
-
-// Many different representations are possible for the graph, in computer memory
-
-// The underlying graph rep
-
-
-One idea kept from the additional work is too use additional memory to store additional indices arrays. Each factorgraph store a vector of indices for variable nodes, one for factor nodes, and then one for each distinct factor variant. This is done as an cheap optimisation  ... given the memory footprint is low, see above to speed up to speed up iteration for queries only requiring access to the variables or factors. #kristoffer[Refer to the steps in the theory section ] #kristoffer[Another example to refer to is the section about visualization systems.]
+- should still be feasible for embedded computers with less memory
