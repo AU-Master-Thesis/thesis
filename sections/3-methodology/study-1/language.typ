@@ -80,6 +80,6 @@ The software for `gbpplanner` is implemented in the C++ programming language@gbp
 
 A desire to learn the technology is one of the reasons why Rust was chosen. A lot of new systems are developed using Rust, and a lot of prominent authorities have publicly urged that new software project not be developed in unsafe languages such as C++.
 
-- Finally a non-technical reason the authors were curious about the touted benefits of the language and wanted to 
+- Finally a non-technical reason the authors were curious about the touted benefits of the language and wanted to
 
 - well positioned to have significant influence on software development now and even more so in the future.
