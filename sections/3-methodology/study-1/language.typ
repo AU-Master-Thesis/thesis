@@ -5,19 +5,32 @@
 
 This subsection describes the choice of implementation programming language used in both the simulation and the reimplementation of the gbpplanner paper. Motivations for why the language was chosen is laid out and argued for.
 
-Both the simulator and the gbplanner reimplementation are written in the Rust programming language. Rust is a popular modern systems programming language with a lot of powerful capabilities to handle and manage complex software systems.
+Both the simulator and the gbplanner reimplementation are written in the Rust programming language. Rust is a popular modern systems programming language with a lot of powerful capabilities to model and manage complex software systems.
 
 
 ==== Why was Rust chosen?
 
-The software
-
-- `gbpplanner` is implemented in C++. We are both familiar with C++, but have in
-  previous projects spent a lot
-of time fighting its idiosyncrasies
+The software for `gbpplanner` is implemented in the C++ programming language@gbpplanner-code. A common choice used in robotics and simulation developments due to its capabilities to compile to very efficient machine code. High level programming structures such as templates and generic programming can be utilized with little to no performance cost. A property referred to as zero cost abstractions@tour-of-cpp. Manual memory management is used instead garbage collection which allows one to ensure predictable latency which in many real time algorithms is a hard requirement. To better understand
 
 
-#kristoffer[
+- RAII
+
+- Explore newer alternatives that matches C++ in terms of performance, but allows for other qualities.
+
+- to validate that the algorithm works across different programming languages and are not dependant on features exclusive to C++.
+
+- exhaustive pattern matching is useful for any future factors that needs to added to the implementation as the compiler would require that all uses of it are handled explicitly.
+
+- Secondly the implementation have no hard dependencies on C++ or C only frameworks such as ROS2 that are popular in the robotics community and industry.
+
+- See a lot of popularity and want the to contribute to robotics related research and experimentation in the language to prove its usefullness/applicability in multiple domains.
+
+- white house paper that urges developers to move away from C++ and focus on memory safe languages like Rust. Also cite Google CVE papers about vulnabilities that Rust can prevent alone by the compiler.
+
+
+
+
+#todo[
   What other alternatives were available?
   C++
   Zig
@@ -28,9 +41,8 @@ of time fighting its idiosyncrasies
 ]
 
 
-A desire to learn the technology is one of the reasons why Rust was chosen. A lot of new systems are developed using Rust, and a lot of prominent authorities have publicly urged that new software project not be developed in unsafe languages such as C++.
 
-#kristoffer[
+#todo[
   Explain some of the unique benefits of Rust.
   - borrow checker
   - ownership
@@ -44,7 +56,7 @@ A desire to learn the technology is one of the reasons why Rust was chosen. A lo
   - Exceptional tooling,
 ]
 
-#kristoffer[
+#todo[
   Explain some of the drawbacks of Rust.
   - Complexity, can be hard to learn
   - Some design pattern/implementations are not trivial to implement. Especially self referential/recursive structures like graphs.
@@ -52,4 +64,9 @@ A desire to learn the technology is one of the reasons why Rust was chosen. A lo
   - Not as many very established libraries, like C++ which has been around for a lot longer
 ]
 
-=== Signed Distance Field
+
+- `gbpplanner` is implemented in C++. We are both familiar with C++, but have in
+  previous projects spent a lot of time fighting its idiosyncrasies.
+
+
+A desire to learn the technology is one of the reasons why Rust was chosen. A lot of new systems are developed using Rust, and a lot of prominent authorities have publicly urged that new software project not be developed in unsafe languages such as C++.

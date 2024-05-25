@@ -697,7 +697,7 @@ indexmap:
   date: 2024-04-30
   serial-number:
     version: 2.2.6
-  note: https://github.com/petgraph/indexmap/releases/tag/indexmap%40v2.2.6
+  url: https://github.com/indexmap-rs/indexmap/releases/tag/2.2.6
 
 
 parry2d:
@@ -977,3 +977,14 @@ gang-of-four-design-patterns:
   - John Vlissides
   date: 1994
   isbn: 0-201-63361-2
+
+
+tour-of-cpp:
+  type: book
+  title: A Tour of C++ Second Edition
+  author: Bjarne Stroustrup
+  date: 2019
+  publisher: Pearson Addison-Wesley
+  edition: 2
+  isbn: 0-13-499783-2
+  url: https://www.stroustrup.com/tour2.html

@@ -88,3 +88,5 @@
   definition: Remote Procedure Call
 - acronym: API
   definition: Application Programming Interface
+- acronym: RAII
+  definition: Resource Acquisition Is Initialization
