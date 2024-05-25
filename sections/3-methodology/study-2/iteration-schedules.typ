@@ -378,4 +378,4 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 
 // #D68A90
 
-- strategy pattern / dependency injection
+#k[mention strategy pattern / dependency injection]

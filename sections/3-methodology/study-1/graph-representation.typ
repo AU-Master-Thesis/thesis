@@ -183,17 +183,13 @@ For the algorithm to function with a bidirectional structure, a #acr("RPC") abst
 
 // - Even though this design will not have as good performance as using direct pointer access.
 
-#jonas[Still no need to read beyond this point. If you do you will sucked into the singularity.]
+One idea expanded upon from the original work is the use of separate arrays for variables and nodes. In the reimplementation, each factor graph stores additional vectors of indices for variable nodes, factor nodes, and each distinct factor variant. This optimization trades some memory space for faster iterations with better CPU branch prediction. Queries needing a specific subview of the graph do not have to branch based on the node type each time the graph is iterated over. All visualization modules of the simulator are implemented as #acr("ECS") systems. Many of them query all the factor graphs each frame but only need a specific subset of nodes. For example, the "Obstacle Factors" module explained in @s.m.s4.visualisation only needs access to the obstacle factors of each graph. By having the factor graphs' public #acr("API") provide dedicated iterators for these subviews, the visualization modules can run as efficiently as possible. Similarly, the internal and external message passing also use dedicated arrays. For example, only inter-robot factors are iterated over during the factor iteration step for the external pass #todo[ref]. Mutable access to the index vectors is never exposed through the public #acr("API") of the graph. Combined with the borrowing system, this ensures that the indices always point to existing nodes, making it easy and safe to run efficient queries on specific subsets of the factor graphs.
 
-One idea expanded upon from the original work is too use separate arrays for variables and nodes. In the reimplementation each factorgraph stores additional vector of indices for variable nodes, factor nodes and one for each distinct factor variant. This is done as a cheap optimization trading some memory space for faster iterations with better CPU branch prediction, as queries only needing a specific subview of the graph do not have to branch on the kind of node each time the graph needs to be iterated over. All of the visualizations modules of the simulator are implemented as #acr("ECS") systems. Many of them query all of the factorgraphs each frame, but only eed a specific subset of nodes. For example the "Obstacle Factors" module only need access to the obstacle factors of each graph. By having the factorgraphs publci #acr("API") provide dedicators iterators for these subviews the visulalisation modules can run as efficient as possible. Similar the internal and external message passing pass also make use of dedicated arrays. For example only interrobot factors are iterated over during the factor iteration step for the external pass. Mutable access to the indices vectors are never exposed through the public #acr("API") of the graph, together with the borrowing system this ensures the invariant that the indices always point to nodes that exist making it easy and safe to run efficient queries on specific subsets of the factorgraphs.
-
-
-#line(length: 100%, stroke: 1em + red)
+Finally each factorgraph is stored as a component in the ECS world associated with each robot entity. This makes them easy to access from other systems in the simulation, and to add and remove them as robots spawn and despawn in the different scenarios.
 
 // - this to ensure that ECS queries that run frequently on the graph and only need a specific subset of it runs as fast as they can.
 
 
-- In terms of how the factorgraphs are stored in the ECS data store they are added as components to each robot entity.
 
 // use additional memory to store additional indices arrays. Each factorgraph store a vector of indices for variable nodes, one for factor nodes, and then one for each distinct factor variant. This is done as an cheap optimisation  ... given the memory footprint is low, see above to speed up to speed up iteration for queries only requiring access to the variables or factors. #kristoffer[Refer to the steps in the theory section ] #kristoffer[Another example to refer to is the section about visualization systems.]
 
@@ -360,7 +356,3 @@ One idea expanded upon from the original work is too use separate arrays for var
 // - In addition to storing the graph itself each factorgraph use additional memory to store arrays of node indices of each node kind, to speed iteration
 
 // - should still be feasible for embedded computers with less memory
-
-#k[how are factorgraphs stored and accessed in the ECS world?]
-
-#pagebreak()

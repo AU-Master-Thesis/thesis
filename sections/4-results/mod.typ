@@ -12,3 +12,5 @@
 #include "./study-2.typ"
 #include "./study-3.typ"
 #include "./study-4.typ"
+
+#k[mention the computer architecture details that the experiments have been run under, kernel and OS]

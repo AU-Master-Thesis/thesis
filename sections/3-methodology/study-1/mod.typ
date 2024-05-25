@@ -18,6 +18,9 @@ The methodology for developing an extensive simulation tool is outlined in this 
 #include "architecture.typ"
 #include "graph-representation.typ"
 
+
+=== Variable Structure <s.variable-structure>
+
 #kristoffer[
   show screenshots side by side of different elements of the simulation from theirs and ours,
   e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
@@ -34,7 +37,6 @@ The methodology for developing an extensive simulation tool is outlined in this 
 maintains two sets of ids, one for any robot within communication radius, and one for any robot connected with.
 
 
-=== Variable Structure <s.variable-structure>
 
 
 
@@ -95,6 +97,8 @@ caption: [Factor]
 - #k[what is the purpose of the FactorState argument?]
 
 - Used tagged union for static dispatch
+
+- Only have shared functionalily through a trait and not state.
 
 
 #kristoffer[

@@ -3,7 +3,7 @@
 
 // #jonas[Read this, and all subsections]
 The performance of the reimplementation is evaluated across #numbers.written(scen.len()) different scenarios. The scenarios adhere to the original paper's@gbpplanner experiments, and are described in the following listing
-#jonas[fixed the boldness overload here]
+// #jonas[fixed the boldness overload here]
 
 #set enum(numbering: box-enum.with(prefix: "S-"))
 + _*Circle*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
