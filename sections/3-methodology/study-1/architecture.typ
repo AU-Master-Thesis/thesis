@@ -18,7 +18,7 @@ This section presents the architectural and software design patterns used in the
 ]
 
 #k[
-  write about how we use bevy and ECS. what components are central, and how is the algorithm composed using systums and run schedules.
+  write about how we use bevy and ECS. What components are central, and how is the algorithm composed using systums and run schedules.
 ]
 
 
