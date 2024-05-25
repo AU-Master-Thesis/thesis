@@ -96,3 +96,5 @@
   definition: National Security Agency
 - acronym: CVE
   definition: Common Vulnerabilities and Exposures
+- acronym: CoW
+  definition: Copy on Write
