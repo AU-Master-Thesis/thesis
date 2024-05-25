@@ -1026,3 +1026,15 @@ nist-use-rust:
     title: IT Professional
     issue: 4
     volume: 25
+
+sharma2023rust:
+  type: misc
+  title: 'Rust for Embedded Systems: Current State, Challenges and Open Problems'
+  author:
+  - Sharma, Ayushi
+  - Sharma, Shashank
+  - Torres-Arias, Santiago
+  - Machiry, Aravind
+  date: 2023
+  serial-number:
+    arxiv: '2311.05063'

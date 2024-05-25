@@ -92,3 +92,7 @@
   definition: Resource Acquisition Is Initialization
 - acronym: NIST
   definition: National Institute of Standards and Technology
+- acronym: NSA
+  definition: National Security Agency
+- acronym: CVE
+  definition: Common Vulnerabilities and Exposures

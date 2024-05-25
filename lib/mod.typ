@@ -14,3 +14,4 @@
 #import "dict.typ": *
 #import "binary.typ": binary, popcount, hamming-distance
 #import "equation.typ"
+#import "nouns.typ": *

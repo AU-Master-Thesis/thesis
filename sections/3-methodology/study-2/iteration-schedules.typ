@@ -379,3 +379,11 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 // #D68A90
 
 #k[mention strategy pattern / dependency injection]
+
+
+#{
+  set par(first-line-indent: 0em)
+  [
+    *Expectation:* #k[list expected results of experiments]
+  ]
+}
