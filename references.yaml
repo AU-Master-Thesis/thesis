@@ -965,3 +965,15 @@ algorithms-fourth-edition:
 #     edition: 3
 #     serial-number:
 #       isbn: 0321993721
+
+
+gang-of-four-design-patterns:
+  type: book
+  title: 'Design Patterns: Elements of Reusable Object-Oriented Software'
+  author:
+  - Erich Gamma
+  - Richard Helm
+  - Ralph Johnson
+  - John Vlissides
+  date: 1994
+  isbn: 0-201-63361-2

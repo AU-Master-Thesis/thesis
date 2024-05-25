@@ -84,3 +84,5 @@
   definition: Simultaneous Localization and Mapping
 - acronym: SfM
   definition: Structure from Motion
+- acronym: RPC
+  definition: Remote Procedure Call

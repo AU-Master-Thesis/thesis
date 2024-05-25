@@ -15,6 +15,7 @@
 // #show: word-count.with(exclude: (heading.where(level: 1), strike, figure.caption, <no-wc>))
 
 #import "@preview/acrostiche:0.3.1": init-acronyms, print-index, acr, acrpl
+#import "@preview/oxifmt:0.2.1": strfmt
 
 // #show: word-count
 

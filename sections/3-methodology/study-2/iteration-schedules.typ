@@ -377,3 +377,5 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 // #82C1CC
 
 // #D68A90
+
+- strategy pattern / dependency injection

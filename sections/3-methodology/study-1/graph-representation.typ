@@ -136,7 +136,7 @@ _petgraph_ supports the following five types of graph representation; `Graph`, `
         header: table.header([Name], [Description], [Space Complexity], [Backing Vertex Structure], [D], [SI], [HV]),
         [`Graph`], [Uses an _Adjacency List_ to store vertices.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
         [`StableGraph`], [Similar to `Graph`, but it keeps indices stable across removals.], [$O(|E| + |V|)$], [`Vec<N>`],[#yes], [#yes], [#no],
-        [`GraphMap`], [Uses an associative array, but instead of storing vertices sequentially it uses generated vertex identifiers as keys into a hash table, where the value is a list of the vertices' connected edges.], [$O(|E| + |V|)^*$],
+        [`GraphMap`], [Uses an associative array, but instead of storing vertices sequentially it uses generated vertex identifiers as keys into a hash table, where the value is a list of the vertices' connected edges.], [$O(|E| + |V|)^*$ #todo[explain \*]],
         // [`IndexMap<N>`],
         // [`IndexMap<N, Vec<(N, CompactDirection)>>`],
         [`IndexMap<N, Vec<N>>`],
@@ -173,30 +173,15 @@ All five graph representations support dynamic insertion and removal of vertices
   caption: [How the `Graph` type is defined in the reimplementation. It is defined as type alias over a `StableGraph` data structure parameterized by a `Node` enum. No data is associated with the edges in the graph so the _unit_ type `()` is used for data associated with edges. `IndexSize` is a type parameter for the upperbound of the number of nodes the graph can hold. In the experiments, see @s.results, no individual factorgraph ever held more more than $794$ nodes#footnote[Happens in Circle Experiment with $N_R = 50$, when all robots form a fully connected graph near the center of the circle.], so a bound of $2^16 - 1 = 65535$ was plenty sufficient, and is more compact in memory than the next possible alternative  $ u 32 = 2^32 - 1$.]
 )<lst.graph-representation>
 
-Another key motivation for using a graph data structure that fully owns all its nodes is that it maps more faithfully to the conditions an implementation would have to meet for deployment in a real-world multi-robot scenario. #k[expand on what is advantageous about this structure]
+// Another key motivation for using a graph data structure that fully owns all its nodes is that it maps more faithfully to the conditions an implementation would have to meet for deployment in a real-world multi-robot scenario. Here the work needed to exchange messages across internal and external edges are significantly different. And will be have to handled differently. In comparison the use of bidirectional `std::shared_ptr` is no longer feasiable. The reason for this is straightforward. Pointers are addresses into virtual memory that are only meaningful/valid within the context of the computer process that created the pointer.  When the algorithm is split across multiple hosts, it runs on multiple processes and hence there would be more than one virtual memory. Furthermore the use of pointers as identifiers would limit its capability to work across heterogenous computer units as you would be limited to one of 32 bit or 64 bit architectures. 32 bit are common for in embedded devices.
+// For the algorithm to work with the bidirectional structure an RPC abstraction would be needed. Where the node is instead an abstract interface with two implementors; an owned variant for the nodes that belong to the robots factorgraph, such as obstacle factors. And a proxy variant that used the Proxy structural pattern that would forward read and write calls to communication stack used between the robots.
+// Although no real world experiments have been performed as part of this thesis, it was still considered important that the reimplementation was designed with an architecture that would be feasible in a real distributed system. This was done to better assess the practical feasibility of the algorithm outside of simulation.
+
+Another key motivation for using a graph data structure that fully owns all its nodes is that it more accurately reflects the requirements for deployment in a real-world multi-robot scenario. In such a scenario, the work needed to exchange messages across internal and external edges differs significantly and must be handled differently. In comparison, using bidirectional `std::shared_ptr` is not feasible. This is because pointers are addresses in virtual memory, which are only meaningful within the context of the process that created them. When the algorithm runs across multiple hosts, it operates on multiple processes, each with its own virtual memory. Furthermore, using pointers as identifiers limits the algorithm's ability to work across heterogeneous computing units, as you would be restricted to either 32-bit or 64-bit architectures. // A problem for embedded devices where both 32-bit and 64-bit are common#k[citation]
+For the algorithm to function with a bidirectional structure, a #acr("RPC") abstraction would be necessary. This approach would involve an abstract interface for the nodes, with two implementors: an owned variant for nodes belonging to the robot's factor graph, such as obstacle factors, and a proxy variant using the Proxy structural pattern to forward read and write calls to the communication stack used between the robots@gang-of-four-design-patterns. Although no real-world experiments were conducted as part of this thesis, it was considered valuable to design the reimplementation with an architecture feasible for a real distributed system. This was done to better assess the practical feasibility of the algorithm outside of simulation.
 
 
-When the algorithm is deployed across multiple computing units the use of bidirectional `std::shared_ptr` is no longer feasiable. The reason for this is straightforward. Pointers are addresses into virtual memory that are only meaningful/valid within the context of the computer process that created the pointer.  When the algorithm is split across multiple hosts, it runs on multiple processes and hence there would be more than one virtual memory. Furthermore the use of pointers as identifiers would limit its capability to work across heterogenous computer units as you would be limited to one of 32 bit or 64 bit architectures. 32 bit are common for in embedded devices.
-For the algorithm to work with the bidirectional structure an RPC abstraction would be needed. Where the node is instead an abstract interface with two implementors; an owned variant for the nodes that belong to the robots factorgraph, such as obstacle factors. And a proxy variant that used the Proxy structural pattern that would forward read and write calls to communication stack used between the robots.
-
-
-- Although no real world experiments have been performed as part of this thesis, ... it was still believed important ... to better assess the practical feasibility of the algorithm outside of simulation.
-
-#line(length: 100%, stroke: red + 1em)
-
-
-
-#k[
-  Le Chat
-
-Another key motivation for using a graph data structure that fully owns all its nodesthat it maps more faithfully to the conditions an implementation would have to meet for deployment in a real-world multi-robot scenario.
-
-In this graph representation, each robot is depicted as a node that fully owns its connections, mirroring how each robot would independently perceive and interact with other robots in a distributed environment. This ensures that each robot maintains an accurate and autonomous representation of its surroundings, which is essential for effective coordination and communication in a multi-robot system.
-
-In contrast, alternative representations using bidirectional std::shared_ptr do not align well with the realities of multi-robot deployments. This method relies on shared ownership of connections, which is impractical in scenarios where robots operate on different hosts or separate processes on the same host. Shared pointers are not designed to function across distinct memory spaces, leading to significant limitations in real-world applications.
-
-The graph structure's independence in node ownership mirrors the operational environment of multi-robot systems more accurately, facilitating seamless interactions and robust performance across diverse deployment conditions. This fidelity to real-world scenarios makes this approach superior for practical implementations.
-]
+// - Even though this design will not have as good performance as using direct pointer access.
 
 #jonas[Still no need to read beyond this point. If you do you will sucked into the singularity.]
 // u32 denotes the space of possible indices i.e. $2^32 - 1$

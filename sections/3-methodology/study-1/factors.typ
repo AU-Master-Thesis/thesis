@@ -44,6 +44,21 @@ The interrobot factors take a safety distance into account which is some scaled 
 
 #todo[Interrobot factor math]
 
+$ h_r (x_k^A, x_k^B) = cases(
+  1 - (d_r (x_k^A, x_k^B)) / r^* "if" d_r (x_k^A, x_k^B) < r^*,
+  0,
+ )
+$
+
+where
+
+$ d_r (x_k^A, x_k^B) = ||x_k^A - x_k^B|| $
+
+To weaken the effect of states further into the future, the factors precision matrix is defined as $Lambda_r = (t_k sigma_r)^(-2) bold(I)$
+
+
+To identify the connected variable in the external factorgraph, the interrobot factor store an unique identifier that consists of a two field tuple of the robots id, and index offset from the current variable.
+
 ==== Asynchronous Message Passing <s.m.factors.asynchronous-message-passing>
 
 As mentioned#note.jens[make sure this is mentioned in background] in @s.b.factor-graphs, the factor graph inference typically happens in a synchronous manner. A variable to factor message first, then a factor to variable message. This synchronous method will likely converge towards the true marginals. However, the factor graph structure allows for asynchronous message passing, although with a slower convergence, and likely with a higher variance. But in theory, variables and factors can always keep each other updated as soon as they have something to update with, or as soon as they get the opportunity to do so. Thus all the necessary information for inference will still be passed, hence still expecting similar convergence.

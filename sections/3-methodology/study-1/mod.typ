@@ -95,6 +95,8 @@ trait Factor: std::fmt::Display {
 caption: [Factor]
 )
 
+- No inheritance, use composition and traits instead
+
 
 - Used tagged union for static dispatch
 
