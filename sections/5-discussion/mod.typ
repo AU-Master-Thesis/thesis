@@ -27,4 +27,12 @@
   - Not as many very established libraries, like C++ which has been around for a lot longer
 ]
 
+#k[
+  it is the authors of this thesis belief that ...
+
+  A belief that Rust will grow and gain ground in robotic software stacks, as robotic systems continue to become more
+
+- well positioned to have significant influence on software development now and even more so in the future.
+]
+
 #include "./future-work.typ"

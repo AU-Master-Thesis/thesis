@@ -1038,3 +1038,54 @@ sharma2023rust:
   date: 2023
   serial-number:
     arxiv: '2311.05063'
+
+rust-for-linux:
+  type: web
+  author: Internet Security Research Group
+  url:
+    value: https://rust-for-linux.com/
+    date: 2024-05-25
+
+linux-kernel-docs-rust:
+  type: web
+  author: The kernel development community
+  url:
+    value: https://docs.kernel.org/rust/index.html
+    date: 2024-05-25
+
+google-joins-rust-foundation:
+  type: blog
+  author: Google
+  title: Google Joins the Rust Foundation
+  date: 2022-02-01
+  url:
+    value: https://opensource.googleblog.com/2021/02/google-joins-rust-foundation.html
+    date: 2024-05-25
+
+microsoft-joins-rust-foundation:
+  type: blog
+  author: Microsoft
+  title: Microsoft Joins Rust Foundation
+  date: 2022-02-08
+  url:
+    value: https://cloudblogs.microsoft.com/opensource/2021/02/08/microsoft-joins-rust-foundation/
+    date: 2024-05-25
+
+use-of-rust-at-meta:
+  type: blog
+  author: Meta
+  title: Use of Rust at Meta
+  date: 2021-04-29
+  url:
+    value: https://engineering.fb.com/2021/04/29/developer-tools/rust/
+    date: 2024-05-25
+
+making-julia-as-fast-as-cpp:
+
+  type: blog
+  author: Eduardo Alvarez - Brigham Young University’s Mechanical Engineering Department
+  date: 2019-07-18
+  title: Making Julia as Fast as C++
+  url:
+    value: https://flow.byu.edu/posts/julia-c++
+    date: 2024-05-25

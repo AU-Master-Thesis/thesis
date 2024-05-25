@@ -100,3 +100,5 @@
   definition: Portable Network Graphics
 - acronym: FDM
   definition: Finite Difference Method
+- acronym: CoW
+  definition: Copy on Write
