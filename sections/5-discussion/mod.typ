@@ -18,4 +18,13 @@
 
 #kristoffer[what are the drawbacks of ECS?]
 
+
+#todo[
+  Explain some of the drawbacks of Rust that we have encountered, seen through the lens of being used in scientific and robotic computing.
+  - Complexity, can be hard to learn
+  - Some design pattern/implementations are not trivial to implement. Especially self referential/recursive structures like graphs.
+  - Slow compilation
+  - Not as many very established libraries, like C++ which has been around for a lot longer
+]
+
 #include "./future-work.typ"

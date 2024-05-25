@@ -32,8 +32,8 @@
 - acronym: AABB
   definition: Axis Aligned Bounding Box
   plural: Axis Aligned Bounding Boxes
-- acronym: UAV
-  definition: Unmanned Aerial Vehicle
+# - acronym: UAV
+#   definition: Unmanned Aerial Vehicle
 - acronym: MAP
   definition: Maximum A Posteriori
 - acronym: KL
@@ -78,8 +78,8 @@
   definition: Stochastic Gradient Descent
 - acronym: ORCA
   definition: Optimal Reciprocal Collision Avoidance
-- acronym: LQR
-  definition: Linear Quadratic Regulator
+# - acronym: LQR
+#   definition: Linear Quadratic Regulator
 - acronym: SLAM
   definition: Simultaneous Localization and Mapping
 - acronym: SfM
