@@ -181,7 +181,7 @@
 
 #acr("RRT*") is an extension of the #acr("RRT") algorithm, which was introduced in 2011 by Sertac Karaman and Emilio Frazzoli in their paper _Sampling-based Algorithms for Optimal Motion Planning_@sampling-based-survey. With only a couple of modifications to #acr("RRT"), the algorithm is able to reach asymptotic optimality, where the original algorithm makes no such promises. The modifications are explained below:
 
-#set enum(numbering: box-enum.with(prefix: "M-", suffix: ":", color: theme.mauve))
+#set enum(numbering: box-enum.with(prefix: "M-", color: theme.mauve))
 + _*Cost Function:*_ The first modification is the introduction of a _cost function_, $c(v)$, for each node, $v in V$. The cost function outputs the length of the shortest path from the start node to the node $v$. This modification encodes an optimisable metric for each branch, which enables the next modification, #boxed(color: theme.mauve, [*M-2*]), to take place.
 + _*Rewiring:*_ The second modification is the introduction of a _neighbourhood radius_, $r in RR^+$, around each newly created node, which is used to search for nodes that can be reached with a lower cost.
 
@@ -228,7 +228,7 @@
 ]<alg.rrt-star>
 
 With the modifications made, the #acr("RRT*") algorithm is shown in @alg.rrt-star@erc-rrt-star. Two important blocks of the algorithm has been sectioned out in sub-algorithms @alg.rrt-star.min-cost-connection and #numref(<alg.rrt-star.rewire>), which are described along side the other new functions of #acr("RRT*") under @s.b.rrt-star.functions. The main parts of the algorithm are visualised in @f.rrt-rewire as three steps:
-#set enum(numbering: box-enum.with(prefix: "Step ", suffix: ":", color: theme.mauve))
+#set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve))
 + A new point has been sampled, deemed collision-free, and thus node $v_"new"$ can be added to the tree. But first, we need to find which existing node to connect to. Here, $v_"nearest"$ is chosen by the `MinCostConnection` algorithm, as it is the node that minimizes the total cost from the root to $v_"new"$, within the step-length radius $s$.
 + In preparation, rewiring candidates will be found, by looking at all nodes in the tree, that are within a certain requiring radius, $r$, from $v_"new"$. This is done by the `Neighbourhood` function, which returns the set $V_"near" = {n_1, n_2, dots, n_n}$.
 #[

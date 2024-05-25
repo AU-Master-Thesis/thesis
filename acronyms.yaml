@@ -96,3 +96,7 @@
   definition: National Security Agency
 - acronym: CVE
   definition: Common Vulnerabilities and Exposures
+- acronym: PNG
+  definition: Portable Network Graphics
+- acronym: FDM
+  definition: Finite Difference Method

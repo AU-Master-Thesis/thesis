@@ -4,6 +4,7 @@
 #import "unitfmt.typ": *
 #import "note.typ"
 #import "params.typ"
+#import "crates.typ"
 #import "table.typ": *
 #import "statistics.typ": *
 #import "numbers.typ"

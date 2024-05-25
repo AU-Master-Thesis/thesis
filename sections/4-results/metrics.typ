@@ -5,13 +5,15 @@
 To objectively compare our reimplementation with the original #gbpplanner, we measure and compare the same four metrics: distance travelled, makespan, smoothness, and inter robot collisions@gbpplanner:
 
 
-#set enum(numbering: box-enum.with(prefix: "Metric-"))
+#set enum(numbering: box-enum.with(prefix: "M-"))
 
-#let metric(name) = [_ #name _ #h(1em)]
+// #let metric(name) = text(accent, style: "italic", [#name:])
+#let metric(name) = [*#name:* ]
+// #let metric(name) = [_ #name _ #h(1em)]
 
 + #metric[Distance travelled] The cumulative distance covered by the robot until it reaches its destination. Effective trajectories aim to minimize this measure.
 + #metric[Makespan] The overall duration for all robots to achieve their objectives. A collaborative system of numerous robots should strive to reduce this measure.
-+ #metric[Smoothness] Continuous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot. Such as those due to wheel actuators/encoders.  Smoothness is inherently a geometric property of the path traversed. Too quantify this, the #acr("LDJ") metric is used@ldj-metric. It is a dimensionless metric that looks at how the jerk of a movement changes over a timespan. The equation for it is defined here @equ.ldj. Values lie in the interval $[0, -infinity]$ where closer to $0$ is better.
++ #metric[Smoothness] Continuous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot. Such as those due to wheel actuators/encoders.  Smoothness is inherently a geometric property of the path traversed. Too quantify this, the #acr("LDJ") metric is used@ldj-metric. It is a dimensionless metric that looks at how the jerk of a movement changes over a timespan. The equation for it is defined in @equ.ldj. Values lie in the interval $[0, -infinity]$ where closer to $0$ is better.
 
 // as it does not depend on the time taken or velocity #note.kristoffer[how is this true given the equation]. It is defined as
 
@@ -26,14 +28,14 @@ To objectively compare our reimplementation with the original #gbpplanner, we me
 // This metric aims to quantify the smoothness of the robot's trajectories.
 
 // $ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") integral_(t_("start"))^(t_("final")) abs(attach(limits(v), t: dot.double)(t))^2 d t)  $ <equ.ldj>
-$ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") integral_(t_("start"))^(t_("final"))  abs((d^2 v(t))/(d t))^2  d t)  $ <equ.ldj>
+  $ L D J attach(=, t: Delta)  -ln( (t_("final") - t_("start"))^3 / v^2_("max") integral_(t_("start"))^(t_("final"))  abs((d^2 v(t))/(d t))^2  d t)  $ <equ.ldj>
 
 // #let ldj(t_start, t_final, )
 
--  $t in [t_("start"), t_("final")]$ is the time interval the metric is measured over.
-- $v_("max")$ is the maximum velocity along the trajectory.
-- $v(t)$ is the velocity of a robot at time $t$.
-- $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also known as jerk.
+  - $t in [t_("start"), t_("final")]$ is the time interval the metric is measured over.
+  - $v_("max")$ is the maximum velocity along the trajectory.
+  - $v(t)$ is the velocity of a robot at time $t$.
+  - $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also known as jerk.
 
 Each robots velocity is sampled and recorded with an interval of $20 H z$. For numerical integration Simpson's rule is used@simpsons-rule. The code for how the metric is computed can be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/ldj.py"), and in @appendix.ldj-metric-computation.
 
@@ -70,7 +72,7 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
 
 // #kristoffer[improve figure and layout]
 #grid(
-  columns: (1fr, 1fr),
+  columns: (5fr, 4fr),
   column-gutter: 1em,
   // [#lorem(50)],
 
@@ -109,11 +111,11 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
 
 // $ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {"d"(P_j, L_i)})^2 ) $
 
-$ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {||P_j - p(P_j, L_i)||^2})^2 ) $ <equ.perpendicular-path-deviation>
+  $ "RMSE" = sqrt(1/n sum_(j=1)^(n) (min_i {||P_j - p(P_j, L_i)||^2})^2 ) $ <equ.perpendicular-path-deviation>
 
-- $L_i in {L_1, L_2, ..., L_m}$ is the set of line segments making up the planned path.
-- $P_j in {P_1, P_2, ..., P_n}$ is the set of sampled positions.
-- $||P_j - p(P_j, L_i)||^2$ is the squared distance between the sampled position $P_j$ and the projection of $P_j$ onto the line segment $L_i$.
+  - $L_i in {L_1, L_2, ..., L_m}$ is the set of line segments making up the planned path.
+  - $P_j in {P_1, P_2, ..., P_n}$ is the set of sampled positions.
+  - $||P_j - p(P_j, L_i)||^2$ is the squared distance between the sampled position $P_j$ and the projection of $P_j$ onto the line segment $L_i$.
 
 The code for how the metric is computed can be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/perpendicular-path-deviation.py"), and in @appendix.perpendicular-path-deviation-metric-code.
 

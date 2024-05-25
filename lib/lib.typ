@@ -1,5 +1,6 @@
 
 #import "blocks.typ": *
+#import "note.typ"
 #import "catppuccin.typ": *
 // #import "template.typ": *
 #import "@preview/codelst:2.0.1": sourcecode, codelst, sourcefile
@@ -143,7 +144,7 @@
 #let kristoffer = remark.with(color: theme.green, prefix: "Kristoffer: ")
 #let k = kristoffer
 #let jonas = remark.with(color: theme.mauve, prefix: "Jonas: ")
-#let att(content) = text(theme.peach, content)
+#let att(content) = note.a[] + text(theme.peach, content)
 
 #let boxed-enum(
   prefix: "",
@@ -810,6 +811,10 @@
     content
   }
   link("https://github.com/AU-Master-Thesis/gbp-rs", name)
+}
+
+#let source-link(dest, file-path) = {
+  link(dest, raw(block: false, file-path))
 }
 
 #let panel = (

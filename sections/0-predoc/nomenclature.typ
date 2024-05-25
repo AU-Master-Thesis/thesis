@@ -78,7 +78,8 @@
 
     assert(calc.rem(cells.len(), 2) == 0)
 
-    let split = int(cells.len() / 2) + 1
+    let split = 50
+    // let split = int(cells.len() / 2)
     let first-half = cells.slice(0, split)
     let last-half = cells.slice(split)
 
@@ -86,7 +87,7 @@
 
     let t(cells) = tablec(
       columns: 2,
-      align: (center, left),
+      align: (right, left),
       header: table.header([Acronym], [Definition]),
       ..cells
     )
@@ -99,4 +100,4 @@
 })
 }
 
-#print-acronyms()
+#print-acronyms(level: 1, outlined: true)

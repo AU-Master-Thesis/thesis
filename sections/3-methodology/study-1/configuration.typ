@@ -2,6 +2,8 @@
 
 === Configuration <s.m.configuration>
 
+#todo[add links to configuration files from the repo, such that the reader can have easy access to examples.]
+
 To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `configuration.toml`, uses `TOML`, and is used to define all the general parameters for the simulation, visualisation, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualisation`. The smaller sections are described in the code documentation itself.@repo
 #set enum(numbering: box-enum.with(prefix: "Section "))
 + `GBP:` Outlines all initial factor standard deviations, $sigma$, used in the #acr("GBP") message passing, alogn with the iteration schedule to use and how many of _internal_ vs _external_ iterations to run.

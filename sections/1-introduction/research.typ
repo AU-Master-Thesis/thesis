@@ -39,45 +39,50 @@ From this point on, anything pertaining to the context of #H(1) will be referred
 
 == Research Questions <intro-research-questions>
 
-// === Study 1
-#study.H-1.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-1", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "RQ-1.", color: theme.teal))
-+ Which programming language will be optimal for scientific communication and extensibility?
-+ Is it possible to reproduce the results of the original #acr("GBP") Planner in the chosen programming language?
-+ Which architecture and framework is suitable for such a task, and can it reproduce the original results?
-+ What kind of tooling will be most beneficial for the software?
-+ How can tooling help with future reproducibility and engagement with the software?
-+ How can tooling help with understanding and extending the software?
+This section outlines which research questions will have to be answered to reach a conclusion for each hypothesis. The questions below are structured under each study, and are numbered accordingly. \ \
 
-// === Study 2
-#study.H-2.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "RQ-2.", color: theme.teal))
-+ Which possible ways can the #acr("GBP") iteration scheduling be improved?
-+ How can such iteration schedules be tested, to ensure that they are an improvement?
-+ Which possible avenues exist to advance towards a more distributed approach?
-+ Are these targeted improvements able to enhance the original work without transforming it?
+#[
+  #set par(first-line-indent: 0em)
+  // === Study 1
+  #study.H-1.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-1", weight: 900):
+  #set enum(numbering: req-enum.with(prefix: "RQ-1.", color: theme.teal))
+  + Which programming language will be optimal for scientific communication and extensibility?
+  + Is it possible to reproduce the results of the original #acr("GBP") Planner in the chosen programming language?
+  + Which architecture and framework is suitable for such a task, and can it reproduce the original results?
+  + What kind of tooling will be most beneficial for the software?
+  + How can tooling help with future reproducibility and engagement with the software?
+  + How can tooling help with understanding and extending the software?
 
-// === Study 3
-#study.H-3.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal))
-+ Will global planning improve the actors' capability to move in complex environments?
-+ Will global planning degrade the existing local cooperative collision avoidance?
-+ What impact will the global planning layer have on performance?
+  // === Study 2
+  #study.H-2.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
+  #set enum(numbering: req-enum.with(prefix: "RQ-2.", color: theme.teal))
+  + Which possible ways can the #acr("GBP") iteration scheduling be improved?
+  + How can such iteration schedules be tested, to ensure that they are an improvement?
+  + Which possible avenues exist to advance towards a more distributed approach?
+  + Are these targeted improvements able to enhance the original work without transforming it?
 
-// === Study 4
-#study.H-4.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
-#set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal), start: 4)
-+ Is it possible to introduce a new type of factor that can aid in path-following?
-+ What impact will this factor have on the existing behaviour of the actors, importantly; will it degrade their ability to collaborate and avoid collisions - both with each other and the environment?
-+ What will the impact of this factor be on the actors' capability to move in complex environments?
+  // === Study 3
+  #study.H-3.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
+  #set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal))
+  + Will global planning improve the actors' capability to move in complex environments?
+  + Will global planning degrade the existing local cooperative collision avoidance?
+  + What impact will the global planning layer have on performance?
+
+  // === Study 4
+  #study.H-4.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
+  #set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal), start: 4)
+  + Is it possible to introduce a new type of factor that can aid in path-following?
+  + What impact will this factor have on the existing behaviour of the actors, importantly; will it degrade their ability to collaborate and avoid collisions - both with each other and the environment?
+  + What will the impact of this factor be on the actors' capability to move in complex environments?
+]
 
 
 // #todo[1 hypothesis to many research question]
 
 == Research Objectives <intro-research-objectives>
-// #todo[1 research question to many research objectives]
 
-// #let o-num() = req-enum.with(color: accent)
+To answer each research question, a set of objectives will have to be met. The objective for each question is listed and numbered below.
+
 #{
   set enum(start: 1)
   [
@@ -85,12 +90,12 @@ From this point on, anything pertaining to the context of #H(1) will be referred
     #(study.heading)(study.H-1.full.n)
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
-    + Evaluate possible programming languages on #att[several metrics]#note.a[] for scientific communication and extensibility.
+    + Evaluate possible programming languages on #att[several metrics] for scientific communication and extensibility.
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.2.", color: theme.green))
     + Reimplement the original GBP Planner in the chosen programming language.
-    + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the #att[four metrics: distance travelled, makespan, smoothness, and collision count.]#note.a[]
+    + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the #att[four metrics: distance travelled, makespan, smoothness, and collision count.]
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.3", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.3.", color: theme.green))
@@ -136,7 +141,7 @@ From this point on, anything pertaining to the context of #H(1) will be referred
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.1", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-3.1.", color: theme.green))
     + Implement a global planning layer in the reimplemented GBP Planner.
-    + Evaluate the actors' capability to move in complex environments by looking at the #att[four metrics: distance travelled, makespan, smoothness, and collision count]#note.a[], comparing against the reimplemented reproduction and the original GBP Planner.
+    + Evaluate the actors' capability to move in complex environments by looking at the #att[four metrics: distance travelled, makespan, smoothness, and collision count], comparing against the reimplemented reproduction and the original GBP Planner.
 
     *Objectives for _Research Questions_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.2", weight: 900) and #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.3", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-3.2.", color: theme.green))
@@ -148,11 +153,11 @@ From this point on, anything pertaining to the context of #H(1) will be referred
     #set enum(numbering: req-enum.with(prefix: "O-4.1.", color: theme.green))
     + Implement a new type of factor that can aid in path-following.
     + Make the factor interact with the path given to the actors.
-    + Design the factor's measurement function, jacobian.
+    + Design the factor's measurement function, Jacobian.
 
     *Objectives for _Research Questions_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.2", weight: 900) and #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.3", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-4.2.", color: theme.green))
-    + Measure the impact on the #att[four metrics: distance travelled, makespan, smoothness, and collision count]#note.a[].
+    + Measure the impact on the #att[four metrics: distance travelled, makespan, smoothness, and collision count].
     + Evaluate the impact of the new factor on the actors' behaviour.
   ]
 }

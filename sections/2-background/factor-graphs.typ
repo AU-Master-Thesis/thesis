@@ -213,7 +213,7 @@ $<eq.gbp-variable-to-factor-canonical>
 #jonas[I have written this section out, which was a todo box before, please read.]
 Note that this step is not written out in @gbpplanner, as it is not a step like the rest, where some state is updated. Instead, the updating of a factor here describe the mathematical steps taken before passing messages to neighbouring variables. Writing this step out also represents the developed software@repo more directly. The following steps take place:
 #[
-  #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve, suffix: ":"))
+  #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve))
   // #set par(first-line-indent: 0em)
   + *Aggregate Messages:* Messages from neighbouring variables are aggregated into a single message, as seen in @eq.gbp-factor-to-variable@gbp-visual-introduction:
 
@@ -295,7 +295,7 @@ As the factor has been updated, it is now possible to pass messages to neighbour
   $<eq.ex.marginalisation>
 
   Now to marginalise, perform the two steps:
-    #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.peach, suffix: ":"))
+    #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.peach))
   + *Reorder the vector $eta_f^prime$ and the matrix $Lambda_f^prime$ to bring the contribution from the recipient $x_1$ to the top.* \
     _In our case no reordering is to be done, as $x_1$ is already at the top._
 
@@ -329,7 +329,7 @@ $
   E(X_n) = 1/2 (#text(theme.maroon, $m(X_n)$) - #text(theme.green, $d$))^top #text(theme.mauve, $Sigma_n$)^(-1) (#text(theme.maroon, $m(X_n)$) - #text(theme.green, $d$))
 $<eq.gaussian-energy>
 
-In case of a linear factor, the measurement function is quadratic and can be written as $#text(theme.maroon, $m(X_n)$) = jacobian X_n + c$, where $jacobian$ is the jacobian. This allows us to rearrange the energy onto #gaussian.canonical @eq.gaussian-canonical@gbp-visual-introduction:
+In case of a linear factor, the measurement function is quadratic and can be written as $#text(theme.maroon, $m(X_n)$) = jacobian X_n + c$, where $jacobian$ is the Jacobian. This allows us to rearrange the energy onto #gaussian.canonical @eq.gaussian-canonical@gbp-visual-introduction:
 
 $
   E(X_n) = 1/2 X_n^top #text(theme.yellow, $Lambda$) X_n - #text(theme.yellow, $eta$)^top X_n#h(1em), "where" #text(theme.yellow, $eta$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) (#text(theme.green, $d$) - c) "and" #text(theme.yellow, $Lambda$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) jacobian

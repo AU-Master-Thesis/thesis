@@ -78,13 +78,13 @@ trait Factor: std::fmt::Display {
   fn neighbours(&self) -> usize;
   /// Whether the factor is linear or non-linear
   fn linear(&self) -> bool;
-  /// The delta for the jacobian first order derivative approximation calculation
+  /// The delta for the Jacobian first order derivative approximation calculation
   fn jacobian_delta(&self) -> f64;
-  /// The jacobian of the factor
+  /// The Jacobian of the factor
   fn jacobian(&self, state: &FactorState, lin_point: &Vector<f64>) -> Cow<'_, Matrix<f64>>;
   /// Measurement function
   fn measure(&self, state: &FactorState, lin_point: &Vector<f64>) -> Measurement;
-  /// First order jacobian (provided method)
+  /// First order Jacobian (provided method)
   fn first_order_jacobian(&self, state: &FactorState, lin_point: Vector<f64>) -> Matrix<f64> { ... }
 }
 ```
