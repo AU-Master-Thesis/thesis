@@ -988,3 +988,41 @@ tour-of-cpp:
   edition: 2
   isbn: 0-13-499783-2
   url: https://www.stroustrup.com/tour2.html
+
+white-house-rust:
+  type: report
+  title: "Back to the Building Blocks: A Path Toward Secure and Measurable Software"
+  author:
+  - White House
+  date: 2024-02-01
+  # url: https://www.whitehouse.gov/wp-content/uploads/2024/02/Final-ONCD-Technical-Report.pdf
+  # o
+  # o
+  url: https://www.whitehouse.gov/oncd/briefing-room/2024/02/26/press-release-technical-report/
+
+nsa-use-rust:
+  type: report
+  title: Software Memory Safety
+  author:
+  - National Security Agency
+  date: 2023-04-01
+  url: https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF
+
+
+
+nist-use-rust:
+  type: article
+  title: Critical Software Security Weaknesses
+  author:
+  - Gueye, Assane
+  - Galhardo, Carlos Eduardo C.
+  - Bojanova, Irena
+  date: 2023
+  page-range: 11–16
+  serial-number:
+    doi: 10.1109/MITP.2023.3297387
+  parent:
+    type: periodical
+    title: IT Professional
+    issue: 4
+    volume: 25

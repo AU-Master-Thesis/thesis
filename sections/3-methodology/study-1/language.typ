@@ -13,14 +13,24 @@ Both the simulator and the gbplanner reimplementation are written in the Rust pr
 The software for `gbpplanner` is implemented in the C++ programming language@gbpplanner-code. A common choice used in robotics and simulation developments due to its capabilities to compile to very efficient machine code. High level programming structures such as templates and generic programming can be utilized with little to no performance cost. A property referred to as zero cost abstractions@tour-of-cpp. Manual memory management is used instead garbage collection which allows one to ensure predictable latency which in many real time algorithms is a hard requirement. To better understand the algorithm and to validate that the it works across different programming languages and are not dependant on features exclusive to C++ the Rust programming language was used instead. Rust is able to achieve many of the same performance qualities as C++, allowing in to operate in the same domains:
 
 - Deterministic deallocation of resources using the #acr("RAII") pattern, equivalent to C++'s use of destructors@tour-of-cpp@the-rust-book.
-- High level abstractions such as generic programming and traits that gets compiled to efficent machine code@the-rust-book.
+- High level abstractions such as generic programming and traits that gets compiled to efficient machine code@the-rust-book.
 - No garbage collection
 - Zero cost abstractions, such as composable iterators, usually found in pure functional programming languages@the-rust-book.
 - Low level control over hardware and operating system resources.
 
 
+Rusts most prominent feature is that is able to have automatic memory management while not using garbage collection through an advanced static analysis system built into the language called the ownership model. The rules of this system is explained in more detail below in @s.graph-representation. With this system the compiler is able to prove that a common suite of serious bugs can not happen at run time. Bugs such as use after free, null-pointer dereferences, buffer overflows and memory leaks. All of which are issues that a programmer has to prevent manually in other low level languages such as C and C++. These issues can if not prevented lead to security vulnerabilities and potentioally dangerous crashes for real-time embedded systems. As such
+
+focus on modulariy and consistent tooling across the entire language stack
+
+it is the authors of this thesis belief that
+
+NIST @nist-use-rust
+
+NSA @nsa-use-rust
 
 
+A belief that Rust will grow and gain ground in robotic software stacks, as robotic systems continue to become more
 
 
 #line(length: 100%, stroke: 10pt + red)
@@ -35,7 +45,10 @@ The software for `gbpplanner` is implemented in the C++ programming language@gbp
 
 - See a lot of popularity and want the to contribute to robotics related research and experimentation in the language to prove its usefullness/applicability in multiple domains.
 
-- white house paper that urges developers to move away from C++ and focus on memory safe languages like Rust. Also cite Google CVE papers about vulnabilities that Rust can prevent alone by the compiler.
+- white house paper that urges developers to move away from C++ and focus on memory safe languages like Rust. Also cite Google CVE papers about vulnabilities that Rust can prevent alone by the compiler. @white-house-rust
+
+
+the government of USA
 
 - The most beloved language in by software developers many years in a row, Stack Overflow
 
@@ -44,18 +57,24 @@ The software for `gbpplanner` is implemented in the C++ programming language@gbp
 
 
 
+Rust was not the only candidate that was considered.
 
-#todo[
-  What other alternatives were available?
-  C++
-  Zig
-  Odin
+==== Other Languages Considered
 
-  Julia
-  Python, too slow, and lack of a strong (enforced) type system had us worried about managing the implementation as the project codebase would grow.
-]
+Beyond Rust four other programming languages were considered.  @tbl.other-languages-considered lists them in a table together with reasons why they were not selected.
 
-
+#figure(
+  tablec(
+    columns: 2,
+    align: (center, left),
+    header: table.header([Language], [Reason for not choosing it]),
+    [Zig], [],
+    [Odin], [],
+    [Julia], [],
+    [Python], [Too slow, and lack of a strong (enforced) type system seen as a disadvantage for managing the size and complexity of the developed system.],
+  ),
+  caption: []
+) <tbl.other-languages-considered>
 
 #todo[
   Explain some of the unique benefits of Rust.
