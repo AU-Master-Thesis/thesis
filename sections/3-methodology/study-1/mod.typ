@@ -60,17 +60,12 @@ Variable Timesteps
 ]
 
 
-#kristoffer[
-  Explain the marginalization step/ algorithm
-  They do explain it at ALL in the paper so, we need another citation for it
-  Maybe make a figure, or some colorful equations to explain the step/slices
-]
+// #kristoffer[
+//   Explain the marginalization step/ algorithm
+//   They do explain it at ALL in the paper so, we need another citation for it
+//   Maybe make a figure, or some colorful equations to explain the step/slices
+// ]
 
-#kristoffer[
-  Explain how factors are abstracted using the `Factor` trait.
-  How our implementation uses Composition instead of inheritance in C++
-    - What pros/cons does this bring?
-]
 
 === Factor Structure <s.factor-structure>
 
@@ -97,8 +92,16 @@ caption: [Factor]
 
 - No inheritance, use composition and traits instead
 
+- #k[what is the purpose of the FactorState argument?]
 
 - Used tagged union for static dispatch
+
+
+#kristoffer[
+  Explain how factors are abstracted using the `Factor` trait.
+  How our implementation uses Composition instead of inheritance in C++
+    - What pros/cons does this bring?
+]
 
 
 // #algorithm(

@@ -86,3 +86,5 @@
   definition: Structure from Motion
 - acronym: RPC
   definition: Remote Procedure Call
+- acronym: API
+  definition: Application Programming Interface
