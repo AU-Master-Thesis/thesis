@@ -44,6 +44,8 @@ in {
       nushell
       xsv
       timg
+      imagemagick
+      ffmpeg
       # (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "ComicShannsMono" "Hack" ]; })
     ]
     ++ python-packages;

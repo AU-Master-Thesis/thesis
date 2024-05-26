@@ -42,6 +42,7 @@ Specific details and parameters for each scenario are presented in the following
 
 They have been chosen such that all seeds have a minimum Hamming Distance of $5$, to ensure a moderate amount of entropy@review-of-methodologies-and-metrics-for-assessing-the-quality-of-random-number-generators. For a full summary of all experimental parameters used in the reproduction experiments see @appendix.reproduction-experiment-parameters. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
 
+
 #show quote: emph
 === #scen.circle.n <s.r.scenarios.circle>
 // EXCEPT from their paper
@@ -142,8 +143,11 @@ $ Q_("in") in [0.5, 1, ..., 6] $
 
 #figure(
   // image("../../../figures/out/junction.svg", width: 30%),
-  std-block(todo[Add image]),
-  caption: [Visualisation junction scenario.],
+  // std-block(todo[Add image]),
+  std-block(image("../../figures/img/junction-experiment-preview.png")),
+  caption: [
+  Screenshot of the junction scenario with $Q_("in") = 6$. The green #sg edges represent the the joint factorgraph.
+],
 )<f.scenarios.junction>
 
 === #scen.communications-failure.n <s.r.scenarios.communications-failure>
