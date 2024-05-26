@@ -65,8 +65,15 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 #figure(
   // image("../../../figures/out/circle.svg", width: 30%),
-  std-block(todo[Add image]),
-  caption: [Visualisation circle scenario.],
+  // std-block(todo[Add image]),
+  // std-block(image("../../figures/img/circle-scenario-preview-1.png")),
+  std-block(image("../../figures/img/circle-scenario-preview-2.png")),
+  // std-block(image("../../figures/img/circle-scenario-preview-3.png")),
+  caption: [
+  Screenshot of the circle environment with $N_R = 20$. The lines with low opacity represent the trajectory that each robot has to follow.
+
+  // with $Q_("in") = 6$. The green #sg edges represent the the joint factorgraph.
+],
 )<f.scenarios.circle>
 
 === #scen.environment-obstacles.n <s.r.scenarios.environment-obstacles>

@@ -370,8 +370,6 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 
 // #inline-schedule-example
 
-#jens[take screenshot of this. My tool sucks and add a black outline]
-
 #figure(
   // std-block(image("../../../figures/img/tool-settings-schedule-latte.png")),
   // std-block(image("../../../figures/img/gbp-schedules-preview-1.png")),
