@@ -33,10 +33,10 @@
   // sim: (
   // ),
     factor: (
-      sigma_d: $1$,
-      sigma_p: $1 times 10^(-15)$,
-      sigma_r: $0.005$,
-      sigma_o: $0.005$,
+      sigma_d: $1m$,
+      sigma_p: $1 times 10^(-15)m$,
+      sigma_r: $0.005m$,
+      sigma_o: $0.005m$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -66,10 +66,10 @@
   // sim: (
   // ),
     factor: (
-      sigma_d: $1$,
-      sigma_p: $1 times 10^(-15)$,
-      sigma_r: $0.005$,
-      sigma_o: $0.005$,
+      sigma_d: $1m$,
+      sigma_p: $1 times 10^(-15)m$,
+      sigma_r: $0.005m$,
+      sigma_o: $0.005m$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -97,10 +97,10 @@
 
 #let varying-network-connectivity = (
     factor: (
-      sigma_d: $1$,
-      sigma_p: $1 times 10^(-15)$,
-      sigma_r: $0.005$,
-      sigma_o: $0.005$,
+      sigma_d: $1m$,
+      sigma_p: $1 times 10^(-15)m$,
+      sigma_r: $0.005m$,
+      sigma_o: $0.005m$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -131,10 +131,10 @@
   // sim: (
   // ),
     factor: (
-      sigma_d: $0.5$,
-      sigma_p: $1 times 10^(-15)$,
-      sigma_r: $0.005$,
-      sigma_o: $0.005$,
+      sigma_d: $0.5m$,
+      sigma_p: $1 times 10^(-15)m$,
+      sigma_r: $0.005m$,
+      sigma_o: $0.005m$,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
