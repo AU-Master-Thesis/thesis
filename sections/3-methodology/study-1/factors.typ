@@ -78,10 +78,13 @@ $<eq.foj-column-j>
 ==== Pose Factor $bold(f_p)$ <s.m.factors.pose-factor>
 The pose factor is the most basic, but also quite a crucial factor in the factor graph. It expresses a strictness on a variables belief at a given timestep. The pose factor can thereby be used to enforce a "known" position. For example, the robot is known to be at its current position and therefore the first variable in the chain has a strict pose factor attached. The same is the deal for the last variable in the chain, which enforces a _want_ to be at that position in the future. Every variable inbetween doesn't have a pose factor, as they are free to move within the constraints of the other factors. This is what allows the robot to diverge from its trajectory to collaboratively avoid other agents while maintaining a trajectory that will eventually lead to the goal.
 
-#todo[Pose factor math]
+// sigma_pose = 0.000000000000001
+The pose factor is a _anchoring_ factor, which means it imposes final constraints on the factor graph, which would otherwise only have contained relative positional information#footnote[_A visual introduction to Gaussian Belief Propagation_@gbp-visual-introduction presents a great interactive figure to see this understand the anchoring effect #link("https://gaussianbp.github.io/#gaussian_gm", [_Gaussian Models_ section]).]. Pose factors don't exist for all veriables in the prediction horizon, but rather only on the first and last variables. This grounds the belief of these variables in the environment. As in the original work, the pose factor standard deviation, $sigma_p$, is configurable, but as a default set to an extraordinarily low value of $1 times 10^(-15)$, which essentially fixes these positions in place during inference. This is an example of a very strong constraint imposed on the factor graph; as mentioned earlier, hard constraints are impossible, and this is the way to mimic them.
+
+An anchoring factor as the pose factor is the simplest as message passing and inference isn't necessary here. Instead the factor essentially just overrides the prior distribution of the variable, and sets it to the known value.
 
 ==== Dynamic Factor $bold(f_d)$ <s.m.factors.dynamic-factor>
-The dynamic factor imposes the kinematic constraints on the robot. If one were to model a differential drive robot, it would take place here. For the purpose of this reproduction, the dynamic factor doesn't impose any non-holonomic constraints, but simply ensures that the straight line between two variables is viable.
+The dynamic factor imposes the kinematic constraints on the robot. If one were to model a differential drive robot, it would take place here. For the purpose of this reproduction, the dynamic factor doesn't impose any strict non-holonomic constraints, but attempts to ensure a trajectory with smooth curvature and minimal jerk. This factor has a much more unsure default standard deviation, $sigma_d = 0.1$, which allows all veriables between the first and last to move much more freely, which is key to the robots' ability to avoid each other and the environment.
 
 The dynamic factor Jacobian, $jacobian_d$, is defined in $RR^(4 times 8)$, as the factor connects two variables. This Jacobian is computed and cached when the factor is created, as it doesn't change during the inference process.
 
@@ -101,22 +104,55 @@ $<eq.jacobian-d>
 
 Where $ident_n$ is the $n times n$ identity matrix, $zero_n$ is the $n times n$ zero matrix, $delta_t$ is the time step between the two variables, and $n = "DOFS" "/" 2$, that is, half the state space dimensions.
 
-#todo[Measurement math]
-#todo[Measurement precision]
+The measurement function, $h_d$, is defined as the dot product between the above jacobian, and the linearisation point, $x$.
+
+$
+  h_d (x) &= jacobian_d x,#h(1em)"where" \
+  x &= mat(
+    x_1, y_1, equation.overdot(x_1), equation.overdot(y_1), x_2, y_2, equation.overdot(x_2), equation.overdot(y_2)
+  )^top
+$<eq.dynamic-factor.measurement>
+
+// This measurement vector represents the following:
+
+// The relative position difference in the x-direction, adjusted by the predicted motion (velocity times time step).
+// The relative position difference in the y-direction, adjusted by the predicted motion (velocity times time step).
+// The relative velocity difference in the x-direction.
+// The relative velocity difference in the y-direction.
+
+// The measure function thus computes the relative state between two connected variables, incorporating both their positions and velocities, and adjusts for the predicted motion over the time step 𝛿𝑡δt. This is useful in state estimation frameworks where such relative measurements help in correcting and updating the state estimates of connected entities.
+
+The result of this dot product is a vector of length 4, which represents the information listed below, #boxed[*I-X*], and written out in @eq.dynamic-factor.measurement.result.
+#[
+  #set enum(numbering: box-enum.with(prefix: "I-"))
+  + The relative position difference in the $x,y$-directions, adjusted by the predicted motion; $delta_t times mat(equation.overdot(x_1), equation.overdot(y_1))$.
+  + The relative velocity difference in the $x,y$-directions.
+]
+
+$
+  h_d (x) = mat(
+    x_1 + delta_t equation.overdot(x_1) - x_2;
+    y_1 + delta_t equation.overdot(y_1) - y_2;
+    equation.overdot(x_1) - equation.overdot(x_2);
+    equation.overdot(y_1) - equation.overdot(y_2);
+  )
+$<eq.dynamic-factor.measurement.result>
+
+#todo[Measurement precision?]
 
 ==== Obstacle Factor $bold(f_o)$ <s.m.factors.obstacle-factor>
-The obstacle factor makes sure that the robot doesn't collide with any of the static environment. This is done by using a 2D #acr("SDF") representation of the environment baked into an image. The obstacle factors then measure the lightness of the #acr("SDF") at the linearisation point, which determines whether the factor detects future collision or not.
+The obstacle factor makes sure that the robot doesn't collide with any of the static environment. This is done by using a 2D #acr("SDF") representation of the environment baked into an image. The obstacle factors then measure the lightness of the #acr("SDF") at the linearisation point, which determines whether the factor detects future collision or not. And example #acr("SDF") was shown earlier in @f.m.sdf#text(accent, "C"). As it is only the middle variables that are free to move, obstacle factors are only connected to these. However, do note that even though then only connect to a single variable, they are not anchoring factors as they do not override the variable priors, but are part of the message passing inference process.
+
+The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4)$, and is the first order Jacobian following @alg.jacobian-first-order. As such, using the first order Jacobian, measuring the gradient of the underlying #acr("SDF"), enables the Jacobian to impact the factor potential to _push_ the variable in the opposite direction of environment obstacles, during the next message iteration. The measuring and effect of the obstacle factor is shown in @f.m.obstacle-factor.
 
 #figure(
-  std-block(todo[SDF example image, e.g. from the circle with obstacles environment.]),
-  caption: [Example of a signed distance field, where the lightness of the pixel represents the distance to the closest obstacle.]
-) <f.sdf-example>
+  std-block(todo[Obstacle factor visualisation]),
+  caption: [The obstacle factor visualisation in a 2D environment with a simple #acr("SDF").]
+)<f.m.obstacle-factor>
 
-And example #acr("SDF") is shown in @f.sdf-example. The #acr("SDF") is a greyscale image, where white regions are obstacle-free, and black regions are occupied by obstacles in the environment. Furthermore, the image has image is blurred as to represent distances to objects as values in grey. That is, everything between a lightness of 0% and 100% conceptually represents the distance to the closest object, but not in what direction it lies.
+The default standard deviation, $sigma_o$, for this factor is $0.01$, which is an order of magnitude lower than for the dynamic factor. This means that the obstacle factors' influence is stronger than the dynamic factor, making sure that avoiding obstacles is prioritised as a stronger constraint.
 
-The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4)$, and is the first order Jacobian following @alg.jacobian-first-order. As such, using the first order Jacobian, measuring the gradient underlying #acr("SDF"), enables the Jacobian to impact the factor potential to _push_ the variable in the opposite direction of environment obstacles, during the next message iteration.
-
-#jens[Measurement math]
+The obstacle measurement function, $h_o (x)$, is parameterised by the linearisation point, $x$, and the #acr("SDF") image. The resulting measurement is a scalar value, $0 <= h_o (x) <= 1$, essentially representing the lightness of the inverted #acr("SDF") at the position of the linearisation point in 2D space. That is, the closer to 1, the closer the robot is to an obstacle, and 0 is completely free space.
 
 ==== Interrobot Factor $bold(f_i)$ <s.m.factors.interrobot-factor>
 The interrobot factor expresses how robots should interact with each other when they get close enough. Interrobot factors measure the distance between the two robots, and if they get too close, the factor will in turn impose a repulsive force on the robots. Interrobot factors only exist between robots that are close enough, however, as soon as they are, an interrobot factor will be created between each variable for each timestep. This happens symmetrically, which means both robots will have a factor for each of its variables that connects externally to the other robot's variables. These are the connection that are used when external iterations of #acr("GBP") are made#note.kristoffer[refer to where you explain these]. To identify the connected variable in the external factorgraph, the interrobot factor store an unique identifier that consists of a two field tuple of the robots id, and index offset from the current variable. The interrobot factors take a safety distance into account which is some scaled version of the two robots' radii, see @eq.interrobot-factor.
@@ -146,13 +182,16 @@ $<eq.jacobian-i>
 
 Where $r$ is the robot's radius, $d_s$ is the safety distance, $p_1$ and $p_2$ are the positions of the two variables.
 
-#todo[Measurement precision math]
+#todo[Measurement precision math?]
 
 
 ==== Asynchronous Message Passing <s.m.factors.asynchronous-message-passing>
 
-As mentioned#note.jens[make sure this is mentioned in background] in @s.b.factor-graphs, the factor graph inference typically happens in a synchronous manner. A variable to factor message first, then a factor to variable message. This synchronous method will likely converge towards the true marginals. However, the factor graph structure allows for asynchronous message passing, although with a slower convergence, and likely with a higher variance. But in theory, variables and factors can always keep each other updated as soon as they have something to update with, or as soon as they get the opportunity to do so. Thus all the necessary information for inference will still be passed, hence still expecting similar convergence.
+As mentioned#note.jens[make sure this is mentioned in background] in @s.b.factor-graphs, the factor graph inference typically happens in a synchronous manner. A variable to factor message first, then a factor to variable message. This synchronous method is likely to converge towards the true marginals. However, the factor graph structure allows for asynchronous message passing and asynchronous scheduling. In fact, it an asynchronous schedule achieves better converge times than a synchronous one@gbp-visual-introduction, and can be made even better with a fixed round-robin approach@koller_2009. This result is expected as the asynchronous schedule allows for higher information density in each message, instead of sending low-delta messages that don't provide much new information.
 
-This is very useful in a multi-agent system such as `gbpplanner`@gbpplanner, where robots don't have boundless communication possibilities. As described above; the messages passed to and from interrobot factors from one robot to another robot represent the communication between the robots. In `gbpplanner`, and thus also in this reproduction the robots have a finite communication radius, and radios that sometimes fail. This means that synchronous iterations aren't guaranteed, but messages are rather passed on an opportunistic basis.
+
+// although with a slower convergence, and likely with a higher variance@gbp-visual-introduction. But in theory, variables and factors can always keep each other updated as soon as they have something to update with, or as soon as they get the opportunity to do so. Thus all the necessary information for inference will still be passed, hence still expecting convergence.
+
+This is very useful in a multi-agent system such as `gbpplanner`@gbpplanner, where robots don't have boundless communication possibilities. As described above; the messages passed to and from interrobot factors from represent the communication between the robots. In `gbpplanner`, and thus also in this reproduction the robots have a finite communication radius, and radios that sometimes fail. This means that synchronous iterations aren't guaranteed, but messages are rather passed on an opportunistic basis.
 
 #todo[say more about the internal and external iterations of GBP]

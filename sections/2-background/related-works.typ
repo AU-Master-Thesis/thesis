@@ -59,13 +59,16 @@ The field of multi-agent path planning has a rich literature spanning several de
 #let follower = box(circle(radius: 0.35em, fill: theme.blue.lighten(70%), stroke: theme.blue.lighten(20%)), baseline: 0.05em)
 
 #let communication-line = {
-  let l = line(length: 5pt, stroke: theme.overlay2)
-  let n = 3
-  let lines = range(n).map(_ => l)
-  box(grid(rows: 1, columns: n, column-gutter: 0.3em, ..lines), baseline: -0.25em)
+  // let l = line(length: 5pt, stroke: theme.overlay2)
+  // let n = 3
+  // let lines = range(n).map(_ => l)
+  // box(grid(rows: 1, columns: n, column-gutter: 0.3em, ..lines), baseline: -0.25em)
+  let l = place(dy: -0.35em, line(length: 1.6em, stroke: (thickness: 1pt, paint: theme.overlay2, dash: "dashed")))
+  box(inset: (x: 2pt), outset: (y: 2pt), l + h(1.6em))
 }
 
 #let velocity-vector = {
+  import cetz.draw: *
 // #polygon(
 //   fill: blue.lighten(80%),
 //   stroke: blue,
@@ -77,9 +80,10 @@ The field of multi-agent path planning has a rich literature spanning several de
   let c = theme.maroon.lighten(30%)
   let arrow-head = polygon(fill: c, (0em, 0em), (0em, -0.7em), (0.7em, -0.35em))
   let dots = 3
-  let dotted = grid(rows: 1, columns: dots, column-gutter: 0.1em, ..range(dots).map(_ => text(c, [.])))
-  box(dotted, baseline: -0.25em)
-  box(arrow-head, baseline: 0.05em)
+  // let dotted = grid(rows: 1, columns: dots, column-gutter: 0.1em, ..range(dots).map(_ => text(c, [.])))
+  let dotted = place(dy: -0.5em, cetz.canvas({line((0em, 0em), (1.5em, 0em), stroke: (paint: c, dash: "dotted"), mark: (end: "stealth", fill: c))}))
+  box(inset: (x: 2pt), outset: (y: 2pt), [#dotted#h(1.5em)]) //, baseline: -0.25em)
+  // box(inset: (x: 2pt), outset: (y: 2pt), ) //, baseline: 0.05em)
   // box(grid(rows: 1, columns: 2, column-gutter: 0.3em, dotted, arrow-head, ), baseline: -0.5em)
   // box(polygon(fill: c, (0pt, 0pt), (0pt, -8pt), (8pt, -4pt)), baseline: -0.5em)
 }
@@ -94,7 +98,7 @@ The field of multi-agent path planning has a rich literature spanning several de
   std-block(
     image("../../figures/out/multi-robot-path-planning-classification.svg", width: 80%),
   ),
-  caption: [Multi-robot path planning can at a high level be classified as: Centralized or Decentralized, Distributed, depending on how decisions are arrived at across the group of robots. Orange #coordinator are robotic agents that take part in path planning. Blue #follower are ones that receive instructions on how to update its state. An #communication-line edge represent communication between the two vertices. #velocity-vector represent the planned velocity at the current timestep.
+  caption: [Multi-robot path planning can at a high level be classified as: Centralized or Decentralized, Distributed, depending on how decisions are arrived at across the group of robots. Orange #coordinator are robotic agents that take part in path planning. Blue #follower are ones that receive instructions on how to update its state. An #communication-line edge represents communication between the two vertices. Lastly, #velocity-vector represents the planned velocity at the current timestep.
 ]
 ) <f.multi-robot-path-planning-classification>
 
