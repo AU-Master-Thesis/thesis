@@ -16,3 +16,4 @@
 #import "binary.typ": binary, popcount, hamming-distance
 #import "equation.typ"
 #import "nouns.typ": *
+#import "@preview/cetz:0.2.2"

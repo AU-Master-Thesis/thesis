@@ -446,7 +446,8 @@
     let t = state("remark" + "Todo: ").final(loc)
     let j = state("remark" + "Jens: ").final(loc)
     let k = state("remark" + "Kristoffer: ").final(loc)
-    let total = 0 + t + j + k
+    let jo = state("remark" + "Jonas: ").final(loc)
+    let total = t + j + k + jo
 
     let columns = ()
     let texts = ()
@@ -457,15 +458,20 @@
       texts.push(text(theme.maroon, [#t todo]))
       boxes.push(box(height: 1em, width: 100%, fill: theme.maroon))
     }
-      if j != none {
+    if j != none {
       columns.push(j)
       texts.push(text(theme.teal, [#j Jens]))
       boxes.push(box(height: 1em, width: 100%, fill: theme.teal))
     }
-      if k != none {
+    if k != none {
       columns.push(k)
       texts.push(text(theme.green, [#k Kristoffer]))
       boxes.push(box(height: 1em, width: 100%, fill: theme.green))
+    }
+    if jo != none {
+      columns.push(jo)
+      texts.push(text(theme.mauve, [#jo Jonas]))
+      boxes.push(box(height: 1em, width: 100%, fill: theme.mauve))
     }
 
     v(1em)
@@ -686,38 +692,38 @@
   },
   H-1: (
     box: boxed(text(weight: 900, "H-1")),
-    prefix: [_*Study 1*_],
+    prefix: [_*Contribution 1*_],
     name: [_*Simulation Framework*_],
     full: (
-      s: [_*Study 1: Simulation Framework*_],
-      n: [Study 1: Simulation Framework],
+      s: [_*Contribution 1: Simulation Framework*_],
+      n: [Contribution 1: Simulation Framework],
     )
   ),
   H-2: (
     box: boxed(text(weight: 900, "H-2")),
-    prefix: [_*Study 2*_],
+    prefix: [_*Contribution 2*_],
     name: [_*Algorithm Enhancements*_],
     full: (
-      s: [_*Study 2: Algorithm Enhancements*_],
-      n: [Study 2: Algorithm Enhancements],
+      s: [_*Contribution 2: Algorithm Enhancements*_],
+      n: [Contribution 2: Algorithm Enhancements],
     )
   ),
   H-3: (
     box: boxed(text(weight: 900, "H-3")),
-    prefix: [_*Study 3*_],
+    prefix: [_*Contribution 3*_],
     name: [_*Global Planning Layer*_],
     full: (
-      s: [_*Study 3: Global Planning Layer*_],
-      n: [Study 3: Global Planning Layer],
+      s: [_*Contribution 3: Global Planning Layer*_],
+      n: [Contribution 3: Global Planning Layer],
     )
   ),
   H-4: (
     box: boxed(text(weight: 900, "H-4")),
-    prefix: [_*Study 4*_],
+    prefix: [_*Contribution 4*_],
     name: [_*GBP Path Tracking*_],
     full: (
-      s: [_*Study 4: GBP Path Tracking*_],
-      n: [Study 4: GBP Path Tracking],
+      s: [_*Contribution 4: GBP Path Tracking*_],
+      n: [Contribution 4: GBP Path Tracking],
     )
   ),
 )
@@ -871,5 +877,5 @@
       )
       h(0.75em)
     }
-  ) 
+  )
 )

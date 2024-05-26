@@ -339,7 +339,8 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 #let inline-schedule-example = {
   // let r = color.rgb("#D68A90")
   // let c = color.rgb("#82C1CC")
-  let g = color.rgb("#63677F").lighten(80%)
+  // let g = color.rgb("#63677F").lighten(80%)
+  let g = theme.overlay2.lighten(25%)
 
   let schedules = interleave-evenly(30, 10)
   let schedules_transposed = transpose(schedules)
@@ -351,15 +352,19 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
   let external-inactive = line(length: 4pt, stroke: g)
 
   // schedules_transposed
-  table(
-    rows: (0.5em, 0.5em),
-    columns: 30,
-    row-gutter: 0pt,
-    column-gutter: -8pt,
+  box(
+    table(
+      rows: (0.5em, 0.5em),
+      columns: 30,
+      row-gutter: -1pt,
+      column-gutter: -8pt,
 
-    stroke: none,
-    ..internal.map(active => if active { internal-active } else { [] }),
-    ..external.map(active => if active { external-active } else { external-inactive }),
+      stroke: none,
+      ..internal.map(active => if active { internal-active } else { [] }),
+      ..external.map(active => if active { external-active } else { external-inactive }),
+    ),
+    inset: (x: 2pt),
+    outset: (y: -5pt)
   )
 }
 
@@ -370,7 +375,7 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 #figure(
   std-block(image("../../../figures/img/tool-settings-schedule-latte.png")),
   caption: [
-    Screenshot of the subection of the simulators settings panel which displays the current schedule. Both $M_i$ and $M_r$ can be changed dynamically while the simulation runs. The active schedule is displayed aswell and can be changed through a combobox list. The active schedule is displayed with the #box(inline-schedule-example, height: 1em) component. Similar to how its displayed in @f.iteration-schedules.
+    Screenshot of the subsection of the simulators settings panel which displays the current schedule. Both $M_i$ and $M_r$ can be changed dynamically while the simulation runs. The active schedule is displayed aswell and can be changed through a combobox list. The active schedule is displayed with the #box(inline-schedule-example, height: 1em) component. Similar to how its displayed in @f.iteration-schedules.
 ]
 ) <f.ui-schedule-settings>
 

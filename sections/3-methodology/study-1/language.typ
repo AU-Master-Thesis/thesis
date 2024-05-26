@@ -76,21 +76,82 @@ the Linux kernel project@rust-for-linux@linux-kernel-docs-rust, Microsoft@micros
 
 Beyond Rust four other programming languages were considered.  @tbl.other-languages-considered lists them in a table together with reasons why they were not selected.
 
-#figure(
-  tablec(
-  columns: 2,
-  align: (center, left),
-  header: table.header([Language], [Reason for not choosing it]),
-  [Zig], [Relatively new and still not fully complete with a v1.0 specification. Achieves performance on par with C++ and Rust, but lacks a strong ecosystem of libraries.
-      ],
-    [Odin], [Relatively new and still lacks a formal specification. Has good support for linear-algebra and vector math built into the language. Lacks a strong collection of third-party libraries for common functionality.],
-    [Julia], [
-      Primarily designed for numerical and scientific computing. Achieves good performance and can be on par with C++ and Rust if optimized correctly@making-julia-as-fast-as-cpp. Lacks strong mechanisms for encapsulation of state.
-    ],
-  [Python], [Too slow, and lack of a strong (enforced) type system seen as a disadvantage for managing the size and complexity of the developed system.],
+#let icons = (
+  Zig: box(
+    radius: 3pt,
+    height: 0.75em,
+    width: 2em,
+    inset: (x: 2pt),
+    outset: (y: 2pt),
+    pad(
+      x: -4pt,
+      y: -4pt,
+      image("../../../figures/icons/zig.svg", width: auto)
+    )
   ),
+  Odin: box(
+    fill: rgb("#4B89CA"),
+    radius: 3pt,
+    height: 0.75em,
+    width: 3em,
+    inset: (x: 2pt),
+    outset: (y: 2pt),
+    pad(
+      image("../../../figures/icons/odin.svg", width: auto)
+    )
+  ),
+  Julia: box(
+    // fill: catppuccin.latte.base,
+    radius: 3pt,
+    height: 0.75em,
+    width: 1.25em,
+    inset: (x: 2pt),
+    outset: (y: 2pt),
+    pad(
+      x: -2pt,
+      y: -2pt,
+      image("../../../figures/icons/julia.svg", width: auto)
+    )
+  ),
+  Python: box(
+    // fill: rgb("#306998"),
+    radius: 3pt,
+    height: 0.75em,
+    width: 1.25em,
+    inset: (x: 2pt),
+    outset: (y: 2pt),
+    pad(
+      x: -6pt,
+      y: -6pt,
+      image("../../../figures/icons/python.svg", width: auto)
+    )
+  ),
+)
+
+#figure(
+  {
+    show table.cell : it => {
+      if it.x == 1 {
+        set text(weight: "bold")
+        it
+      } else {
+        it
+      }
+    }
+    tablec(
+      columns: 3,
+      align: (center + horizon, center + horizon, left),
+      header: table.header([Icon], [Language], [Reason for not choosing it]),
+      icons.Zig, [Zig], table.vline(), [Relatively new and still not fully complete with a v1.0 specification. Achieves performance on par with C++ and Rust, but lacks a strong ecosystem of libraries.],
+      icons.Odin, [Odin], [Relatively new and still lacks a formal specification. Has good support for linear-algebra and vector math built into the language. Lacks a strong collection of third-party libraries for common functionality.],
+      icons.Julia, [Julia], [
+        Primarily designed for numerical and scientific computing. Achieves good performance and can be on par with C++ and Rust if optimized correctly@making-julia-as-fast-as-cpp. Lacks strong mechanisms for encapsulation of state.
+      ],
+      icons.Python, [Python], [Too slow, and lack of a strong (enforced) type system seen as a disadvantage for managing the size and complexity of the developed system.],
+    )
+  },
   caption: [
-  Other programming languages that were considered for the reimplementation of the gbpplanner paper, and the proposed simulation tool, but were ultimately not chosen.
+    Other programming languages that were considered for the reimplementation of the gbpplanner paper, and the proposed simulation tool, but were ultimately not chosen.
   ]
 ) <tbl.other-languages-considered>
 
