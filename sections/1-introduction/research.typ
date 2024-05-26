@@ -123,7 +123,7 @@ To answer each research question, a set of objectives will have to be met. The o
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-2.2", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-2.2.", color: theme.green))
-    + Evaulate the different possibilities for improving the #acr("GBP") iteration scheduling, and identify the best one.
+    + Evaluate the different possibilities for improving the #acr("GBP") iteration scheduling, and identify the best one.
     // + Implement the identified improvements without transforming#note.k[modifying the existing] the software.
     // + Evaluate whether the improvements are transformative by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
 

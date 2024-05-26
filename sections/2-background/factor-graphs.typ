@@ -223,7 +223,7 @@ Note that this step is not written out in @gbpplanner, as it is not a step like 
 
   + *Update Linearisation Point:* As the factor has received new messages from neighbouring variables, the linearisation point is updated to the new mean, $mu_f$.
 
-  + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the linearisation point, $m(X_0)$, and the current measurement, $m(X_n)$, see @eq.factor-measurement@gbp-visual-introduction:
+  + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the initial linearisation point, $m(X_0)$, and the current measurement, $m(X_n)$, see @eq.factor-measurement@gbp-visual-introduction:
 
     $
       m_r = m(X_0) - m(X_n)

@@ -75,56 +75,49 @@ Variable Timesteps
 
 In #gbpplanner, the different factor variants are implemented as separate classes that inherit from a `Factor` base class. Rust does not support inheritance as found in #acr("OOP") based languages like C++. Instead composition and traits are used for subtyping. The `Factor` trait, as seen in @listing.factor-trait is designed to group all requirements expected of any factor variant used in the factorgraph.
 
-
 #listing([
 ```rust
 trait Factor: std::fmt::Display {
   fn neighbours(&self) -> NonZeroU32;
-  fn linear(&self) -> bool;
-  fn jacobian_delta(&self) -> StrictlyPositiveFinite<f64>;
-  fn jacobian(&self, state: &FactorState, lin_point: &Vector<f64>) -> Cow<'_, Matrix<f64>>;
-  fn measure(&self, state: &FactorState, lin_point: &Vector<f64>) -> Moeasurement;
   fn skip(&self, state: &FactorState) -> bool;
+  fn measure(&self, state: &FactorState, lin_point: &Vector<f64>) -> Measurement;
+  fn jacobian(&self, state: &FactorState, lin_point: &Vector<f64>) -> Cow<'_, Matrix<f64>>;
+  fn jacobian_delta(&self) -> StrictlyPositiveFinite<f64>;
   fn first_order_jacobian(&self, state: &FactorState, lin_point: Vector<f64>) -> Matrix<f64> { ... }
 }
 ```
 ],
 caption: [
   The `Factor` trait, used by the factor graph to abstract the different types of factors.
+  Found in #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L60", "src/factorgraph/factor/mod.rs:60")
 ]
 ) <listing.factor-trait>
 
 - `neighbours()`: How many neighbouring variables the factor is connected to. `NonZeroUsize` is a standard library type representing the interval $[1, 2^(32-1)]$, to prevent implementors from  returning $0$, which would represent an invalid state, since a factorgraph cannot be disconnected.
-- `linear()`: Whether the factor is linear or non-linear. #k[this information is used]
-- `jacobian_delta()`: The $delta$ used in the jacobian first order derivative approximation calculation. `StrictlyPositiveFinite<f64>` is used to enforce that the returned value lies in the $RR_+ \\ {0, infinity}$ interval representable by the IEEE 754 double precision encoding. To prevent floating point errors from dividing by $0.0$ or $infinity$.
-- `jacobian()`: The jacobian of the factor. #k[...],
-- `measure()`: The measurement function. #k[...],
-- `skip()`: Whether the factor should be skipped during factor iteration. This is used by factors for which it might not make sense to active. The interrobot factors uses it to skip participation when estimated positions of the two variables it is connected with are further apart than $d_r$ #todo[ref]. Tracking factors uses it deactivate while the global planner asynchronously finds a path.
 
-which only should be active given the right state of the
-- `first_order_jacobian()`: The first order jacobian of the factor. This method comes with a default implementation that used the `jacobian()` implementation.
+- `skip()`: Whether the factor should be skipped during factor iteration. This is used by factors for which it might not make sense to be active. The interrobot factors uses it to skip participation when estimated positions of the two variables it is connected with are further apart than $d_r$ explained in @s.m.factors.interrobot-factor. Tracking factors uses it to deactivate while the global planner asynchronously finds a path #todo[ref].
 
-The `&FactorState` argument passed by reference to `jacobian()`, `measure()`, and `first_order_jacobian()` is a structure containing common data associated with all factors such as its measurement precision matrix $Lambda$ and the factors initial measurement $z$#todo[ref]. This is necessary as traits only allow you to be generic over behaviour and not state as you can with inheritance. While it moves the responsibility of tracking this state to the caller, it was deemed prefrable over having each implementor copy the same fields manually.
+- `measure()`: The measurement function $m(X_k)$ used in the factor potential update step as described in @s.b.gbp.factor-update.
+
+- `jacobian()`: The Jacobian of the factor. Used in the factor potential update step as described in @s.b.gbp.factor-update. To minimize repeated heap allocation of matrices #acr("CoW") semantics are used by wrapping the returned matrix in the `Cow<'_, _>` container@the-rust-book. With this implementors can opt to return a reference to an already allocated matrix they own, instead of a new copy of it. The dynamics factor makes use of this optimization as its Jacobian is precomputed once at initialization, and does not depend on the input linearization point #footnote([Found in the #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/dynamic.rs#L67-L70", "src/factorgraph/factor/dynamic.rs:67-70")]).
 
 
-With multiple factors variants there
+- `jacobian_delta()`: The $delta$ used in the Jacobian first order derivative approximation calculation. `StrictlyPositiveFinite<f64>` is used to enforce that the returned value lies in the $RR_+ \\ {0, infinity}$ interval representable by the IEEE 754 double precision encoding. To prevent floating point errors from dividing by $0.0$ or $infinity$.
 
-Each factor is
-
-- #k[what is the purpose of the FactorState argument?]
-
-- Used tagged union for static dispatch
+- `first_order_jacobian()`: The first order Jacobian of the factor. This method comes with a default implementation that used the `jacobian()` and `jacobian_delta()` implementation using the finite difference method as defined in @s.m.factors.jacobian-first-order.
 
 
-- Explain the `Cow<>` return type. Performance improve for factors that has a static jacobian like the dynamic factor
+The `Display` trait is added as a requirement for the `Factor` trait to enforce the introspection abilities built into the simulator for when a variable is clicked on with the mouse cursor. #k[ref section].
+The `&FactorState` argument passed by reference to `jacobian()`, `measure()`, and `first_order_jacobian()` is a structure containing common data associated with all factors such as its measurement precision matrix $Lambda_M$ and the factors initial measurement $m(X_0)$, see @s.b.gbp.factor-update. This is necessary as traits only allow you to be generic over behaviour and not state as you can with inheritance. While it moves the responsibility of tracking this state to the caller, it was deemed prefrable over having each implementor copy the same fields manually.
+All factor implementation are grouped together in a tagged union called `FactorKind`#todo[ref] to enable static dispatch over dynamic dispatch using a pointer and the strategy pattern. Using static dispatch is less flexible in terms of extensibility as all implementors has to be known by the library at compile time. But allows for better performance as the compiler can better optimise and possibly inline method calls. Which is important as these methods has to run in the hot code path of the simulation.
+
+// - Explain the `Cow<>` return type. Performance improve for factors that has a static Jacobian like the dynamic factor
 
 
-#kristoffer[
-  Explain how factors are abstracted using the `Factor` trait.
-  How our implementation uses Composition instead of inheritance in C++
-    - What pros/cons does this bring?
-]
+// #kristoffer[
+//   Explain how factors are abstracted using the `Factor` trait.
+//   How our implementation uses Composition instead of inheritance in C++
+//     - What pros/cons does this bring?
+// ]
 
 #line(length: 100%, stroke: 1em + red)
-
-- The `Display` is added as a requirement for the `Factor` trait to enforce the introspection abilities built into the simulator for when a variable is clicked on with the mouse cursor. #k[ref section].

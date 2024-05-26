@@ -31,7 +31,7 @@ In mathematical terms, the implemented `first_order_jacobian`#footnote[Found in 
 - $x$ be the linearisation point, an $n$-dimensional vector, representing the state or states at which the Jacboian is computed.
 - $delta$ be a small perturbation value for computing the finite difference approximation.
 
-The function computes the Jacobian matrix $jacobian$ of $h$ at $x$ by approximating the partial derivatives with respect to each component of $x$ using the #acr("FDM"). Mathematically, the $j$-th coloumn of $jacobian$, denoted as $jacobian_j$, is computed using @eq.foj-column-j:
+The function computes the Jacobian matrix $jacobian$ of $h$ at $x$ by approximating the partial derivatives with respect to each component of $x$ using the #acr("FDM"). Mathematically, the $j$-th column of $jacobian$, denoted as $jacobian_j$, is computed using @eq.foj-column-j:
 
 $
   jacobian_j = (h(x + delta e_j) - h(x)) / delta
