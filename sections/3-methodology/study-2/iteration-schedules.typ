@@ -364,7 +364,7 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
       ..external.map(active => if active { external-active } else { external-inactive }),
     ),
     inset: (x: 2pt),
-    outset: (y: -5pt)
+    outset: (y: 5pt)
   )
 }
 
