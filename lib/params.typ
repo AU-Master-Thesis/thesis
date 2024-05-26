@@ -6,6 +6,7 @@
 
 
 #let seeds = (0, 31, 227, 252, 805)
+#let na = $N "/" A$
 
 
 #let syms = (
@@ -94,7 +95,6 @@
   ),
 )
 
-
 #let varying-network-connectivity = (
     factor: (
       sigma_d: $1m$,
@@ -151,7 +151,8 @@
     r_r: $2m$,
     comms-radius: $50m$,
     speed: $15m"/"s$,
-    n_r: ${5, 10, ..., 50}$,
+    n_r: na,
+    // n_r: ${5, 10, ..., 50}$,
     // s: $2^*$,
   s: equation.as-set(seeds),
   ),

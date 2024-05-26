@@ -159,7 +159,7 @@ $
 
   &= 15 m/s t - 7.5 m/s t \
   &= 7.5 m / s t \
-  &<=>  t = (100 m) / (7.5 m / s) = 13 1/3 s
+  &<=>  t = (100 m) / (7.5 m / s) = 13 + 1/3 s
 $
 
 = Graphviz Representation of FactorGraphs <appendix.graphviz-representation-of-factorgraphs>
