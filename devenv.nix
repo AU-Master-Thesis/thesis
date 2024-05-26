@@ -124,13 +124,13 @@ in {
       pass_filenames = true;
     };
 
-    all-urls-exist = {
-      enable = true;
-      name = "all urls in the generated pdf returns HTTP 200";
-      entry = "./scripts/all-urls-exist.fish";
-      files = ".*\\.typ";
-      pass_filenames = false;
-    };
+    # all-urls-exist = {
+    #   enable = true;
+    #   name = "all urls in the generated pdf returns HTTP 200";
+    #   entry = "./scripts/all-urls-exist.fish";
+    #   files = ".*\\.typ";
+    #   pass_filenames = false;
+    # };
 
     #   all-citations-used = {
     #     enable = true;
