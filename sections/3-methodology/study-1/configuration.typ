@@ -4,7 +4,7 @@
 
 #todo[add links to configuration files from the repo, such that the reader can have easy access to examples.]
 
-To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `configuration.toml`, uses `TOML`, and is used to define all the general parameters for the simulation, visualisation, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualisation`. The smaller sections are described in the code documentation itself.@repo
+To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `configuration.toml`, uses #acr("TOML"), and is used to define all the general parameters for the simulation, visualisation, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualisation`. The smaller sections are described in the code documentation itself.@repo
 #set enum(numbering: box-enum.with(prefix: "Section "))
 + `GBP:` Outlines all initial factor standard deviations, $sigma$, used in the #acr("GBP") message passing, alogn with the iteration schedule to use and how many of _internal_ vs _external_ iterations to run.
 + `Robot:` Defines each robot's properties, such as size, target speed, communication radius and failure rate, and degrees of freedom. Additionally, some properties for the structure of the underlying factor are in this section; i.e. the planning-horizon, whether to use symmetric interrobot factors, and scaling of the safety distance between robots.
@@ -274,6 +274,14 @@ Formations are described with the concept of _distribution shapes_. These shapes
 )<f.m.formation-shapes>
 
 Now that we understand _distribution shapes_, we can look at their use-cases. These shapes are used in a formation, to describe how to place initially place the robots when spawned into the environment. Thereafter, each formation has a list of waypoints, which is a list of these _distribution shapes_ and _projection strategies_. The _projection strategies_ are used to describe how to map the initial spawning locations of the robots, to the new waypoints. A couple strategies have been implemented, namely; `identity`, `cross`. A possible formation configuration is shown in @f.m.formation-config.
+
+#k[
+  Mention
+
+  - waypoint-reached-when-intersects: horizon
+  - finished-when-intersects: horizon
+  - times: !infinite
+]
 
 #figure(
   std-block(

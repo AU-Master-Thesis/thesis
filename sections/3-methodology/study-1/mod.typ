@@ -11,16 +11,8 @@
 
 The methodology for developing an extensive simulation tool is outlined in this section. It is described how this tool is made capable of replicating the software implementation described in the gbpplanner paper@gbpplanner. The section details the differences in the reimplementation, justifying necessary deviations due to distinct capabilities or limitations of the programming language used as well as libraries, and explaining the improvements made. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution. As such _Research Objectives_ #boxed(color: theme.teal, [*O-1.1.1*]) through #boxed(color: theme.teal, [*O-1.6.1*]) are addressed in this section. The extensive usability and configurability improvements are described in sections #numref(<s.m.configuration>) and #numref(<s.m.simulation-tool>), respectively.
 
-#kristoffer[
-  show screenshots side by side of different elements of the simulation from theirs and ours,
-  e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
-
-
-  use this to argue on a non-measurable level why our implementation has is similar to theirs / has been reproduced
-]
-
-#kristoffer[
-  List out all the configuration parameters both the algorithm exposes and the sim. Which one is identical to gbpplanner, and what values are sensible to use as defaults
+#todo[
+  More comprehensive introduction, laying the different sections.
 ]
 
 #include "configuration.typ"

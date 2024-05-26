@@ -147,7 +147,7 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
 
 #figure(
   std-block(todo[Obstacle factor visualisation]),
-  caption: [The obstacle factor visualisation in a 2D environment with a simple #acr("SDF").]
+  caption: [The obstacle factor visualisation in a 2D environment with a simple #acr("SDF") from tool or tikz.]
 )<f.m.obstacle-factor>
 
 The default standard deviation, $sigma_o$, for this factor is $0.01$, which is an order of magnitude lower than for the dynamic factor. This means that the obstacle factors' influence is stronger than the dynamic factor, making sure that avoiding obstacles is prioritised as a stronger constraint.

@@ -20,6 +20,7 @@ This thesis poses the following four hypothesis:
 // Updated with Jonas feedback
 + Reimplementing the original GBP Planner in a modern, flexible multi-agent simulator framework using a modern programming language will enhance the software's scientific communication and extendibility. This redevelopment will not only ensure fidelity in reproducing established results but also improve user engagement and development through advanced tooling, thereby significantly upgrading the usability and functionality for multi-agent system simulations.
 
+
 // Jonas feedback:
 // We assert that the original work can be enhanced through precise modifications without interfering with the original work. Specifically, we introduce and rigorously test various GBP iteration schedules, and to strategically enhance the system by advancing towards a more distributed approach. These targeted improvements are expected to optimize performance and flexibility of system.
 

@@ -1,6 +1,9 @@
 #import "../../../lib/mod.typ": *
 
 === Simulation Tool <s.m.simulation-tool>
+
+#todo[update all sim screenshots]
+
 #jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
 
 // Hypothesis 4:
@@ -8,7 +11,7 @@
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-4.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation.
+As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation.
 
 #figure(
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -132,8 +135,11 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Environment colliders], [An outline in red#sr around each obstacle in the environment, that collision are being detected against.],
     [Robot-robot collisions], [An #acr("AABB") intersection, visualising each robot to robot collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
-  )
-)<table.simulation-visualisations>
+  ),
+  caption: [
+  #todo[write caption]
+]
+) <table.simulation-visualisations>
 
 #jens[Something about making debugging easier and most importantly understanding of the underlying theory]
 

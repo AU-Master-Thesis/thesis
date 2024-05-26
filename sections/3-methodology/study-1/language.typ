@@ -10,7 +10,7 @@ Both the simulator and the gbplanner reimplementation are written in the Rust pr
 
 ==== Why was Rust chosen?
 
-The software for #gbpplanner is implemented in the C++ programming language@gbpplanner-code. A language widelyused in robotics and scientific simulations due to its capabilities to compile to very efficient machine code. C++ supports high-level programming structures such as templates and generic programming with little to no performance cost. A property referred to as zero cost abstractions@tour-of-cpp. Manual memory management is used instead garbage collection, ensuring predictable latency. A hard requirement in many real-time systems.
+The software for #gbpplanner is implemented in the C++ programming language@gbpplanner-code. A language widely used in robotics and scientific simulations due to its capabilities to compile to very efficient machine code. C++ supports high-level programming structures such as templates and generic programming with little to no performance cost. A property referred to as zero cost abstractions@tour-of-cpp. Manual memory management is used instead garbage collection, ensuring predictable latency. A hard requirement in many real-time systems.
 To better understand the algorithm and validate it works across different programming languages and are not dependant on features exclusive to C++ the Rust programming language was used instead for redevelopment. Rust oﬀers performance qualities compa-
 rable to C++, making it suitable for similar domains:
 

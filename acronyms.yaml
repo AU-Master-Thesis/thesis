@@ -102,3 +102,5 @@
   definition: Finite Difference Method
 - acronym: CoW
   definition: Copy on Write
+- acronym: TOML
+  definition: Tom's Obvious Minimal Language

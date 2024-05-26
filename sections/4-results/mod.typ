@@ -30,3 +30,11 @@ All experiments were performed on the same laptop, featuring a #specs.cpu CPU, #
 #include "./study-2.typ"
 #include "./study-3.typ"
 #include "./study-4.typ"
+
+
+#kristoffer[
+  show screenshots side by side of different elements of the simulation from theirs and ours,
+  e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
+
+  use this to argue on a non-measurable level why our implementation has is similar to theirs / has been reproduced
+]

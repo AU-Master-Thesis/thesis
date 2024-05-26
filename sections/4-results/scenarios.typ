@@ -6,7 +6,7 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 // #jonas[fixed the boldness overload here]
 
 #set enum(numbering: box-enum.with(prefix: "S-"))
-+ _*Circle*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
++ _*Circle:*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
 
 
 
@@ -40,13 +40,7 @@ Specific details and parameters for each scenario are presented in the following
   )
 }
 
-They have been chosen such that all seeds have a minimum Hamming Distance of $5$, to ensure a moderate amount of entropy@review-of-methodologies-and-metrics-for-assessing-the-quality-of-random-number-generators.
-
-// #seeds.map(binary.with(min-length: 10))
-
-// #kristoffer[we use WyRand right now, change to mersenne twister https://docs.rs/mersenne_twister/latest/mersenne_twister/]
-
-For a full summary of all experimental parameters used in the reproduction experiments see @appendix.reproduction-experiment-parameters. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
+They have been chosen such that all seeds have a minimum Hamming Distance of $5$, to ensure a moderate amount of entropy@review-of-methodologies-and-metrics-for-assessing-the-quality-of-random-number-generators. For a full summary of all experimental parameters used in the reproduction experiments see @appendix.reproduction-experiment-parameters. Additionally, environment visualisations are provided in figures #numref(<f.scenarios.circle>), #numref(<f.scenarios.environment-obstacles>), and #numref(<f.scenarios.junction>).
 
 #show quote: emph
 === #scen.circle.n <s.r.scenarios.circle>

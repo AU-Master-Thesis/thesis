@@ -21,6 +21,9 @@ This section presents the architectural and software design patterns used in the
   write about how we use bevy and ECS. What components are central, and how is the algorithm composed using systums and run schedules.
 ]
 
+#todo[
+  FixedUpdate show high level description of the mayor ECS systems that comprise the algoritnm.
+]
 
 #jonas[This section about ECS has been moved to the background section.]
 #todo[There should be new content here, describing why this architecture was chosen, and which others were considered.]
