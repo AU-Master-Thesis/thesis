@@ -23,7 +23,10 @@
 // #show link: it => text(accent)[#it]
 #show link: it => text(accent, it)
 
-#set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
+// #set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
+// #set list(marker: text(catppuccin.latte.lavender, sym.suit.diamond))
+// #set list(marker: text(catppuccin.latte.lavender, sym.hexa.filled))
+#set list(marker: marker.arrow.single)
 // #set list.where(level)
 #set enum(full: true)
 

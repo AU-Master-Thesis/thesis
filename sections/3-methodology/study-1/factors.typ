@@ -13,14 +13,9 @@ $
   X = mat(x, y, equation.overdot(x), equation.overdot(y))
 $<eq.state>
 
-Hence, the variables and thus robots all have four #acr("DOF") each.
+Hence, the variables and thus robots all have four #acr("DOF") each; i.e. $"DOFS" = 4$ and doesn't change during the inference process.
 
 #todo[variables math]
-
-==== Pose Factor $bold(f_p)$ <s.m.factors.pose-factor>
-The pose factor is the most basic, but also quite a crucial factor in the factor graph. It expresses a strictness on a variables belief at a given timestep. The pose factor can thereby be used to enforce a "known" position. For example, the robot is known to be at its current position and therefore the first variable in the chain has a strict pose factor attached. The same is the deal for the last variable in the chain, which enforces a _want_ to be at that position in the future. Every variable inbetween doesn't have a pose factor, as they are free to move within the constraints of the other factors. This is what allows the robot to diverge from its trajectory to collaboratively avoid other agents while maintaining a trajectory that will eventually lead to the goal.
-
-#todo[Pose factor math]
 
 ==== First Order Jacobian <s.m.factors.jacobian-first-order>
 The first order Jacobian is used to calculate the gradient of the factor measurement. The Jacobian is defined in $RR^(R times C)$, where $R$ is defined by the amount of rows in the factor measurement $h(X)$, and $C$ is the amount of columns in the linearisation point, which is state space columns multiplied by the amount of variables the factor connects.
@@ -37,41 +32,77 @@ $
   jacobian_j = (h(x + delta e_j) - h(x)) / delta
 $<eq.foj-column-j>
 
-#[
+#let eq-exp = [
   #show regex("(Matrix)"): set text(theme.mauve, font: "JetBrainsMono NF")
   where $e_j$ is the $j$-th unit vector in $RR^n$, i.e. with 1 in the $j$-th position and 0 elsewhere. The Jacobian matrix is then computed by stacking the columns $jacobian_j$ for $j = 1, 2, ..., n$, which is described in @alg.jacobian-first-order; where `Matrix(r,c)` is a function that creates a zero matrix of size $r times c$.
 ]
 
 #let func(content) = text(theme.mauve, content)
-#algorithm(
-  [
-    #show regex("(Matrix)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
-    #let ind() = h(2em)
-    *Input:* $x, delta$ \ \
+#let alg = [
+  #algorithm(
+    [
+      #show regex("(Matrix)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+      #let ind() = h(2em)
+      *Input:* $x, delta$ \ \
 
-    $h_0 #la h(x)$ \
-    $jacobian #la "Matrix"(m, n)$ \ \
+      $h_0 #la h(x)$ \
+      $jacobian #la "Matrix"(m, n)$ \ \
 
-    *for* $j = 0, dots, "x.len"()-1$ *do* \
-    #ind()$x[j] #la x[j] + delta$ \
-    #ind()$h_1 #la h(x)$ \
-    #ind()$h^prime #la (h_1 - h_0) / delta$ \
-    #ind()$jacobian_j = h^prime$ \
-    #ind()$x[j] #la x[j] - delta$ \
-    *end* \ \
+      *for* $j = 0, dots, "x.len"()-1$ *do* \
+      #ind()$x_j #la x_j + delta$ \
+      #ind()$h_1 #la h(x)$ \
+      #ind()$h^prime #la (h_1 - h_0) / delta$ \
+      #ind()$jacobian_j = h^prime$ \
+      #ind()$x_j #la x_j - delta$ \
+      *end* \ \
 
-    *Output:* $jacobian$
-  ],
-  caption: [First Order Jacobian]
-)<alg.jacobian-first-order>
+      *Output:* $jacobian$
+    ],
+    caption: [First Order Jacobian]
+  )<alg.jacobian-first-order>
+]
 
-Thus the first order Jacobian is formed, resulting in an $RR^(m times n)$ matrix, where $m$ is the amount of rows in the measurement, $h$, and $n$ is the amount of columns in the linearisation point, $x$. This Jacobian represents the linear approximation of how the factor measurement changes with respect to small changes in each component of the linearisation point.
+#let exp = [Thus the first order Jacobian is formed, resulting in an $RR^(m times n)$ matrix, where $m$ is the amount of rows in the measurement, $h$, and $n$ is the amount of columns in the linearisation point, $x$. This Jacobian represents the linear approximation of how the factor measurement changes with respect to small changes in each component of the linearisation point.]
 
+#grid(
+  columns: (
+    5fr,
+    4fr,
+  ),
+  column-gutter: 1em,
+  alg,
+  eq-exp + linebreak() + h(1em) + exp,
+)
+
+
+==== Pose Factor $bold(f_p)$ <s.m.factors.pose-factor>
+The pose factor is the most basic, but also quite a crucial factor in the factor graph. It expresses a strictness on a variables belief at a given timestep. The pose factor can thereby be used to enforce a "known" position. For example, the robot is known to be at its current position and therefore the first variable in the chain has a strict pose factor attached. The same is the deal for the last variable in the chain, which enforces a _want_ to be at that position in the future. Every variable inbetween doesn't have a pose factor, as they are free to move within the constraints of the other factors. This is what allows the robot to diverge from its trajectory to collaboratively avoid other agents while maintaining a trajectory that will eventually lead to the goal.
+
+#todo[Pose factor math]
 
 ==== Dynamic Factor $bold(f_d)$ <s.m.factors.dynamic-factor>
 The dynamic factor imposes the kinematic constraints on the robot. If one were to model a differential drive robot, it would take place here. For the purpose of this reproduction, the dynamic factor doesn't impose any non-holonomic constraints, but simply ensures that the straight line between two variables is viable.
 
-#todo[Dynamic factor math]
+The dynamic factor Jacobian, $jacobian_d$, is defined in $RR^(4 times 8)$, as the factor connects two variables. This Jacobian is computed and cached when the factor is created, as it doesn't change during the inference process.
+
+$
+  #let ident = $bold(upright(I))$
+  #let zero = $bold(upright(0))$
+  jacobian_d = mat(
+    ident_n, delta_t ident_n, -ident_n, zero_n;
+    zero_n, ident_n, zero_n, -ident_n;
+  ) = mat(
+    1, 0, delta_t, 0, -1, 0, 0, 0;
+    0, 1, 0, delta_t, 0, -1, 0, 0;
+    0, 0, 1, 0, 0, 0, -1, 0;
+    0, 0, 0, 1, 0, 0, 0, -1;
+  )
+$<eq.jacobian-d>
+
+Where $ident_n$ is the $n times n$ identity matrix, $zero_n$ is the $n times n$ zero matrix, $delta_t$ is the time step between the two variables, and $n = "DOFS" "/" 2$, that is, half the state space dimensions.
+
+#todo[Measurement math]
+#todo[Measurement precision]
 
 ==== Obstacle Factor $bold(f_o)$ <s.m.factors.obstacle-factor>
 The obstacle factor makes sure that the robot doesn't collide with any of the static environment. This is done by using a 2D #acr("SDF") representation of the environment baked into an image. The obstacle factors then measure the lightness of the #acr("SDF") at the linearisation point, which determines whether the factor detects future collision or not.
@@ -88,21 +119,20 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
 #jens[Measurement math]
 
 ==== Interrobot Factor $bold(f_i)$ <s.m.factors.interrobot-factor>
-The interrobot factor expresses how robots should interact with each other when they get close enough. Interrobot factors measure the distance between the two robots, and if they get too close, the factor will in turn impose a repulsive force on the robots. Interrobot factors only exist between robots that are close enough, however, as soon as they are, an interrobot factor will be created between each variable for each timestep. This happens symmetrically, which means both robots will have a factor for each of its variables that connects externally to the other robot's variables. These are the connection that are used when external iterations of #acr("GBP") are made#note.kristoffer[refer to where you explain these].
+The interrobot factor expresses how robots should interact with each other when they get close enough. Interrobot factors measure the distance between the two robots, and if they get too close, the factor will in turn impose a repulsive force on the robots. Interrobot factors only exist between robots that are close enough, however, as soon as they are, an interrobot factor will be created between each variable for each timestep. This happens symmetrically, which means both robots will have a factor for each of its variables that connects externally to the other robot's variables. These are the connection that are used when external iterations of #acr("GBP") are made#note.kristoffer[refer to where you explain these]. To identify the connected variable in the external factorgraph, the interrobot factor store an unique identifier that consists of a two field tuple of the robots id, and index offset from the current variable. The interrobot factors take a safety distance into account which is some scaled version of the two robots' radii, see @eq.interrobot-factor.
 
-The interrobot factors take a safety distance into account which is some scaled version of the two robots' radii.
-
-#todo[Interrobot factor math]
-
-$ h_r (x_k^A, x_k^B) = cases(
-  1 - (d_r (x_k^A, x_k^B)) / r^* "if" d_r (x_k^A, x_k^B) < r^*,
-  0,
- )
 $
+  h_r (x_k^A, x_k^B) = cases(
+    1 - (d_r (x_k^A, x_k^B)) / d_s "if" d_r (x_k^A, x_k^B) < d_s,
+    0,
+  )
+$<eq.interrobot-factor>
 
-where
+where $d_r$ is the distance between the two robots, see @eq.interrobot-distance, and $d_s$ is the safety distance, which is calculated as $d_s = f times r$, where $f$ is a configurable parameter; scaling the robot's radius.
 
-$ d_r (x_k^A, x_k^B) = ||x_k^A - x_k^B|| $
+$
+  d_r (x_k^A, x_k^B) = ||x_k^A - x_k^B||
+$<eq.interrobot-distance>
 
 To weaken the effect of states further into the future, the factors precision matrix is defined as $Lambda_r = (t_k sigma_r)^(-2) bold(I)$. The interrobot factor Jacobian, $jacobian_i$, is defined in $RR^(4 times 8)$ as shown in @eq.jacobian-i. #att[The Jacobian is used to calculate the gradient of the factor], which is used in the inference process.
 $
@@ -114,10 +144,10 @@ $
   )
 $<eq.jacobian-i>
 
-Where $r$ is the robot's radius, $d_s$ is the safety distance, $p_1$ and $p_2$ are the positions of the two variables. The safety distance $d_s$ is a configurable parameter, which is calculated as $d_s = f times r$, where $f$ is the configurable parameter; scaling the robot's radius.
+Where $r$ is the robot's radius, $d_s$ is the safety distance, $p_1$ and $p_2$ are the positions of the two variables.
 
+#todo[Measurement precision math]
 
-To identify the connected variable in the external factorgraph, the interrobot factor store an unique identifier that consists of a two field tuple of the robots id, and index offset from the current variable.
 
 ==== Asynchronous Message Passing <s.m.factors.asynchronous-message-passing>
 
