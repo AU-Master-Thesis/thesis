@@ -18,7 +18,7 @@ trait Factor: std::fmt::Display {
 ],
 caption: [
   The `Factor` trait, used by the factor graph to abstract the different types of factors.
-  Found in #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L60", "src/factorgraph/factor/mod.rs:60")
+  Found in the #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L60", "src/factorgraph/factor/mod.rs:60")
 ]
 ) <listing.factor-trait>
 
@@ -36,7 +36,7 @@ caption: [
 - `first_order_jacobian()`: The first order Jacobian of the factor. This method comes with a default implementation that used the `jacobian()` and `jacobian_delta()` implementation using the finite difference method as defined in @s.m.factors.jacobian-first-order.
 
 
-The `Display` trait is added as a requirement for the `Factor` trait to enforce the introspection abilities built into the simulator for when a variable is clicked on with the mouse cursor. See @s.m.s4.debugging-tools for this.
+The `Display` trait is added as a requirement for the `Factor` trait to enforce the introspection abilities built into the simulator for when a variable is clicked on with the mouse cursor. See @s.m.debugging-tools for this.
 
 The `&FactorState` argument passed by reference to `jacobian()`, `measure()`, and `first_order_jacobian()` is a structure containing common data associated with all factors such as its measurement precision matrix $Lambda_M$ and the factors initial measurement $m(X_0)$, see @s.b.gbp.factor-update. This is necessary as traits only makes it possible to be generic over behaviour and not state as can be done with inheritance. While it moves the responsibility of tracking this state to the caller, it was deemed preferable over having each implementor copy the same fields manually.
 All factor implementations are grouped together in a tagged union called `FactorKind`#footnote[Found in the

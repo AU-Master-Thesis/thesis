@@ -11,6 +11,11 @@
   )
 }
 
+#show footnote : it => {
+  set text(accent)
+  it
+}
+
 // #show regex("A") : it => {
 //   box(
 //     inset: (x: 2pt),
@@ -50,14 +55,22 @@
   if type(t) == "array" {
     v(-3em)
     // h(it.element.level * 2em)
+    let offset = if it.element.level == 1 {
+      -1.25mm
+    } else {
+      0mm
+    }
     grid(
       column-gutter: 2pt,
-      columns: ((it.element.level - 1) * 2em, auto, 1fr, auto),
+      columns: ((it.element.level - 1) * 8mm + offset, auto, 1fr, auto),
       align: (center, left + bottom, center + bottom, right + bottom),
       [],
       text(color, size: size, weight: weight, [
-        #it.body.fields().values().at(0).at(0)
-        #h(0.85em)
+        #box(
+          width: 8mm,
+          it.body.fields().values().at(0).at(0)
+        )
+        // #h(0.85em)
         #it.body.fields().values().at(0).slice(2).join("")
         // #repr(it.fill)
       ]),
@@ -251,12 +264,6 @@
 #kristoffer[check all libraries we use are in accordance with our terms]
 
 #set page(
-  // footer: context {
-  //   move(
-  //     dx: -7.5em,
-  //     image("brickbob.gif", height: 5em, width: 155%, fit: "stretch")
-  //   )
-  // },
   header: context {
     let h1 = hydra(1)
     let h2 = hydra(2)

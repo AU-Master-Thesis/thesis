@@ -711,6 +711,23 @@ parry2d:
   date: 2024-05-08
   note: https://parry.rs/
 
+rrt-crate:
+  type: repository
+  title: AU-Master-Thesis/rrt Fork of openrr/rrt
+  author:
+  - Taiki Endo (taiki-e)
+  - Takashi Ogura (OTL)
+  - (hdhoang)
+  - Yuki Onishi (ssr-yuki)
+  - Katsu Uchiyama (kaaatsu32329)
+  - Jens Høigaard Jensen (jens-hj)
+  - Kristoffer Plagborg Bak Sørensen (kpbaks)
+  organization: Open Rust Robotics
+  url:
+    value: https://github.com/AU-Master-Thesis/rrt
+    date: 2024-05-27
+  date: 2024-05-20
+
 rust-std:
   type: repository
   title: The Rust Standard Library
@@ -770,7 +787,7 @@ bazzana_handling_2023:
   - Guadagnino, Tiziano
   - Grisetti, Giorgio
   date: 2023-01
-  page-range: 432–439
+  page-range: 432-439
   url:
     value: http://arxiv.org/abs/2208.06325
     date: 2024-05-19
@@ -803,7 +820,7 @@ orca:
   - Siciliano, Bruno
   - Khatib, Oussama
   - Groen, Frans
-  page-range: 3–19
+  page-range: 3-19
   url:
     value: http://link.springer.com/10.1007/978-3-642-19457-3_1
     date: 2024-05-19
@@ -827,7 +844,7 @@ matoui_contribution_2020:
   - Metoui, Brahim
   - Abdelkrim, Mohamed Naceur
   date: 2020-01
-  page-range: 147–158
+  page-range: 147-158
   url:
     value: http://link.springer.com/10.1007/s11370-019-00302-w
     date: 2024-05-19
@@ -864,7 +881,7 @@ distributed-optimization-methods-for-multi-robot-systems-part-2-a-survey:
   - Yu, Javier
   - Schwager, Mac
   date: 2024
-  page-range: 2–17
+  page-range: 2-17
   serial-number:
     doi: 10.1109/MRA.2024.3352852
   parent:
@@ -884,7 +901,7 @@ review-of-distributed-robotic-systems:
   - Queralta, Jorge Peña
   - Westerlund, Tomi
   date: 2022
-  page-range: 1–8
+  page-range: 1-8
   serial-number:
     doi: 10.1109/FMEC57183.2022.10062523
   parent:

@@ -39,7 +39,7 @@ A datastructure for describing the static environment has been developed, and in
 })
 
 #let unicode-fig = [
-  #v(1.5em)
+  #v(1em)
   #figure(
     tablec(
       columns: 4,
@@ -56,6 +56,8 @@ A datastructure for describing the static environment has been developed, and in
   ===== The Main Environment<s.m.configuration.environment.main>
 
   This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the coloured-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
+
+  The#h(1fr)environment#h(1fr)shown#h(1fr)in#h(1fr)@f.m.maze-env#h(1fr)is#h(1fr)built
 ]
 
 #grid(
@@ -64,8 +66,8 @@ A datastructure for describing the static environment has been developed, and in
   b,
   unicode-fig,
 )
-#v(-0.5em)
-#h(1em)The environment shown in @f.m.maze-env is built from the character matrix, in @f.m.maze-env#text(accent, "A"). Even though each character is taller than it is wide when written out in most fonts, the map-generation code produces one _square *tile*_ for each character. This makes up for the seeming descrepency in aspect ratio between the character grid in @f.m.maze-env#text(accent, "A"), and the actual environment in @f.m.maze-env#text(accent, "B"). A few special case characters are `U+2588 █`, and a space, where, the former represents free space, and the latter represents a filled-in tile, similarly to how the white-space in the other path characters are the actual obstacles.
+#v(-0.60em)
+from the character matrix, in @f.m.maze-env#text(accent, "A"). Even though each character is taller than it is wide when written out in most fonts, the map-generation code produces one _square *tile*_ for each character. This makes up for the seeming descrepency in aspect ratio between the character grid in @f.m.maze-env#text(accent, "A"), and the actual environment in @f.m.maze-env#text(accent, "B"). A few special case characters are `U+2588 █`, and a space, where, the former represents free space, and the latter represents a filled-in tile, similarly to how the white-space in the other path characters are the actual obstacles.
 
 The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, where a 2$times$1 segment is highlighted#sg. In @f.m.maze-env#text(accent, "C") the highlighted section is shown bigger, where, in red#sr, the resulting #acr("AABB") colliders are shown. These colliders are generated on a per-tile basis, which means that the there are seams between the tiles, where the colliders meet. One could argue that these seams could be eliminated to optimise computational efficiency, as less intersection tests would have to be made in the #acr("RRT*") algorithm.
 
@@ -136,7 +138,7 @@ The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, 
 #let b = [
   ===== Placeable Obstacles<s.m.configuration.environment.obstacles>
 
-  Another section in the environment configuration is the `obstacles` list. This is a list of shapes that are completely configurable within each tile. That is, the shapes can be placed anywhere within the tile, and have any size.#h(0.155em) The#h(0.155em) map-generator#h(0.155em) supports#h(0.155em) the shapes listed in @t.environment-shapes. @t.environment-shapes also#h(0.3625em)details#h(0.3625em)all#h(0.3625em)configurable#h(0.3625em)parame-
+  Another section in the environment configuration is the `obstacles` list. This is a list of shapes that are completely configurable within each tile. That#h(1fr)is,#h(1fr)the#h(1fr)shapes#h(1fr)can#h(1fr)be#h(1fr)placed#h(1fr)any-
 ]
 
 #grid(
@@ -146,7 +148,7 @@ The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, 
   param-fig,
 )
 #v(-0.5em)
-ters for each shape.
+where within the tile, and have any size. The map-generator supports the shapes listed in @t.environment-shapes. @t.environment-shapes also details all configurable parameters for each shape.
 
 #figure(
   std-block(
@@ -275,13 +277,9 @@ Formations are described with the concept of _distribution shapes_. These shapes
 
 Now that we understand _distribution shapes_, we can look at their use-cases. These shapes are used in a formation, to describe how to place initially place the robots when spawned into the environment. Thereafter, each formation has a list of waypoints, which is a list of these _distribution shapes_ and _projection strategies_. The _projection strategies_ are used to describe how to map the initial spawning locations of the robots, to the new waypoints. A couple strategies have been implemented, namely; `identity`, `cross`. A possible formation configuration is shown in @f.m.formation-config.
 
-#k[
-  Mention
+For each formation it is additionally possible to define when each waypoint is considered reached with the `waypoint-reached-when-intersects` key, and when the formation is considered finished with the `finished-when-intersects` key. Both of these take either `horizon`, `current`, or `!variable n`, where `n` is which variable in the factor graph to consider.
 
-  - waypoint-reached-when-intersects: horizon
-  - finished-when-intersects: horizon
-  - times: !infinite
-]
+Lastly, some timing options are available; `repeat-every` and `delay`. The `repeat-every` key defines how often to spawn the amount of robots defined by the `robots` key on the _distribution shape_ given by the `initial-position` key. The `delay` sets an inital time offset before the first spawn event takes place.
 
 #figure(
   std-block(
@@ -321,10 +319,10 @@ Now that we understand _distribution shapes_, we can look at their use-cases. Th
       ]
     )
   ),
-  caption: [Formation configuration example, where the `line-segment` shape is used, along with the `even` placement strategy.],
+  caption: [Formation configuration example spawning a single robot every 8 seconds with an initial delay of 2 seconds. Here, the `line-segment` _distribution shape_ is used, along with the `even` _placement strategy_, and `cross` _projection strategy_.],
 )<f.m.formation-config>
 
-=== Signed Distance Field <s.m.s4.sdf>
+=== Signed Distance Field <s.m.sdf>
 As described above in @s.m.configuration.environment, the environment is generated from a matrix of characters, and a list of placeable obstacles. The advantage of being able to describe the environment in a constrained text format comes from the declarative nature of the format. You simply describe the geometrical shapes from their underlying data, and where to place them, and as such there will never be any dispute as to how that environment should look within the constraints of the format. This also provides a simple and compact single source of truth for the environment, which can be read for multiple purposes.
 
 The simulation tool, described in @s.m.simulation-tool, displays the environment in the _viewport_ as 3D meshes, showing the user what the world looks like. Furthermore, the tool also uses the environment configuration to automatically generate an #acr("SDF") file, which is then used by the obstacle factors, refer to #nameref(<s.m.factors.obstacle-factor>, [Obstacle Factor $f_o$]), as a way to measure the distance to nearest obstacle.
@@ -378,7 +376,7 @@ The simulation tool, described in @s.m.simulation-tool, displays the environment
 
 Furthermore, this single source of truth, allows the simulation tool to visualise the true environment as meshes; generated from the same configuration file. As explained later, in , the user can choose to toggle visibility of both this _generated map_ mesh, and the #acr("SDF") image, which allows the user to understand both the actual environment and how the factors are measuring the environment. Furthermore, true collisions between the robots and the environment are calculated using the `parry2d`@parry2d library, which also uses the environment configuration to generate all the necessary colliders.
 
-// ==== Signed Distance Field <s.m.s4.sdf.sdf>
+// ==== Signed Distance Field <s.m.sdf.sdf>
 
 // Automatic generation of SDF image
 // 1. Rasterise the environment into a black and white image.
@@ -397,4 +395,4 @@ As shown in @f.m.sdf, the process of generating the #acr("SDF") image is done in
 
 + *Expansion:* The expansion of the obstacles is done, not by simply dilating the black pixels, but by expanding the underlying data of each of the placeable shapes providing the obstacles. This method provides a more accurate representation of the obstacles as if they were bigger, where a dilation would round over corners that would otherwise be sharp, which is an important detail to retain. See @f.m.sdf#text(accent, "B") for an example of the same `environment.yaml`, but with an expansion of #todo[how much?].
 
-+ *Blurring:* The final step is to blur the image, which is done using a Gaussian blur. This step provides the #acr("SDF") aspects of the result with a smooth black-to-white, obstacle-to-free transition #todo[gradient]. The result of the blurring can be seen in @f.m.sdf#text(accent, "C"). The blurring is usually done with a non-zero expansion, as this provides a buffer between the obstacles and the free space. However, one should note that the resulting #acr("SDF") is _not_ an accurate representation of euclidean distances, but rather a sufficient approximation for the purposes of the simulation. Furthermore, one could argue that and accurate #acr("SDF") would be harmful, as we don't want the robots to react to any obstacles that they are far away from either way. Currently, avoiding this is encoded into the image here, but if and accurate #acr("SDF") is desired this behaviour should be transferred to the measurement function of the obstacles factor.
++ *Blurring:* The final step is to blur the image, which is done using a Gaussian blur. This step provides the #acr("SDF") aspects of the result with a smooth black-to-white, obstacle-to-free transition #gradient-box(black, white, width: 2em). The result of the blurring can be seen in @f.m.sdf#text(accent, "C"). The blurring is usually done with a non-zero expansion, as this provides a buffer between the obstacles and the free space. However, one should note that the resulting #acr("SDF") is _not_ an accurate representation of euclidean distances, but rather a sufficient approximation for the purposes of the simulation. Furthermore, one could argue that and accurate #acr("SDF") would be harmful, as we don't want the robots to react to any obstacles that they are far away from either way. Currently, avoiding this is encoded into the image here, but if and accurate #acr("SDF") is desired this behaviour should be transferred to the measurement function of the obstacles factor.

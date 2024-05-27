@@ -1,18 +1,23 @@
 #import "../../../lib/mod.typ": *
 === Global Planning <s.m.global-planning>
 
-Global planning has been made as an extension to the original GBP Planner software developed by #todo[cite]. The original algorithm works very well on a local level, and lacks a global overview of how to get from A#sg to B#sb. In order to solve this problem; the optimal #acr("RRT*") path planning algorithm has been utilised. The theory behind #acr("RRT*")@sampling-based-survey@erc-rrt-star can be found in @s.b.rrt-star, which builds on the original #acr("RRT")@original-rrt algorithm in @s.b.rrt. The global planning procedure follows @ex.global-planning.
-
 #let gp = (
-  robot: text(accent, $bold(R)$),
+  robot: text(theme.peach, $bold(R)$),
   A: text(theme.green, $bold(A)$),
-  B: text(theme.maroon, $bold(B)$),
+  B: text(theme.blue, $bold(B)$),
   A1: boxed(text(weight: 900, "GP-1")),
   A2: boxed(text(weight: 900, "GP-2")),
 )
 
-#example[
+Global planning has been made as an extension to the original GBP Planner software developed by #todo[cite]. The original algorithm works very well on a local level, and lacks a global overview of how to get from #gp.A to #gp.B. In order to solve this problem; a pathfinding algorithm has to be leveraged. In this thesis, the optimal #acr("RRT*") path planning algorithm has been utilised. The theory behind #acr("RRT*")@sampling-based-survey@erc-rrt-star can be found in @s.b.rrt-star, which builds on the original #acr("RRT")@original-rrt algorithm in @s.b.rrt. However, do note that the method described here is algorithm-agnostic, that is; as long at the path-finding algorithm in use outputs a series of points that avoid obstacles, it can be swapped in instead of #acr("RRT*"). The global planning procedure follows @ex.global-planning.
+
+#example(
+  caption: [Global Planning Procedure],
+)[
   #set par(first-line-indent: 0em)
+  #[
+    Algorithm-agnostic global planning procedure. Any time PF is mentioned, it refers to the path-finding algorithm in use, e.g. #acr("RRT*").
+  ]
   #grid(
     columns: (2.3fr, 3fr),
     blocked(
@@ -31,14 +36,14 @@ Global planning has been made as an extension to the original GBP Planner softwa
       divider-stroke: 0pt,
     )[
       #set enum(numbering: box-enum.with(prefix: "Step "))
-      + The #acr("RRT*") algorithm is used to find a path from #gp.A to #gp.B.
-      + The result of #acr("RRT*") is a series of points that can now be leveraged to navigate through the environment.
-      + The GBP local planning will still be in effect, in order to avoid local obstacles and other robots.
+      + The PF algorithm is used to find a path from #gp.A to #gp.B.
+      + The result of PF is a series of points that can now be leveraged to navigate through the environment.
+      + The GBP local planning will still be in effect, in order to avoid obstacles and other robots in a local context.
     ]
   )
 ]<ex.global-planning>
 
-The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.configuration.
+The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.configuration, and the experimentation scenarios can be seen in @s.r.scenarios.
 
 // as seen in @f.m.rrt-colliders.
 
@@ -48,7 +53,7 @@ The environment for each experiment scenario is generated from an configuration 
 
 // #todo[Something something `parry`]
 
-As mentioned earlier in #todo[describe how the environment i built], the environment is built from several #acr("AABB") colliders. This is done using the 2D collision detection library `parry2d`@parry2d. @f.m.rrt-colliders shows how the environment#sl, is broken into smaller #acr("AABB") collider rectangles#sr. The #acr("RRT*") algorithm defines a collision problem between all the environment colliders, and a circle#stl with radius $r_C$. Every time the #acr("RRT*") algorithm wants to place a new node, it checks if this circle, placed at the position of the new node, intersects with any of the environment colliders; where the node is abondened if it does. The radius of this circle is important, as it defines how close the path will get to the obstacles. If the radius is small, the path will tend to get closer to the obstacles, as seen in @f.m.rrt-colliders#text(accent, "A"). If the radius is equal to the step length, $s$, the path will tend towards the middle of the free space, staying far from the environment, as seen in @f.m.rrt-colliders#text(accent, "B").
+As mentioned earlier in, the environment is built from several #acr("AABB") colliders. This is done using the 2D collision detection library `parry2d`@parry2d. @f.m.rrt-colliders shows how the environment#sl, is broken into smaller #acr("AABB") collider rectangles#sr. The #acr("RRT*") algorithm defines a collision problem between all the environment colliders, and a circle#stl with radius $r_C$. Every time the #acr("RRT*") algorithm wants to place a new node, it checks if this circle, placed at the position of the new node, intersects with any of the environment colliders; where the node is abondened if it does. The radius of this circle is important, as it defines how close the path will get to the obstacles. If the radius is small, the path will tend to get closer to the obstacles, as seen in @f.m.rrt-colliders#text(accent, "A"). If the radius is equal to the step length, $s$, the path will tend towards the middle of the free space, staying far from the environment, as seen in @f.m.rrt-colliders#text(accent, "B").
 
 #figure(
   {
@@ -73,6 +78,29 @@ As mentioned earlier in #todo[describe how the environment i built], the environ
   },
   caption: [RRT algorithm and environment avoidance integration. Left image shows a small collision radius#stl, which results in a path that tends to get closer to the obstacles#sl. Right image shows a collision radius, equal to the step length; $r_C = s$, which results in a path that tends towards the middle of the free space, staying far from the environment. The collision radius for each node is teal#stl when no intersection is detected, and red#sr when an intersection is detected.],
 )<f.m.rrt-colliders>
+
+Again, do note that even though #acr("RRT*") is used here, the collision detection is a detached module, which can also be used with other path-finding algorithms. The `rrt` crate@rrt-crate has been extending for the purpose of this thesis, as it only provided an #acr("RRT") implementation, the authors have extended it to include the #acr("RRT*") algorithm as well. This is done through the `rrstar`#footnote[Found in the #source-link("https://github.com/AU-Master-Thesis/rrt", "rrt") crate at #source-link("https://github.com/AU-Master-Thesis/rrt/blob/d4384c7ef96cde507f893d8953ce053659483f85/src/rrtstar.rs#L159", "src/rrtstar.rs:159")]<footnote.rrtstar> function, which provides an interface taking two $N$-dimensional points, a step length, a neighbourhood radius, a max number of iterations, see @lst.rrtstar. Furthermore, it is a higher order function which takes two function closure trait objects; `is_collision_free` and `random_sample`.
+
+#listing(
+  [
+    ```rust
+    pub fn rrtstar<N>(
+      start: &[N],
+      goal: &[N],
+      mut is_collision_free: impl FnMut(&[N]) -> bool,
+      mut random_sample: impl FnMut() -> Vec<N>,
+      extend_length: N,
+      max_iters: usize,
+      neighbourhood_radius: N,
+      stop_when_reach_goal: bool,
+    ) -> RRTStarResult<N, f32>
+    where
+        N: Float + Debug,
+    { ... }
+    ```
+  ],
+  caption: [The `rrtstar`@footnote.rrtstar function signature.],
+)<lst.rrtstar>
 
 === Path Adherence <s.m.planning.path-adherence>
 

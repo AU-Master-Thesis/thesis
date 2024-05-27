@@ -11,7 +11,7 @@
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.s4.settings>)-#numref(<s.m.s4.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation.
+As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation.
 
 #figure(
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -47,14 +47,14 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
   caption: [Screenshot of the simulation tool with the #panel.settings open. On the left hand side, the #panel.viewport is shown. The settings panel is scrollable, hence only a part of it is is visible here.],
 )<f.m.simulation-tool>
 
-==== Live Configuration <s.m.s4.settings>
+==== Live Configuration <s.m.settings>
 
 Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
 Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The significant#note.wording[different word?] sections are described in the following sections.
 
 #jens[Live configuration editing allows for rapid testing]
 
-==== Hot Loading Scenarios <s.m.s4.hot-loading>
+==== Hot Loading Scenarios <s.m.hot-loading>
 
 Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios.
 
@@ -70,7 +70,7 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
   Simulation loader
 ]
 
-==== Time Control <s.m.s4.time-control>
+==== Time Control <s.m.time-control>
 
 The simulation tool allows for control of the simulated time. In @f.m.simulation-tool-time-control the time controls are shown under the #text(theme.lavender, "Simulation") section in the settings panel. Here the user can see the simulation time, and the frequency at which the fixed #acr("GBP") simulation steps are computed. Additionally, the user has access to a pause/play button to stop and start the simulation, and a manual step button to step through the simulation $n$ fixed timesteps at a time. As a default $n=1$. The user can only use the manual stepping when the simulation is paused.
 
@@ -80,7 +80,7 @@ The simulation tool allows for control of the simulated time. In @f.m.simulation
   caption: [The time control section in the simulation tool. From left to right, top to bottom: Reload current scenario, scenario dropdown selctor, simulation time, simulation frequency, simulation speed, manual step, play/pause.],
 )<f.m.simulation-tool-time-control>
 
-==== Visualisation <s.m.s4.visualisation>
+==== Visualisation <s.m.visualisation>
 
 // robots                             = true
 // communication-graph                = false
@@ -127,7 +127,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Generated map], [A 3D representation of the map generated from the environment configuration.],
     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it's occupied.],
     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
-    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: 10em, fill: gradient.linear(theme.green, theme.yellow, theme.red)).],
+    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating. The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.],
     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors.],
@@ -137,23 +137,23 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
   ),
   caption: [
-  #todo[write caption]
-]
-) <table.simulation-visualisations>
+    Every visualisable setting, and a description of how it has been chosen to visualise it.
+  ]
+)<table.simulation-visualisations>
 
-#jens[Something about making debugging easier and most importantly understanding of the underlying theory]
+Along with these visualisation further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.debugging-tools.
 
-==== Viewport <s.m.s4.viewport>
+==== Viewport <s.m.viewport>
 
-The viewport is where the action happens. This is what the user is represented with when the simulation tool is initially loaded. All visualisations described in the previous section #numref(<s.m.s4.visualisation>) are drawn in the viewport. Technically, the viewport is the user's eyes in the simulated environment, which happens through a camera in a 3D scene. The camera is a perspective camera, which is initially placed directly above the center of the environment, looking at it from a top-down perspective. The user can directly interact with the viewport, both through the keybindings, but also the mouse. The user can choose to stay in this top-down, pseudo-2D perspective, which gives a great overview, or switch the camera to orbital controls, which allows the user to rotate around the environment and zoom in and out. The #panel.viewport is shown in @f.m.simulation-tool. Through the viewport, the user gets a live update of the #acr("GBP") mathematical simulation happening under the surface.
+The viewport is where the action happens. This is what the user is represented with when the simulation tool is initially loaded. All visualisations described in the previous section #numref(<s.m.visualisation>) are drawn in the viewport. Technically, the viewport is the user's eyes in the simulated environment, which happens through a camera in a 3D scene. The camera is a perspective camera, which is initially placed directly above the center of the environment, looking at it from a top-down perspective. The user can directly interact with the viewport, both through the keybindings, but also the mouse. The user can choose to stay in this top-down, pseudo-2D perspective, which gives a great overview, or switch the camera to orbital controls, which allows the user to rotate around the environment and zoom in and out. The #panel.viewport is shown in @f.m.simulation-tool. Through the viewport, the user gets a live update of the #acr("GBP") mathematical simulation happening under the surface.
 
 Additionally to providing a visual representation of the underlying mathematics, the user can use the interface to extract information. Most objects in the viewport are clickable, and when clicked, relevant information and measurements are printed out into the console. This is both a useful tool for rapid development and debugging, but also to aid in understanding the computations and theory in the background.
 
-==== Debugging Tools <s.m.s4.debugging-tools>
+==== Debugging Tools <s.m.debugging-tools>
 #todo[About the different ways of obtaining underlying information on elements of the simulation]
 #kristoffer[You do this?]
 
-==== Export Formats <s.m.s4.export-formats>
+==== Export Formats <s.m.export-formats>
 
 To work with the simulated environments *qualitatively* and *quantatatively* and get more visual intuition about the state of the system the simulator is equipped with three features to extract data from it.
 
@@ -167,15 +167,10 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
 
   *Quantitative:*
   #kristoffer[Is this as it should be with metrics and such?]
-  - Historical data aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environments data is recorded for each robot.
+  - *Historical data* aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environments data is recorded for each robot.
     - A count of every message sent and received during message passing is recorded, further labelled if the message was sent across an internal or an external factorgraph edge.
     - The number of collisions a robot has had with other robots and environment obstacles.
-    - The position and linear velocity across $delta_t$ seconds is sampled and recorded with an interval of $20 H z$.
+    - The position and linear velocity across $delta_t$ seconds is sampled and recorded with an interval of $20"Hz"$.
     - A description of the route a robot took. Containing the list of waypoints it has visited. When the robot started its route. And if it has finished its route. How long it took.
   The data is automatically exported when the scenario has finished i.e. all robots have finished their route. Alternatively the data can be exported from the settings UI by pressing the "metrics" button in the "Export" section. See @appendix.json-schema-for-exported-data for a typed schema of the entire #acr("JSON") object exported.
-  // super::tracking::PositionTracker::new(1000, Duration::from_millis(50)),
-  // super::tracking::VelocityTracker::new(1000, Duration::from_millis(50)),
-
-  // #set enum(numbering: box-enum.with(prefix: "Section "))
-  // 1. Graphviz DOT
 ]

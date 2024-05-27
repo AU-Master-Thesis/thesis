@@ -260,17 +260,15 @@
 
 #let scen(content) = boxed(color: catppuccin.latte.yellow, content)
 
-#let toc-printer(target: none) = {
+#let toc-printer(target: none, depth: 2) = {
   set par(first-line-indent: 0em)
   outline(
     indent: 2em,
-    // fill: repeat("_"),
     fill: grid(
-      // column-gutter:
       columns: 1,
       block(fill: black, height: 0.5pt, width: 100%),
     ),
-    depth: 2,
+    depth: depth,
     target: target,
     title: none,
   )
@@ -879,3 +877,5 @@
     }
   )
 )
+
+#let gradient-box(..cmap, width: 6em) = box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: width, fill: gradient.linear(..cmap))
