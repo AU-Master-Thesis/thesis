@@ -18,7 +18,9 @@ global convergence can still be achieved. This quality is especially important i
 
 // - As it is desirable to run execute more internal message passes than external.
 
-To accomedate this discrepancy the gbpplanner algorithm can be configured to run a different amount of internal and external message passing iterations per $Delta_t$, through the parameters $M_I$ and $M_R$ respectively. The effect of varying $M_I$ and $M_R$ are not experimented with in @gbpplanner. All the provided experimental scenarios use $M_I = 50$ and $M_R = 10$. Furthermore it is not explained in which order internal and external message passing are scheduled relative to each other, in cases where $M_I != M_R$. The accompanying source code@gbpplanner-code does not answer this question either, and does in fact not implement a way to handle when $M_I != M_R$ as seen here #todo[use highlighted link] #link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/src/Simulator.cpp#L82-L87", [`gbpplanner/src/Simulatior.cpp:82-87`]). Contrary to what they report in their paper.
+To accomedate this discrepancy the gbpplanner algorithm can be configured to run a different amount of internal and external message passing iterations per $Delta_t$, through the parameters $M_I$ and $M_R$ respectively. The effect of varying $M_I$ and $M_R$ are not experimented with in @gbpplanner. All the provided experimental scenarios use $M_I = 50$ and $M_R = 10$. Furthermore it is not explained in which order internal and external message passing are scheduled relative to each other, in cases where $M_I != M_R$. The accompanying source code@gbpplanner-code does not answer this question either, and does in fact not implement a way to handle when $M_I != M_R$ as seen here #source-link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/src/Simulator.cpp#L82-L87", "gbpplanner/src/Simulatior.cpp:82-87"). Contrary to what they report in their paper.
+
+
 
 // #k[insert github link to where this can be seen]
 
@@ -323,7 +325,7 @@ Five different iteration schedules are experimented with. Each schedule is liste
 ) <f.iteration-schedules>
 
 
-The effect of each schedule is experimented with and compared in @s.r.study-2. To make experimentation easy discoverable the UI settings panel of the simulator has a dedicated section to control $M_I, M_R$ and the schedule live as the simulation is running. A screenshot of the section is shown in @f.ui-schedule-settings.
+The effect of each schedule is experimented with and compared in @s.r.study-2. To make experimentation easy and discoverable the UI settings panel of the simulator has a dedicated section to control $M_I, M_R$ and the chosen schedule live as the simulation is running. A screenshot of the section is shown in @f.ui-schedule-settings.
 
 
 // ```toml
@@ -383,12 +385,27 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 
 // #D68A90
 
-#k[mention strategy pattern / dependency injection]
+// #k[mention strategy pattern / dependency injection]
 
 
 #{
   set par(first-line-indent: 0em)
   [
-    *Expectation:* #k[list expected results of experiments]
+    *Expectation:* For the algorithm to be robust and converge the relative order in which external messages are used to update the joint factorgraph should matter very little. The following three outcomes are expected:
+      - No difference between _Late as Possible_ and _Soon as Possible_ as they are identical expect for $min(M_I, M_R)$ being offset in phase by $max(M_I, M_R) - min(M_I, M_R)$.
+      - No difference between _Half at the Beginning_ and _Half at the End_. Similar to the above except with $min(M_I, M_R)$ being offset by $min(M_I, M_R)$ in phase.
+      - _Interleave Evenly_ should be the best schedule of the five, as the updates from external robots are spaced more evenly in time. Distributing the amount of information evenly between iterations ensures variables are updated evenly in time, leading to a more even distribution of information. This even spacing makes the system less volatile and increases the likelihood of robust convergence, as even time distribution equates to even information density.
+
+// notes:
+//
+// distribute the amount of information evenly between iterations
+//
+// with a more even distribution of information
+//
+// not volatile because evenly spaced information
+//
+// ensure variable are updated evenly in time
+//
+// expect even time distribution to equate to even information density
   ]
 }
