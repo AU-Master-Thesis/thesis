@@ -18,7 +18,7 @@ trait Factor: std::fmt::Display {
 ],
 caption: [
   The `Factor` trait, used by the factor graph to abstract the different types of factors.
-  Found in #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L60", "src/factorgraph/factor/mod.rs:60")
+  Found in the #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L60", "src/factorgraph/factor/mod.rs:60")
 ]
 ) <listing.factor-trait>
 

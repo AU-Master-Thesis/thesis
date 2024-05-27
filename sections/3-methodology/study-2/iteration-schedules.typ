@@ -341,8 +341,10 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
   // let c = color.rgb("#82C1CC")
   // let g = color.rgb("#63677F").lighten(80%)
   let g = theme.overlay2.lighten(25%)
+  let ni = 12
+  let ne = 4
 
-  let schedules = interleave-evenly(30, 10)
+  let schedules = interleave-evenly(ni, ne)
   let schedules_transposed = transpose(schedules)
   let internal = schedules_transposed.at(0)
   let external = schedules_transposed.at(1)
@@ -353,29 +355,27 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
 
   // schedules_transposed
   box(
-    table(
-      rows: (0.5em, 0.5em),
-      columns: 30,
-      row-gutter: -1pt,
-      column-gutter: -8pt,
-
-      stroke: none,
-      ..internal.map(active => if active { internal-active } else { [] }),
-      ..external.map(active => if active { external-active } else { external-inactive }),
-    ),
+    {
+      grid(
+        columns: ni,
+        row-gutter: 4pt,
+        column-gutter: 1pt,
+        ..internal.map(active => if active { internal-active } else { [] }),
+        ..external.map(active => if active { external-active } else { external-inactive }),
+      )
+      v(1pt)
+    },
     inset: (x: 2pt),
-    outset: (y: 5pt)
+    outset: (y: 2pt)
   )
 }
 
 // #inline-schedule-example
 
 #figure(
-  // std-block(image("../../../figures/img/tool-settings-schedule-latte.png")),
-  // std-block(image("../../../figures/img/gbp-schedules-preview-1.png")),
-  std-block(image("../../../figures/img/gbp-schedules-preview-2.png")),
+  std-block(width: 60%, height: auto, image("../../../figures/img/gbp-schedules-preview-2.png")),
   caption: [
-    Screenshot of the subsection of the simulators settings panel which displays the current schedule. Both $M_i$ and $M_r$ can be changed dynamically while the simulation runs. The active schedule is displayed aswell and can be changed through a combobox list. The active schedule is displayed with the #box(inline-schedule-example, height: 1em) component. Similar to how its displayed in @f.iteration-schedules.
+    Screenshot of the subsection of the simulator's settings panel which displays the current schedule. Both $M_i$ and $M_r$ can be changed dynamically while the simulation runs. The active schedule is displayed aswell and can be changed through a combobox list. The active schedule is displayed with the #inline-schedule-example component. Similar to how its displayed in @f.iteration-schedules.
 ]
 ) <f.ui-schedule-settings>
 
