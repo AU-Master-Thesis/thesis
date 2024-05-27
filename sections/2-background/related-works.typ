@@ -119,7 +119,6 @@ A prominent method for decentralized collision avoidance and trajectory planning
 
 ==== Game Theory
 
-// #k[read through and improve language]
 
 In a recent paper published in 2023, Xinjie #etal. @liu_learning_2023 presented a unique game-theoretic approach for decentralized path planning and collision avoidance using game theory as the fundamental model for doing collision avoidance. Contrary to #acr("ORCA")@orca they make no assumption that other moving agents operate under the same algorithm as the robot itself. Rather they consider the objective of others as being initially unknown to the robot .i.e. the robots perspective of the world is ego-centric. The game theoretical concept of forward- and inverse games are then used to iteratively update the robots model of others objective, and their strategy for how they are going to achieve that objective. In forward games, the objectives of players are known, and the task is to find players’ strategies. By contrast, inverse games take (partial) observations of strategies as inputs to recover initially unknown objectives. This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing the other drivers' true objective, but by observing their behaviour you are able to form a likelihood model over their objective, and make predictions about how they are going to move. The strength of their method lies in its ability to handle environments with heterogeneous agents, such as a factory floor with various vehicles and humans that the robot cannot communicate with to determine their objectives. Their approach works with partial and noisy observations using a Gaussian observation model for state estimations from sensors. This quality is necesssary for most real-world deployments. Through both simulation and real-world experiments, they demonstrate that their method is robust and can operate in real-time on physical hardware.
 
@@ -128,7 +127,6 @@ In a recent paper published in 2023, Xinjie #etal. @liu_learning_2023 presented 
 
 
 
-// #k[maximum likelihood estimation]
 
 // - This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing other drivers true objective but by observing their behaviour you are able to form a likelihood model over their objective and how that partial information influence your prediction about how they are going to move.
 
@@ -197,10 +195,8 @@ Patwardhan #etal presents the idea of using factor graphs for multi-agent path p
 // // - over a forward time window
 // - local planner
 //
-// - The idea of encoding obstacle avoidance constraints into a unary factor is not unique to @gbpplanner and @robotweb. @bazzana_handling_2023 integrates factors with and #acr("MPC") solver for optimal control, and uses the similar concept of an obstacle factor that measures into a static #acr("APF") #k[ehh...].
 //
 // - constraint and obstacle factors
-//  - obstacle factors models the minimization of an artificial potential field #k[quickly refer to express the flexibility of encoding constraints with factors]
 //
 // @bazzana_handling_2023
 //
@@ -209,6 +205,5 @@ Patwardhan #etal presents the idea of using factor graphs for multi-agent path p
 // proposes the idea of modelling the communication scheme using for exchanging messages between robots similar to how hypermedia is exchanged on the world wide web using a protocol like HTTP
 //
 // - constraint and obstacle factors
-//  - obstacle factors models the minimization of an artificial potential field #k[quickly refer to express the flexibility of encoding constraints with factors]
 //
 // @bazzana_handling_2023
