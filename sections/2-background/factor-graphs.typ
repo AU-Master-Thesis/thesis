@@ -210,8 +210,8 @@ $<eq.gbp-variable-to-factor-canonical>
 
 === Factor Update <s.b.gbp.factor-update>
 
-#jonas[I have written this section out, which was a todo box before, please read.]
-Note that this step is not written out in @gbpplanner, as it is not a step like the rest, where some state is updated. Instead, the updating of a factor here describe the mathematical steps taken before passing messages to neighbouring variables. Writing this step out also represents the developed software@repo more directly. The following steps take place:
+// #jonas[I have written this section out, which was a todo box before, please read.]
+This step is not written out in @gbpplanner, as it is not a step like the rest, where state is updated. Instead, the updating of a factor here describes the mathematical steps taken before passing messages to neighbouring variables. Writing this step out also represents the developed software@repo more directly. The following steps take place:
 #[
   #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve))
   // #set par(first-line-indent: 0em)

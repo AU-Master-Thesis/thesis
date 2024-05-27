@@ -839,43 +839,4 @@
   )
 }
 
-#let marker = (
-  arrow: (
-    single: {
-      place(
-        left,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.2em), end: (0.2em, 0.4em))
-      )
-      place(
-        left,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.6em), end: (0.2em, 0.4em))
-      )
-      h(0.5em)
-    },
-    double: {
-      place(
-        dx: 0em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.2em), end: (0.2em, 0.4em))
-      )
-      place(
-        dx: 0em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.6em), end: (0.2em, 0.4em))
-      )
-      place(
-        dx: 0.4em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.2em), end: (0.2em, 0.4em))
-      )
-      place(
-        dx: 0.4em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.6em), end: (0.2em, 0.4em))
-      )
-      h(0.75em)
-    }
-  )
-)
-
 #let gradient-box(..cmap, width: 6em) = box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: width, fill: gradient.linear(..cmap))

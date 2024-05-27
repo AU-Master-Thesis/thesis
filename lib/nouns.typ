@@ -1,2 +1,2 @@
 
-#let gbpplanner = [GBP planner]
+#let gbpplanner = [GBP Planner]

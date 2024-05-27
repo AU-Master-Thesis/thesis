@@ -147,12 +147,7 @@
       #set align(left)
       \
       Hi Jonas \
-      - Check out the structure, since things have been merged like we talked about. And ECS moved to background.
-      - Related works is getting there, do please check it out.
-      - We would like to know what you think about the updated research questions and objectives too.
-      - Overall some more content is added in methodology, along with new figures and such. \
-
-      Again a lot of notes have been left throughout for you. I have removed the ones from last time, only a few remain as no difference was made there. But do please give feedback on all the new ones. \
+      - Stuff
     ]
     #todo[Front page picture of intertwining robots.]
   ]),
@@ -316,6 +311,7 @@
 )
 
 #include "sections/1-introduction/mod.typ"
+#include "sections/related-works.typ"
 #include "sections/2-background/mod.typ"
 #include "sections/3-methodology/mod.typ"
 #include "sections/4-results/mod.typ"
