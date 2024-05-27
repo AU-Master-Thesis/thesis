@@ -55,14 +55,22 @@
   if type(t) == "array" {
     v(-3em)
     // h(it.element.level * 2em)
+    let offset = if it.element.level == 1 {
+      -1.25mm
+    } else {
+      0mm
+    }
     grid(
       column-gutter: 2pt,
-      columns: ((it.element.level - 1) * 2em, auto, 1fr, auto),
+      columns: ((it.element.level - 1) * 8mm + offset, auto, 1fr, auto),
       align: (center, left + bottom, center + bottom, right + bottom),
       [],
       text(color, size: size, weight: weight, [
-        #it.body.fields().values().at(0).at(0)
-        #h(0.85em)
+        #box(
+          width: 8mm,
+          it.body.fields().values().at(0).at(0)
+        )
+        // #h(0.85em)
         #it.body.fields().values().at(0).slice(2).join("")
         // #repr(it.fill)
       ]),
@@ -139,12 +147,7 @@
       #set align(left)
       \
       Hi Jonas \
-      - Check out the structure, since things have been merged like we talked about. And ECS moved to background.
-      - Related works is getting there, do please check it out.
-      - We would like to know what you think about the updated research questions and objectives too.
-      - Overall some more content is added in methodology, along with new figures and such. \
-
-      Again a lot of notes have been left throughout for you. I have removed the ones from last time, only a few remain as no difference was made there. But do please give feedback on all the new ones. \
+      - Stuff
     ]
     #todo[Front page picture of intertwining robots.]
   ]),
@@ -308,6 +311,7 @@
 )
 
 #include "sections/1-introduction/mod.typ"
+#include "sections/related-works.typ"
 #include "sections/2-background/mod.typ"
 #include "sections/3-methodology/mod.typ"
 #include "sections/4-results/mod.typ"

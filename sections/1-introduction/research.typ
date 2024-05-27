@@ -28,7 +28,7 @@ This thesis poses the following four hypothesis:
 // + The original work can be improved without transforming it. Specifically, these improvements include testing different #acr("GBP") iteration schedules, and taking minor steps towards a more distributed approach.
 
 // Updated with Jonas feedback
-+ The original work can enhacned through specific modifications without interfering with the original work's functionality. Specifically, we introduce and rigorously test various GBP iteration schedules, and to strategically enhance the system by advancing towards a more distributed approach. These targeted improvements are expected to optimize flexibility and move towards a closer-to-reality system.
++ The original work can enhacned through specific modifications without interfering with the original work's functionality. Specifically, we introduce and rigorously test various GBP iteration schedules, and strategically enhance the system by advancing towards a more distributed approach. These targeted improvements are expected to optimize flexibility and move towards a closer-to-reality system.
 
 + Extending the original #acr("GBP") Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance. Furthermore, to this end, a new type of factor can be added to the #acr("GBP") factor graphs to aid in path-following.
 
@@ -47,9 +47,9 @@ This section outlines which research questions will have to be answered to reach
   // === Study 1
   #study.H-1.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-1", weight: 900):
   #set enum(numbering: req-enum.with(prefix: "RQ-1.", color: theme.teal))
-  + Which programming language will be optimal for scientific communication and extensibility?
-  + Is it possible to reproduce the results of the original #acr("GBP") Planner in the chosen programming language?
-  + Which architecture and framework is suitable for such a task, and can it reproduce the original results?
+  // + Which programming language will be optimal for scientific communication and extensibility?
+  // + Is it possible to reproduce the results of the original #acr("GBP") Planner in the developed simulator?
+  + Which architecture and framework is suitable for such a task, and can it reproduce the original results? #att[Specify which tasks it suitable for. Decoupling? Modelling? Visualisation?]
   + What kind of tooling will be most beneficial for the software?
   + How can tooling help with future reproducibility and engagement with the software?
   + How can tooling help with understanding and extending the software?
@@ -90,29 +90,21 @@ To answer each research question, a set of objectives will have to be met. The o
     /// Study 1
     #(study.heading)(study.H-1.full.n)
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
-    + Evaluate possible programming languages on #att[several metrics] for scientific communication and extensibility.
-
-    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-1.2.", color: theme.green))
-    + Reimplement the original GBP Planner in the chosen programming language.
+    #set enum(numbering: req-enum.with(prefix: "O-1.3.", color: theme.green))
+    + Research possible programming languages and their ecosystems, to understand which one provides the most suitable architecture, and framework for the reimplementation.
+    + Reimplement the original GBP Planner in the development simulation tool with the chosen language, architecture, and framework.
     + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the #att[four metrics: distance travelled, makespan, smoothness, and collision count.]
 
-    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.3", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-1.3.", color: theme.green))
-    + Research possible architectures and frameworks for the reimplementation.
-    + Choose one to use, and evaluate whether it can reproduce the original results.
-
-    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.4", weight: 900):*
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.4.", color: theme.green))
     + Analyse and evaluate different kinds of tooling that can be beneficial for the software.
     + Pick the most beneficial tooling approach for the software.
 
-    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.5", weight: 900):*
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.3", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.5.", color: theme.green))
     + Implement tooling to help with future reproducibility and engagement with the software.
 
-    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.6", weight: 900):*
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.4", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.6.", color: theme.green))
     + Implement tooling to help with understanding and extending the software.
 

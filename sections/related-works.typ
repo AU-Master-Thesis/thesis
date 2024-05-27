@@ -1,10 +1,10 @@
-#import "../../lib/mod.typ": *
+#import "../lib/mod.typ": *
 
 #let etal = [_et al._]
 
 #jonas[do please read the stuff in here]
 
-== Related Works <s.b.related-works>
+= Related Works <s.b.related-works>
 
 The field of multi-agent path planning has a rich literature spanning several decades, with numerous proposed methods. One of the key taxonomies that can be used to classify existing methods are in respect to how they distribute the computation of the jointly planned path among the robotic agents. In the majority of cases, methods attempt to solve the problem by one of three ways: _Centralized_, _Decentralized_ or _Distributed_@multi-robot-path-planning-review. A depiction of how to conceptualize each is shown in @f.multi-robot-path-planning-classification.
 
@@ -96,19 +96,19 @@ The field of multi-agent path planning has a rich literature spanning several de
   // let c = theme.maroon.lighten(30%)
 #figure(
   std-block(
-    image("../../figures/out/multi-robot-path-planning-classification.svg", width: 80%),
+    image("../figures/out/multi-robot-path-planning-classification.svg", width: 80%),
   ),
   caption: [Multi-robot path planning can at a high level be classified as: Centralized or Decentralized, Distributed, depending on how decisions are arrived at across the group of robots. Orange #coordinator are robotic agents that take part in path planning. Blue #follower are ones that receive instructions on how to update its state. An #communication-line edge represents communication between the two vertices. Lastly, #velocity-vector represents the planned velocity at the current timestep.
 ]
 ) <f.multi-robot-path-planning-classification>
 
-=== Centralized approaches <s.related-works-centralized>
+== Centralized approaches <s.related-works-centralized>
 
 In the centralized case path planning solutions are laid out in hiearchial structure, where a single computing unit, either a remote server or another robot unit, is responsible for generating a joint path for all robots to follow. In this model robots will unicast relevant information about their current state to the decision maker. And receive instructions from it on what trajectory they have to follow.
 
 Fethi Matoui #etal@matoui_contribution_2020 explore a centralized approach for the coordination of multiple unicycle robots in a two-dimensional workspace where they make use of an #acr("APF") to generate collision free trajectories. #acrpl("APF") are an intuitive way of thinking about trajectory planning. The entire workspace is overlaid with a vector field, where obstacles, be they static or other moving elements, are assigned repulsive forces. And the target destination is given an attractive force to pull the robot towards it. The gradient descent algorithm is then used to solve for an admissible trajectory. Each robot's next pose is determined by moving in the direction of the negative gradient of the total potential field. This gradient represents the combined influence of attractive and repulsive forces acting on the robot. Similar to other problems using gradient descent like the #acr("SGD") method often used to train deep learning models, care must be taken to not construct a vector field, where the robot gets stuck in a local minima. #acr("APF") alone is not enough to do conflict resolution when two or more robots are close to each and follow the same slope. To handle this their supervisor node assign a numeric priority to each robot such that they form a total ordering. When two robots are within a configurable distance of each other the priority assignment is used to scale the repulsive force each robot exhibit on each other. The total ordering ensures that the repulsive force excerted is never equal. They motivate their choice of architecture by the argument that by having the core processing at a single supervisor node the other robots do not need to have sophisticated sensors or a powerful computing unit. Which is advantageous for operations cost. But at the same time they admit that their method does not scale well, when the number of robots increases as the compute can only be scaled vertically and not horizontally as is the case for both distributed and decentralized architectures@multi-robot-path-planning-review.
 
-=== Decentralized approaches <s.related-works-decentralized>
+== Decentralized approaches <s.related-works-decentralized>
 
 A general trend in more recent literature is a stronger focus on strategies that do not rely on a centralized architecture@liu_learning_2023@zhang2023multirobot@gbpplanner@orca@bazzana_handling_2023. Reasons often brought up to discourage centralized approaches include their limitations in vertical scaling of compute resources, as seen in@matoui_contribution_2020, as the configuration space often grows exponentially with the number of robots. Additionally, coordination can become a significant bottleneck when all communication must go back and forth from a centralized service. This bottleneck not only increases latency but also risks single points of failure that can incapacitate the entire system. Consequently, decentralized and distributed approaches are increasingly favored for their scalability, robustness, and ability to handle complex, dynamic environments more efficiently.
 
@@ -117,7 +117,7 @@ A general trend in more recent literature is a stronger focus on strategies that
 
 A prominent method for decentralized collision avoidance and trajectory planning is #acr("ORCA"), proposed by Van Den Berg #etal.@orca. They utilize the concept of velocity obstacles to define sets of velocities that can lead to collisions between robots over a configurable time horizon $tau$. Robots exist in a 2D workspace and are modeled as circles with a center point $p$, radius $r$, and velocity $v$. A significant assumption made is that these state properties can be observed by all other robots at any given time with perfect accuracy. Furthermore, robots are considered to be holonomic. The core of their method computes half-planes of permissible velocities for each robot, ensuring collision-free movement by solving a set of linear constraints using linear programming. The robots iteratively adjust their velocities to stay within these permissible regions. Their method also incorporates static obstacle avoidance by extending the velocity obstacle concept, modeling each obstacle as a set of line segments that together enclose a convex polygon. As each obstacle is static, the preferred velocity imposed on the surrounding robots as velocity constraints is set to zero. In densely packed scenarios, it can happen that the solver finds no feasible solution to satisfy the robots' preferred velocities $v_("pref")$. When this occurs, the algorithm temporarily relaxes the velocity constraints imposed by other robots until a possible solution is found. However, constraints imposed by obstacles are not relaxed, as collisions with obstacles must be strongly avoided. They demonstrate in simulations that their method can be used with thousands of robots in close proximity, still achieving admissible trajectories. This demonstrates one of the clear benefits of scalability in comparison to centralised methods.
 
-==== Game Theory
+=== Game Theory
 
 
 In a recent paper published in 2023, Xinjie #etal. @liu_learning_2023 presented a unique game-theoretic approach for decentralized path planning and collision avoidance using game theory as the fundamental model for doing collision avoidance. Contrary to #acr("ORCA")@orca they make no assumption that other moving agents operate under the same algorithm as the robot itself. Rather they consider the objective of others as being initially unknown to the robot .i.e. the robots perspective of the world is ego-centric. The game theoretical concept of forward- and inverse games are then used to iteratively update the robots model of others objective, and their strategy for how they are going to achieve that objective. In forward games, the objectives of players are known, and the task is to find players’ strategies. By contrast, inverse games take (partial) observations of strategies as inputs to recover initially unknown objectives. This is similar to how a human would operate when driving around in traffic. As a driver you have no way of knowing the other drivers' true objective, but by observing their behaviour you are able to form a likelihood model over their objective, and make predictions about how they are going to move. The strength of their method lies in its ability to handle environments with heterogeneous agents, such as a factory floor with various vehicles and humans that the robot cannot communicate with to determine their objectives. Their approach works with partial and noisy observations using a Gaussian observation model for state estimations from sensors. This quality is necesssary for most real-world deployments. Through both simulation and real-world experiments, they demonstrate that their method is robust and can operate in real-time on physical hardware.
@@ -167,7 +167,7 @@ In a recent paper published in 2023, Xinjie #etal. @liu_learning_2023 presented 
 
 
 
-=== Distributed approaches <s.related-works-distributed>
+== Distributed approaches <s.related-works-distributed>
 
 The third architectural approach to multi-robot path planning models the robot system as a distributed one, where agents communicate to jointly arrive at collision-free paths. This methodology allows robots to share their internal states and external observations. It also enables coordination for higher-level goals, such as changing routes to optimize for robots with different priorities or urgent tasks. However, it introduces challenges common to traditional distributed systems, such as synchronizing shared states, ensuring fault tolerance against unavailable peers due to network latency, and handling variable message arrival times caused by network congestion@review-of-distributed-robotic-systems@distributed-optimization-methods-for-multi-robot-systems-part-2-a-survey. The content of messages exchanged between robots varies between different methods.
 

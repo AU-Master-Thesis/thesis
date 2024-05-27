@@ -260,17 +260,15 @@
 
 #let scen(content) = boxed(color: catppuccin.latte.yellow, content)
 
-#let toc-printer(target: none) = {
+#let toc-printer(target: none, depth: 2) = {
   set par(first-line-indent: 0em)
   outline(
     indent: 2em,
-    // fill: repeat("_"),
     fill: grid(
-      // column-gutter:
       columns: 1,
       block(fill: black, height: 0.5pt, width: 100%),
     ),
-    depth: 2,
+    depth: depth,
     target: target,
     title: none,
   )
@@ -841,41 +839,4 @@
   )
 }
 
-#let marker = (
-  arrow: (
-    single: {
-      place(
-        left,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.2em), end: (0.2em, 0.4em))
-      )
-      place(
-        left,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.6em), end: (0.2em, 0.4em))
-      )
-      h(0.5em)
-    },
-    double: {
-      place(
-        dx: 0em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.2em), end: (0.2em, 0.4em))
-      )
-      place(
-        dx: 0em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.6em), end: (0.2em, 0.4em))
-      )
-      place(
-        dx: 0.4em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.2em), end: (0.2em, 0.4em))
-      )
-      place(
-        dx: 0.4em,
-        dy: 0em,
-        line(stroke: (paint: accent, thickness: 2pt, cap: "round"), start: (0em, 0.6em), end: (0.2em, 0.4em))
-      )
-      h(0.75em)
-    }
-  )
-)
+#let gradient-box(..cmap, width: 6em) = box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: width, fill: gradient.linear(..cmap))

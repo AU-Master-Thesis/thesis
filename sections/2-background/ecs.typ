@@ -8,21 +8,25 @@
 
 At the heart of #acrpl("ECS") are three complementary concepts, from which its name comes from: _entities_, _components_ and _systems_:
 
-#table(
-  columns: 2,
-  stroke: none,
-  row-gutter: 0.25em,
-  // gutter: none,
-  [*Entity*], table.vline(stroke: gray), [A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.],
-  [*Component*], [Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
-  ],
-  [*System*], [Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
-]
-
+#term-table(
+  [*Entity*], [A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.],
+  [*Component*], [Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.],
+  [*System*], [Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.]
 )
 
+// #table(
+//   columns: (auto, auto, 1fr),
+//   stroke: none,
+//   row-gutter: 0.25em,
+//   // gutter: none,
+//   [*Entity*], marker.arrow.single, [A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.],
+//   [*Component*], marker.arrow.single, [Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.],
+//   [*System*], marker.arrow.single, [Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.]
+
+// )
+
 // / Entity: A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.
-// / Component: Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.
+// / Component: Data scoped to a sitable.vline(stroke: (paint: accent, thickness: 0.75pt, cap: "round"))ngle piece of functionality. For example position, velocity, rigid body, a timer etc.
 // / System: Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
 
 It leads to a different approach to software design in comparison to more traditional #acr("OOP") based ways of modelling simulated environments. Instead of using object hierarchies facilitated by inheritance all components are logically laid out in a flat hierarchy, managed by a single instance of some "data store" structure. This data store is then queried and mutated by systems. All of this leads to a conceptual model which is close to relational database models. In this perspective entities are equivalent to primary keys. Components to table columns and systems to SQL queries@papagiannakis2023project. @f.ecs-entity-component-table shows an example of how the data store structures components into one large table indexed by entity ids.
