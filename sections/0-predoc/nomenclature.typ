@@ -3,6 +3,8 @@
 
 #jonas[This section is very WIP, no need to think about this.]
 
+#todo[Something about the Rust ecosystem like what is a crate?]
+
 - Interior Mutability
 
 - `Test<T>` denotes a type `Test` which is generic over any type T
