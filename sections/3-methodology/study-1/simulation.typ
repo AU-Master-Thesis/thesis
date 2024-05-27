@@ -141,7 +141,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
   ]
 )<table.simulation-visualisations>
 
-Along with these visualisation further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.debugging-tools.
+Along with these visualisation further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.introspection-tools.
 
 ==== Viewport <s.m.viewport>
 
@@ -149,9 +149,16 @@ The viewport is where the action happens. This is what the user is represented w
 
 Additionally to providing a visual representation of the underlying mathematics, the user can use the interface to extract information. Most objects in the viewport are clickable, and when clicked, relevant information and measurements are printed out into the console. This is both a useful tool for rapid development and debugging, but also to aid in understanding the computations and theory in the background.
 
-==== Debugging Tools <s.m.debugging-tools>
-#todo[About the different ways of obtaining underlying information on elements of the simulation]
-#kristoffer[You do this?]
+==== Introspection Tools <s.m.introspection-tools>
+
+All entities in the simuliation with a mesh can be clicked on to introspect their current state. This functionality aids in discoverabiliy when trying out different parameters and environments. When clicked data structured as `YAML` will be outputted to stdout with colored keys for easy navigation, and can be viewed in the attached console:
+
+- *Robot* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages set and received and the structure of its factorgraph.
+- *Variable* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
+
+- *Obstacle* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
+
+Example outputs of each of these are shown in @appendix.introspection-outputs.
 
 ==== Export Formats <s.m.export-formats>
 
