@@ -51,7 +51,7 @@ in {
     ++ python-packages;
 
   # https://devenv.sh/scripts/
-  # scripts.hello.exec = "echo hello from $GREET";
+  scripts.hello.exec = "echo hello from $GREET";
 
   # enterShell = ''
   #   # hello
