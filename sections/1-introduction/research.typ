@@ -163,6 +163,5 @@ To answer each research question, a set of objectives will have to be met. The o
   ]
 }
 
-// #todo[Part of the argument for H-2: Furthermore, a language with that shares qualities#kristoffer[wording] with modelling languages will improve the software's ability to communicate scientific results.]
 // #todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
 #jens[make figure that shows the connection of all these, including outlining which parts are which study.]
