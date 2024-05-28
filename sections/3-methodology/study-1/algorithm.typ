@@ -101,7 +101,26 @@
     *Parity* with `Robot::updateCurrent` in #gbpplanner.
 ]
 
-#include "interrobot-lifecycle.typ"
+#let r = (
+  A: text(theme.lavender, weight: "bold", "A"),
+  B: text(theme.mauve, weight: "bold", "B")
+)
+
+Through these steps the lifecycle of the interrobot factors has been allured to. This lifecycle is visualised in @f.interrobot-lifecycle, where two robots #r.A and #r.B approach each other. When they are within communication range, interrobot factors are created. The messaging happening through these factors is the communication that would happen wirelessly in a real-world implementation. Furthermore, when one of the robots' radio fails, the interrobot factors that are maintained by that robot are simply deactivated instead of removed. This has been done as an optimisation, instead of deallocating and reallocating. Finally, when the robots are no longer within communication range, the interrobot factors are deallocated.
+
+#figure(
+  block(breakable: false,
+    include "interrobot-lifecycle.typ",
+  ),
+  caption: [
+    #let comms = {
+      let l1 = place(dy: -0.35em, line(length: 1em, stroke: (thickness: 2pt, paint: theme.teal, dash: "dashed", cap: "round")))
+      let l2 = place(dy: -0.35em, line(length: 1em, stroke: (thickness: 2pt, paint: theme.surface0, dash: "dashed", cap: "round")))
+      box(inset: (x: 2pt), outset: (y: 2pt), l1 + l2 + h(1.6em))
+    }
+    Interrobot factor, $f_i$, lifecycle. On A) the two robots, #r.A and #r.B, are approaching each other, but not within communication range#comms. On B) both robots are withing communication range, and interrobot factors are created symetrically between #r.A and #r.B. On C) and D) one of the two robots' radio has failed, resulting in the corresponding interrobot factors being inactive. On E) the robots are no longer within communication range, and the interrobot factors are removed.
+  ]
+)<f.interrobot-lifecycle>
 
 ==== Simulation Loader <s.m.simulation-loader>
 #kristoffer[About the ability to load multiple simulations, and the underlying folder-structure. Probably should be somewhere else?]

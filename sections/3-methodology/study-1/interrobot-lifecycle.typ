@@ -6,10 +6,10 @@
 
 // = InterRobot Factor Lifecycle
 
-#pagebreak()
+// #pagebreak()
 
-#jens[bait for you, use it however you see fit]
-
+// #jens[bait for you, use it however you see fit]
+#let sc = 60%
 #let coordinate-grid(x, y) = {
 
   import cetz.draw: *
@@ -40,8 +40,8 @@
 
 // #points-relative-from((2, 2), (0, 1), (5, 0), (-1, 0))
 
-#let timestep(t) = text(size: 22pt, $ #t $)
-#let timestep(t) = text(size: 22pt, math.equation($ #t $))
+#let timestep(t) = text(size: 1em, $#t$)
+// #let timestep(t) = text(size: 22pt, math.equation($#t$))
 
 #let variable = (
   radius: 0.3,
@@ -52,26 +52,25 @@
   import cetz.draw: *
   let c = color
   let communication-radius = 3
-  let paint = if active { theme.green } else { theme.maroon }
-  circle(pos, radius: communication-radius, stroke: (dash: "dashed", paint: paint, thickness: 2pt),
+  let paint = if active { theme.teal } else { theme.surface2 }
+  circle(pos, radius: communication-radius, stroke: (dash: "loosely-dashed", paint: paint, thickness: 2pt, cap: "round"),
   // fill: gray.lighten(90%)
 )
 
-  circle(pos, radius: 0.5, fill: c.lighten(50%), stroke: c + 2pt,  name: name)
+  circle(pos, radius: 0.5, fill: c.lighten(80%), stroke: c + 2pt,  name: name)
 
-  content(pos, name)
+  content(pos, text(color, weight: "bold", name))
 }
 
 #let tn = [
 
-#timestep($t_n$)
-
 #cetz.canvas({
   import cetz.draw: *
+  scale(x: sc, y: sc)
 
   let robots = (
     A: (pos: (0, 2), color: theme.lavender),
-    B: (pos: (2, -2), color: theme.green)
+    B: (pos: (2, -2), color: theme.mauve)
   )
   let extend = 1
 
@@ -84,7 +83,7 @@
   robot("A", robots.A.pos, color: robots.A.color)
 
   for vp in variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(50%), stroke: 2pt + robots.A.color)
+    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: 2pt + robots.A.color)
   }
 
   // B
@@ -96,45 +95,33 @@
   robot("B", robots.B.pos, color: robots.B.color)
 
   for vp in variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(50%), stroke: 2pt + robots.B.color)
+    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: 2pt + robots.B.color)
   }
 })
+#place(bottom + center, [
+  A: Timestep #timestep($t_n$)
+])
+
 ]
 
-// #pagebreak()
 
 #let tn-1 = [
-#timestep($t_(n + 1)$)
 
 #cetz.canvas({
   import cetz.draw: *
-  // coordinate-grid(10, 10)
+  scale(x: sc, y: sc)
 
   let robots = (
-    A: (pos: (0, 2)),
-    B: (pos: (1.5, -0.5))
+    A: (pos: (0, 2), color: theme.lavender),
+    B: (pos: (1, -0.5), color: theme.mauve)
   )
   let extend = 1
 
+  // variables
   let a-variables = points-relative-from-angle(robots.A.pos, (-15deg, extend), (-10deg, extend), (-5deg, extend))
-  for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
-  for (va, vb) in windows(a-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("A", robots.A.pos)
-
   let b-variables = points-relative-from-angle(robots.B.pos, (5deg, extend), (10deg, extend), (15deg, extend))
-  for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
 
-  for (va, vb) in windows(b-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("B", robots.B.pos)
+  // interrobot
 
   for (va, vb) in a-variables.zip(b-variables) {
     let dir = vec2.direction(va, vb)
@@ -146,13 +133,13 @@
     )
 
     let scale = 0.25
-    let interrobot-color = olive
+    let interrobot-color = theme.green
     let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.clockwise))
     bezier-through(
       va,
       control-point,
       vb,
-      stroke: interrobot-color
+      stroke: interrobot-color + 2pt
     )
 
 
@@ -161,132 +148,52 @@
       va,
       control-point,
       vb,
-      stroke: interrobot-color
+      stroke: interrobot-color + 2pt
     )
-
-
-    // line(va, vb)
   }
 
-  // let (a, b, c) = ((0, 0), (1, 1), (2, -1))
-  // line(a, b, c, stroke: gray)
-  // bezier-through(a, b, c, name: "b")
-})
-
-]
-
-// #pagebreak()
-
-
-#let tn-2 = [
-#timestep($t_(n + 2)$)
-
-#cetz.canvas({
-  import cetz.draw: *
-
-  // coordinate-grid(10, 10)
-
-   let robots = (
-    A: (pos: (0, 2)),
-    B: (pos: (3.2, -1))
-  )
-
-
-  let a-variables = points-relative-from(robots.A.pos, (1, 0.0), (1, 0.5), (1, 1))
-  for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
+  // A
   for (va, vb) in windows(a-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("A", robots.A.pos)
-
-  let b-variables = points-relative-from(robots.B.pos, (0.95, 0.25), (1, 0.5), (1, 0.8))
-  for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
+    line(va, vb, stroke: robots.A.color + 2pt)
   }
 
+  for vp in a-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+  }
+  robot("A", robots.A.pos, color: robots.A.color)
+
+  // B
   for (va, vb) in windows(b-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("B", robots.B.pos)
-
-  for (va, vb) in a-variables.zip(b-variables) {
-    let dir = vec2.direction(va, vb)
-    let length = vec2.distance(va, vb)
-
-    let normal = (
-      clockwise: (-dir.at(1), dir.at(0)),
-      counter-clockwise: (dir.at(1), -dir.at(0)),
-    )
-
-    let scale = 0.25
-    let interrobot-color = olive
-    let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.clockwise))
-    bezier-through(
-      va,
-      control-point,
-      vb,
-      stroke: interrobot-color
-    )
-
-
-    let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.counter-clockwise))
-    bezier-through(
-      va,
-      control-point,
-      vb,
-      stroke: interrobot-color
-    )
-
-
-    // line(va, vb)
+    line(va, vb, stroke: robots.B.color + 2pt)
   }
 
-  // let (a, b, c) = ((0, 0), (1, 1), (2, -1))
-  // line(a, b, c, stroke: gray)
-  // bezier-through(a, b, c, name: "b")
+  for vp in b-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+  }
+  robot("B", robots.B.pos, color: robots.B.color)
 })
-
+#place(bottom + center, [
+  B: Timestep #timestep($t_(n+1)$)
+])
 ]
 
 // #pagebreak()
 
 #let tn-3 = [
 
-#timestep($t_(n + 3)$)
-
 #cetz.canvas({
   import cetz.draw: *
 
-  // coordinate-grid(10, 10)
+  scale(x: sc, y: sc)
 
-   let robots = (
-    A: (pos: (0, 2)),
-    B: (pos: (3.2, -1))
+  let robots = (
+    A: (pos: (0, 2), color: theme.lavender),
+    B: (pos: (1.5, -0.5), color: theme.mauve)
   )
+  let extend = 1
 
-
-  let a-variables = points-relative-from(robots.A.pos, (1, 0.0), (1, 0.5), (1, 1))
-  for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
-  for (va, vb) in windows(a-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("A", robots.A.pos, active: false)
-
-  let b-variables = points-relative-from(robots.B.pos, (0.95, 0.25), (1, 0.5), (1, 0.8))
-  for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
-  for (va, vb) in windows(b-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("B", robots.B.pos)
+  let a-variables = points-relative-from-angle(robots.A.pos, (10deg, extend), (20deg, extend), (30deg, extend))
+  let b-variables = points-relative-from-angle(robots.B.pos, (5deg, extend), (10deg, extend), (15deg, extend))
 
   for (va, vb) in a-variables.zip(b-variables) {
     let dir = vec2.direction(va, vb)
@@ -298,63 +205,66 @@
     )
 
     let scale = 0.25
-    let interrobot-color = olive
+    let interrobot-color = theme.green
     let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.clockwise))
     bezier-through(
       va,
       control-point,
       vb,
-      stroke: interrobot-color
+      stroke: interrobot-color + 2pt
     )
-
 
     let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.counter-clockwise))
     bezier-through(
       va,
       control-point,
       vb,
-      stroke: gray
+      stroke: theme.maroon + 2pt
     )
   }
-})
 
+  // A
+  for (va, vb) in windows(a-variables, 2) {
+    line(va, vb, stroke: robots.A.color + 2pt)
+  }
+  for vp in a-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+  }
+  robot("A", robots.A.pos, active: false, color: robots.A.color)
+
+  // B
+  for (va, vb) in windows(b-variables, 2) {
+    line(va, vb, stroke: robots.B.color + 2pt)
+  }
+  for vp in b-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+  }
+
+  robot("B", robots.B.pos, color: robots.B.color)
+})
+#place(bottom + center, [
+  C: Timestep #timestep($t_(n + 2)$)
+])
 ]
 
 // #pagebreak()
 
 #let tn-4 = [
-#timestep($t_(n + 4)$)
+// #timestep($t_(n + 4)$)
 
 #cetz.canvas({
   import cetz.draw: *
 
-  // coordinate-grid(10, 10)
+  scale(x: sc, y: sc)
 
-   let robots = (
-    A: (pos: (0, 2)),
-    B: (pos: (3.2, -1))
+  let robots = (
+    A: (pos: (0, 2), color: theme.lavender),
+    B: (pos: (1.5, -0.5), color: theme.mauve)
   )
+  let extend = 1
 
-
-  let a-variables = points-relative-from(robots.A.pos, (1, 0.0), (1, 0.5), (1, 1))
-  for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
-  for (va, vb) in windows(a-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("A", robots.A.pos, active: true)
-
-  let b-variables = points-relative-from(robots.B.pos, (0.95, 0.25), (1, 0.5), (1, 0.8))
-  for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
-  for (va, vb) in windows(b-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("B", robots.B.pos, active: false)
+  let a-variables = points-relative-from-angle(robots.A.pos, (10deg, extend), (20deg, extend), (30deg, extend))
+  let b-variables = points-relative-from-angle(robots.B.pos, (5deg, extend), (10deg, extend), (15deg, extend))
 
   for (va, vb) in a-variables.zip(b-variables) {
     let dir = vec2.direction(va, vb)
@@ -366,63 +276,65 @@
     )
 
     let scale = 0.25
-    let interrobot-color = olive
+    let interrobot-color = theme.green
     let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.clockwise))
     bezier-through(
       va,
       control-point,
       vb,
-      stroke: gray
+      stroke: theme.maroon + 2pt
     )
-
 
     let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.counter-clockwise))
     bezier-through(
       va,
       control-point,
       vb,
-      stroke: interrobot-color
+      stroke: interrobot-color + 2pt
     )
   }
-})
 
+  // A
+  for (va, vb) in windows(a-variables, 2) {
+    line(va, vb, stroke: robots.A.color + 2pt)
+  }
+  for vp in a-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+  }
+  robot("A", robots.A.pos, active: true, color: robots.A.color)
+
+  // B
+  for (va, vb) in windows(b-variables, 2) {
+    line(va, vb, stroke: robots.B.color + 2pt)
+  }
+  for vp in b-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+  }
+
+  robot("B", robots.B.pos, active: false, color: robots.B.color)
+})
+#place(bottom + center, [
+  D: Timestep #timestep($t_(n + 3)$)
+])
 ]
 
 // #pagebreak()
 
 #let tn-5 = [
-#timestep($t_(n + 5)$)
 
 #cetz.canvas({
   import cetz.draw: *
 
-  // coordinate-grid(10, 10)
+  scale(x: sc, y: sc)
 
-   let robots = (
-    A: (pos: (0, 2)),
-    B: (pos: (3.2, -1))
+  let robots = (
+    A: (pos: (0, 2), color: theme.lavender),
+    B: (pos: (1.5, -0.5), color: theme.mauve)
   )
+  let extend = 1
 
-
-  let a-variables = points-relative-from(robots.A.pos, (1, 0.0), (1, 0.5), (1, 1))
-  for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
-  for (va, vb) in windows(a-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("A", robots.A.pos, active: false)
-
-  let b-variables = points-relative-from(robots.B.pos, (0.95, 0.25), (1, 0.5), (1, 0.8))
-  for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
-
-  for (va, vb) in windows(b-variables, 2) {
-    line(va, vb, stroke: gray)
-  }
-  robot("B", robots.B.pos, active: false)
+  let a-variables = points-relative-from-angle(robots.A.pos, (10deg, extend), (20deg, extend), (30deg, extend))
+  let b-variables = points-relative-from-angle(robots.B.pos, (5deg, extend), (10deg, extend), (15deg, extend))
 
   for (va, vb) in a-variables.zip(b-variables) {
     let dir = vec2.direction(va, vb)
@@ -434,62 +346,85 @@
     )
 
     let scale = 0.25
-    let interrobot-color = olive
+    let interrobot-color = theme.green
     let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.clockwise))
     bezier-through(
       va,
       control-point,
       vb,
-      stroke: gray
+      stroke: theme.maroon + 2pt
     )
-
 
     let control-point = vec2.add(vec2.add(va, vec2.scale(length / 2, dir)), vec2.scale(scale, normal.counter-clockwise))
     bezier-through(
       va,
       control-point,
       vb,
-      stroke: gray
+      stroke: theme.maroon + 2pt
     )
   }
+
+  // A
+  for (va, vb) in windows(a-variables, 2) {
+    line(va, vb, stroke: robots.A.color + 2pt)
+  }
+  for vp in a-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+  }
+  robot("A", robots.A.pos, active: false, color: robots.A.color)
+
+  // B
+  for (va, vb) in windows(b-variables, 2) {
+    line(va, vb, stroke: robots.B.color + 2pt)
+  }
+  for vp in b-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+  }
+
+  robot("B", robots.B.pos, active: false, color: robots.B.color)
 })
+// #timestep($t_(n + 5)$)
+#place(bottom + center, [
+  E: Timestep #timestep($t_(n + 4)$)
+])
 ]
 
 // #pagebreak()
 
 #let tn-k = [
-#timestep($t_(n + k)$)
 
 #cetz.canvas({
   import cetz.draw: *
 
-  // coordinate-grid(10, 10)
+  scale(x: sc, y: sc)
 
-   let robots = (
-    A: (pos: (0, 4)),
-    B: (pos: (3.9, -0.5))
+  let robots = (
+    A: (pos: (0, 2), color: theme.lavender),
+    B: (pos: (1.8, -1.3), color: theme.mauve)
   )
 
+  let extend = 1
 
-  let a-variables = points-relative-from(robots.A.pos, (1, 0.5), (1, 0.5), (1, 0.5))
-  for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
-  }
 
+  let a-variables = points-relative-from-angle(robots.A.pos, (20deg, extend), (35deg, extend), (50deg, extend))
   for (va, vb) in windows(a-variables, 2) {
-    line(va, vb, stroke: gray)
+    line(va, vb, stroke: robots.A.color + 2pt)
   }
-  robot("A", robots.A.pos)
-
-  let b-variables = points-relative-from(robots.B.pos, (1, 0.25), (1, 0.5), (1, 0.2))
-  for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: variable.color.lighten(50%), stroke: variable.color)
+  for vp in a-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
   }
 
+  robot("A", robots.A.pos, color: robots.A.color)
+
+  let b-variables = points-relative-from-angle(robots.B.pos, (0deg, extend), (-10deg, extend), (-20deg, extend))
   for (va, vb) in windows(b-variables, 2) {
-    line(va, vb, stroke: gray)
+    line(va, vb, stroke: robots.B.color + 2pt)
   }
-  robot("B", robots.B.pos)
+  for vp in b-variables.slice(1) {
+    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+  }
+
+  robot("B", robots.B.pos, color: robots.B.color)
 
   for (va, vb) in a-variables.zip(b-variables) {
     let dir = vec2.direction(va, vb)
@@ -501,22 +436,24 @@
     )
   }
 })
-
+#place(bottom + center, [
+  F: Timestep #timestep($t_(n + k)$)
+])
 ]
 
-#grid(
-  columns: (1fr, 1fr, 1fr),
-  rows: 3,
-  stroke: gray,
-  // inset: 2em,
-  // gutter: 0.2em,
-  ..(
-    tn,
-    tn-1,
-    // tn-2,
-    tn-3,
-    tn-4,
-    tn-5,
-    tn-k
-  ).map(it => block(it))
-)
+#{
+  set align(center)
+  set text(theme.text)
+  grid(
+    columns: (1fr, 1fr, 1fr),
+    rows: 3,
+    ..(
+      tn,
+      tn-1,
+      tn-3,
+      tn-4,
+      tn-5,
+      tn-k
+    ).map(it => std-block(breakable: false, height: 71mm, it))
+  )
+}
