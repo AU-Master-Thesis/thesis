@@ -253,10 +253,6 @@
 #counter(heading).update(0)
 #counter(page).update(1)
 
-#kristoffer[make a statement about how we release our software for others to use .e.g license and terms. I think either MIT or Apache]
-
-
-#kristoffer[check all libraries we use are in accordance with our terms]
 
 #set page(
   header: context {

@@ -101,6 +101,8 @@
     *Parity* with `Robot::updateCurrent` in #gbpplanner.
 ]
 
+#include "interrobot-lifecycle.typ"
+
 ==== Simulation Loader <s.m.simulation-loader>
 #kristoffer[About the ability to load multiple simulations, and the underlying folder-structure. Probably should be somewhere else?]
 
