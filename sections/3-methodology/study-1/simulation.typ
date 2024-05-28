@@ -2,16 +2,15 @@
 
 === Simulation Tool <s.m.simulation-tool>
 
-#todo[update all sim screenshots]
+// #jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
 
-#jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
 
 // Hypothesis 4:
 // Extensive tooling will create a great environment for others to understand the software
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation.
+As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation. All panels are implemented using immediate mode UI instead of retained mode, which simplifies state management and makes it easier for others to extend the tool. With this approach, the code responsible for creating each part of the panel is straightforward and easy to locate, facilitating quick modifications and enhancements.
 
 #figure(
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -28,10 +27,11 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
       }
     }
 
-    #image("../../../figures/img/tool-settings-latte.png")
+    #image("../../../figures/img/simulator-overview.png")
+    // #image("../../../figures/img/tool-settings-latte.png")
     #v(-2em)
     #table(
-      columns: (1fr, 36%),
+      columns: (1fr, 31.2%),
       row-gutter: 0em,
       column-gutter: -1em,
       stroke: none,
@@ -50,13 +50,16 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
 ==== Live Configuration <s.m.settings>
 
 Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
-Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The significant#note.wording[different word?] sections are described in the following sections.
-
-#jens[Live configuration editing allows for rapid testing]
+Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The notable sections are described in the following sections.
 
 ==== Hot Loading Scenarios <s.m.hot-loading>
 
 Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios.
+#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour.]
+
+  // This makes it possible to rapidly test different values, by changing the values in UI, reload the scenario and immediately observe the effect. ]
+
+// The active scenario can be reloaded repeatedly by pressing F5 or clicking the 󰑓 button in the simulation section, as shown in @f.m.simulation-tool-time-control. Simulation parameters specified in the config.toml file are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, you can quickly iterate on your simulations.
 
 // The dropdown menu can be seen in @f.m.simulation-tool-scenario-dropdown.
 
@@ -66,18 +69,15 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
 //   caption: [The scenario dropdown in the simulation tool.],
 // )<f.m.simulation-tool-scenario-dropdown>
 
-#kristoffer[
-  Simulation loader
-]
-
 ==== Time Control <s.m.time-control>
 
 The simulation tool allows for control of the simulated time. In @f.m.simulation-tool-time-control the time controls are shown under the #text(theme.lavender, "Simulation") section in the settings panel. Here the user can see the simulation time, and the frequency at which the fixed #acr("GBP") simulation steps are computed. Additionally, the user has access to a pause/play button to stop and start the simulation, and a manual step button to step through the simulation $n$ fixed timesteps at a time. As a default $n=1$. The user can only use the manual stepping when the simulation is paused.
 
 #figure(
   // std-block(todo[screenshot of time control]),
-  std-block(width: 60%, height: auto, image("../../../figures/img/tool-settings-simulation-latte.png")),
-  caption: [The time control section in the simulation tool. From left to right, top to bottom: Reload current scenario, scenario dropdown selctor, simulation time, simulation frequency, simulation speed, manual step, play/pause.],
+  // std-block(width: 60%, height: auto, image("../../../figures/img/tool-settings-simulation-latte.png")),
+  std-block(width: 60%, height: auto, image("../../../figures/img/simulations-settings.png")),
+  caption: [The simulation control section in the simulation tool. From left to right, top to bottom: Reload current scenario, scenario dropdown selector, simulation time, simulation frequency $Delta_t$, simulation speed, manual step, play/pause, how many steps to advance per manual step, pause when a robots spawns, exit program when scenario finishes.],
 )<f.m.simulation-tool-time-control>
 
 ==== Visualisation <s.m.visualisation>
@@ -173,11 +173,14 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
   - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualise various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
 
   *Quantitative:*
-  #kristoffer[Is this as it should be with metrics and such?]
-  - *Historical data* aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environments data is recorded for each robot.
+
+  - *Historical data* aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environment data is recorded for each robot.
     - A count of every message sent and received during message passing is recorded, further labelled if the message was sent across an internal or an external factorgraph edge.
     - The number of collisions a robot has had with other robots and environment obstacles.
-    - The position and linear velocity across $delta_t$ seconds is sampled and recorded with an interval of $20"Hz"$.
-    - A description of the route a robot took. Containing the list of waypoints it has visited. When the robot started its route. And if it has finished its route. How long it took.
-  The data is automatically exported when the scenario has finished i.e. all robots have finished their route. Alternatively the data can be exported from the settings UI by pressing the "metrics" button in the "Export" section. See @appendix.json-schema-for-exported-data for a typed schema of the entire #acr("JSON") object exported.
+    - The position and linear velocity sampled and recorded with an interval of $Delta_t$ seconds.
+    - A description of the route a robot took. Containing the list of waypoints it has visited. When the robot started its route. And if it has finished its route how long it took.
+    - What planning strategy was used.
+  Hyper parameters such as the #acr("PRNG") seed used, the name of the scenario, and a copy of all settings found in `config.toml` is embedded into the output aswell. With this results can be reliably reproduced and compared.
+#par(first-line-indent: 0pt)[The data is automatically exported when the scenario has finished i.e. all robots have finished their route. Alternatively a snapshot of the currently recorded state can be exported from the settings UI by pressing `F7` or clicking the "metrics" button in the "Export" section. See @appendix.json-schema-for-exported-data for a typed schema of the entire #acr("JSON") object exported.]
+
 ]

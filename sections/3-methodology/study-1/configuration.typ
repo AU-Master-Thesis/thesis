@@ -2,14 +2,13 @@
 
 === Configuration <s.m.configuration>
 
-#todo[add links to configuration files from the repo, such that the reader can have easy access to examples.]
-
-To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `configuration.toml`, uses #acr("TOML"), and is used to define all the general parameters for the simulation, visualisation, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualisation`. The smaller sections are described in the code documentation itself.@repo
+To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `config.toml`, uses #acr("TOML"), and is used to define all the general parameters for the simulation, visualisation, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualisation`. The smaller sections are described in the code documentation itself.@repo
 #set enum(numbering: box-enum.with(prefix: "Section "))
 + `GBP:` Outlines all initial factor standard deviations, $sigma$, used in the #acr("GBP") message passing, alogn with the iteration schedule to use and how many of _internal_ vs _external_ iterations to run.
 + `Robot:` Defines each robot's properties, such as size, target speed, communication radius and failure rate, and degrees of freedom. Additionally, some properties for the structure of the underlying factor are in this section; i.e. the planning-horizon, whether to use symmetric interrobot factors, and scaling of the safety distance between robots.
 + `Simulation:` Contains the parameters for the simulation itself, such as the maximum simulation time, the #acr("RNG") seed, and the fixed time-step frequency to run the #acr("GBP") algorithm at. More are described in @repo.
 + `Visualisation:` Contains the parameters for the visual elements. This includes which properties to draw to the screen like communication radius, interrobot connections, planning horizon, waypoints, etc. Furthermore, some scaling factors, i.e. for the variable uncertainties, to make them visible on the screen, are defined here. Again, more are described in @repo.
+
 
 ==== Environment Configuration <s.m.configuration.environment>
 A datastructure for describing the static environment has been developed, and includes two main parts; the overall environment, and the option to specify several placeable shapes.
@@ -321,6 +320,16 @@ Lastly, some timing options are available; `repeat-every` and `delay`. The `repe
   ),
   caption: [Formation configuration example spawning a single robot every 8 seconds with an initial delay of 2 seconds. Here, the `line-segment` _distribution shape_ is used, along with the `even` _placement strategy_, and `cross` _projection strategy_.],
 )<f.m.formation-config>
+
+#let configs = (
+  config: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/config.toml", "config.toml"),
+  environment: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/environment.yaml", "environment.yaml"),
+  formation: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/formation.yaml", "formation.yaml")
+)
+
+#par(first-line-indent: 0pt)[For a complete example of each configuration format see the #configs.config, #configs.environment, and #configs.formation  used in the _Environment Obstacles_ scenario experimented with later on in @s.r.scenarios.environment-obstacles.]
+
+// #source-link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/config/circle_cluttered.json", "config/circle_cluttered.json")
 
 === Signed Distance Field <s.m.sdf>
 As described above in @s.m.configuration.environment, the environment is generated from a matrix of characters, and a list of placeable obstacles. The advantage of being able to describe the environment in a constrained text format comes from the declarative nature of the format. You simply describe the geometrical shapes from their underlying data, and where to place them, and as such there will never be any dispute as to how that environment should look within the constraints of the format. This also provides a simple and compact single source of truth for the environment, which can be read for multiple purposes.

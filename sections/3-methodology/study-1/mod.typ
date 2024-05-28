@@ -37,6 +37,8 @@ The methodology for developing an extensive simulation tool capable of replicati
 
 === Variable Structure <s.variable-structure>
 
+- Mention that the pose factor is a special case that is embedded in the variable structure, for simplicity
+
 - maintains two sets of ids, one for any robot within communication radius, and one for any robot connected with.
 
 - Fixed number of variable settings

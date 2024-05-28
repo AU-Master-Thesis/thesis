@@ -214,7 +214,3 @@ Executing the system in @l.example-ecs-query against the data store in @f.ecs-en
 // A powerful feature of the Bevy game engine is that it will automatically schedule systems in parallel across available CPU cores, if it can guarantee that no data races will occur between systems accessing the same components. i.e. no two queries request a `&mut` mutable reference to a component column, that overlaps give any predicate clauses. This analysis is performed based on the query signatures given in systems.
 
 A powerful feature of the Bevy game engine is that it automatically schedules systems in parallel across available CPU cores if it can guarantee that no data races will occur between systems accessing the same components. This means no two queries can request a `&mut` mutable reference to a component column that overlaps with any predicate clauses. This analysis is performed based on the query types provided in the system signatures.
-
-#todo[
-  briefly mention immediate mode GUI vs retained mode
-]
