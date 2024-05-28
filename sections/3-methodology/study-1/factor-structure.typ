@@ -24,14 +24,15 @@ caption: [
 
 - `neighbours()`: How many neighbouring variables the factor is connected to. `NonZeroU32` is a standard library type representing the interval $[1, 2^(32-1)]$, to prevent implementors from  returning $0$, which would represent an invalid state, since a factorgraph cannot be disconnected.
 
-- `skip()`: Whether the factor should be skipped during factor iteration. This is used by factors for which it might not make sense to be active all the time. The interrobot factors uses it to skip participation when estimated positions of the two variables it is connected with are further apart than $d_r$ as explained in @s.m.factors.interrobot-factor. Tracking factors uses it to deactivate while the global planner asynchronously tries to find a path #todo[ref].
+- `skip()`: Whether the factor should be skipped during factor iteration. This is used by factors for which it might not make sense to be active all the time. The interrobot factors uses it to skip participation when estimated positions of the two variables it is connected with are further apart than $d_r$ as explained in @s.m.factors.interrobot-factor. Tracking factors uses it to deactivate while the global planner asynchronously tries to find a path, see @s.m.global-planning.
 
 - `measure()`: The measurement function $m(X_k)$ used in the factor potential update step as described in @s.b.gbp.factor-update.
 
 - `jacobian()`: The Jacobian of the factor. Used in the factor potential update step as described in @s.b.gbp.factor-update. To minimize repeated heap allocation of matrices #acr("CoW") semantics are used by wrapping the returned matrix in the `Cow<'_, _>` container@the-rust-book. With this implementors can opt to return a reference to an already allocated matrix they own, instead of a new copy of it. The dynamics factor makes use of this optimization as its Jacobian is precomputed once at initialization, and does not depend on the input linearization point #footnote([Found in the #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/dynamic.rs#L67-L70", "src/factorgraph/factor/dynamic.rs:67-70")]).
 
 
-- `jacobian_delta()`: The $delta$ used in the Jacobian first order #todo[finite difference method] derivative approximation calculation. `StrictlyPositiveFinite<f64>` is used to enforce that the returned value lies in the $RR_+ \\ {0, infinity}$ interval representable by the IEEE 754 double precision encoding. To prevent floating point errors from dividing by $0.0$ or $infinity$#jens[right argument?].
+- `jacobian_delta()`: The $delta$ used in the Jacobian first order finite difference approximation. `StrictlyPositiveFinite<f64>` is used to enforce that the returned value lies in the $RR_+ \\ {0, infinity}$ interval representable by the IEEE 754 double precision encoding. To ensure the perturbation is non-zero, and no invalid values such as $infinity$ and NaN is given.
+
 
 - `first_order_jacobian()`: The first order Jacobian of the factor. This method comes with a default implementation that used the `jacobian()` and `jacobian_delta()` implementation using the finite difference method as defined in @s.m.factors.jacobian-first-order.
 

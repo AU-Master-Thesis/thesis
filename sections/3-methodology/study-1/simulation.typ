@@ -173,11 +173,14 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
   - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualise various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
 
   *Quantitative:*
-  #kristoffer[Is this as it should be with metrics and such?]
-  - *Historical data* aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environments data is recorded for each robot.
+
+  - *Historical data* aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environment data is recorded for each robot.
     - A count of every message sent and received during message passing is recorded, further labelled if the message was sent across an internal or an external factorgraph edge.
     - The number of collisions a robot has had with other robots and environment obstacles.
-    - The position and linear velocity across $delta_t$ seconds is sampled and recorded with an interval of $20"Hz"$.
-    - A description of the route a robot took. Containing the list of waypoints it has visited. When the robot started its route. And if it has finished its route. How long it took.
-  The data is automatically exported when the scenario has finished i.e. all robots have finished their route. Alternatively the data can be exported from the settings UI by pressing the "metrics" button in the "Export" section. See @appendix.json-schema-for-exported-data for a typed schema of the entire #acr("JSON") object exported.
+    - The position and linear velocity sampled and recorded with an interval of $Delta_t$ seconds.
+    - A description of the route a robot took. Containing the list of waypoints it has visited. When the robot started its route. And if it has finished its route how long it took.
+    - What planning strategy was used.
+  Hyper parameters such as the #acr("PRNG") seed used, the name of the scenario, and a copy of all settings found in `config.toml` is embedded into the output aswell. With this results can be reliably reproduced and compared.
+#par(first-line-indent: 0pt)[The data is automatically exported when the scenario has finished i.e. all robots have finished their route. Alternatively a snapshot of the currently recorded state can be exported from the settings UI by pressing `F7` or clicking the "metrics" button in the "Export" section. See @appendix.json-schema-for-exported-data for a typed schema of the entire #acr("JSON") object exported.]
+
 ]
