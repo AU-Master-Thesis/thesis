@@ -91,8 +91,9 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
 
 #figure(
   // image("../../../figures/out/clear-circle.svg", width: 30%),
-  std-block(todo[Add image]),
-  caption: [Visualisation Environment Obstacles scenario.],
+  // std-block(todo[Add image]),
+  std-block(image("../../figures/img/environment-obstacles-scenario-preview.png")),
+  caption: [Visualisation Environment Obstacles scenario. The red #sr outline of each obstacle is boundary of the collider volume used to check for environment collisions.]
 )<f.scenarios.environment-obstacles>
 
 
