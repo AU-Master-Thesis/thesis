@@ -2,7 +2,7 @@
 
 #let etal = [_et al._]
 
-#jonas[do please read the stuff in here]
+// #jonas[do please read the stuff in here]
 
 = Related Works <s.b.related-works>
 

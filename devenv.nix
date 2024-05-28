@@ -3,6 +3,12 @@
     ruff
     ruff-lsp
     pyright
+    python3Packages.matplotlib
+    python3Packages.ipykernel
+    python3Packages.pip
+    python3Packages.notebook
+    python3Packages.catppuccin
+    python3Packages.numpy
   ];
 in {
   # https://devenv.sh/basics/
@@ -46,6 +52,7 @@ in {
       timg
       imagemagick
       ffmpeg
+      texliveFull
       # (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "ComicShannsMono" "Hack" ]; })
     ]
     ++ python-packages;

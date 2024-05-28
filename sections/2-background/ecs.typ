@@ -6,7 +6,7 @@
 
 // At the programming level this is visible by the separation of data storage from behaviour and logic. This architecture is commonly used in computer games and intensive data analytics computations to achieve higher performance. It has also been used in other robotic simulations projects such as @li2023potato, that uses it simulate large scale heterogeneous swarm robotics.
 
-At the heart of #acrpl("ECS") are three complementary concepts, from which its name comes from: _entities_, _components_ and _systems_:
+At the heart of #acrpl("ECS") are three complementary concepts, from which its name comes from; _entities_, _components_ and _systems_:
 
 #term-table(
   [*Entity*], [A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.],
@@ -140,8 +140,8 @@ It leads to a different approach to software design in comparison to more tradit
   )
 
   v(-1em)
-  text(size: 18pt, [...])
-  v(-0.25em)
+  text(size: 16pt, $dots.v$)
+  v(-0.75em)
 
   table(columns: columns, stroke: gray, fill: (x, y) => if x == 0 { gray.lighten(80%) },
   [$a+n$], [#cm], [#cm], [], [#cm $[1.0, 0.0]$], [], []
@@ -197,9 +197,10 @@ Executing the system in @l.example-ecs-query against the data store in @f.ecs-en
   [$a+3$], [#cm], [], [], [], [#cm], [],
   [$a+4$], [#cm], [], [], [], [#cm], [],
   )
+
   v(-1em)
-  text(size: 18pt, [...])
-  v(-0.25em)
+  text(size: 16pt, $dots.v$)
+  v(-0.75em)
   table(columns: columns,
   q-match-data[$a+n$], q-match-data[#cm], q-match-filter[#cm], [], q-match-data[#cm $[1.0, 0.0]$], [], []
 

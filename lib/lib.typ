@@ -767,7 +767,9 @@
   mu: $#text(theme.mauve, $mu$)$,
   Sigma: $#text(theme.mauve, $Sigma$)$,
   X: $#text(theme.mauve, $X$)$,
-  J: jacobian
+  J: jacobian,
+  SA: $#text(theme.teal, $Sigma_A$)$,
+  SB: $#text(theme.mauve, $Sigma_B$)$,
 )
 
 #let number-word(num) = {

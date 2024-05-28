@@ -1,5 +1,5 @@
 #import "../../../lib/mod.typ": *
-=== Implementation Language
+=== Implementation Language <s.m.language>
 
 #jonas[No need to read this section still. However how do we talk about choosing a specific language when we haven't performed rigorous tests on which one would be best for the implementation?]
 

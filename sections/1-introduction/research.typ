@@ -90,22 +90,22 @@ To answer each research question, a set of objectives will have to be met. The o
     /// Study 1
     #(study.heading)(study.H-1.full.n)
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-1.3.", color: theme.green))
+    #set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
     + Research possible programming languages and their ecosystems, to understand which one provides the most suitable architecture, and framework for the reimplementation.
     + Reimplement the original GBP Planner in the development simulation tool with the chosen language, architecture, and framework.
     + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the #att[four metrics: distance travelled, makespan, smoothness, and collision count.]
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-1.4.", color: theme.green))
+    #set enum(numbering: req-enum.with(prefix: "O-1.2.", color: theme.green))
     + Analyse and evaluate different kinds of tooling that can be beneficial for the software.
     + Pick the most beneficial tooling approach for the software.
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.3", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-1.5.", color: theme.green))
+    #set enum(numbering: req-enum.with(prefix: "O-1.3.", color: theme.green))
     + Implement tooling to help with future reproducibility and engagement with the software.
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.4", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-1.6.", color: theme.green))
+    #set enum(numbering: req-enum.with(prefix: "O-1.4.", color: theme.green))
     + Implement tooling to help with understanding and extending the software.
 
     /// Study 2
