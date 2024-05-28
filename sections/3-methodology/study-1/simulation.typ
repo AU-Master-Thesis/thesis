@@ -50,13 +50,16 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
 ==== Live Configuration <s.m.settings>
 
 Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
-Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The significant#note.wording[different word?] sections are described in the following sections.
-
-#jens[Live configuration editing allows for rapid testing]
+Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The notable sections are described in the following sections.
 
 ==== Hot Loading Scenarios <s.m.hot-loading>
 
 Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios.
+#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour.]
+
+  // This makes it possible to rapidly test different values, by changing the values in UI, reload the scenario and immediately observe the effect. ]
+
+// The active scenario can be reloaded repeatedly by pressing F5 or clicking the 󰑓 button in the simulation section, as shown in @f.m.simulation-tool-time-control. Simulation parameters specified in the config.toml file are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, you can quickly iterate on your simulations.
 
 // The dropdown menu can be seen in @f.m.simulation-tool-scenario-dropdown.
 
@@ -65,10 +68,6 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
 //   std-block(image("../../../figures/img/tool-settings-scenarios-latte.png", width: 50%)),
 //   caption: [The scenario dropdown in the simulation tool.],
 // )<f.m.simulation-tool-scenario-dropdown>
-
-#kristoffer[
-  Simulation loader
-]
 
 ==== Time Control <s.m.time-control>
 
