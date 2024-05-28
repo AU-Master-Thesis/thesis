@@ -41,8 +41,10 @@ Variable Timesteps
 
 
 #figure(
-  image("../../../figures/out/variable-timesteps.svg"),
-  caption: [Variable timesteps, #kristoffer[explain figure, and review design, use same variable names as rest of document]]
+  std-block(image("../../../figures/out/variable-timesteps.svg")),
+  caption: [Variable timesteps
+
+  #kristoffer[explain figure, and review design, use same variable names as rest of document]]
 ) <f.variable-timesteps>
 
 #kristoffer[
