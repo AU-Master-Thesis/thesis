@@ -14,6 +14,42 @@
 ) <f.qin-vs-qout>
 
 
+#figure(
+  image("../../figures/plots/circle-experiment-distance-travelled.svg"),
+  caption: [
+  Distribution of distances travelled as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
+
+  #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
+]
+) <f.circle-experiment-distance-travelled>
+
+// Circle experiment: distribution of distances travelled as number of robots in the formation NR is varied. The GBP planner creates shorter paths and a smaller spread of distances than ORCA; robots collaborate to achieve their goals.
+
+
+#figure(
+  image("../../figures/plots/circle-experiment-ldj.svg"),
+  caption: [
+  #acr("LDJ") metric for the _Circle_ scenario as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
+
+  #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
+]
+) <f.circle-experiment-ldj>
+
+// Circle experiment: distribution of the LDJ metric as NR increases, with smoother trajectories shown by more positive values. The worst performing GBP planning robots had smoother paths than the best robots for ORCA.
+
+
+#figure(
+  image("../../figures/plots/circle-experiment-makespan.svg"),
+  caption: [
+Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
+
+  #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
+]
+) <f.obstacle-experiment-makespan>
+
+
+
+
 #let gbpplanner-results = (
   rc: (20, 40, 60, 80),
   makespan: (12.0, 12.3, 12.7, 14.8),
@@ -151,18 +187,3 @@
 
 // THEIR CAPTION
 // shows that as γ increases, it takes longer for all robots to reach their goals. However, trajectories for the 10 m/s case are completely collision free up to γ = 80%. As the initial speed increases, collisions happen at lower values of γ as robots have less time to react to faster moving neighbours who they may not be receiving messages from. This experiment shows one of the benefits of GBP — safe trajectories can still be planned even with possible communication failures, which is likely in any realistic settings.
-
-
-
-
-#todo[
-  box/violin Plot like figure 4 of number of robots vs distance travelled.
-]
-
-#todo[
-  box Plot like figure 5 of number of robots vs LDJ
-]
-
-#todo[
-  line Plot like figure 6 of number of robots vs makespan for circle and obstacle scenario
-]

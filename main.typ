@@ -226,6 +226,7 @@
 #include "sections/0-predoc/preface.typ"
 #include "sections/0-predoc/abstract.typ"
 #include "sections/0-predoc/nomenclature.typ"
+#include "sections/0-predoc/acronym-index.typ"
 
 // #acr("SOA"), #acrpl("AOS")
 

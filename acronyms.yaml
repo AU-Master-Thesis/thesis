@@ -106,3 +106,5 @@
   definition: Tom's Obvious Minimal Language
 - acronym: MAGICS
   definition: Multi-Agent Gaussian Inference Collaborative Simulator
+- acronym: VIO
+  definition: Visual-Inertial Odometry

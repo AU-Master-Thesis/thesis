@@ -95,3 +95,6 @@ the start.
 
 
 - Model sensing uncertainty to better bridge a move to real-scenario robotics
+
+
+Merge with a #acr("VIO") SLAM solution, and to substitute for obstacle factors in unknown environments with mapping.
