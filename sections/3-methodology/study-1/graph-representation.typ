@@ -26,7 +26,6 @@ Such a graph structure enforces little to no constraints on what kind of memory 
 //
 // https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/inc/gbp/GBPCore.h#L57-L77
 
-// #kristoffer[Add static link to github, and a line range]
 
 #let gbpplanner = {
   let last-commit = (hash: "fd719ce", date: datetime(day: 30, month: 10, year: 2023))

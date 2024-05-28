@@ -19,3 +19,4 @@
 #import "@preview/cetz:0.2.2"
 #import "@preview/funarray:0.4.0": *
 #import "marker.typ"
+#import "aos-soa.typ": aos, soa
