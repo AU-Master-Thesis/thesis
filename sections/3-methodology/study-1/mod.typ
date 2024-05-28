@@ -21,11 +21,7 @@
 // 5. more code-heavy stuff -> archtecture, data structures such as the graph representation and factor structure
 
 // Re-formulation:
-The methodology for developing an extensive simulation tool capable of replicating the results of the #gbpplanner paper. First, in sections #numref(<s.m.simulation-tool>) and #numref(<s.m.configuration>), the simulator, its internal and external design, and the configuration of it are described. Then in @s.m.factor-graph, the mathematical methodology for the factor graph representation is detailed. Finally, in @s.m.language introduces the chosen programming language, and presents arguments for the choice. After the language is introduced, some important implementation decision are detailed in #numref(<s.m.architecture>)-#numref(<s.m.factor-structure>). This part also details the differences in the reimplementation, justifying necessary deviations due to distinct capabilities or limitations of the programming language used as well as teh chosen frameworks and libraries. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution. As such _Research Objectives_ #boxed(color: theme.green, [*O-1.1.1*]) through #boxed(color: theme.green, [*O-1.4.1*]) are addressed in this section.
-
-// #todo[
-//   More comprehensive introduction, laying the different sections.
-// ]
+The methodology for developing an extensive simulation tool capable of replicating the results of the #gbpplanner paper. First, in sections #numref(<s.m.simulation-tool>) and #numref(<s.m.configuration>), the simulator, its internal and external design, and the configuration of it are described. Then in @s.m.factor-graph, the mathematical methodology for the factor graph representation is detailed. Finally, in @s.m.language introduces the chosen programming language, and presents arguments for the choice. After the language is introduced, some important implementation decision are detailed in #numref(<s.m.architecture>)-#numref(<s.m.factor-structure>). This part also details the differences in the reimplementation, justifying necessary deviations due to distinct capabilities or limitations of the programming language used as well as teh chosen frameworks and libraries. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution. As such _Research Objectives_ #boxed(color: theme.green, [*O-1.1.1*])#att[Maybe explain exactly which objectives are done by each subsection] through #boxed(color: theme.green, [*O-1.4.1*]) are addressed in this section.
 
 #include "simulation.typ"
 #include "configuration.typ"
@@ -34,28 +30,5 @@ The methodology for developing an extensive simulation tool capable of replicati
 #include "architecture.typ"
 #include "graph-representation.typ"
 #include "factor-structure.typ"
-
-=== Variable Structure <s.variable-structure>
-
-- Mention that the pose factor is a special case that is embedded in the variable structure, for simplicity
-
-- maintains two sets of ids, one for any robot within communication radius, and one for any robot connected with.
-
-- Fixed number of variable settings
-- Trait
-
-Variable Timesteps
-
-
-
-
-
-
-#figure(
-  image("../../../figures/out/variable-timesteps.svg"),
-  caption: [Variable timesteps, #kristoffer[explain figure, and review design, use same variable names as rest of document]]
-) <f.variable-timesteps>
-
-#kristoffer[
-  Explain how we have added a setting to decouple the number of variables from the velocity and time horizon of the robot.
-]
+#include "variable-structure.typ"
+#include "algorithm.typ"

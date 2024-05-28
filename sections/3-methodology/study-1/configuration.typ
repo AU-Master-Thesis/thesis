@@ -77,12 +77,19 @@ The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, 
     grid(
       columns: (auto, 8em, 2.4125fr, 1fr, auto),
       [],
-      std-block[
+      std-block(breakable: false)[
         #set par(leading: 0.25em)
         #set text(size: 14pt)
-        #let sp = 6.375em
-        #let sp-top = 3.75em
-        #v(sp-top)
+        // #let sp = 6.375em
+        #let sp = 5.42em
+        #let sp-top = 2.5em
+        // #v(sp-top)
+        #box(
+          fill: rgb(1, 1, 1, 0),
+          height: sp-top,
+          outset: 0em,
+          inset: 0em,
+        )
         ```
         ┌─┼─┬─┐┌
         ┼─┘┌┼┬┼┘
@@ -109,7 +116,13 @@ The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, 
   },
   kind: image,
   supplement: "Figure",
-  caption: [An example of a maze-like environment.],
+  caption: [
+    #let outline = {
+      let l = place(dy: -0.35em, line(length: 1.6em, stroke: (thickness: 2pt, paint: theme.green, dash: "dashed", cap: "round")))
+      box(inset: (x: 2pt), outset: (y: 2pt), l + h(1.6em))
+    }
+    An example of a maze-like environment. A) Shows the character matrix used to generate the environment. B) Shows the generated environment tile grid with all obstacles in blue#sl, where two tiles are highlighted#outline. In C) the highlighted tiles are shown bigger, with the resulting AABB colliders in red#sr.
+  ],
 )<f.m.maze-env>
 
 // The environment is generated from this matrix, where each character is a tile, and the environment is a grid of tiles. The environment is then used to generate the colliders for the robots to avoid, and the visual representation of the environment.

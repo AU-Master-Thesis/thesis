@@ -6,14 +6,14 @@
 
 One of the appreciative properties of the #acr("GBP") algorithm is the relaxed constraints on the order in which variable and factor messages are processed within the joint factorgraph. In the presence of events normally detrimental to peer-to-peer distributed systems without synchronisation mechanisms, such as
 
-- Messages arriving out of order
-- Messages being temporarily dropped
+- Messages arriving out of _order_.
+- Messages being temporarily _dropped_.
 
 
 global convergence can still be achieved. This quality is especially important in multi robotics systems where robots use wireless communication and can only achieve intermittent radio contact. Each robot "hosts" its own factorgraph, and then use interrobot factors to partake in a joint factorgraph with other robots. From the perspective of the #acr("GBP") algorithm there is no functional distintion between messages sent across edges internal to the robots factorgraph, and messages sent along edges between two robots' factorgraph. But in the real-world case these two cases; _internal_ and _external_ message passing involves different steps to perform and different guarantees about latency:
 
-- Internal message passes are cheap to compute in relation to external message passing, as the messages only have to copied between structures within the virtual memory of the process running the #acr("GBP") algorithm on the robot.
-- External message passes are more expensive to perform. Messages has to be serialized and be transmitted over a wireless connection to then be received and deserialized into its in-memory representation.
+- *Internal* message passes are cheap to compute in relation to external message passing, as the messages only have to copied between structures within the virtual memory of the process running the #acr("GBP") algorithm on the robot.
+- *External* message passes are more expensive to perform. Messages has to be serialized and be transmitted over a wireless connection to then be received and deserialized into its in-memory representation.
 
 
 // - As it is desirable to run execute more internal message passes than external.
@@ -251,7 +251,7 @@ Five different iteration schedules are experimented with. Each schedule is liste
     gutter: 0.1em,
     stroke: none,
     columns: range(max).map(_ => 1fr),
-    rows: range(N).map(_ => 1.0em),
+    rows: range(N).map(_ => 2.85mm),
     ..schedules_transposed.zip(colors).map(pair => {
       let schedule = pair.at(0)
       let color = pair.at(1)
@@ -298,8 +298,8 @@ Five different iteration schedules are experimented with. Each schedule is liste
 #let cmap = (
   // internal: theme.teal.lighten(25%),
   // external: theme.maroon.lighten(25%),
-  internal: rgb("#189BCF").lighten(30%),
-  external: rgb("#CF3E4B").saturate(30%).lighten(30%),
+  internal: theme.sky,
+  external: theme.maroon,
   // inactive: gray
 )
 
@@ -309,7 +309,7 @@ Five different iteration schedules are experimented with. Each schedule is liste
 
 
 // #let cell(fill) = box(rect(fill: fill, width: 0.9em, height: 0.9em), baseline: 15%)
-#let cell(fill) = box(rect(fill: fill, width: 0.9em, height: 0.9em, radius: 2pt), baseline: 15%)
+#let cell(fill) = box(fill: fill, height: 0.55em, width: 0.75em, radius: 2pt, inset: (x: 0pt), outset: (y: 1pt))
 
 #figure(
 {

@@ -770,6 +770,15 @@
   J: jacobian,
   SA: $#text(theme.teal, $Sigma_A$)$,
   SB: $#text(theme.mauve, $Sigma_B$)$,
+  // #let m = (
+  x: $bold(upright(x))$,
+  P: $bold(upright(P))$,
+  p: $bold(upright(p))$,
+  proj: $bold(upright("proj"))$,
+  d: $bold(upright(d))$,
+  l: $bold(upright(l))$,
+  where: h(0.5em) + line(start: (0em, -0.1em), end: (0em, 1.2em), stroke: 0.25pt) + h(0.5em)
+// )
 )
 
 #let number-word(num) = {

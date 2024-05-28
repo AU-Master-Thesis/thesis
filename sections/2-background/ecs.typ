@@ -1,6 +1,6 @@
 #import "../../lib/mod.typ": *
 
-== Entity Component System
+== Entity Component System <s.b.ecs>
 
 #acr("ECS") is an architectural software design pattern specifically tailored for #acr("DOP"). #acr("DOP") is a design paradigm that focuses on organizing and processing data efficiently, by structuring the layout of data to play well with the caching mechanisms built into modern CPU's. Instead of organizing repeated structures as #acr("AOS") structures are instead decoupled into its constituent components grouped into separate in-memory continous arrays called #acr("SOA"). This approach is characterized by the separation of data storage from behavior and logic at the programming level. ECS architecture is commonly employed in computer games and intensive data analytics to enhance performance. Additionally, it has been utilized in robotic simulation projects such as the Potato simulator, which models large-scale heterogeneous swarm robotics@li2023potato.
 

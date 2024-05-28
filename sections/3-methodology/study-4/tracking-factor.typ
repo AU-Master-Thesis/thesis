@@ -5,14 +5,7 @@ The design of the tracking factor mimics that of the interrobot factors, $f_i$. 
 
 ==== Measurement Function <s.m.tracking-factor.measure>
 
-#let m = (
-  x: $bold(upright(x))$,
-  P: $bold(upright(P))$,
-  p: $bold(upright(p))$,
-  proj: $bold(upright("proj"))$,
-  d: $bold(upright(d))$,
-  l: $bold(upright(l))$,
-)
+
 The measurement function, $h_t (#m.x, #m.P, i)$, takes in the variable state, $#m.x = [x#h(0.5em)y#h(0.5em)equation.overdot(x)#h(0.5em)equation.overdot(y)]^top$, the path, $#m.P$, and an index, $i$. Where $#m.P$ is the set of waypoints, $#m.P = {#m.p _1, #m.p _2, ..., #m.p _n}$, and $i$ is the index of which line segment $#m.l _i = #m.p _(i+1) - #m.p _(i)$ the tracking factor should be following. Lastly, let $#m.x _"pos"$ and $#m.x _"vel"$ be the position and velocity components of the variable state, respectively, see @eq.variable-components.
 
 $

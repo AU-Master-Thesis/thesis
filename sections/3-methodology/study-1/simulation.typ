@@ -44,7 +44,7 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
       panel.viewport, panel.settings
     )
   ],
-  caption: [Screenshot of the simulation tool with the #panel.settings open. On the left hand side, the #panel.viewport is shown. The settings panel is scrollable, hence only a part of it is is visible here.],
+  caption: [Screenshot of the simulation tool with the #panel.settings open. On the left hand side, the #panel.viewport is shown. The settings panel is scrollable, hence only a part of it is is visible here.#note.a[intentionally zoom a lot to make it readable]],
 )<f.m.simulation-tool>
 
 ==== Live Configuration <s.m.settings>
