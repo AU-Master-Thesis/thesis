@@ -22,6 +22,7 @@ The methodology for developing an extensive simulation tool is outlined in this 
 #include "architecture.typ"
 #include "graph-representation.typ"
 #include "factor-structure.typ"
+#include "interrobot-lifecycle.typ"
 
 === Variable Structure <s.variable-structure>
 
