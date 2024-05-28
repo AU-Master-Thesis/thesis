@@ -9,14 +9,6 @@ This section presents the architectural and software design patterns used in the
 
 ==== Entity Component System
 
-#todo[
-  briefly mention intermediate mode GUI vs retained mode
-]
-
-#todo[
-    Mention that bevy will try to automatically schedule systems in parallel when the queries mutability allow for it.
-]
-
 #k[
   write about how we use bevy and ECS. What components are central, and how is the algorithm composed using systums and run schedules.
 ]
@@ -25,5 +17,6 @@ This section presents the architectural and software design patterns used in the
   FixedUpdate show high level description of the mayor ECS systems that comprise the algoritnm.
 ]
 
-#jonas[This section about ECS has been moved to the background section.]
+// #jonas[This section about ECS has been moved to the background section.]
+
 #todo[There should be new content here, describing why this architecture was chosen, and which others were considered.]

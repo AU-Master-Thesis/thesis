@@ -2,16 +2,15 @@
 
 === Simulation Tool <s.m.simulation-tool>
 
-#todo[update all sim screenshots]
+// #jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
 
-#jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
 
 // Hypothesis 4:
 // Extensive tooling will create a great environment for others to understand the software
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation.
+As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation. All panels are implemented using immediate mode UI instead of retained mode, which simplifies state management and makes it easier for others to extend the tool. With this approach, the code responsible for creating each part of the panel is straightforward and easy to locate, facilitating quick modifications and enhancements.
 
 #figure(
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -28,10 +27,11 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
       }
     }
 
-    #image("../../../figures/img/tool-settings-latte.png")
+    #image("../../../figures/img/simulator-overview.png")
+    // #image("../../../figures/img/tool-settings-latte.png")
     #v(-2em)
     #table(
-      columns: (1fr, 36%),
+      columns: (1fr, 31.2%),
       row-gutter: 0em,
       column-gutter: -1em,
       stroke: none,
@@ -76,8 +76,9 @@ The simulation tool allows for control of the simulated time. In @f.m.simulation
 
 #figure(
   // std-block(todo[screenshot of time control]),
-  std-block(width: 60%, height: auto, image("../../../figures/img/tool-settings-simulation-latte.png")),
-  caption: [The time control section in the simulation tool. From left to right, top to bottom: Reload current scenario, scenario dropdown selctor, simulation time, simulation frequency, simulation speed, manual step, play/pause.],
+  // std-block(width: 60%, height: auto, image("../../../figures/img/tool-settings-simulation-latte.png")),
+  std-block(width: 60%, height: auto, image("../../../figures/img/simulations-settings.png")),
+  caption: [The simulation control section in the simulation tool. From left to right, top to bottom: Reload current scenario, scenario dropdown selector, simulation time, simulation frequency $Delta_t$, simulation speed, manual step, play/pause, how many steps to advance per manual step, pause when a robots spawns, exit program when scenario finishes.],
 )<f.m.simulation-tool-time-control>
 
 ==== Visualisation <s.m.visualisation>
