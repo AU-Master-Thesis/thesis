@@ -6,57 +6,71 @@
 
 \begin{document}
 \begin{tikzpicture}[]
-
-
-  % \node[] at (10, 5) {Variable Timesteps};
-
-  \def\vts{0,1,2,3,5,7,9,12,15,18,20}
-  % \def\nodey
-  % \def\underbraceY
-
-  \foreach \x [count=\xi from 0] in \vts {
-    \node[variable node](v\x) at (\x,3) {$v_{\xi}$};
-  }
-
-  % Add a node containing the underbrace
-  \node at (2,2) {
-    $\underbrace{\hspace{3cm}}$
-  };
-
+   %\node[] at (10, 5) {$l_m = 3$};
+  \def\lh{20};
 
   \def\lookaheadMultiple{$l_m$}
-  % Add text below the underbrace
-  \node at (2, 1.7) {\lookaheadMultiple};
 
-  \node at (7,2) {
-    $\underbrace{\hspace{5cm}}$
-  };
-
-  % Add text below the underbrace
-  \node at (7, 1.7) {\lookaheadMultiple};
-
-  \node at (15,2) {
-    $\underbrace{\hspace{7cm}}$
-  };
-
-  \node at (15, 1.7) {\lookaheadMultiple};
-
-  \node at (10, 1) {
-    $\underbrace{\hspace{20cm}}$
-  };
-
-  %\node at (10, 0.7) {$l_h = t_{K - 1} / \Delta t$};
-  \node at (10, 0.7) {$l_h = t_{K - 1} / t_{0,1}$};
-
-  \foreach \x [remember=\x as \lastx (initially 0)] in {1,2,3,5,7,9,12,15,18,20} {
-    \draw (v\lastx) -- (v\x);
+  \def\drawvariables(#1, height=#2){
+    \foreach \x [count=\xi from 0] in #1 {
+      \node[variable node](v\x) at (\x,#2) {$v_{\xi}$};
+    }
   }
 
+  \def\drawedges(#1){
+    \foreach \x [remember=\x as \lastx (initially 0)] in #1 {
+      \draw (v\lastx) -- (v\x);
+    }
+  }
+
+  % lm = 1
+  \def\sparse{0,1,3,6,10,15,20}
+  \drawvariables(\sparse, height=9)
+  \drawedges(\sparse)
+
+  \def\ub[width=#1] at (#2,#3){
+    \node at (#2,#3) {
+      $\underbrace{\hspace{#1}}$
+    };
+  }
+
+  \def\lm[width=#1,value=#2] at (#3,#4){
+    \ub[width=#1] at (#3,#4);
+    \node at (#3,#4 - 0.5cm) {$l_m = #2$};
+  }
+
+  \def\h{8.25cm}
+  \lm[width=0.8cm,value=1] at (1,\h)
+  \lm[width=0.8cm,value=1] at (3,\h)
+  \lm[width=0.8cm,value=1] at (6,\h)
+  \lm[width=0.8cm,value=1] at (10,\h)
+  \lm[width=0.8cm,value=1] at (15,\h)
+
+   \def\dense{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}
+   \drawvariables(\dense, height=6)
+   \drawedges(\dense)
+
+   \lm[width=18.8cm,value=19] at (10,5.25cm);
+
+  \def\vts{0,1,2,3,5,7,9,12,15,18,20}
+  \drawvariables(\vts, height=3)
+  \drawedges(\vts)
+
+  \lm[width=2.8cm,value=3] at (2,2.25cm);
+  \lm[width=4.8cm,value=3] at (7,2.25cm);
+  \lm[width=6.8cm,value=3] at (15,2.25cm);
+
+  \node at (10, 1) {
+    $\underbrace{\hspace{20.8cm}}$
+  };
+
+  \node at (10, 0.5) {$l_h = t_{K - 1} / t_{0,1}$};
+
   % Draw the x-axis
-  \draw[thick,lightgray, -latex] (-0.5,0) -- (20.5,0) node [right] {$t$};
+  \draw[thick,lightgray, -latex] (-0.5,0) -- (\lh.5,0) node [right] {$t$};
 
   % Draw the ticks and labels on the x-axis
-  \foreach \x in {0,...,20} {
+  \foreach \x in {0,...,\lh} {
     \draw[gray] (\x,0.1) -- (\x,-0.1) node [below] {\x.0};
   }
 
