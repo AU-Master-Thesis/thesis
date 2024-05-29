@@ -72,7 +72,7 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
 
 // #kristoffer[improve figure and layout]
 #grid(
-  columns: (5fr, 4fr),
+  columns: (5fr, 5fr),
   column-gutter: 1em,
   // [#lorem(50)],
 
@@ -83,12 +83,12 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
     breakable: false,
   )[
 #figure(
-  image("../../figures/out/perpendicular-path-deviation.svg"),
+  rotate(180deg, image("../../figures/out/perpendicular-path-deviation.svg")),
     // caption: figure.caption(
     //     position: top,
     //     [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
     //   )
-    caption:  [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
+    caption: [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr2 lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
 
 ) <f.perpendicular-path-deviation>
   ]

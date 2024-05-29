@@ -110,7 +110,7 @@ Through these steps the lifecycle of the interrobot factors has been allured to.
 
 #figure(
   block(breakable: false,
-    include "interrobot-lifecycle.typ",
+    include "figure-interrobot-lifecycle.typ",
   ),
   caption: [
     #let comms = {

@@ -16,35 +16,37 @@
 
 This section details the experiments conducted to test the hypotheses outlined in @intro-research-hypothesis. It begins by presenting the metrics used for quantitative comparison in #numref(<s.r.metrics>). Each scenario is then described in detail, see @s.r.scenarios, including its purpose and the experimental parameters for reproducibility. Finally, the results are interpreted and discussed.
 
-#let spec-table = figure(
-  {
-    show table.cell : it => {
-      if it.x == 0 {
-        set text(weight: "bold")
-        it
-      } else {
-        it
+#let spec-table = [
+  #figure(
+    {
+      show table.cell : it => {
+        if it.x == 0 {
+          set text(weight: "bold")
+          it
+        } else {
+          it
+        }
       }
-    }
-    tablec(
-      columns: 2,
-      align: (left, left),
-      header: table.header(
-        [Type], [Component]
-      ),
-      ..specs.pairs().map(it => {
-        let type = it.at(0)
-        let component = it.at(1)
+      tablec(
+        columns: 2,
+        align: (left, left),
+        header: table.header(
+          [Type], [Component]
+        ),
+        ..specs.pairs().map(it => {
+          let type = it.at(0)
+          let component = it.at(1)
 
-        (titlecase(type), component)
-      }).flatten()
-    )
-  },
-  caption: [System specifications for the machine, the experiments have been run on.]
-)
+          (titlecase(type), component)
+        }).flatten()
+      )
+    },
+    caption: [System specifications for the machine, the experiments have been run on.]
+  )<t.specs>
+]
 
 #let exp = [
-  #h(1em)All experiments were performed on the same laptop, featuring a #specs.cpu CPU, #specs.ram RAM, and running #specs.OS. Although the computational capabilities of the machine should not influence the results, these specifications are provided for completeness and transparency.]
+  #h(1em)All experiments were performed on the same laptop, featuring a #specs.cpu CPU, #specs.ram RAM, and running #specs.OS, see @t.specs. Although the computational capabilities of the machine should not influence the results, these specifications are provided for completeness and transparency.]
 #v(-0.55em)
 #grid(
   columns: (1fr, 14em),

@@ -104,7 +104,7 @@ Again, do note that even though #acr("RRT*") is used here, the collision detecti
 
 === Path Adherence <s.m.planning.path-adherence>
 
-#jonas[Take a look at this section and then at the top, where I have described a separate study (4) for the path tracking stuff. Does it make sense to separate it out, or is it good to have it in this context. I feel like you're biased towards wanting it in this context, but I am not too sure, since the path tracking is a general factor graph addition, which works no matter how the path is found or given, where the global planning is path-finding stuff, which is separate from figuring out how to follow the path right?]
+// #jonas[Take a look at this section and then at the top, where I have described a separate study (4) for the path tracking stuff. Does it make sense to separate it out, or is it good to have it in this context. I feel like you're biased towards wanting it in this context, but I am not too sure, since the path tracking is a general factor graph addition, which works no matter how the path is found or given, where the global planning is path-finding stuff, which is separate from figuring out how to follow the path right?]
 
 In general the path-finding algorithm chosen doesn't matter for either of the approaches described here. What is required is; 1) the path that is found, places waypoints near most of the bends in the path, and 2) the path avoids big obstacles. The possible approaches for the path adherence are as follows:
 
@@ -142,33 +142,45 @@ The steps to perform this approach is visualised in @f.m.waypoint-tracking, and 
 
 ==== Approach 2: Path Tracking <s.m.planning.path-tracking>
 
+To achieve a level of adherence to the path given to each robot, the  factor graph structure can be utilised. A new factor, namely the tracking factor, $f_t$, has been designed to reach this goal. The tracking factor is designed to attach to each variable in the prediction horizon, except for the first and last that already have anchoring pose factors, as these cannot be influenced either way. In @s.m.tracking-factor, the design of the tracking factor is explained in detail, while @f.m.tracking-factor visualises the inner working.
+
+// #figure(
+//   {
+//     // set text(font: "JetBrainsMono NF", size: 0.85em)
+//     grid(
+//       columns: (30%, 30%),
+//       std-block(
+//         breakable: false,
+//       )[
+//         #image("../../../figures/out/rrt-optimisation-no-env.svg")
+//         #v(0.5em)
+//         #text(theme.text, [A: Path Optimisation])
+//       ],
+//       std-block(
+//         breakable: false,
+//       )[
+//         #image("../../../figures/out/rrt-path-tracking.svg")
+//         #v(0.5em)
+//         #text(theme.text, [B: Path Tracking])
+//       ],
+//     )
+//   },
+//   caption: [Path tracking on the pseudo-optimal path found with #acr("RRT*").],
+// )<f.m.path-tracking>
+
 #figure(
   {
-    // set text(font: "JetBrainsMono NF", size: 0.85em)
-    grid(
-      columns: (30%, 30%),
-      std-block(
-        breakable: false,
-      )[
-        #image("../../../figures/out/rrt-optimisation-no-env.svg")
-        #v(0.5em)
-        #text(theme.text, [A: Path Optimisation])
-      ],
-      std-block(
-        breakable: false,
-      )[
-        #image("../../../figures/out/rrt-path-tracking.svg")
-        #v(0.5em)
-        #text(theme.text, [B: Path Tracking])
-      ],
-    )
+    include "figure-tracking.typ"
   },
-  caption: [Path tracking on the pseudo-optimal path found with #acr("RRT*").],
-)
-#jens[make figure for each approach described above.]
-#jens[make figure that matches the end reasult of the path tracking.]
+  caption: [Visualisation of the tracking factor's measurements. On A) it is visualised how the tracking factor pulls the variable towards the path, while also trying to keep the variable moving along the path. Furthermore, a green area#swatch(theme.green.lighten(50%)) is shown close to the second waypoint $w_1$. Within this area, the tracking factor will track towards the corner. On B) tracking factors are visualised for a robot moving from $w_0$ to $w_1$.],
+)<f.m.tracking-factor>
+
+// #jens[make figure for each approach described above.]
+// #jens[make figure that matches the end reasult of the path tracking.]
 
 #[
   #set par(first-line-indent: 0em)
-  *Expectation:* The path tracking approach will be more likely to adhere to the path, as the tracking factors will _pull_ the prediction horizon towards the found path. This will result in a more _stable_ path, that doesn't necessarily guarantee strict adherence to the path, but it is expected that the average deviation error from the path will be lower for this approach than for #gp.A1. Lastly, this method won't provide as much freedom to the robots, which could be a good or a bad thing, depending on the context. One might need stronger path adherence guarantees, e.g. a system could exploit the found #acr("RRT*") paths to reason about each robot's whereabouts within some timeframe.
+  // *Expectation:* The path tracking approach will be more likely to adhere to the path, as the tracking factors will _pull_ the prediction horizon towards the found path. This will result in a more _stable_ path, that doesn't necessarily guarantee strict adherence to the path, but it is expected that the average deviation error from the path will be lower for this approach than for #gp.A1. Lastly, this method won't provide as much freedom to the robots, which could be a good or a bad thing, depending on the context. One might need stronger path adherence guarantees, e.g. a system could exploit the found #acr("RRT*") paths to reason about each robot's whereabouts within some timeframe.
+
+  *Expectation:* The path tracking approach, influenced by the tracking factor $f_t$, will likely adhere more closely to the prescribed path $#m.P$. This factor $f_t$ consistently pulls the prediction horizon towards the path, akin to but opposite of how the interrobot factor $f_i$ pushes the variables apart. This results in a more _stable_ path with lower average _perpendicular deviation error_ compared to approach #gp.A1. The effect should be particularly noticeable around corners, where $f_t$ reduces the tendency to cut corners and helps maintain consistent speed by minimizing the time spent correcting deviations or _catching up_ to the horizon variable. While this approach provides less freedom to the robots, it ensures stronger adherence to the path, which could be beneficial in contexts where precise path tracking is critical, such as in systems exploiting #acr("RRT*") paths for reasoning about each robot's whereabouts within specific timeframes.
 ]

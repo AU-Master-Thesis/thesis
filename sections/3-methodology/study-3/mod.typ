@@ -7,3 +7,4 @@ This section outlines the methodology for #study.H-3.prefix. The general approac
 ]
 
 #include "global-planning.typ"
+#include "tracking-factor.typ"

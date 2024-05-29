@@ -75,3 +75,21 @@
     sin(theta) * x + cos(theta) * y
   )
 }
+
+#let points-relative-from(start, ..points) = {
+  // check the type of the first element in each tuple in the list points
+  if type(points.pos().first().first()) == angle {
+    points.pos().fold((start, ), (acc, point) => {
+      let (angle, distance) = point
+      acc + (add(acc.last(), from-polar(distance, angle)),)
+    })
+  } else {
+    points.pos().fold((start, ), (acc, point) => {
+      acc + (add(acc.last(), point),)
+    })
+  }
+}
+
+// #let points-relative-from-angle(start, ..points) = {
+//   // but where a point is (angle, distance)
+// }

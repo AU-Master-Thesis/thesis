@@ -44,7 +44,7 @@
 // #let timestep(t) = text(size: 22pt, math.equation($#t$))
 
 #let variable = (
-  radius: 0.3,
+  radius: 0.125,
   color: red,
 )
 
@@ -53,13 +53,11 @@
   let c = color
   let communication-radius = 3
   let paint = if active { theme.teal } else { theme.surface2 }
-  circle(pos, radius: communication-radius, stroke: (dash: "loosely-dashed", paint: paint, thickness: 2pt, cap: "round"),
-  // fill: gray.lighten(90%)
-)
+  circle(pos, radius: communication-radius, stroke: (dash: "loosely-dashed", paint: paint, thickness: 2pt, cap: "round"))
 
   circle(pos, radius: 0.5, fill: c.lighten(80%), stroke: c + 2pt,  name: name)
 
-  content(pos, text(color, weight: "bold", name))
+  content(pos, text(color, font: "JetBrainsMono NF", weight: "bold", name))
 }
 
 #let tn = [
@@ -83,7 +81,7 @@
   robot("A", robots.A.pos, color: robots.A.color)
 
   for vp in variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: 2pt + robots.A.color)
+    circle(vp, radius: variable.radius, fill: robots.A.color, stroke: 2pt + robots.A.color)
   }
 
   // B
@@ -95,7 +93,7 @@
   robot("B", robots.B.pos, color: robots.B.color)
 
   for vp in variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: 2pt + robots.B.color)
+    circle(vp, radius: variable.radius, fill: robots.B.color, stroke: 2pt + robots.B.color)
   }
 })
 #place(bottom + center, [
@@ -123,7 +121,7 @@
 
   // interrobot
 
-  for (va, vb) in a-variables.zip(b-variables) {
+  for (va, vb) in a-variables.slice(1, a-variables.len()-1).zip(b-variables.slice(1, b-variables.len()-1)) {
     let dir = vec2.direction(va, vb)
     let length = vec2.distance(va, vb)
 
@@ -158,7 +156,7 @@
   }
 
   for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.A.color, stroke: robots.A.color + 2pt)
   }
   robot("A", robots.A.pos, color: robots.A.color)
 
@@ -168,7 +166,7 @@
   }
 
   for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.B.color, stroke: robots.B.color + 2pt)
   }
   robot("B", robots.B.pos, color: robots.B.color)
 })
@@ -195,7 +193,7 @@
   let a-variables = points-relative-from-angle(robots.A.pos, (10deg, extend), (20deg, extend), (30deg, extend))
   let b-variables = points-relative-from-angle(robots.B.pos, (5deg, extend), (10deg, extend), (15deg, extend))
 
-  for (va, vb) in a-variables.zip(b-variables) {
+  for (va, vb) in a-variables.slice(1, a-variables.len()-1).zip(b-variables.slice(1, b-variables.len()-1)) {
     let dir = vec2.direction(va, vb)
     let length = vec2.distance(va, vb)
 
@@ -228,7 +226,7 @@
     line(va, vb, stroke: robots.A.color + 2pt)
   }
   for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.A.color, stroke: robots.A.color + 2pt)
   }
   robot("A", robots.A.pos, active: false, color: robots.A.color)
 
@@ -237,7 +235,7 @@
     line(va, vb, stroke: robots.B.color + 2pt)
   }
   for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.B.color, stroke: robots.B.color + 2pt)
   }
 
   robot("B", robots.B.pos, color: robots.B.color)
@@ -266,7 +264,7 @@
   let a-variables = points-relative-from-angle(robots.A.pos, (10deg, extend), (20deg, extend), (30deg, extend))
   let b-variables = points-relative-from-angle(robots.B.pos, (5deg, extend), (10deg, extend), (15deg, extend))
 
-  for (va, vb) in a-variables.zip(b-variables) {
+  for (va, vb) in a-variables.slice(1, a-variables.len()-1).zip(b-variables.slice(1, b-variables.len()-1)) {
     let dir = vec2.direction(va, vb)
     let length = vec2.distance(va, vb)
 
@@ -299,7 +297,7 @@
     line(va, vb, stroke: robots.A.color + 2pt)
   }
   for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.A.color, stroke: robots.A.color + 2pt)
   }
   robot("A", robots.A.pos, active: true, color: robots.A.color)
 
@@ -308,7 +306,7 @@
     line(va, vb, stroke: robots.B.color + 2pt)
   }
   for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.B.color, stroke: robots.B.color + 2pt)
   }
 
   robot("B", robots.B.pos, active: false, color: robots.B.color)
@@ -336,7 +334,7 @@
   let a-variables = points-relative-from-angle(robots.A.pos, (10deg, extend), (20deg, extend), (30deg, extend))
   let b-variables = points-relative-from-angle(robots.B.pos, (5deg, extend), (10deg, extend), (15deg, extend))
 
-  for (va, vb) in a-variables.zip(b-variables) {
+  for (va, vb) in a-variables.slice(1, a-variables.len()-1).zip(b-variables.slice(1, b-variables.len()-1)) {
     let dir = vec2.direction(va, vb)
     let length = vec2.distance(va, vb)
 
@@ -369,7 +367,7 @@
     line(va, vb, stroke: robots.A.color + 2pt)
   }
   for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.A.color, stroke: robots.A.color + 2pt)
   }
   robot("A", robots.A.pos, active: false, color: robots.A.color)
 
@@ -378,7 +376,7 @@
     line(va, vb, stroke: robots.B.color + 2pt)
   }
   for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.B.color, stroke: robots.B.color + 2pt)
   }
 
   robot("B", robots.B.pos, active: false, color: robots.B.color)
@@ -411,7 +409,7 @@
     line(va, vb, stroke: robots.A.color + 2pt)
   }
   for vp in a-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.A.color.lighten(70%), stroke: robots.A.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.A.color, stroke: robots.A.color + 2pt)
   }
 
   robot("A", robots.A.pos, color: robots.A.color)
@@ -421,7 +419,7 @@
     line(va, vb, stroke: robots.B.color + 2pt)
   }
   for vp in b-variables.slice(1) {
-    circle(vp, radius: variable.radius, fill: robots.B.color.lighten(70%), stroke: robots.B.color + 2pt)
+    circle(vp, radius: variable.radius, fill: robots.B.color, stroke: robots.B.color + 2pt)
   }
 
   robot("B", robots.B.pos, color: robots.B.color)
