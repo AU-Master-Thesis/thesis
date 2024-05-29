@@ -15,7 +15,7 @@
 
 
 #figure(
-  image("../../figures/plots/circle-experiment-distance-travelled.svg"),
+  image("../../figures/plots/circle-experiment-la-1-th-13-distance-travelled.svg"),
   caption: [
   Distribution of distances travelled as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
 
@@ -27,7 +27,7 @@
 
 
 #figure(
-  image("../../figures/plots/circle-experiment-ldj.svg"),
+  image("../../figures/plots/circle-experiment-la-1-th-13-ldj.svg"),
   caption: [
   #acr("LDJ") metric for the _Circle_ scenario as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
 
@@ -39,7 +39,7 @@
 
 
 #figure(
-  image("../../figures/plots/circle-experiment-makespan.svg"),
+  image("../../figures/plots/circle-experiment-la-1-th-13-makespan.svg"),
   caption: [
 Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
 
