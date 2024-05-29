@@ -5,6 +5,6 @@
   Make section intro
 ]
 
-#jonas[This section is much more finished now, please read.]
+// #jonas[This section is much more finished now, please read.]
 
 #include "iteration-schedules.typ"

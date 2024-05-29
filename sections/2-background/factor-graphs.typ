@@ -364,6 +364,12 @@ The underlying potential non-linearities of factors is exemplified in @ex.non-li
     #m.SB = mat(0.25, 0; 0, 1.0)
   $
 
+  #jens[
+    split this figure into A and B, showcasing two different covariances, as described above.
+
+    // #jonas[No difference here. This would make it such that A is closer to circular an thus almost looks the same, where B would have a more extreme curve as is currently seen here.]
+  ]
+
   #figure(
     {
       set text(theme.text)

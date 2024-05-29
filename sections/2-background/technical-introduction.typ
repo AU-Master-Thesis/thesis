@@ -145,4 +145,4 @@ This posterior distribution describes our belief of $X$, after observing $D$, wh
 
 // The most common methods for probabilistic inference are exact inference and approximate inference.
 
-#jonas[haven't gotten around to rounding this section off]
+// #jonas[haven't gotten around to rounding this section off]

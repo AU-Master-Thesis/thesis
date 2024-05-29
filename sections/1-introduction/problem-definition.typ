@@ -1,7 +1,7 @@
 #import "../../lib/mod.typ": *
 
 == Problem Definition <intro-problem-definition>
-#jonas[No difference from last here. A lot of this is copied directly from the original contract, and thus not relevant anymore. You don't have to spend time on this section.]
+// #jonas[No difference from last here. A lot of this is copied directly from the original contract, and thus not relevant anymore. You don't have to spend time on this section.]
 
 // From the original contract:
 // 2. Problem Definition & Objectives
