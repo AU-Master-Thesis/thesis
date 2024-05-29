@@ -3,7 +3,7 @@
 #import "marker.typ"
 
 #let term-table(..rows) = {
-  // insert a marker.arrow.single as a third colum between the terms and their definitions
+  // insert a marker.arrow.single as a third column between the terms and their definitions
 
   let rows = chunks(rows.pos(), 2).map(term-and-def => {
     let term = term-and-def.at(0)

@@ -158,6 +158,8 @@ All entities in the simuliation with a mesh can be clicked on to introspect thei
 
 - *Obstacle* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
 
+- *Collision #acr("AABB")* All collisions leave behind an #acr("AABB") of the collision colored in red#sr. By clicking on it information about when it happened and who collided is outputted.
+
 Example outputs of each of these are shown in @appendix.introspection-outputs.
 
 ==== Export Formats <s.m.export-formats>

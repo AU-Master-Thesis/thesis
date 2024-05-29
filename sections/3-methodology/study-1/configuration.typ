@@ -291,7 +291,7 @@ Now that we understand _distribution shapes_, we can look at their use-cases. Th
 
 For each formation it is additionally possible to define when each waypoint is considered reached with the `waypoint-reached-when-intersects` key, and when the formation is considered finished with the `finished-when-intersects` key. Both of these take either `horizon`, `current`, or `!variable n`, where `n` is which variable in the factor graph to consider.
 
-Lastly, some timing options are available; `repeat-every` and `delay`. The `repeat-every` key defines how often to spawn the amount of robots defined by the `robots` key on the _distribution shape_ given by the `initial-position` key. The `delay` sets an inital time offset before the first spawn event takes place.
+Lastly, some timing options are available; `repeat-every` and `delay`. The `repeat-every` key defines how often to spawn the amount of robots defined by the `robots` key on the _distribution shape_ given by the `initial-position` key. The `delay` sets an initial time offset before the first spawn event takes place.
 
 #figure(
   std-block(
