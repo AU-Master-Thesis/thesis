@@ -13,10 +13,14 @@ This section presents the architectural and software design patterns used in the
   write about how we use bevy and ECS. What components are central, and how is the algorithm composed using systums and run schedules.
 ]
 
-#todo[
-  FixedUpdate show high level description of the mayor ECS systems that comprise the algoritnm.
-]
 
 // #jonas[This section about ECS has been moved to the background section.]
 
-#todo[There should be new content here, describing why this architecture was chosen, and which others were considered.]
+#todo[There should be new content here, describing why this architecture was chosen, and which others were considered.
+
+  - Their approach is very "imperative"
+
+  - Maybe there are papers that discuss various approaches to design scientific simulations.
+
+  - Mention that attempts have been made to decouple dependencies between modules, (although not really), to make the design modular.
+]

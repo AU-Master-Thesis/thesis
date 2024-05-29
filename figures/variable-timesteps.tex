@@ -45,7 +45,8 @@
     $\underbrace{\hspace{20cm}}$
   };
 
-  \node at (10, 0.7) {$l_h = h / \Delta t$};
+  %\node at (10, 0.7) {$l_h = t_{K - 1} / \Delta t$};
+  \node at (10, 0.7) {$l_h = t_{K - 1} / t_{0,1}$};
 
   \foreach \x [remember=\x as \lastx (initially 0)] in {1,2,3,5,7,9,12,15,18,20} {
     \draw (v\lastx) -- (v\x);

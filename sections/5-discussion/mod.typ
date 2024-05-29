@@ -35,4 +35,9 @@
 - well positioned to have significant influence on software development now and even more so in the future.
 ]
 
+
+#todo[
+  After having studied the use of GBP on factorgraphs extensively what conclusions/opinions have we formed about its feasibility in practical real world scenarios?
+]
+
 #include "./future-work.typ"

@@ -54,7 +54,7 @@ Some of the sections in the settings panel are off-screen in @f.m.simulation-too
 
 ==== Hot Loading Scenarios <s.m.hot-loading>
 
-Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios.
+Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios.
 #par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour.]
 
   // This makes it possible to rapidly test different values, by changing the values in UI, reload the scenario and immediately observe the effect. ]
@@ -142,6 +142,11 @@ The simulation tool supports visualisations of most aspects of the simulation. A
 )<table.simulation-visualisations>
 
 Along with these visualisation further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.introspection-tools.
+
+
+#todo[
+  Refer to appendix that shows screenshots of each visualisation modules.
+]
 
 ==== Viewport <s.m.viewport>
 
