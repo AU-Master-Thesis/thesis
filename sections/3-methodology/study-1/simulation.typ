@@ -58,7 +58,7 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
 
 #listing([
   ```text
-./config/simulations/
+./config/scenarios/
 ├── 'Circle Experiment'
 │  ├── config.toml
 │  ├── environment.yaml
@@ -153,8 +153,10 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
     [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
-    [Interrobot factors], [#k[update] Two lines from each variable in one robot to each variable in another robot if they are currently communicating. The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.],
-    [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors.],
+    [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating, and within the safety distance threshold $d_r$ of each other. The color varies on a yellow #sy to #sr gradient #gradient-box(theme.yellow, theme.red) visually highlighting the potential of a future collision.
+    // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.
+  ],
+    [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
     [Robot colliders], [A sphere in red#sr around each robot representing the collision radius.],
     [Environment colliders], [An outline in red#sr around each obstacle in the environment, that collision are being detected against.],
     [Robot-robot collisions], [An #acr("AABB") intersection, visualising each robot to robot collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],

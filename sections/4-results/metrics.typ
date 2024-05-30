@@ -131,4 +131,4 @@ The code for how the metric is computed can be found in the accompanying source 
 
 7. #metric[Maximum Task Completion Time Difference] This metric represents the largest difference between the end times of each robot's task. In a collaborative setting, it is desirable for robots with similar tasks to finish in roughly the same amount of time to ensure high task throughput. Especially when there is inter-task dependencies between robots.
 
-#todo[we do not have a script for this yet]
+// #todo[we do not have a script for this yet]

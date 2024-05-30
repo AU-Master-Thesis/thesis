@@ -242,6 +242,7 @@
 #let sy = swatch(catppuccin.latte.yellow)
 #let sr = swatch(catppuccin.latte.maroon)
 #let sg = swatch(catppuccin.latte.green)
+#let so = swatch(catppuccin.latte.peach)
 #let sb = swatch(catppuccin.latte.blue)
 #let sp = swatch(catppuccin.latte.mauve)
 #let sl = swatch(catppuccin.latte.lavender)

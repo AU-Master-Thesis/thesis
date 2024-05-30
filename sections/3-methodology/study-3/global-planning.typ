@@ -45,6 +45,13 @@ Global planning has been made as an extension to the original GBP Planner softwa
 
 The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.configuration, and the experimentation scenarios can be seen in @s.r.scenarios.
 
+
+
+==== Robot Mission <s.m.robot-mission>
+#jens[Maybe this should be in the Global Planning section]
+
+#k[talk about Mission Component]
+
 // as seen in @f.m.rrt-colliders.
 
 // An example of the RRT algorithm in action can be seen in @f.m.rrt-colliders. #note.jens[more about the collider, and the environment representation.]
@@ -79,7 +86,7 @@ As mentioned earlier in, the environment is built from several #acr("AABB") coll
   caption: [RRT algorithm and environment avoidance integration. Left image shows a small collision radius#stl, which results in a path that tends to get closer to the obstacles#sl. Right image shows a collision radius, equal to the step length; $r_C = s$, which results in a path that tends towards the middle of the free space, staying far from the environment. The collision radius for each node is teal#stl when no intersection is detected, and red#sr when an intersection is detected.],
 )<f.m.rrt-colliders>
 
-Again, do note that even though #acr("RRT*") is used here, the collision detection is a detached module, which can also be used with other path-finding algorithms. The `rrt` crate@rrt-crate has been extending for the purpose of this thesis, as it only provided an #acr("RRT") implementation, the authors have extended it to include the #acr("RRT*") algorithm as well. This is done through the `rrstar`#footnote[Found in the #source-link("https://github.com/AU-Master-Thesis/rrt", "rrt") crate at #source-link("https://github.com/AU-Master-Thesis/rrt/blob/d4384c7ef96cde507f893d8953ce053659483f85/src/rrtstar.rs#L159", "src/rrtstar.rs:159")]<footnote.rrtstar> function, which provides an interface taking two $N$-dimensional points, a step length, a neighbourhood radius, a max number of iterations, see @lst.rrtstar. Furthermore, it is a higher order function which takes two function closure trait objects; `is_collision_free` and `random_sample`.
+Again, do note that even though #acr("RRT*") is used here, the collision detection is a detached module, which can also be used with other path-finding algorithms. The `rrt` crate@rrt-crate has been extended for the purpose of this thesis, as it only provided an #acr("RRT") implementation, the authors have extended it to include the #acr("RRT*") algorithm as well. This is done through the `rrstar`#footnote[Found in the #source-link("https://github.com/AU-Master-Thesis/rrt", "rrt") crate at #source-link("https://github.com/AU-Master-Thesis/rrt/blob/d4384c7ef96cde507f893d8953ce053659483f85/src/rrtstar.rs#L159", "src/rrtstar.rs:159")]<footnote.rrtstar> function, which provides an interface taking two $N$-dimensional points, a step length, a neighbourhood radius, a max number of iterations, see @lst.rrtstar. Furthermore, it is a higher order function which takes two function closure trait objects; `is_collision_free` and `random_sample`.
 
 #listing(
   [
@@ -136,7 +143,7 @@ The steps to perform this approach is visualised in @f.m.waypoint-tracking, and 
 
 #[
   #set par(first-line-indent: 0em)
-  *Expectation:* The waypoints from the path will be following, however, without any guarantees or attempts to adhere to the known obstacle free path that the line the resulting #acr("RRT*") path represents. However, as the #acr("RRT*") path is obstacle-free, the original difficulty with more complex environments without global planning is solved. Furthermore, without any path adherence measures, other than aiming for the next waypoint, the robots will have much more freedom to cut corners, and also to move around each other in more _complex_#note.wording[creative?] ways.
+  *Expectation:* The waypoints from the path will be followed, however, without any guarantees or attempts to adhere to the known obstacle free path that the line the resulting #acr("RRT*") path represents. However, as the #acr("RRT*") path is obstacle-free, the original difficulty with more complex environments without global planning is solved. Furthermore, without any path adherence measures, other than aiming for the next waypoint, the robots will have much more freedom to cut corners, and also to move around each other in more _complex_#note.wording[creative / sophisticated ?] ways.
 ]
 
 
