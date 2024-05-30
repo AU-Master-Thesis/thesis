@@ -863,3 +863,34 @@
     }
   }
 }
+
+
+#let legend(handles, direction: ltr) = {
+  std-block(
+    width: auto,
+    // fill: theme.base.transparentize(100%),
+    fill: white.transparentize(25%),
+    // stroke:
+    {
+      set align(left)
+      stack(
+        dir: direction,
+        ..handles.map(handle => {
+          if direction == rtl {
+            h(handle.space)
+          } else if direction == btt {
+            v(handle.space / 2)
+          }
+          box(height: 0.8em, width: 0.8em, radius: 100%, fill: handle.color.lighten(handle.alpha), stroke: handle.color.lighten(handle.alpha), inset: (x: 2pt), baseline: 1pt)
+          h(1em)
+          text(handle.color, size: 0.8em, handle.label)
+          if direction == ltr {
+            h(handle.space)
+          } else if direction == ttb {
+            v(handle.space / 2)
+          }
+        })
+      )
+    }
+  )
+}
