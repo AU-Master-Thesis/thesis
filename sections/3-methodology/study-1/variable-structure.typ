@@ -43,17 +43,7 @@ Each variable is a separate structure holding internal state such as its belief 
 - $l_m$ groups variables together into chunks with even relative distance in time. After each $l_m$ group of variables the size between each increases by $1$.
 
 @f.variable-timesteps illustrates how the algorithm place the variables, and how the parameters influence the output. One thing of note is that $l_m - 1 = l_h$ achieves an even spacing of all variables. \
-A thorough argument for this method of placing variables is not provided in the paper nor the source code. However, a plausible argument for this approach can be made based on the theory presented earlier in #todo[ref].
-
-Firstly, variables close to the current state are placed with little distance between each other to ensure high maneuverability and fidelity. This arrangement ensures that the immediate future, has a higher influence on the trajectory optimized for. Secondly, variables spaced further into the future are less dense to prevent them from overwhelming the influence of near-term variables. This spacing accounts for the increasing uncertainty and broader maneuvers required as the robot plans further ahead. As the figure shows $l_m$ can be modified to control how closely variables are grouped. $l_m = 1$ gives an strictly monotonically increasing sequence. As $l_m$ increases the number of variables increases. The bottom sequence with $l_m = 3$ strikes a balance between certain immediate control and broader future planning.
-
-
-This results in a tradeoff between accuracy and computational efficiency
-
-packed into even distanced groups.
-
-
-
+A thorough argument for this method of placing variables is not provided in the paper nor the source code. However, a plausible argument for this approach can be made based on the theory presented earlier in @s.b.factor-graphs. Firstly, variables close to the current state are placed with little distance between each other to ensure high maneuverability and fidelity. This arrangement ensures that the immediate future, has a higher influence on the trajectory optimized for. Secondly, variables spaced further into the future are less dense to prevent them from overwhelming the influence of near-term variables. This spacing accounts for the increasing uncertainty and broader maneuvers required as the robot plans further ahead. As the figure shows $l_m$ can be modified to control how closely variables are grouped. $l_m = 1$ gives an strictly monotonically increasing sequence. As $l_m$ increases the number of variables increases. The bottom sequence with $l_m = 3$ strikes a balance between certain immediate control and broader future planning.
 
 // The middle sequence with lm=19lm​=19 demonstrates this, with larger gaps indicating less frequent updates for distant future states. This approach captures uncertainty without excessive computational load.
 //
@@ -77,18 +67,18 @@ packed into even distanced groups.
 // An argument for why that is could go as follows. First Variables are placed like this to ensure that has more maneouvebility and fidelity close in time to the current state such that it is primarily the immediate future that affects the trajectory derived at. Secondly variables further into the future should not overwhelm the variables closest to the current state, but should represent information uncertainty about broader maneuvers needed in the future such as coordinating path deviations through interrobots factors with other robots.
 
 
-#k[
-The authors of the method do not thoroughly explain their choice of variable placement. However, a plausible argument for this approach can be made.
-
-Firstly, variables are placed densely near the current state to ensure high maneuverability and fidelity. This arrangement ensures that the immediate future, which critically influences the trajectory, is modeled with greater precision. As illustrated in the top sequence with lm=1lm​=1, closely packed variables allow for detailed control and quick adjustments, accommodating sudden changes or obstacles effectively.
-
-Secondly, variables spaced further into the future are less dense to prevent them from overwhelming the influence of near-term variables. This spacing accounts for the increasing uncertainty and broader maneuvers required as the robot plans further ahead. The middle sequence with lm=19lm​=19 demonstrates this, with larger gaps indicating less frequent updates for distant future states. This approach captures uncertainty without excessive computational load.
-
-The bottom sequence, with lm=3lm​=3, strikes a balance between detailed immediate control and broader future planning. This method ensures that the robot can coordinate path deviations and interactions with other robots using inter-robot factors effectively, without the burden of overly dense variable placement.
-
-This method ensures a practical trade-off between precision in the immediate future and computational efficiency for long-term planning, making it a robust choice for dynamic and uncertain environments. Despite the lack of a thorough explanation, the chosen approach appears to balance immediate responsiveness with long-term strategy effectively.
-
-]
+// #k[
+// The authors of the method do not thoroughly explain their choice of variable placement. However, a plausible argument for this approach can be made.
+//
+// Firstly, variables are placed densely near the current state to ensure high maneuverability and fidelity. This arrangement ensures that the immediate future, which critically influences the trajectory, is modeled with greater precision. As illustrated in the top sequence with lm=1lm​=1, closely packed variables allow for detailed control and quick adjustments, accommodating sudden changes or obstacles effectively.
+//
+// Secondly, variables spaced further into the future are less dense to prevent them from overwhelming the influence of near-term variables. This spacing accounts for the increasing uncertainty and broader maneuvers required as the robot plans further ahead. The middle sequence with lm=19lm​=19 demonstrates this, with larger gaps indicating less frequent updates for distant future states. This approach captures uncertainty without excessive computational load.
+//
+// The bottom sequence, with lm=3lm​=3, strikes a balance between detailed immediate control and broader future planning. This method ensures that the robot can coordinate path deviations and interactions with other robots using inter-robot factors effectively, without the burden of overly dense variable placement.
+//
+// This method ensures a practical trade-off between precision in the immediate future and computational efficiency for long-term planning, making it a robust choice for dynamic and uncertain environments. Despite the lack of a thorough explanation, the chosen approach appears to balance immediate responsiveness with long-term strategy effectively.
+//
+// ]
 
 
 
@@ -153,7 +143,7 @@ This method ensures a practical trade-off between precision in the immediate fut
 
 // #k[describe as an algorithm]
 
-#par(first-line-indent: 0pt)[The Settings Panel #todo[ref] provide slider widgets to manipulate both $t_(K-1)$ and $l_m$. With this a user of the simulation can quickly experiment with the parameters and find a combination that suit the complexity of the simulated scenario.]
+#par(first-line-indent: 0pt)[The Settings Panel @s.m.simulation-tool provide slider widgets to manipulate both $t_(K-1)$ and $l_m$. With this a user of the simulation can quickly experiment with the parameters and find a combination that suit the complexity of the simulated scenario.]
 
 
 
