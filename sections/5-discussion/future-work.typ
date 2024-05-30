@@ -97,3 +97,12 @@ the start.
 
 
 Merge with a #acr("VIO") SLAM solution, and to substitute for obstacle factors in unknown environments with mapping.
+
+
+```rust
+enum Variable {
+  Current(CurrentVariable),
+  InBetween(InBetweenVariable),
+  Horizon(HorizonVariable),
+}
+```
