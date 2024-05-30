@@ -2,6 +2,7 @@
 #import "catppuccin.typ": *
 #import "text-case.typ": *
 #import "unitfmt.typ": *
+#import "@preview/oxifmt:0.2.1": strfmt
 #import "note.typ"
 #import "params.typ"
 #import "crates.typ"

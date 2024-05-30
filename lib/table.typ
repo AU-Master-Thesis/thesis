@@ -2,13 +2,22 @@
 #import "@preview/funarray:0.4.0": *
 #import "marker.typ"
 
-#let term-table(..rows) = {
+#let term-table(colors: (catppuccin.latte.lavender, ), ..rows) = {
   // insert a marker.arrow.single as a third column between the terms and their definitions
 
-  let rows = chunks(rows.pos(), 2).map(term-and-def => {
+  let colors = cycle(colors, rows.pos().len())
+
+  let rows = chunks(rows.pos(), 2).enumerate().map(el => {
+    let index = el.at(0)
+    let term-and-def = el.at(1)
+
+
     let term = term-and-def.at(0)
     let definition = term-and-def.at(1)
-    (term, marker.arrow.single, definition)
+    (term, {
+      set line(stroke: (paint: colors.at(index)))
+      marker.arrow.single
+    }, definition)
   }).flatten()
 
   // repr(rows)
@@ -21,7 +30,18 @@
   )
 }
 
-#let tablec(title: none, columns: none, header: none, alignment: auto, stroke: none, ..content) = {
+#let tablec(
+  title: none,
+  columns: none,
+  header: none,
+  alignment: auto,
+  stroke: none,
+  header-color: catppuccin.latte.lavender.lighten(50%),
+  even-color: catppuccin.latte.mantle,
+  odd-color: catppuccin.latte.base,
+  fill: auto,
+  ..content
+) = {
   let column-amount = if type(columns) == int {
     columns
   } else if type(columns) == array {
@@ -30,7 +50,27 @@
     1
   }
 
-  let header-rows = range(int(header.children.len() / column-amount))
+  let header-rows = (-1, )
+
+  if header != none {
+    let cells-in-header = header.children.map(it => {
+      let internal-len = 0
+
+      if not (it.has("colspan") or it.has("rowspan")) {
+        internal-len = 1
+      } else{
+        if it.has("rowspan") {
+          internal-len += it.rowspan
+        }
+        if it.has("colspan") {
+          internal-len += it.colspan
+        }
+      }
+      internal-len
+    }).fold(0, (acc, it) => acc + it)
+
+    header-rows = range(int(cells-in-header / column-amount))
+  }
 
   show table.cell : it => {
     if it.y in header-rows {
@@ -47,7 +87,16 @@
 
   set align(center)
   set par(justify: false)
-  set table.vline(stroke: white)
+  set table.vline(stroke: white + 2pt)
+  set table.hline(stroke: white + 2pt)
+
+  let f = if fill == auto {
+    (x, y) => if y in header-rows {
+      header-color
+    } else if calc.even(y) { even-color } else { odd-color }
+  } else {
+    fill
+  }
 
   cut-block(
     table(
@@ -55,9 +104,7 @@
       align: alignment,
       stroke: stroke,
       header,
-      fill: (x, y) => if y in header-rows {
-        catppuccin.latte.lavender.lighten(50%)
-      } else if calc.even(y) { catppuccin.latte.crust } else { catppuccin.latte.mantle },
+      fill: f,
       gutter: -1pt,
       ..content
     )

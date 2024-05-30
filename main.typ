@@ -31,7 +31,11 @@
 // #set list(marker: text(catppuccin.latte.lavender, sym.diamond.filled))
 // #set list(marker: text(catppuccin.latte.lavender, sym.suit.diamond))
 // #set list(marker: text(catppuccin.latte.lavender, sym.hexa.filled))
-#set list(marker: marker.arrow.single)
+
+#set list(marker: {
+  set line(stroke: (paint: accent))
+  marker.arrow.single
+})
 // #set list.where(level)
 #set enum(full: true)
 

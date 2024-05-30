@@ -105,7 +105,7 @@
 
 #let boxed(content, color: accent.lighten(0%), fill: none, weight: 400) = {
   if (fill == none) {
-    fill = color.lighten(80%)
+    fill = color.transparentize(80%)
   }
   box(
     fill: fill,

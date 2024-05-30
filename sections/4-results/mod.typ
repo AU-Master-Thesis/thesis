@@ -60,7 +60,6 @@ This section details the experiments conducted to test the hypotheses outlined i
 #include "./study-1.typ"
 #include "./study-2.typ"
 #include "./study-3.typ"
-#include "./study-4.typ"
 
 
 #kristoffer[

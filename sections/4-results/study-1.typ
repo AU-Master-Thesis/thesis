@@ -114,8 +114,6 @@ The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-di
 
 === Varying Network Connectivity <s.r.results.network>
 
-
-
 #let gbpplanner-results = (
   rc: (20, 40, 60, 80),
   makespan: (12.0, 12.3, 12.7, 14.8),
@@ -124,54 +122,110 @@ The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-di
 )
 
 #let ours = (
-  rc: (20, 40, 60, 80),
-  makespan: (0, 0, 0, 0),
-  mean-dist: (0, 0, 0, 0),
-  ldj: (0, 0, 0, 0),
+  lm3-th13: (
+    rc: (20, 40, 60, 80),
+    makespan: (46.012491607666014, 64.58217391967773, 65.34115142822266, 64.63148651123046),
+    mean-dist: (236.89510927868324, 285.9908325030257, 295.2933289314799, 283.24733969761115),
+    ldj: (-14.479386124124115, -15.966531007631174, -16.334361227393277, -16.105878378955726),
+  )
 )
 
 #let tablify(dictionaries) = dictionaries.map(dict => dict.values()).flatten().map(it => [#it])
-
-#let tc = table.cell
-#let vc = table.cell.with(inset: 1em)
-#let oc = table.cell.with(fill: theme.maroon.lighten(50%), stroke: theme.maroon)
-
-#let gbpplanner-results = (
-  rc: (20, 40, 60, 80),
-  makespan: (12.0, 12.3, 12.7, 14.8),
-  mean-dist: (104.0, 104.5, 104.0, 103.8),
-  ldj: (-9.02, -8.76, -8.38, -8.47),
+#let colors = (
+  theirs: theme.peach.lighten(20%),
+  ours: theme.lavender
 )
+#let vc = table.cell.with(inset: 1em)
+#let tc = vc
+#let tc2 = table.cell.with(fill: colors.theirs.lighten(70%), stroke: none)
+#let oc = table.cell.with(fill: colors.ours.lighten(80%), stroke: none)
+#let oc2 = table.cell.with(fill: colors.ours.lighten(80%), stroke: none)
+
+#let theirs = boxed.with(color: colors.theirs)
+#let ours = boxed.with(color: colors.ours)
+
+#let T1 = theirs[*T-1*]
+#let T2 = theirs[*T-2*]
+#let O1 = ours[*O-1*]
+#let O2 = ours[*O-2*]
+
+The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.network-experiment. From these numbers, the experiment with $r_C=20"m"$ did much worse than the other three $r_C in {40, 60, 80}$, where the change is very minimal in all three metrics.#note.j[Discussion: #sym.dash.en _if not negligible_.] In @t.network-experiment, results of 4 experiments are shown:
+
+#term-table(
+  colors: (colors.theirs, colors.ours, colors.ours, colors.theirs),
+  boxed(color: colors.theirs, [*Theirs-1*]), [The results from the #gbpplanner paper@gbpplanner],
+  boxed(color: colors.ours, [*Ours-1*]), [The results of #acr("MAGICS"), with the same parameters as the #gbpplanner paper; #lm3-th13.n.],
+  boxed(color: colors.ours, [*Ours-2*]), [The results of #acr("MAGICS"), with tuned parameters; #lm3-th5.n.],
+  boxed(color: colors.theirs, [*Theirs-2*]), [The results of the provided code by #gbpplanner, with the same parameters as the #gbpplanner paper; #lm3-th13.n.],
+)
+// #[
+//   #set list(marker: boxed(color: theme.peach, [*Theirs-1*]))
+//   - The results from the #gbpplanner paper@gbpplanner
+//   #set list(marker: boxed(color: theme.lavender, [*Ours-1*]))
+//   - The results of #acr("MAGICS"), with the same parameters as the #gbpplanner paper; #lm3-th13.n.
+//   #set list(marker: boxed(color: theme.lavender, [*Ours-2*]))
+//   - The results of #acr("MAGICS"), with tuned parameters; #lm3-th5.n.
+//   #set list(marker: boxed(color: theme.peach, [*Theirs-3*]))
+//   - The results of the provided code by #gbpplanner, with the same parameters as the #gbpplanner paper; #lm3-th13.n.
+// ]
 
 #figure(
-  table(
-    columns: range(7).map(_ => 1fr),
+  tablec(
+    columns: (auto,) + range(12).map(_ => 1fr),
     align: center + horizon,
-    stroke: gray,
-    table.header( tc(rowspan: 2, $r_C$), tc(colspan: 2, [MS $s$]), tc(colspan: 2, [D $m$]), tc(colspan: 2, [LDJ]), [them], [us], [them], [us], [them], [us]),
-
-    vc[20], vc[$12$], oc[], vc[$104$], oc[], vc[$-9.02$], oc[],
-    vc[40], vc[$12.3$], oc[], vc[$104.5$], oc[], vc[$-8.76$], oc[],
-    vc[60], vc[$12.7$], oc[], vc[$104.0$], oc[], vc[$-8.38$], oc[],
-    vc[80], vc[$14.8$], oc[], vc[$103$], oc[], vc[$-8.47$], oc[],
+    header-color: theme.base,
+    header: table.header(
+      tc(rowspan: 2, [$r_C$\ \[$m$\]]), tc(colspan: 4, [MS \[$s$\]]), tc(colspan: 4, [D \[$m$\]]), tc(colspan: 4, [LDJ \[$m"/"s^3$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
+    ),
+    vc[20], table.vline(), vc[$12.0$], oc2[], vc[$46.0$], tc2[], table.vline(), vc[$104$], oc2[], vc[$236.9$], tc2[], table.vline(), vc[$-9.02$], oc2[], vc[$-14.5$], tc2[],
+    vc[40], vc[$12.3$], oc2[], vc[$64.6$], tc2[], vc[$104.5$], oc2[], vc[$286.0$], tc2[], vc[$-8.76$], oc2[], vc[$-16.0$], tc2[],
+    vc[60], vc[$12.7$], oc2[], vc[$65.3$], tc2[], vc[$104.0$], oc2[], vc[$295.3$], tc2[], vc[$-8.38$], oc2[], vc[$-16.3$], tc2[],
+    vc[80], vc[$14.8$], oc2[], vc[$64.6$], tc2[], vc[$103$], oc2[], vc[$283.2$], tc2[], vc[$-8.47$], oc2[], vc[$-16.1$], tc2[],
   ),
   caption: [Effect of varying communication range $r_C$ in the _Environment Obstacles_ experiment. Values in the #text(red, [them]) column is taken from table 1 in @gbpplanner. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.],
-)
+)<t.network-experiment>
 
 === Junction <s.r.results.junction>
-The results of the
+#let body = [
+  The results of the _junction_ experiment are presented on a plot in @f.qin-vs-qout, similarly to how it was done in @gbpplanner. The plot shows that the input flowrate $Q_"in"$ is very close to the output flowrate $Q_"out"$ for $Q_"in" in [0, 6.5]$, where it starts deviating from the optimal flowrate at $Q_"in" = 7.5$, decreasing to an output flowrate of $Q_"out" approx 6.6$. This result is consisten with both the presented numbers in @gbpplanner and the provided `gbpplanner` code. In @t.qin-vs-qout, the raw data is presented. Here it becomes clear that the output flowrate follows the input flowrate perfectly up until $Q_"in" = 4$, where $Q_"out" = 3.98$ #sym.dash.en _and from here on $Q_"out"$ consistently deviates more and more_.
+]
 
+#let fig = [
+  #figure(
+    image("../../figures/plots/qin-vs-qout.svg"),
+    // std-block({
+    //   image("../../figures/plots/qin-vs-qout.svg")
+    //   v(-1.5em)
+    // }),
+    caption: [
+      This plot illustrates the relationship between the input flowrate $Q_"in"$ the output flowrate $Q_"out"$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_"in" = Q_"out"$. The solid blue colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.
+    ]
+  )<f.qin-vs-qout>
+]
+
+#grid(
+  columns: (1fr, 90mm),
+  column-gutter: 1em,
+  body,
+  fig
+)
+
+#let qins = (0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0)
+#let qouts = (0.0, 0.508, 1.0, 1.5199999999999998, 2.0, 2.5, 3.0, 3.5, 3.9760000000000004, 4.476, 4.948, 5.452, 5.964, 6.408000000000001, 6.555999999999999)
 #figure(
-  image("../../figures/plots/qin-vs-qout.svg"),
-  // std-block({
-  //   image("../../figures/plots/qin-vs-qout.svg")
-  //   v(-1.5em)
-  // }),
-  caption: [
-    This plot illustrates the relationship between the input flowrate $Q_("in")$ the output flowrate $Q_("out")$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_("in") = Q_("out")$. The solid lavender colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.
-  ]
-) <f.qin-vs-qout>
-
+  {
+    tablec(
+      columns: (auto,) + range(qins.len()).map(_ => 1fr),
+      align: center + horizon,
+      fill: (x, y) => if calc.even(x) { theme.mantle } else { theme.base },
+      // $Q_"in"$,
+      ..qins.map(qin => [$#qin$]),
+      // $Q_"out"$,
+      ..qouts.map(qout => [$#strfmt("{0:.2}", qout)$]),
+    )
+  },
+  caption: [The relationship between the input flowrate $Q_"in"$ and the output flowrate $Q_"out"$ for the *Junction* scenario.]
+)<t.qin-vs-qout>
 
 
 === Communications Failure <s.r.results.failure>
