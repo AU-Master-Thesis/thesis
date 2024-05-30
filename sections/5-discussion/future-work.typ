@@ -1,5 +1,4 @@
 #import "../../lib/mod.typ": *
-
 == Future Work
 
 

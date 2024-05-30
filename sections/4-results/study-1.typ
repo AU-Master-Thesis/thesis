@@ -1,33 +1,51 @@
 #import "../../lib/mod.typ": *
 // #jonas[Alright you can stop reading now. No more content at all.]
+// == Overskrift
 == #study.H-1.full.n <s.r.study-1>
 
 
-#todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
+// #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
+// === Circle <s.r.results.circle>
+// === Environment Obstacles <s.r.results.obstacles>
+// === Varying Network Connectivity <s.r.results.network>
+// === Junction <s.r.results.junction>
+
+// The results of the
 
 #figure(
   image("../../figures/plots/qin-vs-qout.svg"),
+  // std-block({
+  //   image("../../figures/plots/qin-vs-qout.svg")
+  //   v(-1.5em)
+  // }),
   caption: [
-    This plot illustrates the relationship between the input flowrate $Q_("in")$ the output flowrate $Q_("out")$ robots for the *Junction* scenario @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dashed", paint: theme.overlay1)), baseline: -0.25em) represents the ideal scenario where $Q_("in") = Q_("out")$. The solid lavender colored line with circle markers#sl indicates the average flowrate measured over a 50-second period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates.
+    This plot illustrates the relationship between the input flowrate $Q_("in")$ the output flowrate $Q_("out")$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_("in") = Q_("out")$. The solid lavender colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates.
   ]
 ) <f.qin-vs-qout>
 
 
-#figure(
-  image("../../figures/plots/circle-experiment-la-1-th-13-distance-travelled.svg"),
-  caption: [
-  Distribution of distances travelled as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
+// === Communications Failure <s.r.results.failure>
 
-  #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
-]
+
+#figure(
+  image("../../figures/plots/circle-experiment-distance-travelled.svg"),
+  // std-block({
+  //   image("../../figures/plots/circle-experiment-distance-travelled.svg")
+  //   v(-1.5em)
+  // }),
+  caption: [
+    Distribution of distances travelled as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
+
+    #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
+  ]
 ) <f.circle-experiment-distance-travelled>
 
 // Circle experiment: distribution of distances travelled as number of robots in the formation NR is varied. The GBP planner creates shorter paths and a smaller spread of distances than ORCA; robots collaborate to achieve their goals.
 
 
 #figure(
-  image("../../figures/plots/circle-experiment-la-1-th-13-ldj.svg"),
+  image("../../figures/plots/circle-experiment-ldj.svg"),
   caption: [
   #acr("LDJ") metric for the _Circle_ scenario as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
 
@@ -39,7 +57,7 @@
 
 
 #figure(
-  image("../../figures/plots/circle-experiment-la-1-th-13-makespan.svg"),
+  image("../../figures/plots/circle-experiment-makespan-no-legend.svg"),
   caption: [
 Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
 
@@ -112,8 +130,8 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
   ldj: (-9.02, -8.76, -8.38, -8.47),
 )
 
-// #aos(gbpplanner-results)
-// #gbpplanner-results
+#aos(gbpplanner-results)
+#gbpplanner-results
 
 #figure(
   table(
@@ -143,21 +161,21 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
 
 #pagebreak()
 
-// #figure(
-//   table(
-//     columns: 5,
-//     stroke: none,
-//     table.hline(),
-//     table.cell(colspan: 1, [Initial speed m/s]), table.cell(colspan: 2, $10$), table.cell(colspan: 2, $15$),
-//     table.hline(),
-//     [$gamma$], [Makespan $s$], [Mean num collisions], [Makespan $s$], [Mean num collisions],
-//     table.hline(),
-//
-//     ..tablify(aos(gbpplanner-results)),
-//     table.hline(),
-//   ),
-//   caption: [ttt]
-// )
+#figure(
+  table(
+    columns: 5,
+    stroke: none,
+    table.hline(),
+    table.cell(colspan: 1, [Initial speed m/s]), table.cell(colspan: 2, $10$), table.cell(colspan: 2, $15$),
+    table.hline(),
+    [$gamma$], [Makespan $s$], [Mean num collisions], [Makespan $s$], [Mean num collisions],
+    table.hline(),
+
+    ..tablify(aos(gbpplanner-results)),
+    table.hline(),
+  ),
+  caption: [ttt]
+)
 
 #figure(
   table(

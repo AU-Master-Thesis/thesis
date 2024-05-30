@@ -7,6 +7,10 @@
   Especially for sharp corners like 90 degree turns in the junction.
 ]
 
+// #figure(
+//   [],
+//   caption: []
+// )<s.r.study-2>
 
 // #kristoffer[
 // - Expect Soon as Possible and Late as Possible to be the same, as they are identical, only different in their offset/phase

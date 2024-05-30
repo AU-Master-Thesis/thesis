@@ -34,16 +34,16 @@ $
   q = norm(#m.proj _i - #m.p _i) < r_"switch" and norm(#m.proj _(i-1) - #m.p _i) < r_"switch"
 $<eq.switch>
 
-Hereby, the point to measure the distance to $#m.x _"meas"$ becomes @eq.measurement-point.
+Hereby, the point to measure the distance to $#m.x _"meas"$ becomes equation @eq.measurement-point. The first case of @eq.measurement-point happens when the variable is close to the waypoint, and the tracking factor will measure towards the actual waypoint itself by taking both projections into account. This behaviour is visualised in @f.m.tracking-factor, along with the conditional $q$ as a green area#swatch(theme.green.lighten(35%)).
 
 $
   #m.x _"meas" = cases(
     #m.x _"pos" + 1/2 ((#m.proj _i - #m.x _"pos") + (#m.proj _(i-1) - #m.x _"pos")) &"if" q \
-    #m.proj _i + #m.d dot norm(#m.x _"vel") / 5 &"otherwise"
+    #m.proj _i + #m.d dot norm(#m.x _"vel") / s_v &"otherwise"
   )
 $<eq.measurement-point>
 
-Where $#m.d = #m.l _i / norm(#m.l _i)$ is the normalised direction vector of the line segment $#m.l _i$. The addition of $#m.d dot norm(#m.x _"vel") / 5$ in the second case of @eq.measurement-point is a way to ensure that the tracking factor always tries to also move the variable along the line segment, and not only perpendicularly towards it; which in turn helps alleviate local minima where the variable gets stuck. The choice of $5$ in the denominator is arbitrary, but does a good job of allowing the factor to pull slightly on the variable without pulling so much that the variable overtakes future variables, shooting too far ahead and far exceeding the target speed of the robot. The last piece of the puzzle is to define the measurement function, $h_t$, as the distance between the variable's position and the measurement point, $#m.x _"meas"$, as shown in @eq.measurement.
+Where $#m.d = #m.l _i / norm(#m.l _i)$ is the normalised direction vector of the line segment $#m.l _i$. The addition of $#m.d dot norm(#m.x _"vel") / s_v$ in the second case of @eq.measurement-point is a way to ensure that the tracking factor always tries to also move the variable along the line segment, and not only perpendicularly towards it; which in turn helps alleviate local minima where the variable might get stuck #sym.dash.en _this happens especially when some tracking factors are tracking towards the corner, without having others pulling it along_. This pulling along is also shown in @f.m.tracking-factor. It is chosen that $s_v = 5$ in the denominator, which is somewhat arbitrary, but it does a good job of allowing the factor to pull slightly on the variable without pulling so much that the variable overtakes future variables; a large $s_v$ makes previous variables shoot far ahead overtaking future variables, thus resulting in the robot far exceeding the target speed. The last piece of the puzzle is to define the measurement function, $h_t$, as the distance between the variable's position and the measurement point, $#m.x _"meas"$, as shown in @eq.measurement.
 
 $
   h_t(#m.x, #m.P, i) = "min"(1, norm(#m.x _"pos" - #m.x _"meas") / d_a)

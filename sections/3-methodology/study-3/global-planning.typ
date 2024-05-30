@@ -172,7 +172,7 @@ To achieve a level of adherence to the path given to each robot, the  factor gra
   {
     include "figure-tracking.typ"
   },
-  caption: [Visualisation of the tracking factor's measurements. On A) it is visualised how the tracking factor pulls the variable towards the path, while also trying to keep the variable moving along the path. Furthermore, a green area#swatch(theme.green.lighten(50%)) is shown close to the second waypoint $w_1$. Within this area, the tracking factor will track towards the corner. On B) tracking factors are visualised for a robot moving from $w_0$ to $w_1$.],
+  caption: [Visualisation of the tracking factor's measurements. On A) it is visualised how the tracking factor pulls the variable towards the path, while also trying to keep the variable moving along the path. Furthermore, a green area#swatch(theme.green.lighten(35%)) is shown close to the second waypoint $w_1$. Within this area, the tracking factor will track towards the corner. On B) tracking factors are visualised for a robot moving from $w_0$ to $w_1$.],
 )<f.m.tracking-factor>
 
 // #jens[make figure for each approach described above.]

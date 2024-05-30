@@ -356,19 +356,13 @@ The underlying potential non-linearities of factors is exemplified in @ex.non-li
     h(r,l) = mat(abs(r - l); arctan((l_y - r_y) / (l_x - r_x)))
   $<eq.non-linear-measurement>
 
-  As such, the factor is linearised around $(r_0, l_0)$, which is shown as blue contours#sl in @fig.non-linearities. In the @fig.non-linearities#text(accent, "A"), the measurement noise model corresponds to covariance $#m.SA$, and in @fig.non-linearities#text(accent, "B") the covariance is $#m.SB$.
+  As such, the factor is linearised around $(r_0, l_0)$, which is shown as red contours#sr in @fig.non-linearities. In the @fig.non-linearities#text(accent, "A"), the measurement noise model corresponds to covariance $#m.SA$, and in @fig.non-linearities#text(accent, "B") the covariance is $#m.SB$, see @eq.non-linear-covariances@gbp-visual-introduction.
 
   $
     #m.SA = mat(0.25, 0; 0, 0.25)
     #h(1em)"and"#h(1em)
     #m.SB = mat(0.25, 0; 0, 1.0)
-  $
-
-  #jens[
-    split this figure into A and B, showcasing two different covariances, as described above.
-
-    // #jonas[No difference here. This would make it such that A is closer to circular an thus almost looks the same, where B would have a more extreme curve as is currently seen here.]
-  ]
+  $<eq.non-linear-covariances>
 
   #figure(
     {
@@ -378,18 +372,18 @@ The underlying potential non-linearities of factors is exemplified in @ex.non-li
         std-block(
           fill: theme.lavender.lighten(75%)
         )[
-          #image("../../figures/plots/ellipses-narrow.svg") \
+          #image("../../figures/plots/ellipses-narrow.svg")
           A: With covariance $#m.SA$
         ],
         std-block(
           fill: theme.lavender.lighten(75%)
         )[
-          #image("../../figures/plots/ellipses-wide.svg") \
+          #image("../../figures/plots/ellipses-wide.svg")
           B: With covariance $#m.SB$
         ]
       )
     },
-    caption: [A non-linear factor is visualised, where the measurement function $m(X_n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualised as a grey#sr contour plot underneath the linearised gaussian distribution#sgr2 on top.],
+    caption: [A non-linear factor is visualised, where the measurement function $m(X_n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualised as a grey#sr contour plot underneath the linearised gaussian distribution#sgr2 on top.@gbp-visual-introduction],
   )<fig.non-linearities>
 
   The purpose of this example is to make it clear, that the accuracy of a gaussian factor is dependent on the linearity of the measurement function, $h$. As in @fig.non-linearities#text(accent, "A"), the measurement model is reasonably smooth, and the linearised gaussian factor is a fairly good approximation, however, in @fig.non-linearities#text(accent, "B") highlights how a larger variance can lead to a very poor approximation, even without straying too far from the linearisation point.

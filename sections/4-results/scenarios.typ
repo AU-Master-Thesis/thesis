@@ -149,7 +149,7 @@ $ Q_("in") in [0.5, 1, ..., 6] $
   // std-block(todo[Add image]),
   std-block(image("../../figures/img/junction-experiment-preview.png")),
   caption: [
-  Screenshot of the junction scenario with $Q_("in") = 6$. The green #sg edges represent the the joint factorgraph.
+  Screenshot of the junction scenario with $Q_("in") = 6 "robots/s"$. The green #sg edges represent the the joint factorgraph.
 ],
 )<f.scenarios.junction>
 
@@ -176,4 +176,4 @@ The scenario is tested with 21 robots at two different initial speeds of 10 m/s 
     params.tabular(params.communications-failure.factor, previous: params.circle.factor, title: [Factor Settings]),
   )
   , caption: [Communications Failure scenario parameters.],
-) <t.scenarios.communications-failure>
+)<t.scenarios.communications-failure>

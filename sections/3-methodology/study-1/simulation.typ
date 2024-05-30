@@ -158,12 +158,12 @@ Additionally to providing a visual representation of the underlying mathematics,
 
 All entities in the simuliation with a mesh can be clicked on to introspect their current state. This functionality aids in discoverabiliy when trying out different parameters and environments. When clicked data structured as `YAML` will be outputted to stdout with colored keys for easy navigation, and can be viewed in the attached console:
 
-- *Robot* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages set and received and the structure of its factorgraph.
-- *Variable* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
+- *Robot:* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages set and received and the structure of its factorgraph.
+- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
 
-- *Obstacle* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
+- *Obstacle:* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
 
-- *Collision #acr("AABB")* All collisions leave behind an #acr("AABB") of the collision colored in red#sr. By clicking on it information about when it happened and who collided is outputted.
+- *Collision #acr("AABB"):* All collisions leave behind an #acr("AABB") of the collision colored in red#sr. By clicking on it information about when it happened and who collided is outputted.
 
 Example outputs of each of these are shown in @appendix.introspection-outputs.
 

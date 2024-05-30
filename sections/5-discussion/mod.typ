@@ -40,4 +40,9 @@
   After having studied the use of GBP on factorgraphs extensively what conclusions/opinions have we formed about its feasibility in practical real world scenarios?
 ]
 
+
+#include "study-1.typ"
+#include "study-2.typ"
+#include "study-3.typ"
+
 #include "./future-work.typ"

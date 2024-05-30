@@ -142,8 +142,6 @@ $
   )
 $<eq.dynamic-factor.measurement.result>
 
-#todo[Measurement precision?]
-
 ==== Obstacle Factor $bold(f_o)$ <s.m.factors.obstacle-factor>
 The obstacle factor makes sure that the robot doesn't collide with any of the static environment. This is done by using a 2D #acr("SDF") representation of the environment baked into an image. The obstacle factors then measure the lightness of the #acr("SDF") at the linearisation point, which determines whether the factor detects future collision or not. And example #acr("SDF") was shown earlier in @f.m.sdf#text(accent, "C"). As it is only the middle variables that are free to move, obstacle factors are only connected to these. However, do note that even though then only connect to a single variable, they are not anchoring factors as they do not override the variable priors, but are part of the message passing inference process.
 
