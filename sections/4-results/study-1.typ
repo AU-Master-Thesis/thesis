@@ -5,41 +5,111 @@
 
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
+This sections presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
+
 === Circle <s.r.results.circle>
 
+For this scenario, similar to @gbpplanner, the #acr("LDJ") and _distance travelled_ metrics are presented, see @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled respectively. By comparing both figures to the corresponding ones of @gbpplanner (Fig. 4 and Fig. 5), it is evident that #acr("MAGICS") is unable to reproduce the results of the #acr("GBP") planner for $l_m=3,t_(K-1)=13.33s$.
+
+#let handles = (
+  (
+    label: [$l_m=3$, $t_(K-1)=5s$],
+    color: theme.lavender,
+    alpha: 0%,
+    space: 1em,
+  ),
+  (
+    label: [$l_m=1$, $t_(K-1)=13.33s$],
+    color: theme.yellow,
+    alpha: 50%,
+    space: 1em,
+  ),
+  (
+    label: [$l_m=3$, $t_(K-1)=13.33s$],
+    color: theme.peach,
+    alpha: 50%,
+    space: 0em,
+  )
+)
+#let value-swatches = [#sl#swatch(theme.yellow.lighten(45%))#swatch(theme.peach.lighten(45%))]
+
 #figure(
-  image("../../figures/plots/circle-experiment-distance-travelled.svg"),
-  // std-block({
-  //   image("../../figures/plots/circle-experiment-distance-travelled.svg")
-  //   v(-1.5em)
-  // }),
+  // image("../../figures/plots/circle-experiment-ldj.svg"),
+  z-stack(
+    image("../../figures/plots/circle-experiment-ldj.svg"),
+    {
+      set text(size: 1.1em)
+      place(right + bottom, dy: -3.6em, dx: -1em, legend(handles, direction: ltr))
+    }
+  ),
   caption: [
-    Distribution of distances travelled as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
-
-    #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
-  ]
-) <f.circle-experiment-distance-travelled>
-
-
-#figure(
-  image("../../figures/plots/circle-experiment-ldj.svg"),
-  caption: [
-  #acr("LDJ") metric for the _Circle_ scenario as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
-
-  #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
+  #acr("LDJ") metric for the _Circle_ scenario as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$.
 ]
-) <f.circle-experiment-ldj>
+)<f.circle-experiment-ldj>
+
+#let lm3-th13 = (
+  s: text(theme.peach, $l_m=3,t_(K-1)=13.33s$),
+  n: $l_m=3,t_(K-1)=13.33s$
+)
+// #let lm1-th13 = text(theme.yellow, $l_m=1,t_(K-1)=13.33s$)
+// #let lm3-th5 = text(theme.lavender, $l_m=3,t_(K-1)=5s$)
+#let lm1-th13 = (
+  s: text(theme.yellow, $l_m=1,t_(K-1)=13.33s$),
+  n: $l_m=1,t_(K-1)=13.33s$
+)
+#let lm3-th5 = (
+  s: text(theme.lavender, $l_m=3,t_(K-1)=5s$),
+  n: $l_m=3,t_(K-1)=5s$
+)
+
+The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled, show that lowering the lookahead multiple to #text(theme.yellow, $l_m=1$), or lowering the time horizon to #text(theme.peach, $t_(K-1)=5s$) individually obtain results that are closer to those of @gbpplanner. The best possible results are acheived with #text(theme.lavender, $l_m=3,t_(K-1)=5s$).
+
+#figure(
+  z-stack(
+    // columns: 2,
+    image("../../figures/plots/circle-experiment-distance-travelled.svg"),
+    // place(right + bottom, dy: -4em, image("../../figures/plots/legend.svg", width: 10em)),
+    {
+      set text(size: 1.1em)
+      place(right + bottom, dy: -3.6em, dx: -1em, legend(handles, direction: ltr))
+    }
+  ),
+  caption: [
+    Distribution of distances travelled as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$.
+  ]
+)<f.circle-experiment-distance-travelled>
 
 === Environment Obstacles <s.r.results.obstacles>
 
-#figure(
-  image("../../figures/plots/circle-experiment-makespan-no-legend.svg"),
-  caption: [
-Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds.
-
-  #todo[for $t_(K-1) = 13.33 s$ and lookahead multiple = 1]
+#let fig = [
+  #figure(
+    z-stack(
+      pad(
+        x: -4mm,
+        y: -4mm,
+        image("../../figures/plots/circle-experiment-makespan-no-legend.svg")
+      ),
+      {
+        set text(size: 1.1em)
+        place(right + top, dy: 0.5em, dx: -0.2em, legend(handles, direction: ttb))
+      }
+    ),
+    caption: [
+      Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds; $#equation.as-set(params.seeds)$.
+    ]
+  )<f.obstacle-experiment-makespan>
 ]
-) <f.obstacle-experiment-makespan>
+
+#let body = [
+  The results of the _Environment Obstacles_ scenario are presented in @f.obstacle-experiment-makespan. The figure shows that the makespan for #lm3-th5.s is significantly lower than for the two runs with #text(gradient.linear(theme.yellow, theme.peach), $t_(K-1)=13.33s$). Furthermoe, the the makespan values for #lm3-th5.s are much closer to the corresponding values of @gbpplanner.
+]
+
+#grid(
+  columns: (1fr, 90mm),
+  column-gutter: 1em,
+  body,
+  fig
+)
 
 
 === Varying Network Connectivity <s.r.results.network>
@@ -85,7 +155,7 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
     vc[60], vc[$12.7$], oc[], vc[$104.0$], oc[], vc[$-8.38$], oc[],
     vc[80], vc[$14.8$], oc[], vc[$103$], oc[], vc[$-8.47$], oc[],
   ),
-  caption: [Effect of varying communication range $r_C$ in the _Environment Obstacles_ experiment. Values in the #text(red, [them]) column is taken from table 1 in @gbpplanner.],
+  caption: [Effect of varying communication range $r_C$ in the _Environment Obstacles_ experiment. Values in the #text(red, [them]) column is taken from table 1 in @gbpplanner. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.],
 )
 
 === Junction <s.r.results.junction>
@@ -98,7 +168,7 @@ The results of the
   //   v(-1.5em)
   // }),
   caption: [
-    This plot illustrates the relationship between the input flowrate $Q_("in")$ the output flowrate $Q_("out")$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_("in") = Q_("out")$. The solid lavender colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates.
+    This plot illustrates the relationship between the input flowrate $Q_("in")$ the output flowrate $Q_("out")$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_("in") = Q_("out")$. The solid lavender colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.
   ]
 ) <f.qin-vs-qout>
 
