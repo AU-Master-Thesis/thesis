@@ -1,6 +1,8 @@
 #import "../../lib/mod.typ": *
 = Discussion <Discussion>
 
+Our fork of gbpplanner @gbpplanner-fork
+
 #todo[
   Discuss/critisize the way the horizon variable is updated. By always having it move along, it can end in situations where the robot stops up, cause it cannot arrive at a proper solution, but after some time the robot shoots away, due to the horizon variable moving to far away, thereby sort of overruring the effect of the other factors.
 ]

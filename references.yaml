@@ -38,6 +38,14 @@ gbpplanner-code:
   - Davison, Andrew J.
   date: 2023-10-30
 
+gbpplanner-fork:
+  type: repository
+  url: https://github.com/AU-Master-Thesis/gbpplanner
+  author:
+  - Kristofer Plagborg Bak Sørensen
+  - Jens Høigaard Jensen
+  date: 2024-05-30
+
   # title: petgraph
   # author: # Used the people of the `gitub/petgraph` org as the authors
   # - Anton Kochkov # XVilka
