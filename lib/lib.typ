@@ -851,3 +851,15 @@
 }
 
 #let gradient-box(..cmap, width: 6em) = box(inset: (x: 2pt), outset: (y: 2pt), radius: 3pt, height: 0.5em, width: width, fill: gradient.linear(..cmap))
+
+
+#let interleave(..arrays) = {
+  let arrays = arrays.pos()
+  assert(arrays.map(it => it.len()).all(len => len == arrays.at(0).len()))
+
+  for i in range(arrays.at(0).len()) {
+    for array in arrays {
+      (array.at(i),)
+    }
+  }
+}

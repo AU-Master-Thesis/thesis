@@ -3,30 +3,9 @@
 // == Overskrift
 == #study.H-1.full.n <s.r.study-1>
 
-
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
-// === Circle <s.r.results.circle>
-// === Environment Obstacles <s.r.results.obstacles>
-// === Varying Network Connectivity <s.r.results.network>
-// === Junction <s.r.results.junction>
-
-// The results of the
-
-#figure(
-  image("../../figures/plots/qin-vs-qout.svg"),
-  // std-block({
-  //   image("../../figures/plots/qin-vs-qout.svg")
-  //   v(-1.5em)
-  // }),
-  caption: [
-    This plot illustrates the relationship between the input flowrate $Q_("in")$ the output flowrate $Q_("out")$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_("in") = Q_("out")$. The solid lavender colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates.
-  ]
-) <f.qin-vs-qout>
-
-
-// === Communications Failure <s.r.results.failure>
-
+=== Circle <s.r.results.circle>
 
 #figure(
   image("../../figures/plots/circle-experiment-distance-travelled.svg"),
@@ -41,8 +20,6 @@
   ]
 ) <f.circle-experiment-distance-travelled>
 
-// Circle experiment: distribution of distances travelled as number of robots in the formation NR is varied. The GBP planner creates shorter paths and a smaller spread of distances than ORCA; robots collaborate to achieve their goals.
-
 
 #figure(
   image("../../figures/plots/circle-experiment-ldj.svg"),
@@ -53,8 +30,7 @@
 ]
 ) <f.circle-experiment-ldj>
 
-// Circle experiment: distribution of the LDJ metric as NR increases, with smoother trajectories shown by more positive values. The worst performing GBP planning robots had smoother paths than the best robots for ORCA.
-
+=== Environment Obstacles <s.r.results.obstacles>
 
 #figure(
   image("../../figures/plots/circle-experiment-makespan-no-legend.svg"),
@@ -66,6 +42,8 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
 ) <f.obstacle-experiment-makespan>
 
 
+=== Varying Network Connectivity <s.r.results.network>
+
 
 
 #let gbpplanner-results = (
@@ -74,7 +52,6 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
   mean-dist: (104.0, 104.5, 104.0, 103.8),
   ldj: (-9.02, -8.76, -8.38, -8.47),
 )
-
 
 #let ours = (
   rc: (20, 40, 60, 80),
@@ -83,45 +60,11 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
   ldj: (0, 0, 0, 0),
 )
 
-
-#let interleave(..arrays) = {
-  let arrays = arrays.pos()
-  assert(arrays.map(it => it.len()).all(len => len == arrays.at(0).len()))
-
-  for i in range(arrays.at(0).len()) {
-    for array in arrays {
-      (array.at(i),)
-    }
-  }
-}
-
-// #interleave((1, 2), (3, 4))
-
-#let them-vs-us(them, us) = {
-  assert(type(them) == type(us))
-}
-
-// #them-vs-us( gbpplanner-results, ours)
-
-// #aos(gbpplanner-results)
-
 #let tablify(dictionaries) = dictionaries.map(dict => dict.values()).flatten().map(it => [#it])
-
-// #tablec(
-//   columns: 4,
-//   header: table.header([$r_C$], [MS $s$], [D $m$], [LDJ]),
-//
-//
-//   ..tablify(aos(gbpplanner-results))
-//   // ..aos(gbpplanner-results).map(it => tablify(it)).flatten().map(it => [#it])
-//
-//   // ..range(16).map(i => [#i])
-// )
 
 #let tc = table.cell
 #let vc = table.cell.with(inset: 1em)
 #let oc = table.cell.with(fill: theme.maroon.lighten(50%), stroke: theme.maroon)
-
 
 #let gbpplanner-results = (
   rc: (20, 40, 60, 80),
@@ -129,9 +72,6 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
   mean-dist: (104.0, 104.5, 104.0, 103.8),
   ldj: (-9.02, -8.76, -8.38, -8.47),
 )
-
-#aos(gbpplanner-results)
-#gbpplanner-results
 
 #figure(
   table(
@@ -148,8 +88,28 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
   caption: [Effect of varying communication range $r_C$ in the _Environment Obstacles_ experiment. Values in the #text(red, [them]) column is taken from table 1 in @gbpplanner.],
 )
 
+=== Junction <s.r.results.junction>
+The results of the
+
+#figure(
+  image("../../figures/plots/qin-vs-qout.svg"),
+  // std-block({
+  //   image("../../figures/plots/qin-vs-qout.svg")
+  //   v(-1.5em)
+  // }),
+  caption: [
+    This plot illustrates the relationship between the input flowrate $Q_("in")$ the output flowrate $Q_("out")$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_("in") = Q_("out")$. The solid lavender colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates.
+  ]
+) <f.qin-vs-qout>
 
 
+
+=== Communications Failure <s.r.results.failure>
+
+
+// Circle experiment: distribution of distances travelled as number of robots in the formation NR is varied. The GBP planner creates shorter paths and a smaller spread of distances than ORCA; robots collaborate to achieve their goals.
+
+// Circle experiment: distribution of the LDJ metric as NR increases, with smoother trajectories shown by more positive values. The worst performing GBP planning robots had smoother paths than the best robots for ORCA.
 
 #let gbpplanner-results = (
   rc: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90),
@@ -158,8 +118,6 @@ Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as
   makespan_15: (14.9, 17.1, 18.9, 22.5, 26.5, 30.6, 38.8, 44.6, 63.4, 12.6),
   mean_collisions_15: (0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.8, 0.8, 0.8, 4.6),
 )
-
-#pagebreak()
 
 #figure(
   table(
