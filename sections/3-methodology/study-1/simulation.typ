@@ -10,7 +10,7 @@
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine, which allows for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation. All panels are implemented using immediate mode UI instead of retained mode, which simplifies state management and makes it easier for others to extend the tool. With this approach, the code responsible for creating each part of the panel is straightforward and easy to locate, facilitating quick modifications and enhancements.
+As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine and the immediate mode #acr("UI") library _egui_@egui. Together they allow for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation. All panels are implemented using immediate mode UI instead of retained mode, which simplifies state management and makes it easier for others to extend the tool. With this approach, the code responsible for creating each part of the panel is straightforward and easy to locate, facilitating quick modifications and enhancements.
 
 #figure(
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -54,8 +54,32 @@ Some of the sections in the settings panel are off-screen in @f.m.simulation-too
 
 ==== Hot Loading Scenarios <s.m.hot-loading>
 
-Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios.
+Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios. Each scenario is loaded from disk by the scenario loader module by reading through the folder `./config/scenarios/`#footnote[The default, but can be changed using the `--scenario-dir <DIR>` flag when starting the simulator] for every folder with the three different configuration files in them. As seen in @listing.scenario-folder-structure. This makes it uncomplicated to work on multiple scenarios at once, and share them with others.
+
+#listing([
+  ```text
+./config/simulations/
+├── 'Circle Experiment'
+│  ├── config.toml
+│  ├── environment.yaml
+│  └── formation.yaml
+├── 'Communications Failure Experiment'
+│  ├── config.toml
+│  ├── environment.yaml
+│  └── formation.yaml
+│ ...
+  ```
+],
+  caption: [Folder structure expected by the scenario loader module. Each scenario is a separate subfolder in the `./config/scenarios/` folder, with a `config.toml`, `environment.yaml` and `formation.yaml` in each.],
+) <listing.scenario-folder-structure>
+
 #par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour.]
+
+
+// ==== Swapping Scenarios <s.m.swapping>
+//
+// ==== Simulation Loader <s.m.simulation-loader>
+// #kristoffer[About the ability to load multiple simulations, and the underlying folder-structure. Probably should be somewhere else?]
 
   // This makes it possible to rapidly test different values, by changing the values in UI, reload the scenario and immediately observe the effect. ]
 
@@ -129,7 +153,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
     [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
-    [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating. The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.],
+    [Interrobot factors], [#k[update] Two lines from each variable in one robot to each variable in another robot if they are currently communicating. The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.],
     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors.],
     [Robot colliders], [A sphere in red#sr around each robot representing the collision radius.],
     [Environment colliders], [An outline in red#sr around each obstacle in the environment, that collision are being detected against.],
@@ -141,12 +165,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
   ]
 )<table.simulation-visualisations>
 
-Along with these visualisation further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.introspection-tools.
-
-
-#todo[
-  Refer to appendix that shows screenshots of each visualisation modules.
-]
+Along with these visualisation further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.introspection-tools. Screenshots demonstrating each visualization module is shown in @appendix.visualisation-modules.
 
 ==== Viewport <s.m.viewport>
 

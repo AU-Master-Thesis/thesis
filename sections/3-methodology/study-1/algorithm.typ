@@ -122,8 +122,6 @@ Through these steps the lifecycle of the interrobot factors has been allured to.
   ]
 )<f.interrobot-lifecycle>
 
-==== Simulation Loader <s.m.simulation-loader>
-#kristoffer[About the ability to load multiple simulations, and the underlying folder-structure. Probably should be somewhere else?]
 
 ==== Robot Mission <s.m.robot-mission>
 #jens[Maybe this should be in the Global Planning section]

@@ -681,7 +681,16 @@ bevyengine:
   date: 2024-04-23
   serial-number:
     version: 0.13.2
-  note: https://github.com/bevyengine/bevy/releases/tag/v0.13.2
+  url: https://github.com/bevyengine/bevy/releases/tag/v0.13.2
+
+egui:
+  type: repository
+  title: egui
+  author: Emil Ernerfeldt
+  date: 2024-05-30
+  serial-number:
+    version: 0.26.0
+  url: https://docs.rs/egui/latest/egui/
 
 petgraph:
   type: repository

@@ -37,7 +37,9 @@ To objectively compare our reimplementation with the original #gbpplanner, we me
   - $v(t)$ is the velocity of a robot at time $t$.
   - $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also known as jerk.
 
-Each robots velocity is sampled and recorded with an interval of $20 H z$. For numerical integration Simpson's rule is used@simpsons-rule. The code for how the metric is computed can be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/ldj.py"), and in @appendix.ldj-metric-computation.
+Each robots velocity is sampled and recorded with an interval of $20 H z$. For numerical integration Simpson's rule is used@simpsons-rule. The code for how the metric is computed can be found in the accompanying source code@repo under
+#source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/scripts/ldj.py", "./scripts/ldj.py") and in @appendix.ldj-metric-computation.
+
 
 
 
@@ -117,8 +119,7 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
   - $P_j in {P_1, P_2, ..., P_n}$ is the set of sampled positions.
   - $||P_j - p(P_j, L_i)||^2$ is the squared distance between the sampled position $P_j$ and the projection of $P_j$ onto the line segment $L_i$.
 
-The code for how the metric is computed can be found in the accompanying source code@repo under #github("AU-Master-Thesis", "gbp-rs", path: "./scripts/perpendicular-path-deviation.py"), and in @appendix.perpendicular-path-deviation-metric-code.
-
+The code for how the metric is computed can be found in the accompanying source code@repo under #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/scripts/perpendicular-path-deviation.py", "./scripts/perpendicular-path-deviation.py") and in @appendix.perpendicular-path-deviation-metric-code.
 
 
 6. #metric[Environment Robot Collisions] Number of collisions between robots and the environment. Similar to _Inter Robot Collisions_ bounding circles are used for the robots. Each environment obstacle is equipped with a collider of the same geometric layout. The same detection registration used for _Inter Robot Collisions_ is used here.

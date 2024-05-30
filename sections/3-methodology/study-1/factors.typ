@@ -1,10 +1,6 @@
 #import "../../../lib/mod.typ": *
 === Factor Graph <s.m.factor-graph>
 
-#todo[
-  Make quick remark that factors can be turned on and off, during the simulation through the UI, to quickly see the effect of a factor variant.
-]
-
 #jens[Make sure factor graph notation is consistent with background math notation.]
 
 This section describes how the factor graph theory is used in the developed software. Thus, detailing each factor used in the #acr("GBP") algorithm, as was also done in the original work@gbpplanner. As touched on in @s.b.factor-graphs, the factors are the components of the factor grah that introduces constraints between the variables.
@@ -183,6 +179,8 @@ $
 $<eq.jacobian-i>
 
 Where $r$ is the robot's radius, $d_s$ is the safety distance, $p_1$ and $p_2$ are the positions of the two variables.
+
+
 
 
 

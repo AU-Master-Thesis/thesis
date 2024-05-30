@@ -43,3 +43,8 @@ The `&FactorState` argument passed by reference to `jacobian()`, `measure()`, an
 All factor implementations are grouped together in a tagged union called `FactorKind`#footnote[Found in the
 #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L481-L495", "src/factorgraph/factor/mod.rs:481-495")
 ] to enable static dispatch when the code is compiled instead of dynamic dispatch. Using static dispatch is less flexible in terms of extensibility as all implementors has to be known by the library at compile time. But allows for better performance as the compiler can better optimise and possibly inline method calls@the-rust-book. Which is important as these methods has to run in the hot code path of the simulation.
+
+\
+#par(first-line-indent: 0pt)[
+  To better understand the effect of different factor variants, on the joint optimization each kind of factor can be enabled or disabled. When a factor is disabled it will not contribute or consume messages during message passing steps effectively removing it temporarily. The Settings Panel provide a section of toggles; one for each variant that can be used to toggle it. Likewise these preferences can be read from the scenarios `config.toml` to easily test scenarios where a specific factor variant is not relevant.
+]
