@@ -143,9 +143,26 @@ The obstacle factor makes sure that the robot doesn't collide with any of the st
 
 The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4)$, and is the first order Jacobian following @alg.jacobian-first-order. As such, using the first order Jacobian, measuring the gradient of the underlying #acr("SDF"), enables the Jacobian to impact the factor potential to _push_ the variable in the opposite direction of environment obstacles, during the next message iteration. The measuring and effect of the obstacle factor is shown in @f.m.obstacle-factor.
 
+#let obstacle-colors = (
+  third: rgb("#E5B600"),
+  second: rgb("#E0D305"),
+)
+
+#let robot-color = rgb("#A1BA8D")
+
+#let s = 85%
 #figure(
-  std-block(todo[Obstacle factor visualisation]),
-  caption: [The obstacle factor visualisation in a 2D environment with a simple #acr("SDF") from tool or tikz.]
+  std-block(
+    grid(
+      columns: 2,
+      scale(x: s, y: s, image("../../../figures/img/obstacle-factors-example-with-variables.png")),
+      scale(x: s, y: s, image("../../../figures/img/obstacle-factors-example-only-sdf.png")),
+    )
+  ),
+  caption: [
+    Screenshot taken from the simulator of how the obstacle factor samples from the environment #acr("SDF"). In the left image a robot #swatch(robot-color) can be seen with its factorgraph extended in front of it. The obstacle factors of the second #swatch(obstacle-colors.second) and third #swatch(obstacle-colors.third) variable from the horizon variable, have sampled into the gradient boundary. The color reflects the magnitude of the repulsive effect the obstacle factor adds from the sample at that point. On the right image, the underlying #acr("SDF") sampled from is shown alone.
+  ]
+
 )<f.m.obstacle-factor>
 
 The default standard deviation, $sigma_o$, for this factor is $0.01$, which is an order of magnitude lower than for the dynamic factor. This means that the obstacle factors' influence is stronger than the dynamic factor, making sure that avoiding obstacles is prioritised as a stronger constraint.
