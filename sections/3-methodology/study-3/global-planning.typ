@@ -47,10 +47,11 @@ The environment for each experiment scenario is generated from an configuration 
 
 
 
-==== Robot Mission <s.m.robot-mission>
-#jens[Maybe this should be in the Global Planning section]
+=== ECS Integration <s.m.robot-mission>
 
-#k[talk about Mission Component]
+To extend the simulation to both handle local planners of fixed number of waypoints given as part of the formation description and global planners that find new waypoints during run-time.  A `Mission` component is created that is assigned to each robot entity. It abstracts away which strategy is used. Several systems run to monitor an update the component. For example a system checks each entity with a `Mission` component if they are within reach of their next waypoint. If they are the next waypoint or path planning task is scheduled, and once finished the new waypoints are extended into the mission. Another system checks for when the final waypoint has been reached, and then transition the robots state to being finished and sends a snapshot of the robots historical data to the exporting module.
+
+// The simulator is made capable of handling both local planners with a fixed number of waypoints and global planners that find new waypoints in real-time, a `Mission` component is created and assigned to each robot entity. This component abstracts the strategy used. Several systems run to monitor and update the component. For example, one system checks if each entity with a `Mission` component is within reach of its next waypoint. If it is, the next waypoint or path planning task is scheduled, and upon completion, new waypoints are added to the mission. Another system checks when the final waypoint is reached, transitions the robot's state to "finished," and sends a snapshot of the robot's historical data to the exporting module.
 
 // as seen in @f.m.rrt-colliders.
 
