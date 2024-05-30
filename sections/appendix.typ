@@ -473,3 +473,60 @@ rmse: float = np.sqrt(error / len(positions))
 #k[
   insert screenshots of each visualisation component
 ]
+
+// #let edges = (
+//   on: box(line(length: 10pt, stroke: theme.green), height: 0.25em),
+//   off: box(line(length: 10pt, stroke: theme.red), height: 0.25em),
+// )
+//
+// #figure(
+//   tablec(
+//     columns: 2,
+//     align: left,
+//     header: table.header(
+//       [Settings], [Description]
+//     ),
+//     [Robots], table.vline(), [A large sphere at the estimated position of each robot.],
+//     [Communication graph], [A graph that shows an edge between all currently communicating robots. Each edge is colored dependent on the robots radio state. If the antenna is active then half of the edge from the robot to the center is green#sg, and red#sr if turned off. For three robots $R_a, R_b, R_c$, this could look like
+//
+//     #align(center, [$R_a$ #edges.on #edges.off $R_b$ #edges.off #edges.off $R_c$])
+//   ],
+//     [Predicted trajectories], [All of each robot's factor graph variables, visualised as small spheres with a line between.],
+//     [Waypoints], [A small sphere at each waypoint for each robot.],
+//     [Uncertainty], [A 2D ellipse for each variable in each robot's factor graph, visualising the covariance of the internal Gaussian belief.],
+//     [Paths], [Lines tracing out each robot's driven path.],
+//     [Generated map], [A 3D representation of the map generated from the environment configuration.],
+//     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it's occupied.],
+//     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
+//     [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
+//     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
+//     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating, and within the safety distance threshold $d_r$ of each other. The color varies on a yellow #sy to #sr gradient #gradient-box(theme.yellow, theme.red) visually highlighting the potential of a future collision.
+//     // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.
+//   ],
+//     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
+//     [Robot colliders], [A sphere in red#sr around each robot representing the collision radius.],
+//     [Environment colliders], [An outline in red#sr around each obstacle in the environment, that collision are being detected against.],
+//     [Robot-robot collisions], [An #acr("AABB") intersection, visualising each robot to robot collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
+//     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
+//   ),
+//   caption: [
+//     Every visualisable setting, and a description of how it has been chosen to visualise it.
+//   ]
+// )
+
+// <table.simulation-visualisations>
+
+#let s(x, y, img) = scale.with(x: x, y: y, img)
+
+#figure(
+  scale(x: 80%, y: 80%, image("../figures/img/visualizer-generated-map.png")),
+  caption: [Generated map from `environment.yaml`]
+) <appendix.visualizer-generated-map>
+
+#figure(
+  scale(x: 80%, y: 80%, image("../figures/img/visualizer-sdf.png")),
+  caption: [Generated #acr("SDF") from `environment.yaml`]
+) <appendix.visualizer-sdf>
+
+// #s(80%, 80%, image("../figures/img/visualizer-sdf.png"))
+// #s(80%, 80%, image("../figures/img/visualizer-generated-map.png"))
