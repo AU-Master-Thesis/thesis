@@ -1,7 +1,7 @@
 #import "../../../lib/mod.typ": *
 
 === Factor Structure <s.m.factor-structure>
-#jonas[I don't remember if you have seen this?]
+// #jonas[I don't remember if you have seen this?]
 
 In #gbpplanner, the different factor variants are implemented as separate classes that inherit from a `Factor` base class. Rust does not support inheritance as found in #acr("OOP") based languages like C++. Instead composition and traits are used for subtyping@the-rust-book. The `Factor` trait, as seen in @listing.factor-trait is designed to group all requirements expected of any factor variant used in the factorgraph.
 

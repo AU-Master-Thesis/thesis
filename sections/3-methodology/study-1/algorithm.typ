@@ -1,6 +1,6 @@
 #import "../../../lib/mod.typ": *
 === Algorithm <s.m.algorithm>
-#jonas[I do believe all this is new to you?]
+// #jonas[I do believe all this is new to you?]
 // This section should explain the GBP inference algorithm as it has been implemented in the simulation tool.
 
 // 1. Fixed update schedule

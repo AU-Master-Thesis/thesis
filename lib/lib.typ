@@ -671,6 +671,8 @@
   // clear-circle: "Clear Circle",
   junction: "Junction",
   communications-failure: "Communications Failure",
+  solo-gp: "Solo Global Planning",
+  collaborative-gp: "Collaborative Global Planning",
 ).pairs().map(
   it => {
     let key = it.at(0)
@@ -916,4 +918,15 @@
 #let lm3-th5 = (
   s: text(theme.lavender, $l_m=3,t_(K-1)=5s$),
   n: $l_m=3,t_(K-1)=5s$
+)
+
+#let inline-line(
+  length: 1em,
+  stroke: theme.lavender + 2pt
+) = box(
+  line(
+    length: length,
+    stroke: stroke
+  ),
+  baseline: -0.25em
 )

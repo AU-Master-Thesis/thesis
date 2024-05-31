@@ -4,7 +4,7 @@
 #let h-amount = context int(hyp-counter.at(<marker.end-of-hypothesis>).first())
 // This thesis poses the following #numbers.written(h-amount) hypothesis:
 // This thesis poses the following #h-amount hypothesis:
-This thesis poses the following four hypothesis:
+This thesis poses the following three hypothesis:
 
 // #repr(h-amount.get())
 // #todo[Maybe this should multiple hypothesis, or maybe it should be more specific or rephrased.]

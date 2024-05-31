@@ -2,15 +2,11 @@
 == Scenarios <s.r.scenarios>
 
 // #jonas[Read this, and all subsections]
-The performance of the reimplementation is evaluated across #numbers.written(scen.len()) different scenarios. The scenarios adhere to the original paper's@gbpplanner experiments, and are described in the following listing
+The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len()) different scenarios. The first five, #boxed(color: theme.peach, [*S-X*]), scenarios adhere to the original paper's@gbpplanner experiments, where the last 2, #boxed(color: colors.ours, [*S-X*]), are specifically designed for the global planning extension that #acr("MAGICS") provides. The scenarios are:
 // #jonas[fixed the boldness overload here]
 
-
-
-#set enum(numbering: box-enum.with(prefix: "S-"))
+#set enum(numbering: box-enum.with(color: colors.theirs, prefix: "ST-"))
 + _*Circle:*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
-
-
 
 + _*Environment Obstacles:*_ This scenario is similar to the Circle scenario, but with obstacles near the center of the circle. // Again robots are placed in a circle, centered at $(0, 0)$ with $r=50m$, and are tasked with reaching the opposite side of the circle.
 
@@ -20,6 +16,10 @@ The performance of the reimplementation is evaluated across #numbers.written(sce
 
 + _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. It tests how resilient the #acrpl("GBP") algorithm is to spurious loss of communication between robots. By randomly toggling a robots ability to communicate with others at different probabilities every timestep.
 
+#set enum(numbering: box-enum.with(color: colors.ours, prefix: "SO-"))
++ _*Solo Global Planning:*_ This scenario serves as an isolated test for automated placement of waypoints with #acr("RRT*") and the impact of the tracking factor, $f_t$, on a single robot. This scenario takes place in a complex maze-like environment, where a single robot is spawned in one end, and tasked with reaching the other end.
+
++ _*Collaborative Global Planning:*_ This scenario is similar to #boxed(color: colors.ours, [*SO-1*]), but with many robots. Several spawning locations are possible, where each individual robot get a task to traverse the complex environment. The purpose of this scenario is to test the interactivity between the tracking factors and the interrobot factors, $f_i$.
 
 // + _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
 
@@ -179,3 +179,29 @@ The scenario is tested with 21 robots at two different initial speeds of 10 m/s 
   )
   , caption: [Communications Failure scenario parameters.],
 )<t.scenarios.communications-failure>
+
+=== #scen.solo-gp.n <s.r.scenarios.solor-gp>
+
+In this scenario a complex, maze-like environment has been constructed#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/c17370455af38a6cab0eb5acea1a576247a0e732/config/simulations/Complex/environment.yaml", "config/simulations/Complex/environment.yaml")], similar to the one shown in @f.m.maze-env. #att[A demonstration of this environment, with and without global planning enabled is shown in an accompanying video#todo[cite video or footnote]]. A single robot is spawned in the bottom-left corner of the environment, see @f.scenarios.solo-gp. The robot is tasked with reaching the top-right corner of the environment. The environment is designed to be challenging, with somewhat narrow corridors and a plethora of possible paths along with dead ends#note.j[do the dead ends thing]. The accompanying `formation.yaml`#footnote[#jens[source-link]] file specifies the planning strategy to be that of `rrt-star` instead of `only-local`, which has been the case for all of the above scenarios. The robot is equipped with a #acr("RRT*") pathfinding component, which, in @f.scenarios.solo-gp, has just finished computing the path it is expected to take. The path is shown as a faint red line across the corridors of the map. #todo[mention parameters table.]
+
+// The tracking factor $f_t$ is set to $0.5$ to test the impact of the tracking factor on a single robot in a complex environment.
+
+#figure(
+  std-block(todo[Screen of environment after global planning]),
+  caption: [
+    Screenshot of the complex maze-like environment. The robot#sr has just spawned in the bottom-left corner, and its #acr("RRT*") pathfinding has just finished. The path it is expected to take is shown as a faint red line #inline-line(stroke: theme.maroon.lighten(50%) + 3pt) across the corridors of the map. Here the tracking factors have been enabled.
+  ]
+)<f.scenarios.solo-gp>
+
+#todo[The parameters tables]
+
+=== #scen.collaborative-gp.n <s.r.scenarios.collaborative-gp>
+
+Here, the same complex environment as in the #scen.solo-gp.n scenario is used. However, instead of a single robot, multiple robots are spawned in different locations across the environment. That means the `formation.yaml`#footnote[#jens[source-link to formation file]] file is significantly more detailed. Specifically there are four spawning location, one in each corner; where each robot is tasked with reaching the opposite corner. Each robot is, once again, equipped with a #acr("RRT*") pathfinding component, which will compute a collision free path in terms of the static environment. @f.scenarios.collaborative-gp shows a screenshot of the simulation in progress, where multiple robots are using the waypoint tracking approach, as described in @s.m.planning.waypoint-tracking. #todo[mention parameters table.]
+
+#figure(
+  std-block(todo[image of many robots driving in the maze]),
+  caption: [Screenshot of the maze-like environment#footnote[], with multiple robots spawned in different locations. #att[Tracking factors are not enables here.]]
+)<f.scenarios.collaborative-gp>
+
+#todo[The parameters tables]

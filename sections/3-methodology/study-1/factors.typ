@@ -1,6 +1,6 @@
 #import "../../../lib/mod.typ": *
 === Factor Graph <s.m.factor-graph>
-#jonas[I don't think you have seen all the maths stuff here. Does it make sense?]
+// #jonas[I don't think you have seen all the maths stuff here. Does it make sense?]
 #jens[Make sure factor graph notation is consistent with background math notation.]
 
 This section describes how the factor graph theory is used in the developed software. Thus, detailing each factor used in the #acr("GBP") algorithm, as was also done in the original work@gbpplanner. As touched on in @s.b.factor-graphs, the factors are the components of the factor grah that introduces constraints between the variables.
@@ -148,24 +148,29 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
   second: rgb("#E0D305"),
 )
 
-#let robot-color = rgb("#A1BA8D")
+#let robot-color = catppuccin.macchiato.green
 
 #let s = 85%
 #figure(
-  std-block(
+  {
+    set text(theme.text)
     grid(
       columns: 2,
-      scale(x: s, y: s, image("../../../figures/img/obstacle-factors-example-with-variables.png")),
-      scale(x: s, y: s, image("../../../figures/img/obstacle-factors-example-only-sdf.png")),
+      std-block[
+        #image("../../../figures/img/obstacle-factors-example-with-variables.png")
+        A: Robot With Obstacle Factors
+      ],
+      std-block[
+        #image("../../../figures/img/obstacle-factors-example-only-sdf.png")
+        A: Pure Envioronment SDF
+      ],
     )
-  ),
+  },
   caption: [
-    Screenshot taken from the simulator of how the obstacle factor samples from the environment #acr("SDF"). In the left image a robot #swatch(robot-color) can be seen with its factorgraph extended in front of it. The obstacle factors of the second #swatch(obstacle-colors.second) and third #swatch(obstacle-colors.third) variable from the horizon variable, have sampled into the gradient boundary. The color reflects the magnitude of the repulsive effect the obstacle factor adds from the sample at that point. On the right image, the underlying #acr("SDF") sampled from is shown alone.
+    Screenshots taken from #acr("MAGICS") of how the obstacle factor samples from the environment #acr("SDF"). A) In the left image a robot #swatch(robot-color) can be seen with its factorgraph extended in front of it. The obstacle factors of the second #swatch(obstacle-colors.second) and third #swatch(obstacle-colors.third) variable from the horizon variable, have sampled into the gradient boundary. The color reflects the magnitude of the repulsive effect the obstacle factor adds from the sample at that point. On the right image, the underlying #acr("SDF") sampled from is shown alone. B) The #acr("SDF") is shown by itself, without robot and environment colliders.
   ]
 
 )<f.m.obstacle-factor>
-
-#jonas[New figure here #sym.arrow.t]
 
 The default standard deviation, $sigma_o$, for this factor is $0.01$, which is an order of magnitude lower than for the dynamic factor. This means that the obstacle factors' influence is stronger than the dynamic factor, making sure that avoiding obstacles is prioritised as a stronger constraint.
 
@@ -187,7 +192,8 @@ $
   d_r (x_k^A, x_k^B) = ||x_k^A - x_k^B||
 $<eq.interrobot-distance>
 
-To weaken the effect of states further into the future, the factors precision matrix is defined as $Lambda_r = (t_k sigma_r)^(-2) bold(I)$. The interrobot factor Jacobian, $jacobian_i$, is defined in $RR^(4 times 8)$ as shown in @eq.jacobian-i. #att[The Jacobian is used to calculate the gradient of the factor], which is used in the inference process.
+To weaken the effect of states further into the future, the factors precision matrix is defined as $Lambda_r = (t_k sigma_r)^(-2) bold(I)$. The interrobot factor Jacobian, $jacobian_i$, is defined in $RR^(4 times 8)$ as shown in @eq.jacobian-i.
+// #att[The Jacobian is used to calculate the gradient of the factor], which is used in the inference process.
 $
   jacobian_i = mat(
     - (r (p_1_x - p_2_x)) / d_s, - (r (p_1_y - p_2_y)) / d_s, 0, 0, (r (p_1_x - p_2_x)) / d_s, (r (p_1_y - p_2_y)) / d_s, 0, 0;

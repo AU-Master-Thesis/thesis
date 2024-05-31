@@ -26,7 +26,7 @@
 }
 
 === Variable Structure <s.variable-structure>
-#jonas[Check this]
+// #jonas[Check this]
 
 Each variable is a separate structure holding internal state such as its belief expressed in the Gaussian moments form, aswell as a hashmap that buffers messages from connected factors. When the factorgraph is constructed, the variables are initialized such that the mean of their initial belief have them placed along the line segment from the robots spawn point to its first waypoint. Variables are not spaced evenly in time, but are instead spaced apart in a monotonically increasing order. The algorithm for this is parameterized over $l_h in RR_+$ and $l_m in ZZ_+$ called _lookahead horizon_ and  _lookahead multiple_ respectively.
 
@@ -134,10 +134,8 @@ A thorough argument for this method of placing variables is not provided in the 
 #figure(
   std-block(image("../../../figures/out/variable-timesteps.svg")),
   caption: [
-
-  Three different results of the variable placement algorithm from $0$ to $t_(K-1) = 20$ in seconds, with $t_(0,1) = 1s$. The top sequence is generated with $l_m=1$. The middle with $l_m = 19$ and the bottom one with $l_m = 3$
-
-]
+    Three different results of the variable placement algorithm from $0$ to $t_(K-1) = 20$ in seconds, with $t_(0,1) = 1s$. The top sequence is generated with $l_m=1$. The middle with $l_m = 19$ and the bottom one with $l_m = 3$#note.k[possibly shorten the amount of variables]
+  ]
 ) <f.variable-timesteps>
 
 // #k[does $l_m = 1$ give even spacing?]
