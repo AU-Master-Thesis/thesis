@@ -1169,3 +1169,38 @@ schwabe_automation_2020:
     title: PLOS ONE
     issue: 11
     volume: 15
+
+Mukadam_2018:
+  type: article
+  title: Continuous-time Gaussian process motion planning via probabilistic inference
+  author:
+  - Mukadam, Mustafa
+  - Dong, Jing
+  - Yan, Xinyan
+  - Dellaert, Frank
+  - Boots, Byron
+  date: 2018-09
+  page-range: 1319–1340
+  url: http://dx.doi.org/10.1177/0278364918790369
+  serial-number:
+    doi: 10.1177/0278364918790369
+    issn: 1741-3176
+  parent:
+    type: periodical
+    title: The International Journal of Robotics Research
+    publisher: SAGE Publications
+    issue: 11
+    volume: 37
+
+
+li2020graph:
+  type: misc
+  title: Graph Neural Networks for Decentralized Multi-Robot Path Planning
+  author:
+  - Li, Qingbiao
+  - Gama, Fernando
+  - Ribeiro, Alejandro
+  - Prorok, Amanda
+  date: 2020
+  serial-number:
+    arxiv: '1912.06095'

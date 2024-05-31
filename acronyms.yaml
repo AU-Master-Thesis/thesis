@@ -108,3 +108,9 @@
   definition: Multi-Agent Gaussian Inference Collaborative Simulator
 - acronym: VIO
   definition: Visual-Inertial Odometry
+- acronym: CNN
+  definition: Convolutional Neural Network
+- acronym: GNN
+  definition: Graph Neural Network
+- acronym: MLP
+  definition: Multilayer Perceptron

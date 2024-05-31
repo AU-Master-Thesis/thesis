@@ -39,6 +39,9 @@ the start.
   Based on the results, discuss what implications this would have for a real world system.
 ]
 
+There are some assumptions and corresponding limitations in the current implementation, which will be improved in future work. Firstly, we assumed that communication between robots was achieved instantly without delay
+
+
 #kristoffer[
   Talk about our simulation as an extendable tool/system to easily test various modifications to using different factorgraph configurations, for robot path planning
   - Extendable

@@ -84,9 +84,11 @@ The pose factor is a _anchoring_ factor, which means it imposes final constraint
 An anchoring factor as the pose factor is the simplest as message passing and inference isn't necessary here. Instead the factor essentially just overrides the prior distribution of the variable, and sets it to the known value.
 
 ==== Dynamic Factor $bold(f_d)$ <s.m.factors.dynamic-factor>
-The dynamic factor imposes the kinematic constraints on the robot. If one were to model a differential drive robot, it would take place here. For the purpose of this reproduction, the dynamic factor doesn't impose any strict non-holonomic constraints, but attempts to ensure a trajectory with smooth curvature and minimal jerk. This factor has a much more unsure default standard deviation, $sigma_d = 0.1$, which allows all variables between the first and last to move much more freely, which is key to the robots' ability to avoid each other and the environment.
+The dynamic factor imposes the kinematic constraints on the robot. If one were to model a differential drive robot, it would take place here. For the purpose of this reproduction, the dynamic factor doesn't impose any strict non-holonomic constraints, but attempts to ensure a trajectory with smooth curvature and minimal jerk. This factor has a much more unsure default standard deviation, $sigma_d = 0.1$, which allows all variables between the first and last to move much more freely, which is key to the robots' ability to avoid each other and the environment.It is derived from a noise-on-acceleration dynamics model, promoting a zero-acceleration, feasible, and smooth trajectory@Mukadam_2018.
 
-The dynamic factor Jacobian, $jacobian_d$, is defined in $RR^(4 times 8)$, as the factor connects two variables. This Jacobian is computed and cached when the factor is created, as it doesn't change during the inference process.
+
+The dynamic factor Jacobian, $jacobian_d$, is defined in $RR^(4 times 8)$, as the factor connects two variables.
+This Jacobian is computed and cached when the factor is created, as it doesn't change during the inference process.
 
 $
   #let ident = $bold(upright(I))$

@@ -24,7 +24,7 @@
 
 // Mathematically, the Hammersley-Clifford Theorom states that any positive joint distribution can be represented as a product of factors,
 
-A factor graph is a bipartite graph with undirected edges, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution , $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each clique#note.k[clique is more of human social term] of variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
+A factor graph is a bipartite graph with undirected edges, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution, $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each set of related variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
 
 $
   p(X) = product_{i} f_i (X_i)
