@@ -119,7 +119,7 @@
     lookahead-multiple: $3^*$,
   ),
   env: (
-    radius: $100m$,
+    radius: $50m$,
     r_r: $tilde.op cal(U)(2,3) m$,
     comms-radius: ${20, 40, ..., 80}m$,
     speed: $15m"/"s$,

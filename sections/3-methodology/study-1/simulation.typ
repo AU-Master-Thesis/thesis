@@ -74,7 +74,7 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
   caption: [Folder structure expected by the scenario loader module. Each scenario is a separate subfolder in the `./config/scenarios/` folder, with a `config.toml`, `environment.yaml` and `formation.yaml` in each.],
 ) <listing.scenario-folder-structure>
 
-#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour.]
+#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour. Once a desired set of parameters have been found they can effortlessly be saved to the scenarios 'config.toml' by pressing `Ctrl+S` or clicking on the `   ​ ​` button in the general section.]
 
 
 // ==== Swapping Scenarios <s.m.swapping>
@@ -197,7 +197,7 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
   #v(1em)
   #set par(first-line-indent: 0em)
   *Qualitative:*
-  - *Screenshot* of the simulation. The UI exposes a button, and a keybinding, default `Ctrl+S`, to take a screenshot of the viewport.
+  - *Screenshot* of the simulation. The UI exposes a button, and a keybinding, default `Ctrl+P`, to take a screenshot of the viewport.
 
   - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualise various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
 
