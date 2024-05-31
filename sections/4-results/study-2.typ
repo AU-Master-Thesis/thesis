@@ -2,7 +2,7 @@
 == #study.H-2.full.n <s.r.study-2>
 
 
-#todo[
+#k[
   Construct experiment that test the effect of varying the number of variables.
   Especially for sharp corners like 90 degree turns in the junction.
 ]

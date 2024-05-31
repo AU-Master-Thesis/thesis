@@ -74,8 +74,8 @@
 
 	\def\ifactors[#1] at (#2) id (#3) with style (#4, #5){
 			\def\fio{3.5 * \scale}
-			\node[factor node, xshift=-\fio, #4] (fi1#3) at (#2) {$f_i$};
-			\node[factor node, xshift=\fio, #5] (fi2#3) at (#2) {$f_i$};
+			\node[factor node, xshift=-\fio, yshift=\fio, #4] (fi1#3) at (#2) {$f_i$};
+			\node[factor node, xshift=\fio, yshift=-\fio, #5] (fi2#3) at (#2) {$f_i$};
 		}
 
 	\ifactors[] at (vb1) id (vb1) with style (robot one, robot two)

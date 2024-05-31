@@ -1,6 +1,6 @@
 #import "../../lib/mod.typ": *
 = Nomenclature <nomenclature>
-
+#jonas[Check this out]
 
 #par(first-line-indent: 0pt)[Some terminology and type setting used in this thesis may not be familiar to the reader, and are explained here for clarity.]
 

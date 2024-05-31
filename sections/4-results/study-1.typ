@@ -2,14 +2,14 @@
 // #jonas[Alright you can stop reading now. No more content at all.]
 // == Overskrift
 == #study.H-1.full.n <s.r.study-1>
-
+#jonas[all these results are new since last. We're working towards measuring ours and their code and then comparing their paper vs our code vs their code. Does that make sense? It will be obvious where we are still missing results]
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
 This sections presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
 
 === Circle <s.r.results.circle>
 
-For this scenario, similar to @gbpplanner, the #acr("LDJ") and _distance travelled_ metrics are presented, see @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled respectively. By comparing both figures to the corresponding ones of @gbpplanner (Fig. 4 and Fig. 5), it is evident that #acr("MAGICS") is unable to reproduce the results of the #acr("GBP") planner for $l_m=3,t_(K-1)=13.33s$.
+For this scenario, similar to @gbpplanner, the #acr("LDJ") and _distance travelled_ metrics are presented, see @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled respectively. By comparing both figures to the corresponding ones of @gbpplanner (Fig. 4 and Fig. 5), it is evident that #acr("MAGICS") is unable to reproduce the results of the #acr("GBP") planner for lookahead multiple, $l_m=3$, and time horizon, $t_(K-1)=13.33s$.
 
 #let handles = (
   (
@@ -47,20 +47,6 @@ For this scenario, similar to @gbpplanner, the #acr("LDJ") and _distance travell
 ]
 )<f.circle-experiment-ldj>
 
-#let lm3-th13 = (
-  s: text(theme.peach, $l_m=3,t_(K-1)=13.33s$),
-  n: $l_m=3,t_(K-1)=13.33s$
-)
-// #let lm1-th13 = text(theme.yellow, $l_m=1,t_(K-1)=13.33s$)
-// #let lm3-th5 = text(theme.lavender, $l_m=3,t_(K-1)=5s$)
-#let lm1-th13 = (
-  s: text(theme.yellow, $l_m=1,t_(K-1)=13.33s$),
-  n: $l_m=1,t_(K-1)=13.33s$
-)
-#let lm3-th5 = (
-  s: text(theme.lavender, $l_m=3,t_(K-1)=5s$),
-  n: $l_m=3,t_(K-1)=5s$
-)
 
 The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled, show that lowering the lookahead multiple to #text(theme.yellow, $l_m=1$), or lowering the time horizon to #text(theme.peach, $t_(K-1)=5s$) individually obtain results that are closer to those of @gbpplanner. The best possible results are acheived with #text(theme.lavender, $l_m=3,t_(K-1)=5s$).
 
@@ -101,7 +87,7 @@ The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-di
 ]
 
 #let body = [
-  The results of the _Environment Obstacles_ scenario are presented in @f.obstacle-experiment-makespan. The figure shows that the makespan for #lm3-th5.s is significantly lower than for the two runs with #text(gradient.linear(theme.yellow, theme.peach), $t_(K-1)=13.33s$). Furthermoe, the the makespan values for #lm3-th5.s are much closer to the corresponding values of @gbpplanner.
+  The results of the _Environment Obstacles_ scenario are presented in @f.obstacle-experiment-makespan. The figure shows that the makespan for #lm3-th5.s is significantly lower than for the two runs with #text(gradient.linear(theme.yellow, theme.peach), $t_(K-1)=13.33s$). Furthermore, the the makespan values for #lm3-th5.s are much closer to the corresponding values of @gbpplanner.
 ]
 
 #grid(
@@ -149,7 +135,7 @@ The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-di
 #let O1 = ours[*O-1*]
 #let O2 = ours[*O-2*]
 
-The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.network-experiment. From these numbers, the experiment with $r_C=20"m"$ did much worse than the other three $r_C in {40, 60, 80}$, where the change is very minimal in all three metrics.#note.j[Discussion: #sym.dash.en _if not negligible_.] In @t.network-experiment, results of 4 experiments are shown:
+The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.network-experiment. From these numbers, the experiment with communication range of 20 meters, $r_C=20"m"$, did much worse than the other three $r_C in {40, 60, 80}m$, where the change is very minimal in all three metrics.#note.j[Discussion: #sym.dash.en _if not negligible_.] In @t.network-experiment, results of 4 experiments are shown:
 
 #term-table(
   colors: (colors.theirs, colors.ours, colors.ours, colors.theirs),
@@ -230,8 +216,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 
 
 === Communications Failure <s.r.results.failure>
-
-
+#jens[results from ours and their code.]
 // Circle experiment: distribution of distances travelled as number of robots in the formation NR is varied. The GBP planner creates shorter paths and a smaller spread of distances than ORCA; robots collaborate to achieve their goals.
 
 // Circle experiment: distribution of the LDJ metric as NR increases, with smoother trajectories shown by more positive values. The worst performing GBP planning robots had smoother paths than the best robots for ORCA.
@@ -284,7 +269,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
   caption: [
     Values in the #text(red, [them]) column is taken from table 2 in @gbpplanner.
   ]
-)
+)<t.comms-failure-experiment>
 
 // THEIR CAPTION
 // shows that as γ increases, it takes longer for all robots to reach their goals. However, trajectories for the 10 m/s case are completely collision free up to γ = 80%. As the initial speed increases, collisions happen at lower values of γ as robots have less time to react to faster moving neighbours who they may not be receiving messages from. This experiment shows one of the benefits of GBP — safe trajectories can still be planned even with possible communication failures, which is likely in any realistic settings.

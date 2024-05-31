@@ -1,6 +1,6 @@
 #import "../../../lib/mod.typ": *
 === Algorithm <s.m.algorithm>
-
+#jonas[I do believe all this is new to you?]
 // This section should explain the GBP inference algorithm as it has been implemented in the simulation tool.
 
 // 1. Fixed update schedule
@@ -118,6 +118,6 @@ Through these steps the lifecycle of the interrobot factors has been allured to.
       let l2 = place(dy: -0.35em, line(length: 1em, stroke: (thickness: 2pt, paint: theme.surface0, dash: "dashed", cap: "round")))
       box(inset: (x: 2pt), outset: (y: 2pt), l1 + l2 + h(1.6em))
     }
-    Interrobot factor, $f_i$, lifecycle. On A) the two robots, #r.A and #r.B, are approaching each other, but not within communication range#comms. On B) both robots are within communication range, and interrobot factors are created symmetrically between #r.A and #r.B. On C) and D) one of the two robots' radio has failed, resulting in the corresponding interrobot factors being inactive. On E) the robots are no longer within communication range, and the interrobot factors are removed.
+    Interrobot factor, $f_i$, lifecycle. On A) the two robots, #r.A and #r.B, are approaching each other, but not within communication range#comms. On B) both robots are within communication range, and interrobot factors are created symmetrically between robots #r.A and #r.B. On C) and D) one of the two robots' radio has failed, resulting in the corresponding interrobot factors being inactive. On E) the robots are no longer within communication range, and the interrobot factors are removed.
   ]
 )<f.interrobot-lifecycle>

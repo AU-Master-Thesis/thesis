@@ -901,3 +901,19 @@
     }
   )
 }
+
+
+#let lm3-th13 = (
+  s: text(theme.peach, $l_m=3,t_(K-1)=13.33s$),
+  n: $l_m=3,t_(K-1)=13.33s$
+)
+// #let lm1-th13 = text(theme.yellow, $l_m=1,t_(K-1)=13.33s$)
+// #let lm3-th5 = text(theme.lavender, $l_m=3,t_(K-1)=5s$)
+#let lm1-th13 = (
+  s: text(theme.yellow, $l_m=1,t_(K-1)=13.33s$),
+  n: $l_m=1,t_(K-1)=13.33s$
+)
+#let lm3-th5 = (
+  s: text(theme.lavender, $l_m=3,t_(K-1)=5s$),
+  n: $l_m=3,t_(K-1)=5s$
+)

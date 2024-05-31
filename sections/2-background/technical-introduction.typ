@@ -28,7 +28,7 @@ $
   p(x) = 1/Z exp(-E(x))
 $<eq-exponential-energy>
 
-#jens[What does $Z$ and $E$ mean?]
+// #jens[What does $Z$ and $E$ mean?]
 
 // Then describe the two ways of representing Gaussian models in the exponential energy form
 // A Gaussian model can be written in two ways; the _moments form_ and the _canonical form_.

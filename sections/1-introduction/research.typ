@@ -35,7 +35,7 @@ This thesis poses the following four hypothesis:
 // Previous fourth hypothesis, merged with the first one
 // + Extensive tooling will create a great environment for others to understand the software and extend it further. Furthermore, such tooling will make it easier to reproduce and engage with the developed solution software.
 
-From this point on, anything pertaining to the context of #H(1) will be referred to as #study.H-1.full.s, #H(2) will be #study.H-2.full.s, #H(3) will be be covered by both #study.H-3.full.s, and will be #study.H-4.full.s.
+From this point on, anything pertaining to the context of #H(1) will be referred to as #study.H-1.full.s, #H(2) will be #study.H-2.full.s, #H(3) will be covered by #study.H-3.full.s.
 <marker.end-of-hypothesis>
 
 == Research Questions <intro-research-questions>

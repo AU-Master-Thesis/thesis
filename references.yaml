@@ -1138,3 +1138,34 @@ koller_2009:
     type: anthology
     title: 'Probabilistic {Graphical} {Models}: {Principles} and {Techniques}'
     publisher: MIT Press
+
+mit_industrial_2024:
+  type: misc
+  title: A new study measures the actual impact of robots on jobs. {It}’s significant. {|} {MIT} {Sloan}
+  date: 2024-05
+  url:
+    value: https://mitsloan.mit.edu/ideas-made-to-matter/a-new-study-measures-actual-impact-robots-jobs-its-significant
+    date: 2024-05-31
+  abstract: Industrial robots do reduce jobs and wages — especially for workers in the automotive industry and certain parts of the country.
+
+
+schwabe_automation_2020:
+  type: article
+  title: Automation, workers’ skills and job satisfaction
+  author:
+  - Schwabe, Henrik
+  - Castellacci, Fulvio
+  date: 2020-11
+  page-range: e242929
+  url:
+    value: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0242929
+    date: 2024-05-31
+  serial-number:
+    doi: 10.1371/journal.pone.0242929
+    issn: 1932-6203
+  abstract: When industrial robots are adopted by firms in a local labor market, some workers are displaced and become unemployed. Other workers that are not directly affected by automation may however fear that these new technologies might replace their working tasks in the future. This fear of a possible future replacement is important because it negatively affects workers’ job satisfaction at present. This paper studies the extent to which automation affects workers’ job satisfaction, and whether this effect differs for high- versus low-skilled workers. The empirical analysis uses microdata for several thousand workers in Norway from the Working Life Barometer survey for the period 2016–2019, combined with information on the introduction of industrial robots in Norway from the International Federation of Robotics. Our identification strategy exploits variation in the pace of introduction of industrial robots in Norwegian regions and industries since 2007 to instrument workers’ fear of replacement. The results indicate that automation in industrial firms in recent years have induced 40% of the workers that are currently in employment to fear that their work might be replaced by a smart machine in the future. Such fear of future replacement does negatively affect workers’ job satisfaction at present. This negative effect is driven by low-skilled workers, which are those carrying out routine-based tasks, and who are therefore more exposed to the risks of automation.
+  parent:
+    type: periodical
+    title: PLOS ONE
+    issue: 11
+    volume: 15

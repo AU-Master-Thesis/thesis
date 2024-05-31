@@ -1,6 +1,6 @@
 #import "../../../lib/mod.typ": *
 === Factor Graph <s.m.factor-graph>
-
+#jonas[I don't think you have seen all the maths stuff here. Does it make sense?]
 #jens[Make sure factor graph notation is consistent with background math notation.]
 
 This section describes how the factor graph theory is used in the developed software. Thus, detailing each factor used in the #acr("GBP") algorithm, as was also done in the original work@gbpplanner. As touched on in @s.b.factor-graphs, the factors are the components of the factor grah that introduces constraints between the variables.
@@ -164,6 +164,8 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
   ]
 
 )<f.m.obstacle-factor>
+
+#jonas[New figure here #sym.arrow.t]
 
 The default standard deviation, $sigma_o$, for this factor is $0.01$, which is an order of magnitude lower than for the dynamic factor. This means that the obstacle factors' influence is stronger than the dynamic factor, making sure that avoiding obstacles is prioritised as a stronger constraint.
 

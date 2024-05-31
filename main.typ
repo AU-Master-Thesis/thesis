@@ -151,7 +151,7 @@
       #set align(left)
       \
       Hi Jonas \
-      - Stuff
+      - I have once again left notes on all the new and exciting additions!
     ]
     #todo[Front page picture of intertwining robots.]
   ]),

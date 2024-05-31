@@ -1,11 +1,14 @@
 #import "../../lib/mod.typ": *
 == Future Work
 
+#todo[future work intro]
+
 
 === Verify simulation results in a Real World setup
+#k[do this]
 
 === Use ray casting instead of sampling an SDF image of the environment
-
+#jonas[If you have time you can quickly skim over these notes, and let us know which seem most relevant, and which make no sense?]
 #kristoffer[
   Obstacle/SDF node will not work if the environment is not static.
 ]

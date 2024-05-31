@@ -48,8 +48,9 @@ The environment for each experiment scenario is generated from an configuration 
 
 
 === ECS Integration <s.m.robot-mission>
+#jonas[this is new, please read]
 
-To extend the simulation to both handle local planners of fixed number of waypoints given as part of the formation description and global planners that find new waypoints during run-time.  A `Mission` component is created that is assigned to each robot entity. It abstracts away which strategy is used. Several systems run to monitor an update the component. For example a system checks each entity with a `Mission` component if they are within reach of their next waypoint. If they are the next waypoint or path planning task is scheduled, and once finished the new waypoints are extended into the mission. Another system checks for when the final waypoint has been reached, and then transition the robots state to being finished and sends a snapshot of the robots historical data to the exporting module.
+To extend the simulation to both handle local planners of fixed number of waypoints given as part of the formation description and global planners that find new waypoints during run-time.  A `Mission` component is created that is assigned to each robot entity. It abstracts away which strategy is used. Several systems monitor and an update the component individually, in order to maintain and update its state. For example a system checks each entity with a `Mission` component if they are within reach of their next waypoint. If they are the next waypoint or path planning task is scheduled, and once finished the new waypoints are extended into the mission. Another system checks for when the final waypoint has been reached, and then transition the robots state to being finished and sends a snapshot of the robots historical data to the exporting module.
 
 // The simulator is made capable of handling both local planners with a fixed number of waypoints and global planners that find new waypoints in real-time, a `Mission` component is created and assigned to each robot entity. This component abstracts the strategy used. Several systems run to monitor and update the component. For example, one system checks if each entity with a `Mission` component is within reach of its next waypoint. If it is, the next waypoint or path planning task is scheduled, and upon completion, new waypoints are added to the mission. Another system checks when the final waypoint is reached, transitions the robot's state to "finished," and sends a snapshot of the robot's historical data to the exporting module.
 
@@ -150,8 +151,10 @@ The steps to perform this approach is visualised in @f.m.waypoint-tracking, and 
 
 ==== Approach 2: Path Tracking <s.m.planning.path-tracking>
 
-To achieve a level of adherence to the path given to each robot, the  factor graph structure can be utilised. A new factor, namely the tracking factor, $f_t$, has been designed to reach this goal. The tracking factor is designed to attach to each variable in the prediction horizon, except for the first and last that already have anchoring pose factors, as these cannot be influenced either way. In @s.m.tracking-factor, the design of the tracking factor is explained in detail, while @f.m.tracking-factor visualises the inner working.
 
+To achieve a level of adherence to the path given to each robot, the  factor graph structure can be utilised. A new factor, namely the tracking factor, $f_t$, has been designed to reach this goal. The tracking factor is designed to attach to each variable in the prediction horizon, except for the first and last that already have anchoring pose factors, as these cannot be influenced either way. In @s.m.tracking-factor, the design of the tracking factor is explained in detail, while @f.m.tracking-factor visualises the inner workings. On @f.m.tracking-factor#text(accent, "A") an array of isolated variables with corresponding tracking factors are shown. These variables are spread over a path, with a likely trajectory, as if different timesteps for the same variable is show. Both on @f.m.tracking-factor#text(accent, "A") and @f.m.tracking-factor#text(accent, "B") it can be seen how the tracking factor measures perpendicularly onto the path and then pulled slightly forwards as well, where close to the corner; the tracking factor pulls towards the corner.
+
+#jonas[Is this better to describe the figure in text?]
 // #figure(
 //   {
 //     // set text(font: "JetBrainsMono NF", size: 0.85em)

@@ -3,6 +3,8 @@
 
 Our fork of gbpplanner @gbpplanner-fork
 
+#jonas[here you can skim over these notes, and let us know which seem most relevant, and which make no sense?]
+
 #todo[
   Discuss/critisize the way the horizon variable is updated. By always having it move along, it can end in situations where the robot stops up, cause it cannot arrive at a proper solution, but after some time the robot shoots away, due to the horizon variable moving to far away, thereby sort of overruring the effect of the other factors.
 ]
