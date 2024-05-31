@@ -1,7 +1,7 @@
 #import "../../lib/mod.typ": *
 == Future Work
 
-#todo[future work intro]
+The following sections outline the most important next steps in order to further the work presented by this thesis. The suggestions are based on the idea of what the authors see as the most promising directions for future research, and what would be most beneficial for the field of multi-robot path planning; see sections #todo[refer to sections here]. Additionally, some future work in terms of the implementation of the #acr("MAGICS") tool is also discussed, see sections #todo[refer to sections here].
 
 
 === Verify simulation results in a Real World setup

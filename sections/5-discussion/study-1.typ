@@ -13,11 +13,11 @@
 // 6. Something about the reproducibility of established results, answering the sixth part of the hypothesis.
 // 6.1. Talk about how the results of their paper seems magical, where the results obtainable by their release code is similar to that of ours, so either something has not been explained properly in the paper, or the results are not reproducible.
 
-#todo[intro to the seubsections]
+In this section all contributions of the #acr("MAGICS") simulator are discussed. Furthermore, the simulator's capabilities are compared to the original #gbpplanner paper@gbpplanner, and the provided `gbpplanner` code@gbpplanner-code. The discussion is structured in such a way that it deliberates how effectively the first hypothesis, #study.H-1.box, has been addressed. The discussion is divided into two parts; #nameref(<s.d.simulator>, "On The Simulator MAGICS") and #nameref(<s.d.reproducibility>, "On The Reproducibility").
 
 
 // 1, 2, 3:
-=== On The Simulator MAGICS
+=== On The Simulator MAGICS <s.d.simulator>
 
 #jonas[I have tried writing about the simulator pbjectively here. Does it work?]
 
@@ -64,7 +64,7 @@ First of all the simulation framework developed, #acr("MAGICS"), is very capable
 // leans closer to something like VDM, where logical constraints and system specifications can be written in a more formal way
 Due to Rusts nature#note.k[focus on something about the purpose of rust], it is a language that emulates modelling languages to a certain estent, where code quickly becomes very imperative and messy, modelling languages like VDM, tend towards a declarative style of simply writing out system specifications in a rigorous and formal way. Although Rust is not a modelling languages, it has a very strong typing system, and many logical constraints can be imposed in a meta-programming kind of approach. These features come in very handy when developing a large system like #acr("MAGICS"), where many different parts of the system need to interact in a very specific way.
 
-=== On The Reproducibility
+=== On The Reproducibility <s.d.reproducibility>
 
 #jonas[Read this, however, all the results it is talking about are not yet visualised, and the some of the orange sections here with an Attention#note.a[] box are a bit unsure, but should hopefully hold. Do let us know whether these arguments are too harsh, or seem butthurt, cause even though we are, we don't want that reflected in the report.]
 
