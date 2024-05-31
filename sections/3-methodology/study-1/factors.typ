@@ -205,6 +205,8 @@ $<eq.jacobian-i>
 
 Where $r$ is the robot's radius, $d_s$ is the safety distance, $p_1$ and $p_2$ are the positions of the two variables.
 
+#todo[insert screenshot here, from sim similar to obstacle factor]
+
 
 
 

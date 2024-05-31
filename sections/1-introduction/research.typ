@@ -28,7 +28,7 @@ This thesis poses the following three hypothesis:
 // + The original work can be improved without transforming it. Specifically, these improvements include testing different #acr("GBP") iteration schedules, and taking minor steps towards a more distributed approach.
 
 // Updated with Jonas feedback
-+ The original work can enhacned through specific modifications without interfering with the original work's functionality. Specifically, we introduce and rigorously test various GBP iteration schedules, and strategically enhance the system by advancing towards a more distributed approach. These targeted improvements are expected to optimize flexibility and move towards a closer-to-reality system.
++ The original work can be enhanced through specific modifications without interfering with the original work's functionality. Specifically, we introduce and rigorously test various GBP iteration schedules, and strategically enhance the system by advancing towards a more distributed approach. These targeted improvements are expected to optimize flexibility and move towards a closer-to-reality system.
 
 + Extending the original #acr("GBP") Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance. Furthermore, to this end, a new type of factor can be added to the #acr("GBP") factor graphs to aid in path-following.
 
