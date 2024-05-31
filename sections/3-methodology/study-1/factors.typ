@@ -156,6 +156,7 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
     grid(
       columns: 2,
       scale(x: s, y: s, image("../../../figures/img/obstacle-factors-example-with-variables.png")),
+      // scale(x: s, y: s, image("../../../figures/img/obstacle-factors-example-with-variables-transparent.png")),
       scale(x: s, y: s, image("../../../figures/img/obstacle-factors-example-only-sdf.png")),
     )
   ),
@@ -165,7 +166,7 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
 
 )<f.m.obstacle-factor>
 
-#jonas[New figure here #sym.arrow.t]
+// #jonas[New figure here #sym.arrow.t]
 
 The default standard deviation, $sigma_o$, for this factor is $0.01$, which is an order of magnitude lower than for the dynamic factor. This means that the obstacle factors' influence is stronger than the dynamic factor, making sure that avoiding obstacles is prioritised as a stronger constraint.
 
@@ -198,6 +199,8 @@ $
 $<eq.jacobian-i>
 
 Where $r$ is the robot's radius, $d_s$ is the safety distance, $p_1$ and $p_2$ are the positions of the two variables.
+
+#todo[insert screenshot here, from sim similar to obstacle factor]
 
 
 
