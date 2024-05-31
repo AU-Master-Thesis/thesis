@@ -370,7 +370,7 @@
     let chars = state("total-characters").final(loc) + words * 0.8
     let normal-pages = chars / 2400
 
-    let total-pages = 100
+    let total-pages = 80
     let people = 2
 
     let total-days = important-datetimes.project.end - important-datetimes.project.start
@@ -407,10 +407,16 @@
 
     grid(
       column-gutter: 0pt,
+      columns: (1fr, auto),
+      row-gutter: 5pt,
+      text(colors.complete, [#repr(progress) (#calc.round(normal-pages, digits: 2) pages)]), text(colors.incomplete, [#repr(progress-left) (#calc.round(total-pages - normal-pages, digits: 2) pages)]),
+    )
+    v(-0.75em)
+    grid(
+      column-gutter: 0pt,
       columns: (progress, auto),
       row-gutter: 5pt,
-      text(colors.complete, [#repr(progress) (#calc.round(normal-pages, digits: 2) pages)]),
-      text(colors.incomplete, [#repr(progress-left) (#calc.round(total-pages - normal-pages, digits: 2) pages)]),
+
       box(height: 1em, width: 100%, fill: colors.complete),
       box(height: 1em, width: 100%, fill: colors.incomplete),
     )

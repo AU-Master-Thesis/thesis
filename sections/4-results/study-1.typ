@@ -214,13 +214,14 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 #let qouts = (0.0, 0.508, 1.0, 1.5199999999999998, 2.0, 2.5, 3.0, 3.5, 3.9760000000000004, 4.476, 4.948, 5.452, 5.964, 6.408000000000001, 6.555999999999999)
 #figure(
   {
+    let header-columns = (0,)
     tablec(
       columns: (auto,) + range(qins.len()).map(_ => 1fr),
       align: center + horizon,
-      fill: (x, y) => if calc.even(x) { theme.mantle } else { theme.base },
-      // $Q_"in"$,
+      fill: (x, y) => if x in header-columns { theme.lavender.lighten(30%) } else if calc.even(x) { theme.base } else { theme.mantle },
+      $Q_"in"$,
       ..qins.map(qin => [$#qin$]),
-      // $Q_"out"$,
+      $Q_"out"$,
       ..qouts.map(qout => [$#strfmt("{0:.2}", qout)$]),
     )
   },

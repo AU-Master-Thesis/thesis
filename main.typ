@@ -223,6 +223,7 @@
 } else {
   set-margin-note-defaults(hidden: false)
 }
+#show: word-count
 
 // Pre-introduction
 #set heading(numbering: none)
@@ -249,7 +250,6 @@
 #v(1em)
 #toc-printer(target: heading.where(numbering: none).after(<appendix>))
 
-#show: word-count
 #stats()
 
 // Report

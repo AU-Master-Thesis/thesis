@@ -33,10 +33,10 @@
 #let tablec(
   title: none,
   columns: none,
-  header: none,
+  header: auto,
   alignment: auto,
   stroke: none,
-  header-color: catppuccin.latte.lavender.lighten(50%),
+  header-color: catppuccin.latte.lavender.lighten(30%),
   even-color: catppuccin.latte.mantle,
   odd-color: catppuccin.latte.base,
   fill: auto,
@@ -52,7 +52,7 @@
 
   let header-rows = (-1, )
 
-  if header != none {
+  if header != auto {
     let cells-in-header = header.children.map(it => {
       let internal-len = 0
 
@@ -98,15 +98,18 @@
     fill
   }
 
+  let c = (header, ..content.pos()).slice(if header == auto {1} else {0}, content.pos().len() + 1)
+
   cut-block(
     table(
       columns: columns,
       align: alignment,
       stroke: stroke,
-      header,
       fill: f,
       gutter: -1pt,
-      ..content
+      ..c
+      // header,
+      // ..content
     )
   )
 }
