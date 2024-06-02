@@ -123,9 +123,9 @@ All four metrics clearly shows that a large $M_R$ when $M_I in [1,2]$ is severel
 // - exponentially more
 //
 // performs significantly poorer than any of the other combinations. As both $M_I$ and $M_R$ increase each metric quickly converges toward an optimum plateau, from which no further increase appears to result in an improvement. Across all metrics performance is generally suboptimal when $M_I = 1 and M_R > 1$ or $M_I > 1 and M_R$. Although for $M_I in  {5, 13, 21} and M_R = 1 or M_I = 1 and M_R = {5, 13, 21}$ no drawback appears. \
-// Both the distance travelled metric and finished at difference contains noticeable outliers at $M_I = 8 and M_R = 1$ and $M_I = 3 and M_R = 1$ respectively. Contrary to both the #acr("LDJ") and makespan 
+// Both the distance travelled metric and finished at difference contains noticeable outliers at $M_I = 8 and M_R = 1$ and $M_I = 3 and M_R = 1$ respectively. Contrary to both the #acr("LDJ") and makespan
 //
-// Although for the #acr("LDJ"), makespan and finished at difference, $5, 13, 21$ 
+// Although for the #acr("LDJ"), makespan and finished at difference, $5, 13, 21$
 //
 // #line(length: 100%, stroke: 1em + red)
 //
@@ -139,7 +139,7 @@ All four metrics clearly shows that a large $M_R$ when $M_I in [1,2]$ is severel
 // Across all metrics, lower values of external iterations ($M_R$) consistently lead to poorer performance.
 // Increasing internal iterations ($M_I$) generally enhances performance, but optimal results are achieved with a combination of higher values for both $M_I$ and $M_R$.
 //
-// A first observation is that the 
+// A first observation is that the
 
 
 
@@ -189,4 +189,3 @@ All four metrics clearly shows that a large $M_R$ when $M_I in [1,2]$ is severel
     Results of varying internal iteration $M_I$ and external $M_R$ split across four metrics: #acr("LDJ"), makespan, distance travelled, and largest time difference. Each metric is plotted as a 2D histogram with the $x$ and $y$-axis being $M_I$ and $M_R$ respectively. The gradient colors are chosen such that the peach colored end of the spectrum are cells #cell(theme.peach) which performed poorly for that metric. While lavender #cell(theme.lavender) indicates cells with good metric values.
   ]
 ) <f.iteration-amount-plots>
-
