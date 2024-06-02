@@ -21,6 +21,14 @@ The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len(
 
 + _*Collaborative Global Planning:*_ This scenario is similar to #boxed(color: colors.ours, [*SO-1*]), but with many robots. Several spawning locations are possible, where each individual robot get a task to traverse the complex environment. The purpose of this scenario is to test the interactivity between the tracking factors and the interrobot factors, $f_i$.
 
+#todo[
+  Iteration Amount
+
+  And
+
+  Schedules
+]
+
 // + _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
 
 // In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
