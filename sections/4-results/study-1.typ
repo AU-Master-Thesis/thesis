@@ -166,7 +166,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 #figure(
   tablec(
     columns: (auto,) + range(12).map(_ => 1fr),
-    align: center + horizon,
+    alignment: center + horizon,
     header-color: (fill: theme.base, text: theme.text),
     header: table.header(
       tc(rowspan: 2, [$r_C$\ \[$m$\]]), tc(colspan: 4, [MS \[$s$\]]), tc(colspan: 4, [D \[$m$\]]), tc(colspan: 4, [LDJ \[$m"/"s^3$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
@@ -211,7 +211,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
     let header-columns = (0,)
     tablec(
       columns: (auto,) + range(qins.len()).map(_ => 1fr),
-      align: center + horizon,
+      alignment: center + horizon,
       fill: (x, y) => if x in header-columns { theme.lavender.lighten(30%) } else if calc.even(x) { theme.base } else { theme.mantle },
       $Q_"in"$,
       ..qins.map(qin => [$#qin$]),

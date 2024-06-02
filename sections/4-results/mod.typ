@@ -29,7 +29,7 @@ This section details the experiments conducted to test the hypotheses outlined i
       }
       tablec(
         columns: 2,
-        align: (left, left),
+        alignment: (left, left),
         header: table.header(
           [Type], [Component]
         ),

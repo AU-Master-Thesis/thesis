@@ -96,6 +96,7 @@ Some of the sections in the settings panel are off-screen in @f.m.simulation-too
 
 Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios. Each scenario is loaded from disk by the scenario loader module by reading through the folder `./config/scenarios/`#footnote[The default, but can be changed using the `--scenario-dir <DIR>` flag when starting the simulator] for every folder with the three different configuration files in them. As seen in @listing.scenario-folder-structure. This makes it uncomplicated to work on multiple scenarios at once, and share them with others.
 
+// 📂
 #listing([
   ```text
   ./config/scenarios/
@@ -175,7 +176,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
 #figure(
   tablec(
     columns: 2,
-    align: left,
+    alignment: left,
     header: table.header(
       [Settings], [Description]
     ),

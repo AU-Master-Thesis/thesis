@@ -133,7 +133,7 @@ The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, 
       v(1.5em)
       tablec(
         columns: (auto, 1fr, auto),
-        align: (left, left, left),
+        alignment: (left, left, left),
         header: table.header(
           [Shape], [Parameters], [Symbols]
         ),

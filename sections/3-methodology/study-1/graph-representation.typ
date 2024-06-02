@@ -131,7 +131,7 @@ _petgraph_ supports the following five types of graph representation; `Graph`, `
       tablec(
         // columns: (1fr, 3fr, 1fr, 1fr, 1fr, 1fr),
         columns: 7,
-        align: (left, left, center, center, center, center, center),
+        alignment: (left, left, center, center, center, center, center),
         header: table.header([Name], [Description], [Space Complexity], [Backing Vertex Structure], [D], [SI], [HV]),
         [`Graph`], [Uses an _Adjacency List_ to store vertices.], [$O(|E| + |V|)$], [`Vec<N>`], [#yes], [#no], [#no],
         [`StableGraph`], [Similar to `Graph`, but it keeps indices stable across removals.], [$O(|E| + |V|)$], [`Vec<N>`],[#yes], [#yes], [#no],
