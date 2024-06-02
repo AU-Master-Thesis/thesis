@@ -10,19 +10,102 @@
 
 === Schedules
 
+// interleave evenly
+// soon as possible
+// late as possible
+// half at beginning, half at end
+// centered
+
+#let handles = (
+  (
+    label: [*Centered*],
+    color: theme.mauve,
+    alpha: 0%,
+    space: 1em,
+  ),
+  (
+    label: [*Half Start, Half End*],
+    color: theme.maroon,
+    alpha: 0%,
+    space: 1em,
+  ),
+  (
+    label: [*Interleave Evenly*],
+    color: theme.yellow,
+    alpha: 0%,
+    space: 1em,
+  ),
+  (
+    label: [*Late as Possible*],
+    color: theme.teal,
+    alpha: 0%,
+    space: 1em,
+  ),
+  (
+    label: [*Soon as Possible*],
+    color: theme.lavender,
+    alpha: 0%,
+    space: 0em,
+  ),
+)
+
+#let schedules-legend = legend(
+  handles,
+  direction: ttb,
+  fill: theme.base
+)
+
 #figure(
-  image("../../figures/plots/schedules-experiment-ldj.svg"),
+  grid(
+    columns: 2,
+    align: horizon,
+    block(
+      clip: true,
+      pad(
+        x: -3mm,
+        y: -3mm,
+        image("../../figures/plots/schedules-experiment-ldj.svg"),
+      ),
+    ),
+    schedules-legend
+  ),
   caption: [ldj]
 )
 
 
 #figure(
-  image("../../figures/plots/schedules-experiment-makespan.svg"),
+  // image("../../figures/plots/schedules-experiment-makespan.svg"),
+  grid(
+    columns: 2,
+    align: horizon,
+    block(
+      clip: true,
+      pad(
+        x: -3mm,
+        y: -3mm,
+        image("../../figures/plots/schedules-experiment-makespan.svg"),
+      ),
+    ),
+    schedules-legend
+  ),
   caption: [makespan]
 )
 
 #figure(
-  image("../../figures/plots/schedules-experiment-distance-travelled.svg"),
+  // image("../../figures/plots/schedules-experiment-distance-travelled.svg"),
+  grid(
+    columns: 2,
+    align: horizon,
+    block(
+      clip: true,
+      pad(
+        x: -3mm,
+        y: -3mm,
+        image("../../figures/plots/schedules-experiment-distance-travelled.svg"),
+      ),
+    ),
+    schedules-legend
+  ),
   caption: [distance travelled]
 )
 
@@ -30,26 +113,45 @@
 
 === Iteration Amount
 
+#let cropping = -4mm
 #figure(
-  image("../../figures/plots/iteration-amount-average-ldj.svg"),
-  caption: [ldj]
-)
-
-
-#figure(
-  image("../../figures/plots/iteration-amount-average-makespan.svg"),
-  caption: [makespan]
-)
-
-
-#figure(
-  image("../../figures/plots/iteration-amount-average-distance-travelled.svg"),
-  caption: [distance travelled]
-)
-
-#figure(
-  image("../../figures/plots/iteration-amount-largest-time-differense.svg"),
-  caption: [distance travelled]
+  grid(
+    columns: 2,
+    align: center + horizon,
+    block(
+      clip: true,
+      pad(
+        x: cropping,
+        y: cropping,
+        image("../../figures/plots/iteration-amount-average-ldj.svg"),
+      ),
+    ),
+    block(
+      clip: true,
+      pad(
+        x: cropping,
+        y: cropping,
+        image("../../figures/plots/iteration-amount-average-makespan.svg"),
+      ),
+    ),
+    block(
+      clip: true,
+      pad(
+        x: cropping,
+        y: cropping,
+        image("../../figures/plots/iteration-amount-average-distance-travelled.svg"),
+      ),
+    ),
+    block(
+      clip: true,
+      pad(
+        x: cropping,
+        y: cropping,
+        image("../../figures/plots/iteration-amount-largest-time-differense.svg"),
+      ),
+    ),
+  ),
+  caption: [ldj, makespand, distance travelled, finished $Delta t$]
 )
 
 

@@ -6,6 +6,7 @@ The results for the two scenarios; #scen.solo-gp.n and #scen.collaborative-gp.n,
 === Solo Global Planning <s.r.study-3.solo-global>
 
 The results of the #scen.solo-gp.n scenario are shown as box plots in @f.solo-box, which clearly shows a reduction in path deviation when the tracking factor is used. The mean path deviation#h(1fr)error#h(1fr)is#h(1fr)reduced#h(1fr)from#h(1fr)1.03#h(1fr)to#h(1fr)0.74#h(1fr)when#h(1fr)the#h(1fr)tracking#h(1fr)factor#h(1fr)is#h(1fr)enabled,#h(1fr)which#h(1fr)is#h(1fr)a
+#v(-0.65em)
 
 #let body = [
   // The path adherence is shown in @f.solo-plot, and @f.solo-box, where we can see how the tracking factor has lowered the path-deviation error across the board.

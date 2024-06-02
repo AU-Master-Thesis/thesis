@@ -882,11 +882,11 @@
 // }
 
 
-#let legend(handles, direction: ltr) = {
+#let legend(handles, direction: ltr, fill: white.transparentize(25%)) = {
   std-block(
     width: auto,
     // fill: theme.base.transparentize(100%),
-    fill: white.transparentize(25%),
+    fill: fill,
     // stroke:
     {
       set align(left)
@@ -941,3 +941,26 @@
 
 #let solo-gp-mean-decrease = (1 - 0.74 / 1.03) * 100
 #let collaborative-gp-mean-decrease = (1 - 0.86 / 1.00) * 100
+
+#let crop(
+  left: 0pt,
+  top: 0pt,
+  right: 0pt,
+  bottom: 0pt,
+  x: 0pt,
+  y: 0pt,
+  rest: 0pt,
+  body,
+) = block(
+  clip: true,
+  pad(
+    left: left,
+    top: top,
+    right: right,
+    bottom: bottom,
+    x: x,
+    y: y,
+    rest: rest,
+    body,
+  )
+)

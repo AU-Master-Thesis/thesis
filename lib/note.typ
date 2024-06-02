@@ -3,11 +3,12 @@
 
 #let note-gen(note, c: color.red, scope: "") = {
   let note = [
-    #text(c, scope)
-    #text(size: 10pt, note)
-    // #note
+    #set text(size: 8pt)
+    #set par(justify: false)
+    #text(c, scope) \
+    // #line(length: 100%, stroke: c + 0.5pt)
+    #note
   ]
-
   margin-note(side: left, stroke: c + 1pt, note)
 }
 

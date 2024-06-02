@@ -61,7 +61,7 @@ The factor graph is a generalisation of constraint graphs, and can represent any
 
 #figure(
   image("../../figures/out/robot-factor-graph.svg", width: 60%),
-  caption: [Here shown are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in red#sr, #text(theme.maroon, $n$) times-steps into the future, #text(theme.maroon, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.],
+  caption: [Shown here are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in red#sr, #text(theme.maroon, $n$) times-steps into the future, #text(theme.maroon, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.#note.jo[This figure has been changed to be viable in black/white as we talked about]],
 )<fig-robot-factor-graph>
 
 // Below is factor graph notions in terms of the multi-agent robotic system we have developed

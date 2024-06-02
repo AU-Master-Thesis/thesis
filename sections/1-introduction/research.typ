@@ -65,13 +65,9 @@ This section outlines which research questions will have to be answered to reach
   // === Study 3
   #study.H-3.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
   #set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal))
-  + Will global planning improve the actors' capability to move in complex environments?
+  + Will global planning improve the actors' capability to move autonomously in complex environments?
   + Will global planning degrade the existing local cooperative collision avoidance?
   + What impact will the global planning layer have on performance?
-
-  // === Study 4
-  #study.H-4.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-3", weight: 900):
-  #set enum(numbering: req-enum.with(prefix: "RQ-3.", color: theme.teal), start: 4)
   + Is it possible to introduce a new type of factor that can aid in path-following?
   + What impact will this factor have on the existing behaviour of the actors, importantly; will it degrade their ability to collaborate and avoid collisions - both with each other and the environment?
   + What will the impact of this factor be on the actors' capability to move in complex environments?
@@ -140,16 +136,16 @@ To answer each research question, a set of objectives will have to be met. The o
     #set enum(numbering: req-enum.with(prefix: "O-3.2.", color: theme.green))
     + Compare the four metrics: distance travelled, makespan, smoothness, and collision count of the reimplemented reproduction with and without the global planning layer.
 
-    /// Study 4
-    #(study.heading)(study.H-4.full.n)
-    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.1", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-4.1.", color: theme.green))
+    // /// Study 4
+    // #(study.heading)(study.H-4.full.n)
+    *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.4", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-3.4.", color: theme.green))
     + Implement a new type of factor that can aid in path-following.
     + Make the factor interact with the path given to the actors.
     + Design the factor's measurement function, Jacobian.
 
-    *Objectives for _Research Questions_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.2", weight: 900) and #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-4.3", weight: 900):*
-    #set enum(numbering: req-enum.with(prefix: "O-4.2.", color: theme.green))
+    *Objectives for _Research Questions_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.5", weight: 900) and #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.6", weight: 900):*
+    #set enum(numbering: req-enum.with(prefix: "O-3.5.", color: theme.green))
     + Measure the impact on the #att[four metrics: distance travelled, makespan, smoothness, and collision count].
     + Evaluate the impact of the new factor on the actors' behaviour.
   ]
@@ -157,3 +153,4 @@ To answer each research question, a set of objectives will have to be met. The o
 
 // #todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
 #jens[make figure that shows the connection of all these, including outlining which parts are which study.]
+#jens[Fix the objective numbering]
