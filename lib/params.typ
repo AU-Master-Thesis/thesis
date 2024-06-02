@@ -290,7 +290,7 @@
   ),
 )
 
-#let internals = fib(10).slice(2)
+#let internals = fib(11).slice(2)
 #let externals = internals
 
 #let iteration-amount = (
