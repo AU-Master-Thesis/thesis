@@ -60,11 +60,3 @@ This section details the experiments conducted to test the hypotheses outlined i
 #include "./study-1.typ"
 #include "./study-2.typ"
 #include "./study-3.typ"
-
-
-#kristoffer[
-  show screenshots side by side of different elements of the simulation from theirs and ours,
-  e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
-
-  use this to argue on a non-measurable level why our implementation has is similar to theirs / has been reproduced
-]

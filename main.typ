@@ -1,7 +1,14 @@
 #import "lib/mod.typ": *
 #import "template.typ": *
 
+#set raw(theme: "catppuccin.tmTheme")
 #show figure.where(kind: raw): set block(breakable: true)
+// #show raw : it => text(font: "JetBrainsMono NF", catppuccin.latte.text, it)
+
+#show raw: it => {
+  text(fill: theme.text, it)
+}
+// #show figure.where(kind: raw): set text(theme.text)
 
 #show raw.where(block: false): (it) => {
   set text(catppuccin.latte.text, font: "JetBrainsMono NF", size: 1em)
@@ -10,6 +17,12 @@
     it,
   )
 }
+
+// #show raw.where(lang: "text"): (it) => {
+//     // set text(catppuccin.latte.text, font: "JetBrainsMono NF", size: 1em)
+//     show regex("/") : all => text(theme.lavender, all)
+//     [#it]
+// }
 
 #show footnote : it => {
   set text(accent)

@@ -16,35 +16,74 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
   std-block[
     #set text(theme.text)
-    #show table.cell : it => {
-      if it.x == 0 {
-        set text(theme.lavender)
-        it
+    #{
+      show table.cell : it => {
+        if it.x == 1 {
+          set text(theme.peach)
+          it
+        } else {
+          it
+        }
       }
-      else {
-        set text(theme.maroon)
-        it
-      }
-    }
 
-    #image("../../../figures/img/simulator-overview.png")
+      table(
+        columns: (31.2%, 26%, 1fr),
+        row-gutter: -0.5em,
+        column-gutter: -1em,
+        stroke: none,
+        [], panel.metrics, [],
+        [],
+        layout(size => {
+          $overbrace(#h(size.width))$
+        }),
+        []
+      )
+    }
+    #v(-1.5em)
+
+    #block(
+      clip: true,
+      pad(
+        x: -0.2mm,
+        y: -0.2mm,
+        image("../../../figures/img/magics-all-panels-latte.png")
+      )
+    )
     // #image("../../../figures/img/tool-settings-latte.png")
     #v(-2em)
-    #table(
-      columns: (1fr, 31.2%),
-      row-gutter: 0em,
-      column-gutter: -1em,
-      stroke: none,
-      layout(size => {
-        $underbrace(#h(size.width))$
-      }),
-      layout(size => {
-        $underbrace(#h(size.width))$
-      }),
-      panel.viewport, panel.settings
-    )
+    #{
+      show table.cell : it => {
+        if it.x == 0 {
+          set text(theme.green)
+          it
+        }
+        else if it.x == 1 {
+          set text(theme.lavender)
+          it
+        } else {
+          set text(theme.maroon)
+          it
+        }
+      }
+      table(
+        columns: (31.2%, 1fr, 32.2%),
+        row-gutter: 0em,
+        column-gutter: -1em,
+        stroke: none,
+        layout(size => {
+          $underbrace(#h(size.width))$
+        }),
+        layout(size => {
+          $underbrace(#h(size.width))$
+        }),
+        layout(size => {
+          $underbrace(#h(size.width))$
+        }),
+        panel.bindings, panel.viewport, panel.settings,
+      )
+    }
   ],
-  caption: [Screenshot of the simulation tool with the #panel.settings open. On the left hand side, the #panel.viewport is shown. The settings panel is scrollable, hence only a part of it is is visible here.#note.a[intentionally zoom a lot to make it readable]],
+  caption: [Screenshot of the #acr("MAGICS") with the #panel.settings, #panel.bindings, and #panel.metrics open at the same time. In the middle, the #panel.viewport is shown. The #panel.settings and #panel.bindings are scrollable, hence only a part of them are visible here.],
 )<f.m.simulation-tool>
 
 ==== Live Configuration <s.m.settings>
@@ -53,28 +92,28 @@ Most of the configurable settings described in #nameref(<s.m.configuration>, "Co
 Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The notable sections are described in the following sections.
 
 ==== Hot Loading Scenarios <s.m.hot-loading>
-#jonas[New content here with the folder structure and such]
+// #jonas[New content here with the folder structure and such]
 
 Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios. Each scenario is loaded from disk by the scenario loader module by reading through the folder `./config/scenarios/`#footnote[The default, but can be changed using the `--scenario-dir <DIR>` flag when starting the simulator] for every folder with the three different configuration files in them. As seen in @listing.scenario-folder-structure. This makes it uncomplicated to work on multiple scenarios at once, and share them with others.
 
 #listing([
   ```text
-./config/scenarios/
-├── 'Circle Experiment'
-│  ├── config.toml
-│  ├── environment.yaml
-│  └── formation.yaml
-├── 'Communications Failure Experiment'
-│  ├── config.toml
-│  ├── environment.yaml
-│  └── formation.yaml
-│ ...
+  ./config/scenarios/
+  ├── 'Circle Experiment'
+  │  ├── config.toml
+  │  ├── environment.yaml
+  │  └── formation.yaml
+  ├── 'Communications Failure Experiment'
+  │  ├── config.toml
+  │  ├── environment.yaml
+  │  └── formation.yaml
+  │ ...
   ```
 ],
   caption: [Folder structure expected by the scenario loader module. Each scenario is a separate subfolder in the `./config/scenarios/` folder, with a `config.toml`, `environment.yaml` and `formation.yaml` in each.],
 ) <listing.scenario-folder-structure>
 
-#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour. Once a desired set of parameters have been found they can effortlessly be saved to the scenarios 'config.toml' by pressing `Ctrl+S` or clicking on the `   ​ ​` button in the general section.]
+#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour. Once a desired set of parameters have been found they can effortlessly be saved to the scenarios 'config.toml' by pressing `Ctrl+S` or clicking on the `   ​ ​​​​` button in the general section.]
 
 
 // ==== Swapping Scenarios <s.m.swapping>

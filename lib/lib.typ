@@ -67,14 +67,14 @@
 #let sourcecode = sourcecode.with(frame: std-block, numbers-style: (lno) => move(dy: 1pt, text(
   font: "JetBrainsMono NF",
   size: 0.75em,
-  catppuccin.latte.overlay0.lighten(50%),
+  catppuccin.latte.overlay0,
   lno,
 )))
 
 #let sourcefile = sourcefile.with(frame: std-block, numbers-style: (lno) => move(dy: 1pt, text(
   font: "JetBrainsMono NF",
   size: 0.75em,
-  catppuccin.latte.overlay0.lighten(50%),
+  catppuccin.latte.overlay0,
   lno,
 )))
 
@@ -922,7 +922,7 @@
 
 #let inline-line(
   length: 1em,
-  stroke: theme.lavender + 2pt
+  stroke: (paint: theme.lavender, thickness: 2pt, cap: "round")
 ) = box(
   line(
     length: length,

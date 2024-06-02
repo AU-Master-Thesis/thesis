@@ -187,9 +187,20 @@ In this scenario a complex, maze-like environment has been constructed#footnote[
 // The tracking factor $f_t$ is set to $0.5$ to test the impact of the tracking factor on a single robot in a complex environment.
 
 #figure(
-  std-block(todo[Screen of environment after global planning]),
+  // std-block(todo[Screen of environment after global planning]),
+  std-block(
+    width: 80%,
+    block(
+      clip: true,
+      pad(
+        x: -8mm,
+        y: -0.2mm,
+        image("../../figures/img/solo-gp.png")
+      )
+    )
+  ),
   caption: [
-    Screenshot of the complex maze-like environment. The robot#sr has just spawned in the bottom-left corner, and its #acr("RRT*") pathfinding has just finished. The path it is expected to take is shown as a faint red line #inline-line(stroke: theme.maroon.lighten(50%) + 3pt) across the corridors of the map. Here the tracking factors have been enabled.
+    Screenshot of the complex maze-like environment. The robot#sg has just spawned in the bottom-left corner, and its #acr("RRT*") pathfinding has just finished. The path it is expected to take is shown as a faint red line #inline-line(stroke: theme.green.lighten(50%) + 2pt) across the corridors of the map. Here the tracking factors have been enabled.
   ]
 )<f.scenarios.solo-gp>
 
@@ -200,8 +211,19 @@ In this scenario a complex, maze-like environment has been constructed#footnote[
 Here, the same complex environment as in the #scen.solo-gp.n scenario is used. However, instead of a single robot, multiple robots are spawned in different locations across the environment. That means the `formation.yaml`#footnote[#jens[source-link to formation file]] file is significantly more detailed. Specifically there are four spawning location, one in each corner; where each robot is tasked with reaching the opposite corner. Each robot is, once again, equipped with a #acr("RRT*") pathfinding component, which will compute a collision free path in terms of the static environment. @f.scenarios.collaborative-gp shows a screenshot of the simulation in progress, where multiple robots are using the waypoint tracking approach, as described in @s.m.planning.waypoint-tracking. #todo[mention parameters table.]
 
 #figure(
-  std-block(todo[image of many robots driving in the maze]),
-  caption: [Screenshot of the maze-like environment#footnote[], with multiple robots spawned in different locations. #att[Tracking factors are not enables here.]]
+  // std-block(todo[image of many robots driving in the maze]),
+  std-block(
+    width: 80%,
+    block(
+      clip: true,
+      pad(
+        x: -8mm,
+        y: -0.2mm,
+        image("../../figures/img/collaborative-gp.png")
+      )
+    )
+  ),
+  caption: [Screenshot of the maze-like environment#footnote[], with multiple robots spawned in different locations. Tracking factors are not enables here.]
 )<f.scenarios.collaborative-gp>
 
 #todo[The parameters tables]

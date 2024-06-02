@@ -1,7 +1,7 @@
 #import "../../../lib/mod.typ": *
 
 === Tracking Factor $bold(f_t)$ <s.m.tracking-factor>
-#jonas[I believe this is all new to you. Does it makes sense?]
+// #jonas[I believe this is all new to you. Does it makes sense?]
 
 The design of the tracking factor mimics that of the interrobot factors, $f_i$. Similar to the interrobot factors, the tracking factor takes two points in space into account, the variables position, $x$, and the position to pull towards. As just mentioned, oppositely from the interrobot factors, the tracking factor wants these two positions to get closer together, where the interrobot factors push the two apart. These properties are achieved through the measurement function, $h_t(x)$, and the Jacobian, $J_t(x)$, as described in sections #numref(<s.m.tracking-factor.measure>) and #numref(<s.m.tracking-factor.jacobian>), respectively.
 
@@ -22,7 +22,7 @@ $
   (#m.p _"end" - #m.p _"start")
 $<eq.projection>
 
-There are two possible projections we want to consider, specifically when the variable approaches a waypoint, and needs to transition to the next line segment. A radius, $r_"switch"$, is defined as the distance within $#m.p _(i+1)$, the index $i$ should be incremented to consider the next line segment. As such, we have the two projections $#m.proj _i$ and $#m.proj _(i-1)$ to consider, see @eq.projections.
+There are two possible projections we want to consider, specifically when the variable approaches a waypoint, and needs to transition to the next line segment. A radius, $r_"switch"$#footnote[Configurable as `switch-padding` under the `tracking` table in `config.toml`, see #gbp-rs(content: "AU-Master-Thesis/gbp-rs") at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/ef7b5891f47ca1d57e15fa2628d15e726d0b1901/config/simulations/Solo%20GP/config.toml#L48", "config/simulations/Solo GP/config.toml:48")], is defined as the distance within $#m.p _(i+1)$, the index $i$ should be incremented to consider the next line segment. As such, we have the two projections $#m.proj _i$ and $#m.proj _(i-1)$ to consider, see @eq.projections.
 
 $
   #m.proj _i &= "proj"(#m.x, #m.p _i, #m.p _(i+1)) \
@@ -47,7 +47,7 @@ $<eq.measurement-point>
 Where $#m.d = #m.l _i / norm(#m.l _i)$ is the normalised direction vector of the line segment $#m.l _i$. The addition of $#m.d dot norm(#m.x _"vel") / s_v$ in the second case of @eq.measurement-point is a way to ensure that the tracking factor always tries to also move the variable along the line segment, and not only perpendicularly towards it; which in turn helps alleviate local minima where the variable might get stuck #sym.dash.en _this happens especially when some tracking factors are tracking towards the corner, without having others pulling it along_. This pulling along is also shown in @f.m.tracking-factor. It is chosen that $s_v = 5$ in the denominator, which is somewhat arbitrary, but it does a good job of allowing the factor to pull slightly on the variable without pulling so much that the variable overtakes future variables; a large $s_v$ makes previous variables shoot far ahead overtaking future variables, thus resulting in the robot far exceeding the target speed. The last piece of the puzzle is to define the measurement function, $h_t$, as the distance between the variable's position and the measurement point, $#m.x _"meas"$, as shown in @eq.measurement.
 
 $
-  h_t(#m.x, #m.P, i) = "min"(1, norm(#m.x _"pos" - #m.x _"meas") / d_a)
+  h_t (#m.x, #m.P, i) = "min"(1, norm(#m.x _"pos" - #m.x _"meas") / d_a)
 $<eq.measurement>
 
 Two modifications to the raw distance take place;
