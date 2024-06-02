@@ -10,6 +10,9 @@
 
 === Schedules
 
+
+#line(length: 100%, stroke: 1em + red)
+
 // interleave evenly
 // soon as possible
 // late as possible
@@ -112,6 +115,8 @@
 
 
 === Iteration Amount
+
+#line(length: 100%, stroke: 1em + red)
 
 // #let cropping = -4mm
 #let cropping = 0mm

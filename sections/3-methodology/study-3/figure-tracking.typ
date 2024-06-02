@@ -110,7 +110,7 @@
       (3, -5),
     )
 
-    // draw corner attachement range
+    // draw corner attachment range
     let l1 = vec2.normalize(vec2.sub(waypoints.at(1), waypoints.at(0)))
     let l2 = vec2.normalize(vec2.sub(waypoints.at(2), waypoints.at(1)))
     let n1 = vec2.normals(l1)
