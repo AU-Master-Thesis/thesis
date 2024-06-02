@@ -134,7 +134,7 @@ A thorough argument for this method of placing variables is not provided in the 
 #figure(
   std-block(image("../../../figures/out/variable-timesteps.svg")),
   caption: [
-    Three different results of the variable placement algorithm from $0$ to $t_(K-1) = 20$ in seconds, with $t_(0,1) = 1s$. The top sequence is generated with $l_m=1$. The middle with $l_m = 19$ and the bottom one with $l_m = 3$#note.k[possibly shorten the amount of variables]
+    Three different results of the variable placement algorithm from $0$ to $t_(K-1) = 12$ in seconds, with $t_(0,1) = 1s$. The top sequence is generated with $l_m=1$. The middle with $l_m = 11$ and the bottom one with $l_m = 3$.
   ]
 ) <f.variable-timesteps>
 

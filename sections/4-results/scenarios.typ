@@ -21,13 +21,10 @@ The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len(
 
 + _*Collaborative Global Planning:*_ This scenario is similar to #boxed(color: colors.ours, [*SO-1*]), but with many robots. Several spawning locations are possible, where each individual robot get a task to traverse the complex environment. The purpose of this scenario is to test the interactivity between the tracking factors and the interrobot factors, $f_i$.
 
-#todo[
-  Iteration Amount
++ _*Iteration Amount*_ Same environment as the Circle scenario. This explores the effect of varying $M_I$ and $M_R$. The goal is to determine optimal values for these parameters and whether increasing the iteration count consistently improves performance.
 
-  And
++ _*Schedules*_ Again same environment and formation as the Circle scenario. This scenario explores the effect of the various iteration schedules presented in @s.iteration-schedules.
 
-  Schedules
-]
 
 // + _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
 
@@ -214,9 +211,11 @@ In this scenario a complex, maze-like environment has been constructed#footnote[
 
 #todo[The parameters tables]
 
+
 === #scen.collaborative-gp.n <s.r.scenarios.collaborative-gp>
 
 Here, the same complex environment as in the #scen.solo-gp.n scenario is used. However, instead of a single robot, multiple robots are spawned in different locations across the environment. That means the `formation.yaml`#footnote[#jens[source-link to formation file]] file is significantly more detailed. Specifically there are four spawning location, one in each corner; where each robot is tasked with reaching the opposite corner. Each robot is, once again, equipped with a #acr("RRT*") pathfinding component, which will compute a collision free path in terms of the static environment. @f.scenarios.collaborative-gp shows a screenshot of the simulation in progress, where multiple robots are using the waypoint tracking approach, as described in @s.m.planning.waypoint-tracking. #todo[mention parameters table.]
+
 
 #figure(
   // std-block(todo[image of many robots driving in the maze]),
