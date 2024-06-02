@@ -167,7 +167,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
   tablec(
     columns: (auto,) + range(12).map(_ => 1fr),
     align: center + horizon,
-    header-color: theme.base,
+    header-color: (fill: theme.base, text: theme.text),
     header: table.header(
       tc(rowspan: 2, [$r_C$\ \[$m$\]]), tc(colspan: 4, [MS \[$s$\]]), tc(colspan: 4, [D \[$m$\]]), tc(colspan: 4, [LDJ \[$m"/"s^3$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
     ),

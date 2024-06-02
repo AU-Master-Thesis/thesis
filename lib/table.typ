@@ -36,7 +36,10 @@
   header: auto,
   alignment: auto,
   stroke: none,
-  header-color: catppuccin.latte.lavender.lighten(30%),
+  header-color: (
+    fill: catppuccin.latte.lavender.lighten(0%),
+    text: white
+  ),
   even-color: catppuccin.latte.mantle,
   odd-color: catppuccin.latte.base,
   fill: auto,
@@ -74,7 +77,7 @@
 
   show table.cell : it => {
     if it.y in header-rows {
-      set text(catppuccin.latte.text)
+      set text(header-color.text)
       strong(it)
     } else if calc.even(it.y) {
       set text(catppuccin.latte.text)
@@ -92,7 +95,7 @@
 
   let f = if fill == auto {
     (x, y) => if y in header-rows {
-      header-color
+      header-color.fill
     } else if calc.even(y) { even-color } else { odd-color }
   } else {
     fill

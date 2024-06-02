@@ -938,3 +938,6 @@
   ),
   baseline: -0.25em
 )
+
+#let solo-gp-mean-decrease = (1 - 0.74 / 1.03) * 100
+#let collaborative-gp-mean-decrease = (1 - 0.86 / 1.00) * 100
