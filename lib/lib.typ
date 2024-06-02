@@ -673,6 +673,8 @@
   communications-failure: "Communications Failure",
   solo-gp: "Solo Global Planning",
   collaborative-gp: "Collaborative Global Planning",
+  iteration-amount: "Iteration Amount",
+  iteration-schedules: "Iteration Schedules",
 ).pairs().map(
   it => {
     let key = it.at(0)

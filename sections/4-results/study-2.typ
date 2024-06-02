@@ -113,11 +113,13 @@
 
 === Iteration Amount
 
-#let cropping = -4mm
+// #let cropping = -4mm
+#let cropping = 0mm
 #figure(
   grid(
     columns: 2,
     align: center + horizon,
+    row-gutter: -2em,
     block(
       clip: true,
       pad(

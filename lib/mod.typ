@@ -22,3 +22,4 @@
 #import "@preview/funarray:0.4.0": *
 #import "marker.typ"
 #import "aos-soa.typ": aos, soa
+#import "seq.typ": fib
