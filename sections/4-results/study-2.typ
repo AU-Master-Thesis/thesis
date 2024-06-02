@@ -47,6 +47,11 @@
   caption: [distance travelled]
 )
 
+#figure(
+  image("../../figures/plots/iteration-amount-largest-time-differense.svg"),
+  caption: [distance travelled]
+)
+
 
 // #figure(
 //   [],
