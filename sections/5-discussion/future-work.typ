@@ -105,10 +105,10 @@ There are some assumptions and corresponding limitations in the current implemen
 Merge with a #acr("VIO") SLAM solution, and to substitute for obstacle factors in unknown environments with mapping.
 
 
-```rust
-enum Variable {
-  Current(CurrentVariable),
-  InBetween(InBetweenVariable),
-  Horizon(HorizonVariable),
-}
-```
+// ```rust
+// enum Variable {
+//   Current(CurrentVariable),
+//   InBetween(InBetweenVariable),
+//   Horizon(HorizonVariable),
+// }
+// ```

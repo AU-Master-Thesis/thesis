@@ -873,6 +873,14 @@
   }
 }
 
+// #let foo(dict) = {
+//   for (k, list) in dict {
+//   [#k]
+//   for
+//     (k, v)
+//   }
+// }
+
 
 #let legend(handles, direction: ltr) = {
   std-block(
