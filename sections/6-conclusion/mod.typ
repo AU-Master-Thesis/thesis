@@ -40,6 +40,24 @@ Furthermore, extensive though has been put into the configuration formats; the m
 // On hypothesis 2
 #k[hypothesis 2]
 
+While expected a ...
+
+Two additional experiments have been performed to test different parameters of the GBP algorithm not explored in the original work.
+
+- Firstly the effect the number of internal and external iterations has on the converge of the algorithm and performance.
+
+- Found that more internal iterations than external iterations is beneficial. when internal iterations is low. Generally that no more than 10 iterations of each is sufficient across a broader range of scenarios to achieve good results.
+
+- A result that is promising for the potential to deploy on a broad range of robots with not a lot of compute power.
+
+- Secondly the order in which new information is passed from interrobot factors between robots does not appear to be significant. With roughly the same results for all five schedules considered. Supporting the strong benefits of using GBP as an inference algorithm for multi agent path planning.  Although it is hard to state conclusively without real world test or a more advanced/sophisticated simulation of networking conditions.
+
+- Simulating factorgraphs in a more distributed manner that maps more realisticly to the a real-scenario.
+
+- use different graph structure and still reproduce/get similar results
+
+#line(length: 100%, stroke: 1em + red)
+
 // Hypothesis 3
 // Extending the original GBP Planner software with a global planning layer will extend
 // the actors’ capability to move in complex environments, without degradation to the re-
