@@ -152,7 +152,7 @@ Beyond Rust four other programming languages were considered.  @tbl.other-langua
     }
     tablec(
       columns: 3,
-      align: (center + horizon, center + horizon, left),
+      alignment: (center + horizon, center + horizon, left),
       header: table.header([Icon], [Language], [Reason for not choosing it]),
       icons.Zig, [Zig], table.vline(), [Relatively new and still not fully complete with a v1.0 specification. Achieves performance on par with C++ and Rust, but lacks a strong ecosystem of libraries.],
       icons.Odin, [Odin], [Relatively new and still lacks a formal specification. Has good support for linear-algebra and vector math built into the language. Lacks a strong collection of third-party libraries for common functionality.],

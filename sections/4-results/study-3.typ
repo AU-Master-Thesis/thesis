@@ -110,7 +110,7 @@ The results of the #scen.solo-gp.n scenario are shown as box plots in @f.solo-bo
 === Collaborative Global Planning <s.r.study-3.collaborative-global>
 // #jens[Effect of tracking factor on ability to avoid each other]
 
-// #jens[Waypoint tracking vs path tracking and their effects on collissions vs path adherence.]
+// #jens[Waypoint tracking vs path tracking and their effects on collisions vs path adherence.]
 
 The results for the #scen.collaborative-gp.n scenario are presented similarly to those of the solo scenario above. The box plots in @f.collaborative-box show the path deviation error for the waypoint tracking approach explained in @s.m.planning.waypoint-tracking, and for the path tracking approach explained in @s.m.planning.path-tracking. For the path tracking approach, two different values for the certainty of the tracking factor are used, see @eq.sigma-t.
 
@@ -132,7 +132,7 @@ The amount of interrobot collisions for each configuration is also written in @t
         image("../../figures/plots/collaborative-gp.svg"),
       ),
     ),
-    caption: [Box plots for each of the three configurations: Tracking factors diabled#sl, and for tracking factors enabled, respectively with a certainty of $sigma_t = 0.15$#stl, and $sigma_t = 0.5$#sg.]
+    caption: [Box plots for each of the three configurations: Tracking factors disabled#sl, and for tracking factors enabled, respectively with a certainty of $sigma_t = 0.15$#stl, and $sigma_t = 0.5$#sg.]
   )<f.collaborative-box>
 ]
 

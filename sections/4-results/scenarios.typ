@@ -1,29 +1,31 @@
 #import "../../lib/mod.typ": *
 == Scenarios <s.r.scenarios>
 
+#let scenario(name) = [_*#name*_]
+
 // #jonas[Read this, and all subsections]
 The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len()) different scenarios. The first five, #boxed(color: theme.peach, [*S-X*]), scenarios adhere to the original paper's@gbpplanner experiments, where the last 2, #boxed(color: colors.ours, [*S-X*]), are specifically designed for the global planning extension that #acr("MAGICS") provides. The scenarios are:
 // #jonas[fixed the boldness overload here]
 
 #set enum(numbering: box-enum.with(color: colors.theirs, prefix: "ST-"))
-+ _*Circle:*_ The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
++ #scenario[Circle:] The environment of this scenario is empty. Robots are placed along the perimeter of a circle centered at the origin with radius $r$. Every robot is tasked with reaching the opposite side of the circle.
 
-+ _*Environment Obstacles:*_ This scenario is similar to the Circle scenario, but with obstacles near the center of the circle. // Again robots are placed in a circle, centered at $(0, 0)$ with $r=50m$, and are tasked with reaching the opposite side of the circle.
++ #scenario[Environment Obstacles:] This scenario is similar to the Circle scenario, but with obstacles near the center of the circle. // Again robots are placed in a circle, centered at $(0, 0)$ with $r=50m$, and are tasked with reaching the opposite side of the circle.
 
-+ _*Varying Network Connectivity:*_ Identical environment to the Environment Obstacles scenario, but with larger spawning radius. The radius of the robots communication range varied.
++ #scenario[Varying Network Connectivity:] Identical environment to the Environment Obstacles scenario, but with larger spawning radius. The radius of the robots communication range varied.
 
-+ _*Junction:*_ This environment is much more constrained, only with two roads; a vertical and horizontal one, centered in their cross-axis. Thus creating a simple crossroads at the very center of the environment. Robots are spawned repeatedly in two formations. One group begins on the left side with instructions to cross to the right, while the other starts at the top, with a mission to reach the bottom.
++ #scenario[Junction:] This environment is much more constrained, only with two roads; a vertical and horizontal one, centered in their cross-axis. Thus creating a simple crossroads at the very center of the environment. Robots are spawned repeatedly in two formations. One group begins on the left side with instructions to cross to the right, while the other starts at the top, with a mission to reach the bottom.
 
-+ _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. It tests how resilient the #acrpl("GBP") algorithm is to spurious loss of communication between robots. By randomly toggling a robots ability to communicate with others at different probabilities every timestep.
++ #scenario[Communications Failure:] This scenario is based in the same environment as the Circle scenario. It tests how resilient the #acrpl("GBP") algorithm is to spurious loss of communication between robots. By randomly toggling a robots ability to communicate with others at different probabilities every timestep.
 
 #set enum(numbering: box-enum.with(color: colors.ours, prefix: "SO-"))
-+ _*Solo Global Planning:*_ This scenario serves as an isolated test for automated placement of waypoints with #acr("RRT*") and the impact of the tracking factor, $f_t$, on a single robot. This scenario takes place in a complex maze-like environment, where a single robot is spawned in one end, and tasked with reaching the other end.
++ #scenario[Solo Global Planning:] This scenario serves as an isolated test for automated placement of waypoints with #acr("RRT*") and the impact of the tracking factor, $f_t$, on a single robot. This scenario takes place in a complex maze-like environment, where a single robot is spawned in one end, and tasked with reaching the other end.
 
-+ _*Collaborative Global Planning:*_ This scenario is similar to #boxed(color: colors.ours, [*SO-1*]), but with many robots. Several spawning locations are possible, where each individual robot get a task to traverse the complex environment. The purpose of this scenario is to test the interactivity between the tracking factors and the interrobot factors, $f_i$.
++ #scenario[Collaborative Global Planning:] This scenario is similar to #boxed(color: colors.ours, [*SO-1*]), but with many robots. Several spawning locations are possible, where each individual robot get a task to traverse the complex environment. The purpose of this scenario is to test the interactivity between the tracking factors and the interrobot factors, $f_i$.
 
-+ _*Iteration Amount:*_ Same environment as the Circle scenario. This explores the effect of varying $M_I$ and $M_R$. The goal is to determine optimal values for these parameters and whether increasing the iteration count consistently improves performance.
++ #scenario[Iteration Amount:] Same environment as the Circle scenario. This explores the effect of varying $M_I$ and $M_R$. The goal is to determine optimal values for these parameters and whether increasing the iteration count consistently improves performance.
 
-+ _*Schedules:*_ Again same environment and formation as the Circle scenario. This scenario explores the effect of the various iteration schedules presented in @s.iteration-schedules.
++ #scenario[Iteration Schedules:] Identical environment and formation as the Circle scenario. This scenario explores the effect of the various iteration schedules presented in @s.iteration-schedules.
 
 
 // + _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.
@@ -61,7 +63,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
     params.tabular(params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [Circle scenario parameters.],
+  caption: [#scenario[Circle] scenario parameters.],
 )<t.scenarios.circle>
 
 
@@ -93,14 +95,14 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
     params.tabular(params.clear-circle.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.clear-circle.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [Environment Obstacles scenario parameters.],
+  caption: [#scenario[Environment Obstacles] scenario parameters.],
 )<t.scenarios.environment-obstacles>
 
 #figure(
   // image("../../../figures/out/clear-circle.svg", width: 30%),
   // std-block(todo[Add image]),
   std-block(image("../../figures/img/environment-obstacles-scenario-preview.png")),
-  caption: [Visualisation Environment Obstacles scenario. The red #sr outline of each obstacle is boundary of the collider volume used to check for environment collisions.]
+  caption: [Visualisation of #scenario[Environment Obstacles] scenario. The red #sr outline of each obstacle is boundary of the collider volume used to check for environment collisions.]
 )<f.scenarios.environment-obstacles>
 
 
@@ -125,7 +127,7 @@ This scenario uses the same environment as the Environment Obstacles scenario, s
     params.tabular(params.varying-network-connectivity.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.varying-network-connectivity.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [Junction scenario parameters.],
+  caption: [#scenario[Junction] scenario parameters.],
 )<t.scenarios.junction>
 
 === #scen.junction.n <s.r.scenarios.junction>
@@ -182,12 +184,25 @@ The scenario is tested with 21 robots at two different initial speeds of 10 m/s 
     params.tabular(params.communications-failure.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.communications-failure.factor, previous: params.circle.factor, title: [Factor Settings]),
   )
-  , caption: [Communications Failure scenario parameters.],
+  , caption: [#scenario[Communications Failure] scenario parameters.],
 )<t.scenarios.communications-failure>
 
 === #scen.solo-gp.n <s.r.scenarios.solor-gp>
 
-In this scenario a complex, maze-like environment has been constructed#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/c17370455af38a6cab0eb5acea1a576247a0e732/config/simulations/Complex/environment.yaml", "config/simulations/Complex/environment.yaml")], similar to the one shown in @f.m.maze-env. #att[A demonstration of this environment, with and without global planning enabled is shown in an accompanying video#todo[cite video or footnote]]. A single robot is spawned in the bottom-left corner of the environment, see @f.scenarios.solo-gp. The robot is tasked with reaching the top-right corner of the environment. The environment is designed to be challenging, with somewhat narrow corridors and a plethora of possible paths along with dead ends#note.j[do the dead ends thing]. The accompanying `formation.yaml`#footnote[#jens[source-link]] file specifies the planning strategy to be that of `rrt-star` instead of `only-local`, which has been the case for all of the above scenarios. The robot is equipped with a #acr("RRT*") pathfinding component, which, in @f.scenarios.solo-gp, has just finished computing the path it is expected to take. The path is shown as a faint red line across the corridors of the map. #todo[mention parameters table.]
+In this scenario a complex, maze-like environment has been constructed#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/c17370455af38a6cab0eb5acea1a576247a0e732/config/simulations/Complex/environment.yaml", "config/simulations/Complex/environment.yaml")], similar to the one shown in @f.m.maze-env. #att[A demonstration of this environment, with and without global planning enabled is shown in an accompanying video#todo[cite video or footnote]]. A single robot is spawned in the bottom-left corner of the environment, see @f.scenarios.solo-gp. The robot is tasked with reaching the top-right corner of the environment. The environment is designed to be challenging, with somewhat narrow corridors and a plethora of possible paths along with dead ends#note.j[do the dead ends thing]. The accompanying `formation.yaml`#footnote[#jens[source-link]] file specifies the planning strategy to be that of `rrt-star` instead of `only-local`, which has been the case for all of the above scenarios. The robot is equipped with a #acr("RRT*") pathfinding component, which, in @f.scenarios.solo-gp, has just finished computing the path it is expected to take. The path is shown as a faint red line across the corridors of the map. Parameters are listed in @f.scenarios.solo-gp.
+
+```toml
+[rrt]
+max-iterations       = 5000000
+step-size            = 5.0
+collision-radius     = 3.0
+neighbourhood-radius = 8.0
+#
+# [rrt.smoothing]
+# enabled        = true
+# max-iterations = 500
+# step-size      = 0.5
+```
 
 // The tracking factor $f_t$ is set to $0.5$ to test the impact of the tracking factor on a single robot in a complex environment.
 
@@ -209,12 +224,33 @@ In this scenario a complex, maze-like environment has been constructed#footnote[
   ]
 )<f.scenarios.solo-gp>
 
-#todo[The parameters tables]
-
+#figure(
+  grid(
+    columns: (40%, 30% - 0.5em, 30% - 0.5em),
+    column-gutter: 0.5em,
+    params.tabular(params.solo-gp.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.solo-gp.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.solo-gp.factor, previous: params.circle.factor, title: [Factor Settings]),
+  )
+  , caption: [#scenario[Solo GP] scenario parameters.],
+)<t.scenarios.solo-gp>
 
 === #scen.collaborative-gp.n <s.r.scenarios.collaborative-gp>
 
-Here, the same complex environment as in the #scen.solo-gp.n scenario is used. However, instead of a single robot, multiple robots are spawned in different locations across the environment. That means the `formation.yaml`#footnote[#jens[source-link to formation file]] file is significantly more detailed. Specifically there are four spawning location, one in each corner; where each robot is tasked with reaching the opposite corner. Each robot is, once again, equipped with a #acr("RRT*") pathfinding component, which will compute a collision free path in terms of the static environment. @f.scenarios.collaborative-gp shows a screenshot of the simulation in progress, where multiple robots are using the waypoint tracking approach, as described in @s.m.planning.waypoint-tracking. #todo[mention parameters table.]
+Here, the same complex environment as in the #scen.solo-gp.n scenario is used. However, instead of a single robot, multiple robots are spawned in different locations across the environment. That means the `formation.yaml`#footnote[#jens[source-link to formation file]] file is significantly more detailed. Specifically there are four spawning location, one in each corner; where each robot is tasked with reaching the opposite corner. Each robot is, once again, equipped with a #acr("RRT*") pathfinding component, which will compute a collision free path in terms of the static environment. @f.scenarios.collaborative-gp shows a screenshot of the simulation in progress, where multiple robots are using the waypoint tracking approach, as described in @s.m.planning.waypoint-tracking. Parameters are listed in @t.scenarios.collaborative-gp
+
+```toml
+[rrt]
+max-iterations = 5000000
+step-size = 5.0
+collision-radius = 3.0
+neighbourhood-radius = 8.0
+
+# [rrt.smoothing]
+# enabled = true
+# max-iterations = 500
+# step-size = 0.5
+```
 
 
 #figure(
@@ -230,7 +266,54 @@ Here, the same complex environment as in the #scen.solo-gp.n scenario is used. H
       )
     )
   ),
-  caption: [Screenshot of the maze-like environment#footnote[], with multiple robots spawned in different locations. Tracking factors are not enables here.]
+  caption: [Screenshot of the maze-like environment#footnote[#todo[...]], with multiple robots spawned in different locations. Tracking factors are not enables here.]
 )<f.scenarios.collaborative-gp>
 
-#todo[The parameters tables]
+#figure(
+  grid(
+    columns: (40%, 30% - 0.5em, 30% - 0.5em),
+    column-gutter: 0.5em,
+    params.tabular(params.collaborative-gp.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.collaborative-gp.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.collaborative-gp.factor, previous: params.circle.factor, title: [Factor Settings]),
+  )
+  , caption: [#scenario[Collaborative GP] scenario parameters.],
+)<t.scenarios.collaborative-gp>
+
+=== #scen.iteration-amount.n <s.r.scenarios.iteration-amount>
+
+This scenario explores the effect of varying $M_I$ and $M_R$. Both $M_I$ and $M_R$ are varied over the second to tenth number in the Fibonacci sequence.
+$ M_I and M_R =  {"fib(i)" | i in [2,3, ..., 10]} $
+
+This sequence of values are chosen to test the algorithm at very few iterations initially and increasingly at more iterations with larger difference between each step.
+
+#par(first-line-indent: 0pt)[
+  _*Expectation*_: Performance should converge after 8-10 iterations of both $M_I$ and $M_R$. Performance is poor with very few iterations for either parameter. Consequently, performance will be suboptimal if either $M_I$ or $M_R$ are close to $1$ while the other is higher.
+]
+
+#figure(
+  grid(
+    columns: (40%, 30% - 0.5em, 30% - 0.5em),
+    column-gutter: 0.5em,
+    params.tabular(params.iteration-amount.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.iteration-amount.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.iteration-amount.factor, previous: params.circle.factor, title: [Factor Settings]),
+  ),
+  caption: [#scenario[Iteration Amount] scenario parameters.],
+)
+<t.scenarios.iteration-amount>
+
+=== #scen.iteration-schedules.n <s.r.scenarios.iteration-schedules>
+
+The parameters for this scenario are listed in @t.scenarios.iteration-schedules. The number of robots spawning in the circular formation is kept constant at $N_R = 30$ for all runs. Each of the five schedules presented in @s.iteration-schedules are tested with internal iteration $M_i = 50$, and external iteration $M_R$ varied between ${5, 10, 15, 20, 25}$. $M_R$ is varied instead of $M_I$ as it represents the external communication that would be subject to jitter and latency in a real-scenario.
+
+#figure(
+  grid(
+    columns: (40%, 30% - 0.5em, 30% - 0.5em),
+    column-gutter: 0.5em,
+    params.tabular(params.iteration-schedules.env, previous: params.circle.env, title: [Environment]),
+    params.tabular(params.iteration-schedules.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    params.tabular(params.iteration-schedules.factor, previous: params.circle.factor, title: [Factor Settings]),
+  )
+  , caption: [#scenario[Iteration Schedules] scenario parameters.],
+)<t.scenarios.iteration-schedules>

@@ -79,7 +79,7 @@
 
     let t(cells) = tablec(
       columns: 2,
-      align: (right, left),
+      alignment: (right, left),
       header: table.header([Acronym], [Definition]),
       ..cells
     )

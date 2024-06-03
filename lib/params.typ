@@ -3,6 +3,7 @@
 #import "diff.typ": diffdict
 #import "dict.typ": leafmap, leafzip, leafflatten
 #import "equation.typ"
+#import "seq.typ": fib
 
 
 #let seeds = (0, 31, 227, 252, 805)
@@ -17,6 +18,7 @@
   sigma_p: $sigma_p$,
   sigma_r: $sigma_r$,
   sigma_o: $sigma_o$,
+  sigma_t: $sigma_t$,
   radius: $C_("radius")$,
   r_r: $r_R$,
   speed: $abs(v_0)$,
@@ -39,6 +41,7 @@
       sigma_p: $1 times 10^(-15)m$,
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
+      sigma_t: na,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -73,6 +76,7 @@
       sigma_p: $1 times 10^(-15)m$,
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
+      sigma_t: na,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -104,6 +108,7 @@
       sigma_p: $1 times 10^(-15)m$,
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
+      sigma_t: na,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -139,6 +144,7 @@
       sigma_p: $1 times 10^(-15)m$,
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
+      sigma_t: na,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -172,6 +178,7 @@
       sigma_p: $1 times 10^(-15)$,
       sigma_r: $0.005$,
       sigma_o: $0.005$,
+      sigma_t: na,
       interrobot-safety-distance: $2.2 C_("radius")$,
     ),
   gbp: (
@@ -198,6 +205,166 @@
 )
 
 
+// sigma-pose-fixed        = 0.0000000000000010000000036274937
+// sigma-factor-dynamics   = 0.10000000149011612
+// sigma-factor-interrobot = 0.009999999776482582
+// sigma-factor-obstacle   = 0.009999999776482582
+// sigma-factor-tracking   = 0.15000000596046448
+// lookahead-multiple      = 3
+
+#let solo-gp = (
+  // sim: (
+  // ),
+    factor: (
+      sigma_d: $0.1$,
+      sigma_p: $1 times 10^(-15)$,
+      sigma_r: $0.005$,
+      sigma_o: $0.005$,
+      sigma_t: $0.15$,
+      interrobot-safety-distance: $2.2 C_("radius")$,
+    ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $10$,
+    comms-failure-prob: $0$,
+    // variable-temporal-dist: todo[...],
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $5s$, // 2 * 50m / 15m/s
+    lookahead-multiple: $3^*$,
+    // variables: todo[...],
+    // S_r: $2.2$,
+  ),
+  env: (
+    radius: na,
+    r_r: $2 m$,
+    comms-radius: na,
+    n_r: $1$,
+    speed: $7m"/"s$,
+    // s: ${0, 32, 64, 128, 255}^*$,
+  s: equation.as-set(seeds),
+  ),
+)
+
+
+// [gbp]
+// sigma-pose-fixed = 0.0000000000000010000000036274937
+// sigma-factor-dynamics = 0.10000000149011612
+// sigma-factor-interrobot = 0.009999999776482582
+// sigma-factor-obstacle = 0.009999999776482582
+// sigma-factor-tracking = 0.5
+// lookahead-multiple = 3
+// variables = 10
+
+#let collaborative-gp = (
+  // sim: (
+  // ),
+    factor: (
+      sigma_d: $0.1$,
+      sigma_p: $1 times 10^(-15)$,
+      sigma_r: $0.005$,
+      sigma_o: $0.005$,
+      sigma_t: ${0.15, 0.5}$,
+      interrobot-safety-distance: $4 C_("radius")$,
+    ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: $10$,
+    m_i: $10$,
+    comms-failure-prob: $0$,
+    // variable-temporal-dist: todo[...],
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $5s$, // 2 * 50m / 15m/s
+    lookahead-multiple: $3^*$,
+    // variables: todo[...],
+    // S_r: $2.2$,
+  ),
+  env: (
+    radius: na,
+    r_r: $2m$,
+    comms-radius: $20m$,
+    n_r: $100$, // 10 * 10
+    speed: $7m"/"s$,
+    // s: ${0, 32, 64, 128, 255}^*$,
+  s: equation.as-set(seeds),
+  ),
+)
+
+#let internals = fib(11).slice(2)
+#let externals = internals
+
+#let iteration-amount = (
+  // sim: (
+  // ),
+    factor: (
+      sigma_d: $1$,
+      sigma_p: $1 times 10^(-15)$,
+      sigma_r: $0.005$,
+      sigma_o: $0.005$,
+      sigma_t: na,
+      interrobot-safety-distance: $2.5 C_("radius")$,
+    ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: equation.as-set(externals),
+    m_i: equation.as-set(internals),
+    comms-failure-prob: $0%$,
+    // variable-temporal-dist: todo[...],
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $5s^*$, // 2 * 50m / 15m/s
+    lookahead-multiple: $3^*$,
+    // variables: todo[...],
+    // S_r: $2.2$,
+  ),
+  env: (
+    radius: $50m$,
+    r_r: $tilde.op cal(U)(2,3) m$,
+    comms-radius: $50m$,
+    n_r: $25$,
+    speed: $10m"/"s$,
+    // s: ${0, 32, 64, 128, 255}^*$,
+  s: equation.as-set(seeds),
+  ),
+)
+
+#let iteration-schedules = (
+  // sim: (
+  // ),
+    factor: (
+      sigma_d: $1$,
+      sigma_p: $1 times 10^(-15)$,
+      sigma_r: $0.005$,
+      sigma_o: $0.005$,
+      sigma_t: na,
+      interrobot-safety-distance: $2.5 C_("radius")$,
+    ),
+  gbp: (
+    delta_t: $0.1$,
+    m_r: ${5, 10, 15, 20, 25}$,
+    m_i: $50$,
+    comms-failure-prob: $0%$,
+    // variable-temporal-dist: todo[...],
+    // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $7s^*$, // 2 * 50m / 15m/s
+    lookahead-multiple: $3^*$,
+    // variables: todo[...],
+    // S_r: $2.2$,
+  ),
+  env: (
+    radius: $50m$,
+    r_r: $tilde.op cal(U)(2,3) m$,
+    comms-radius: $50m$,
+    n_r: $30$,
+    speed: $10m"/"s$,
+    // s: ${0, 32, 64, 128, 255}^*$,
+  s: equation.as-set(seeds),
+  ),
+)
+    // params.tabular(params.communications-failure.env, previous: params.circle.env, title: [Environment]),
+    // params.tabular(params.communications-failure.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
+    // params.tabular(params.communications-failure.factor, previous: params.circle.factor, title: [Factor Settings]),
+
+
 
 #let make-rows(subdict, previous: none) = {
   let diff = if previous == none {
@@ -215,7 +382,7 @@
 
     let k = syms.at(k)
     if different {
-      (k, text(theme.red, v))
+      (k, text(theme.peach, v))
     } else {
       (k, v)
     }

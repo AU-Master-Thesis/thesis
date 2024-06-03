@@ -56,7 +56,7 @@ For this scenario, similar to @gbpplanner, the #acr("LDJ") and _distance travell
 )<f.circle-experiment-ldj>
 
 
-The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled, show that lowering the lookahead multiple to #text(theme.yellow, $l_m=1$), or lowering the time horizon to #text(theme.peach, $t_(K-1)=5s$) individually obtain results that are closer to those of @gbpplanner. The best possible results are acheived with #text(theme.lavender, $l_m=3,t_(K-1)=5s$).
+The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled, show that lowering the lookahead multiple to #text(theme.yellow, $l_m=1$), or lowering the time horizon to #text(theme.peach, $t_(K-1)=5s$) individually obtain results that are closer to those of @gbpplanner. The best possible results are achieved with #text(theme.lavender, $l_m=3,t_(K-1)=5s$).
 
 #figure(
   z-stack(
@@ -166,7 +166,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 #figure(
   tablec(
     columns: (auto,) + range(12).map(_ => 1fr),
-    align: center + horizon,
+    alignment: center + horizon,
     header-color: (fill: theme.base, text: theme.text),
     header: table.header(
       tc(rowspan: 2, [$r_C$\ \[$m$\]]), tc(colspan: 4, [MS \[$s$\]]), tc(colspan: 4, [D \[$m$\]]), tc(colspan: 4, [LDJ \[$m"/"s^3$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
@@ -181,7 +181,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 
 === Junction <s.r.results.junction>
 #let body = [
-  The results of the _junction_ experiment are presented on a plot in @f.qin-vs-qout, similarly to how it was done in @gbpplanner. The plot shows that the input flowrate $Q_"in"$ is very close to the output flowrate $Q_"out"$ for $Q_"in" in [0, 6.5]$, where it starts deviating from the optimal flowrate at $Q_"in" = 7.5$, decreasing to an output flowrate of $Q_"out" approx 6.6$. This result is consisten with both the presented numbers in @gbpplanner and the provided `gbpplanner` code. In @t.qin-vs-qout, the raw data is presented. Here it becomes clear that the output flowrate follows the input flowrate perfectly up until $Q_"in" = 4$, where $Q_"out" = 3.98$ #sym.dash.en _and from here on $Q_"out"$ consistently deviates more and more_.
+  The results of the _junction_ experiment are presented on a plot in @f.qin-vs-qout, similarly to how it was done in @gbpplanner. The plot shows that the input flowrate $Q_"in"$ is very close to the output flowrate $Q_"out"$ for $Q_"in" in [0, 6.5]$, where it starts deviating from the optimal flowrate at $Q_"in" = 7.5$, decreasing to an output flowrate of $Q_"out" approx 6.6$. This result is consistent with both the presented numbers in @gbpplanner and the provided `gbpplanner` code. In @t.qin-vs-qout, the raw data is presented. Here it becomes clear that the output flowrate follows the input flowrate perfectly up until $Q_"in" = 4$, where $Q_"out" = 3.98$ #sym.dash.en _and from here on $Q_"out"$ consistently deviates more and more_.
 ]
 
 #let fig = [
@@ -220,7 +220,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
     }
     tablec(
       columns: (auto,) + range(qins.len()).map(_ => 1fr),
-      align: center + horizon,
+      alignment: center + horizon,
       fill: (x, y) => if x in header-columns { theme.lavender } else if calc.even(x) { theme.base } else { theme.mantle },
       $bold(Q_"in")$,
       ..qins.map(qin => [$#qin$]),

@@ -164,7 +164,7 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
       ],
       std-block[
         #image("../../../figures/img/obstacle-factors-example-only-sdf.png")
-        A: Pure Envioronment SDF
+        A: Pure Environment SDF
       ],
     )
   },

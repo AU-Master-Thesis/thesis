@@ -100,7 +100,7 @@ pub trait GbpSchedule {
 #figure(
   tablec(
     columns: (1fr, 3fr, 1fr),
-    align: (center, left, center),
+    alignment: (center, left, center),
     header: table.header([*Parameter*], [*Description*], [*Unit* / *Domain*]),
     [$C_("radius")$], [Radius of the circle that the robots spawn in circle scenarios like @s.r.scenarios.circle], [$m$],
     [$r_R$], [Robot radius], [$m$],
