@@ -5,7 +5,7 @@
 // #jonas[all these results are new since last. We're working towards measuring ours and their code and then comparing their paper vs our code vs their code. Does that make sense? It will be obvious where we are still missing results]
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
-This sections presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle-obstacles>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
+This section presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle-obstacles>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
 
 === Circle & Environment Obstacles <s.r.results.circle-obstacles>
 
