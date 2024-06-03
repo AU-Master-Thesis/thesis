@@ -4,7 +4,6 @@
 
 To objectively compare our reimplementation with the original #gbpplanner, the same four metrics: distance travelled, makespan, smoothness, and inter robot collisions@gbpplanner are measured and compared:
 
-
 #set enum(numbering: box-enum.with(prefix: "M-"))
 
 // #let metric(name) = text(accent, style: "italic", [#name:])

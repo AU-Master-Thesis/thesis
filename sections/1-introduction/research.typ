@@ -83,6 +83,7 @@ To answer each research question, a set of objectives will have to be met. The o
 #{
   set enum(start: 1)
   [
+ddd
     /// Study 1
     #(study.heading)(study.H-1.full.n)
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):*

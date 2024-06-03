@@ -702,8 +702,8 @@
     prefix: [_*Contribution 1*_],
     name: [_*Simulation Framework*_],
     full: (
-      s: [_*Contribution 1: Simulation Framework*_],
-      n: [Contribution 1: Simulation Framework],
+      s: [_*Contribution 1 - Simulation Framework*_],
+      n: [Contribution 1 - Simulation Framework],
     )
   ),
   H-2: (
