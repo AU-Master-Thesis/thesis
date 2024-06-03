@@ -1,9 +1,7 @@
 #import "../../lib/mod.typ": *
 == #study.H-2.full.n <s.d.study-2>
 
-#k[check this aaligns with your vision]
-
-This part discusses, and evaluates the results of the contribution, which pertains to the second hypothesis, #study.H-2.box. This hypothesis specifically concerns the testing of an enhancement to the original `gbpplanner`, which have both been implemented in the #acr("MAGICS") tool. Namely, the effect of varying the number of both internal and external iterations in the #acr("GBP") inference process. Further, also providing a comparison of five different iteration schedules. The deliberations take place in the following sections; #numref(<s.d.iteration-amount>), #numref(<s.d.iteration-schedules>).
+This part discusses, and evaluates the results of the contribution, which pertains to the second hypothesis, #study.H-2.box. This hypothesis specifically concerns the testing of an enhancement to the original `gbpplanner`, which have been implemented in the #acr("MAGICS") tool. Further, the effect varying the number of both internal and external iterations in the #acr("GBP") inference process is discussed. The deliberations take place in the following sections; #numref(<s.d.iteration-amount>), #numref(<s.d.iteration-schedules>).
 
 
 === Iteration Amount <s.d.iteration-amount>
@@ -27,14 +25,14 @@ The analysis of the results from the @s.r.iteration-amount-plots highlights the 
 
 
 === Iteration Schedules <s.d.iteration-schedules>
-#k[hello]
 
+The results from the @s.r.schedules experiment indicate that the choice of scheduling strategy appears to have little to no significant impact on any of the three metrics considered. This observation broadly supports the given hypothesis regarding the robustness and convergence of the algorithm, irrespective of the relative order in which external messages update the joint factor graph. The expectation that the _Interleave Evenly_ strategy would perform slightly better than the others is not present in the measurements. Instead the _Half end, Half Beginning_ strategy performs modestly better than the others across all three metrics. This marginal improvement could be attributed to the balanced approach of distributing updates at both the start and end of the iteration process, potentially stabilizing the information flow and aiding convergence. However, the exact reason for this slight advantage remains unclear and warrants further investigation. As it was further expected that _Centered_ would perform on par with it, given them being similar expect for a phase offset. The lack of noticeable differences might be due to differences not appearing with the other parameters chosen, or due to limitations of how network communication is simulated. With a more sophisticated network model that better captures the latency variability and time delay between messages, a more clear difference could emerge.
 
-- Choice of schedule appears to be of little to no importance.
-- This broadly supports to given hypothesis about the outcome of the enhancement.
-- Half end, Half beginning showcases a slight edge over the others. Why that is, is...
-- Given the apparent variance in the measurements, it is diffecult to conclude that there are any difference.
-- Either there is no noticeable difference, or the simulated environment is not able to test it. More insight would be able to be retrieved by a more sophisticated modelling of timed networking, with random noise to more broadly simulate real world stochastic processes.
-
-
-Looking at the results in
+// The current setup may not be sophisticated enough to capture the nuances of real-world stochastic processes. A more detailed model incorporating timed networking and random noise could provide deeper insights and more accurately simulate real-world conditions.
+//
+// - Choice of schedule appears to be of little to no importance.
+// - This broadly supports to given hypothesis about the outcome of the enhancement.
+// - Half end, Half beginning showcases a slight edge over the others. Why that is, is... Not interleave evenly as expected
+//
+// - Given the apparent variance in the measurements, it is diffecult to conclude that there are any difference.
+// - Either there is no noticeable difference, or the simulated environment is not able to test it. More insight would need to be able to be retrieved by a more sophisticated modelling of timed networking, with random noise to more broadly simulate real world stochastic processes.
