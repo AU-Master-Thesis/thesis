@@ -1,4 +1,7 @@
 #import "../../lib/mod.typ": *
+
+#pagebreak()
+
 = Conclusion <conclusion>
 
 // Hypothesis 1
@@ -22,7 +25,7 @@
 // On hypothesis 1
 The original GBP Planner has been reimplemented in a modern, flexible multi-agent simulator framework using a modern programming language. The chosen #acr("ECS") architecture in the Bevy Engine has proven itself to be a suitable framework both for reproducing the original `gbpplanner` and for extending it with a large amount of tooling. The result is a fully-fledged interactive simulation tool called #acr("MAGICS"). The tool is designed to enhance the scientific communication and extendibility by introducing a highly configurable #acr("UI"), with a lot of options for visualisation; providing many different perspective on the underlying theoretical concepts. The hope is that #acr("MAGICS") can provide a simple playground for the further development of multi-agent systems based off of #acr("GBP") at its core.
 
-Furthermore, extensive though has been put into the configuration formats; the main configuration `config.toml` providing the initial tool state, while the `environment.yaml` provides a simplified way to design a plethora of environments, either by using the character matrix or placing obstacles manually; both in a highly declarative manner. Lastly, the `formation.yaml` once again provides a declarative interface, but this time for expressing the otherwise highly dynamic and sporatic nature of multi-agent formations. This is accomplished through a series of spawning rules that when put together can represent highly complex scenarios of interweaving robots. Not only do these three configuration formats provide a single source of truth, not dependant on the program state, but they also collectively make up the notion of a scenario, which is easily reproduced and shared between users of #acr("MAGICS").
+Furthermore, extensive though has been put into the configuration formats; the main configuration `config.toml` providing the initial tool state, while the `environment.yaml` provides a simplified way to design a plethora of environments, either by using the character matrix or placing obstacles manually; both in a highly declarative manner. Lastly, the `formation.yaml` once again provides a declarative interface, but this time for expressing the otherwise highly dynamic and sporadic nature of multi-agent formations. This is accomplished through a series of spawning rules that when put together can represent highly complex scenarios of interweaving robots. Not only do these three configuration formats provide a single source of truth, not dependant on the program state, but they also collectively make up the notion of a scenario, which is easily reproduced and shared between users of #acr("MAGICS").
 
 // Hypothesis 2
 // The original work can be enhanced through speciﬁc modiﬁcations without interfering
@@ -42,14 +45,21 @@ Furthermore, extensive though has been put into the configuration formats; the m
 // #k[hypothesis 2]
 
 // -------------------------------------------------------------------------------
+Two additional experiments have been performed to test different parameters of the GBP algorithm not explored in the original work. \
+Firstly, the effect of the number of internal and external iterations on the algorithm's convergence and performance was examined. A key finding is that having more internal iterations than external iterations is beneficial, especially when internal iterations are low. Generally, no more than 10 iterations of each are sufficient across various scenarios to achieve good results. Additionally, the information within each robot's factor graph can be overwhelmed in highly connected cases if insufficient internal message passes are executed. These insights are promising for deploying GBP on a broad range of robots with limited computational power. \
+Secondly, the order in which new information is passed between robots from inter-robot factors does not significantly impact performance. Similar results were obtained for all five schedules considered, supporting the strong benefits of using GBP as an inference algorithm for multi-agent path planning. However, strong conclusive statements require real-world tests or more advanced simulations of networking conditions. \
+The reimplemented version uses singular owned stable graphs for each robot's factor graph instead of a bidirectional shared pointer data structure. Despite this fundamental transformation, the system still achieves similar results to the original across several metrics. This promising finding motivates further exploration of the method's merits in real-world scenarios with the algorithm running distributed across multiple hosts.
 
-Two additional experiments have been performed to test different parameters of the GBP algorithm not explored in the original work.
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Firstly the effect the number of internal and external iterations has on the convergange of the algorithm and performance. A key finding here is that more internal iterations than external iterations is beneficial. when internal iterations is low. Generally that no more than 10 iterations of each is sufficient across a broader range of scenarios to achieve good results. In addition, the information contained within each robots factorgraph, can be overwhelmed to detrimental effect in highly connected cases, if not enough intermal messages passes are executed. A result that is promising for the potential to deploy on a broad range of robots with not a lot of compute power.
 
-Secondly the order in which new information is passed from interrobot factors between robots does not appear to be significant. With roughly the same results for all five schedules considered. Supporting the strong benefits of using GBP as an inference algorithm for multi agent path planning.  Although it is hard to state conclusively without real world test or a more advanced/sophisticated simulation of networking conditions.
-
-Using singular owned stable graphs as the underlying in-memory representation of each robots factorgraph has been used as an alternative to bidirectional shared pointer data structure in the reimplemented version. Even with this fundamental transformation of the system it is still found to faithfully achieve similar results to the original, as shown across several different metrics. This is a promising finding that motivates further work on exploring the merits of the method in real-world scenarios with the the algorithm running distributed across multiple hosts.
+// Two additional experiments have been performed to test different parameters of the GBP algorithm not explored in the original work.
+//
+// Firstly the effect the number of internal and external iterations has on the convergange of the algorithm and performance. A key finding here is that more internal iterations than external iterations is beneficial. when internal iterations is low. Generally that no more than 10 iterations of each is sufficient across a broader range of scenarios to achieve good results. In addition, the information contained within each robots factorgraph, can be overwhelmed to detrimental effect in highly connected cases, if not enough intermal messages passes are executed. A result that is promising for the potential to deploy on a broad range of robots with not a lot of compute power.
+//
+// Secondly the order in which new information is passed from interrobot factors between robots does not appear to be significant. With roughly the same results for all five schedules considered. Supporting the strong benefits of using GBP as an inference algorithm for multi agent path planning.  Although it is hard to state conclusively without real world test or a more advanced/sophisticated simulation of networking conditions.
+//
+// Using singular owned stable graphs as the underlying in-memory representation of each robots factorgraph has been used as an alternative to bidirectional shared pointer data structure in the reimplemented version. Even with this fundamental transformation of the system it is still found to faithfully achieve similar results to the original, as shown across several different metrics. This is a promising finding that motivates further work on exploring the merits of the method in real-world scenarios with the the algorithm running distributed across multiple hosts.
 
 
 // -------------------------------------------------------------------------------
