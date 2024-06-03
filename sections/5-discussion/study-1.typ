@@ -19,7 +19,7 @@ In this section all contributions of the #acr("MAGICS") simulator are discussed.
 // 1, 2, 3:
 === On The Simulator MAGICS <s.d.simulator>
 
-#jonas[I have tried writing about the simulator pbjectively here. Does it work?]
+#jonas[I have tried writing about the simulator objectively here. Does it work?]
 
 First of all the simulation framework developed, #acr("MAGICS"), is very capable, and has extensive thought put into it in terms of usability and configurability. The Rust programming language was chosen for its performance and safety guarantees, along with modern approach to software development. Furthermore, Rust provides a flurishing ecosystem with a large repository of crate, such as the Bevy Engine@bevyengine framework. As mentioned earlier, the #acr("ECS") architecture is a core part of Bevy, and has shown to be very flexible and easily extendable. Furthermore, it allows for effortless parallelization of many parts of the simulation, which is a key feature for the #acr("GBP") inference process, as it is inherently parallelizable in context of asynchronous message passing. However, even with the parallelization, #acr("MAGICS") has been unable to reach much better performance than the original #gbpplanner@gbpplanner. Nonetheless, #acr("MAGICS") excels in terms of usability and configurability, as an extensible user interface has been built, which both makes the process of tuning hyperparameters much smoother, but also much easier to understand each of their impacts. This is a significant improvement over the original #gbpplanner, which provides a simple simulator, that visualises the simulation, but does not allow for much interactability.
 

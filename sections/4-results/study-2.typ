@@ -8,10 +8,11 @@
 //   Especially for sharp corners like 90 degree turns in the junction.
 // ]
 
-=== Schedules
+#pagebreak()
 
+=== Schedules <s.r.schedules>
 
-#line(length: 100%, stroke: 1em + red)
+For the _schedules_ experiment, three of the considered metrics are measured. @f.schedules-experiment-ldj plots the #acr("LDJ") metric, as a grouped histogram plot for each schedule. @f.schedules-experiment-makespan and @f.schedules-experiment-distance-travelled similarly shows the "Makespan" and "Distance Travelled" metric respectively. The plots shows that for all three metrics the choice of schedule does not have an significant effect. When looking across all metrics and schedules it is diffecult to assess whether the number of external iterations $M_R$ has a beneficial effect. For the _Centered_, _Late as Possible_ and _Soon as Possible_ in @f.schedules-experiment-ldj it appears to result in an improvement as $M_R$ increases. But for others such _Half Start, Half End_ and _Late as Possible_ in @f.schedules-experiment-distance-travelled no clear relation is observable. _Half Start, Half End_ is the best performing schedule in all three metrics, albeit only slightly.
 
 // interleave evenly
 // soon as possible
@@ -70,10 +71,19 @@
         image("../../figures/plots/schedules-experiment-ldj.svg"),
       ),
     ),
-    schedules-legend
+    schedules-legend,
+    // grid(
+    //   rows: 2,
+    //   // row-gutter: 1em,
+    //   std-block([222]),
+    //   schedules-legend
+    // )
   ),
-  caption: [#acr("LDJ")]
-)
+  caption: [
+    #acr("LDJ") metric across the different schedules. Each schedule is shown in a different color as listed in the legend. Each column in a schedule group represent a different value of external iteration $M_R$, sorted in ascending order. i.e. the column to the left with the highest transparency corresponds to $M_R = 5$, and to the right with the lowest transparency is $M_R = 25$. Atop each group of columns is the average value of the five columns shown.
+
+  #acr("LDJ")]
+) <f.schedules-experiment-ldj>
 
 
 #figure(
@@ -91,8 +101,8 @@
     ),
     schedules-legend
   ),
-  caption: [Makespan]
-)
+  caption: [Makespan metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot.]
+) <f.schedules-experiment-makespan>
 
 #figure(
   // image("../../figures/plots/schedules-experiment-distance-travelled.svg"),
@@ -109,13 +119,11 @@
     ),
     schedules-legend
   ),
-  caption: [Distance travelled]
-)
+  caption: [Distance travelled metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot.]
+) <f.schedules-experiment-distance-travelled>
 
 
-#pagebreak()
-
-=== Iteration Amount
+=== Iteration Amount <s.r.iteration-amount-plots>
 
 @f.iteration-amount-plots shows the results of the experiment, across four different metrics. A clear pattern shared across all four is that internal iteration $M_I = 1$ and external iteration $M_R = 1$, is not enough to properly solve for the optimum across the factorgraphs. Another general trend is that as both $M_I$ and $M_R$ the quality of each metric improves. With both the #acr("LDJ") and Makespan metric the 2D gradient is clear to see, with both a high $M_I$ and $M_R$ needed to reach the optimum. For the "Distance Travelled" metric only a couple of iterations are needed to reach the optimum plateou. "Finished at Difference" shows a more noisy histogram, with values fluctuating a lot more for $M_I < 10 and M_R < 10$.\
 All four metrics clearly shows that a large $M_R$ when $M_I in [1,2]$ is severely detrimental.
