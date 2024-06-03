@@ -120,7 +120,6 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
 // ==== Swapping Scenarios <s.m.swapping>
 //
 // ==== Simulation Loader <s.m.simulation-loader>
-// #kristoffer[About the ability to load multiple simulations, and the underlying folder-structure. Probably should be somewhere else?]
 
   // This makes it possible to rapidly test different values, by changing the values in UI, reload the scenario and immediately observe the effect. ]
 

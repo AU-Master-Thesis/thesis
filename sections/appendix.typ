@@ -519,6 +519,81 @@ rmse: float = np.sqrt(error / len(positions))
 #let s(x, y, img) = scale.with(x: x, y: y, img)
 
 #figure(
+  image("../figures/img/visualizer-robots.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-communication-graph.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-trajectories.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-waypoints.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-uncertainty.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-paths.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-communication-radius.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/obstacle-factors-example-with-variables.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-tracking.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-interrobot-factors.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-interrobot-factors-safety-distance.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-robot-collider.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-environment-collider.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-robot-robot-collisions.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
+  image("../figures/img/visualizer-robot-environment-collisions.png"),
+  caption: [#todo[]]
+) <appendix.visualizer-sdf>
+
+#figure(
   scale(x: 80%, y: 80%, image("../figures/img/visualizer-generated-map.png")),
   caption: [Generated map from `environment.yaml`]
 ) <appendix.visualizer-generated-map>
