@@ -966,3 +966,10 @@
     body,
   )
 )
+
+
+#let configs = (
+  config: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/config.toml", "config.toml"),
+  environment: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/environment.yaml", "environment.yaml"),
+  formation: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/formation.yaml", "formation.yaml")
+)

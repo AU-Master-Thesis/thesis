@@ -334,13 +334,8 @@ Lastly, some timing options are available; `repeat-every` and `delay`. The `repe
   caption: [Formation configuration example spawning a single robot every 8 seconds with an initial delay of 2 seconds. Here, the `line-segment` _distribution shape_ is used, along with the `even` _placement strategy_, and `cross` _projection strategy_.],
 )<f.m.formation-config>
 
-#let configs = (
-  config: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/config.toml", "config.toml"),
-  environment: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/environment.yaml", "environment.yaml"),
-  formation: source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/config/simulations/Environment%20Obstacles%20Experiment/formation.yaml", "formation.yaml")
-)
 
-#par(first-line-indent: 0pt)[For a complete example of each configuration format see the #configs.config, #configs.environment, and #configs.formation  used in the _Environment Obstacles_ scenario experimented with later on in @s.r.scenarios.environment-obstacles.]
+#par(first-line-indent: 0pt)[For a complete example of each configuration format see the three files; #configs.config, #configs.environment, and #configs.formation used in the _Environment Obstacles_ scenario,experimented with later on in @s.r.scenarios.environment-obstacles.]
 
 // #source-link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/config/circle_cluttered.json", "config/circle_cluttered.json")
 

@@ -134,7 +134,7 @@ $
   m_(f_j #ra x_i) = sum_(X_j \\ x_i) f_j (X_j) product_(k in N(j) \\ i) m_(x_k #ra f_j)
 $<eq.mp-factor-to-variable>
 
-Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction#jens[more citation for loopy BP]
+Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction
 
 The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
 
@@ -240,10 +240,10 @@ This step is not written out in @gbpplanner, as it is not a step like the rest, 
 
   + *Update Linearisation Point:* As the factor has received new messages from neighbouring variables, the linearisation point is updated to the new mean, $mu_f$.
 
-  + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the initial linearisation point, $h(X_0)$, and the current measurement, $h(X_n)$, see @eq.factor-measurement@gbp-visual-introduction:
+  + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the initial linearisation point, $h(#m.Xb _0)$, and the current measurement, $h(#m.Xb _n)$, see @eq.factor-measurement@gbp-visual-introduction:
 
     $
-      h_r = h(X_0) - h(X_n)
+      h_r = h(#m.Xb _0) - h(#m.Xb _n)
     $<eq.factor-measurement>
 
     Where $X_0$ is the configuration at $t_0$, and $X_n$ is the configuration at the current timestep $t_n$.
@@ -328,40 +328,40 @@ As such, each neighbouring variable receives an updated message from the factor,
 
 // #jens[and this]
 
-Non-linear factors can exist, however, to understand the impact, let's first look at linear factors. A factor is usually modeled with data $d$. Equation @eq.gaussian-factor@gbp-visual-introduction shows how this is written:
+#note.jo[This is where there was a candy shop of colours before; is this better?]Non-linear factors can exist, however, to understand the impact, let's first look at linear factors. A factor is usually modeled with data $#m.d$. Equation @eq.gaussian-factor@gbp-visual-introduction shows how this is written:
 
 $
-  #text(theme.green, $d$) &tilde.op #text(theme.maroon, $h(X_n)$) + epsilon.alt
+  #m.d &tilde.op h(#m.Xb _n)) + epsilon.alt
 $<eq.gaussian-factor>
 
-Here, #text(theme.maroon, $h(X_n)$) represents the measurement of the state of the subset of neighbouring variables, $X_n$, to the factor, and the error term $epsilon.alt tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))$ is white noise. Thus, finding the residual $r$ between the measurement and the model, as seen in @eq.gaussian-residual@gbp-visual-introduction, reveals propagates the Gaussian nature of the model to the residual.
+Here, $h(#m.Xb _n)$) represents the measurement of the state of the subset of neighbouring variables, $#m.Xb _n$, to the factor, and the error term $epsilon.alt tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))$ is white noise. Thus, finding the residual $r$ between the measurement and the model, as seen in @eq.gaussian-residual@gbp-visual-introduction, propagates the Gaussian nature of the model to the residual.
 
 $
-  r = #text(theme.green, $d$) - #text(theme.maroon, $h(X_n)$) tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))
+  r = #m.d - h(#m.Xb _n)) tilde.op cal(N) (0, #text(theme.mauve, $Sigma_n$))
 $<eq.gaussian-residual>
 
-With this, looking at @f.gaussian-models, the #gaussian.moments can be rewritten with the measurement, $h(X)$, and the model $d$@eq.gaussian-energy@gbp-visual-introduction:
+With this, looking at @f.gaussian-models, the #gaussian.moments can be rewritten with the measurement, $h(#m.Xb)$, and the model $#m.d$@eq.gaussian-energy@gbp-visual-introduction:
 
 $
-  E(X_n) = 1/2 (#text(theme.maroon, $h(X_n)$) - #text(theme.green, $d$))^top #text(theme.mauve, $Sigma_n$)^(-1) (#text(theme.maroon, $h(X_n)$) - #text(theme.green, $d$))
+  E(#m.Xb _n) = 1/2 h(#m.Xb _n) - #m.d)^top #text(theme.mauve, $Sigma_n$)^(-1) h(#m.Xb _n) - #m.d)
 $<eq.gaussian-energy>
 
-In case of a linear factor, the measurement function is quadratic and can be written as $#text(theme.maroon, $h(X_n)$) = jacobian X_n + c$, where $jacobian$ is the Jacobian. This allows us to rearrange the energy onto #gaussian.canonical @eq.gaussian-canonical@gbp-visual-introduction:
+In case of a linear factor, the measurement function is quadratic and can be written as $h(#m.Xb _n) = jacobian #m.Xb _n + c$, where $jacobian$ is the Jacobian. This allows us to rearrange the energy onto #gaussian.canonical @eq.gaussian-canonical@gbp-visual-introduction:
 
 $
-  E(X_n) = 1/2 X_n^top #text(theme.yellow, $Lambda$) X_n - #text(theme.yellow, $eta$)^top X_n#h(1em), "where" #text(theme.yellow, $eta$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) (#text(theme.green, $d$) - c) "and" #text(theme.yellow, $Lambda$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) jacobian
+  E(#m.Xb _n) = 1/2 #m.Xb _n^top #text(theme.yellow, $Lambda$) #m.Xb _n - #text(theme.yellow, $eta$)^top #m.Xb _n#h(1em), "where" #text(theme.yellow, $eta$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) (#m.d - c) "and" #text(theme.yellow, $Lambda$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) jacobian
 $<eq.gaussian-canonical>
 
-However, in case of a non-linearity in $#text(theme.maroon, $m$)$, the energy is also not quadratic in $X_n$, which in turn means that the factor is not Gaussian. To achieve a Gaussian distribution for the factor in this case, it is necessary to linearise around a current estimate $X_0$, which is from here called the #factor.lp. This linearisation takes place by @eq.factor-linearisation@gbp-visual-introduction:
+However, in case of a non-linearity in $h$, the energy is also not quadratic in $#m.Xb _n$, which in turn means that the factor is not Gaussian. To achieve a Gaussian distribution for the factor in this case, it is necessary to linearise around a current estimate $#m.Xb _0$, which is from here called the #factor.lp. This linearisation takes place by @eq.factor-linearisation@gbp-visual-introduction:
 
 $
-  #text(theme.maroon, $h(X_n)$) = #text(theme.maroon, $h(X_0)$) + jacobian(X_n - X_0)
+  h(#m.Xb _n) = h(#m.Xb _0) + jacobian(#m.Xb _n - #m.Xb _0)
 $<eq.factor-linearisation>
 
 As such, we end up with a linearised factor on the form @eq.linearised-factor@gbp-visual-introduction, which ends up with a Gaussian approximation of the true non-linear distribution:
 
 $
-  c = #text(theme.maroon, $h(X_n)$) - jacobian X_n
+  c = h(#m.Xb _n) - jacobian #m.Xb _n
 $<eq.linearised-factor>
 
 The underlying potential non-linearities of factors is exemplified in @ex.non-linearities, and visualised in @fig.non-linearities.
@@ -400,7 +400,7 @@ The underlying potential non-linearities of factors is exemplified in @ex.non-li
         ]
       )
     },
-    caption: [A non-linear factor is visualised, where the measurement function $h(X_n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualised as a grey#sr contour plot underneath the linearised gaussian distribution#sgr2 on top.@gbp-visual-introduction],
+    caption: [A non-linear factor is visualised, where the measurement function $h(#m.Xb _n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualised as a grey#sr contour plot underneath the linearised gaussian distribution#sgr2 on top.@gbp-visual-introduction],
   )<fig.non-linearities>
 
   The purpose of this example is to make it clear, that the accuracy of a gaussian factor is dependent on the linearity of the measurement function, $h$. As in @fig.non-linearities#text(accent, "A"), the measurement model is reasonably smooth, and the linearised gaussian factor is a fairly good approximation, however, in @fig.non-linearities#text(accent, "B") highlights how a larger variance can lead to a very poor approximation, even without straying too far from the linearisation point.

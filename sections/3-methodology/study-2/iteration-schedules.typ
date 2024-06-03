@@ -34,7 +34,7 @@ $ S(M_I, M_R) = (S_I_(M_I, M_R)(n), S_R_(M_I, M_R)(n)) $ <equ.iteration-schedule
 
 It evaluates to a tuple of two _partial_ functions $S_I_(M_I, M_R)(n)$ and $S_R_(M_I, M_R)(n)$ defined over the range $n in [0, max(M_I, M_R)]$. That when evaluated with a iteration count $n$ returns $top$ if a message passing should be executed, and $bot$ otherwise.
 
-To make it effortless to test different schedules and add new ones in the future, dependency injection is used. The interface is modelled through a Rust trait called `GbpSchedule` as seen in @l.gbp-schedule-trait. With the current implementation every robot entity is equipped with the same schedule, but this could be a point for experimentation in possible future work, where robots are modelled with possibly different schedules #k[mention as a paragraph in future work].
+To make it effortless to test different schedules and add new ones in the future, dependency injection is used. The interface is modelled through a Rust trait called `GbpSchedule` as seen in @l.gbp-schedule-trait. With the current implementation every robot entity is equipped with the same schedule, but this could be a point for experimentation in possible future work, where robots are modelled with possibly different schedules.#note.k[mention as a paragraph in future work]
 
 #listing(
 ```rust
