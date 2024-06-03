@@ -8,39 +8,31 @@
 
 The following sections outline the most important next steps in order to further the work presented by this thesis. The suggestions are based on the idea of what the authors see as the most promising directions for future research, and what would be most beneficial for the field of multi-robot path planning; see sections #todo[refer to sections here]. Additionally, some future work in terms of the implementation of the #acr("MAGICS") tool is also discussed, see sections #todo[refer to sections here].
 
-=== Algorithm
+=== Algorithm Enhancements
 
-A limitation of the current approach to estimate obstacles in the environment is that it is assumed to be static, with no moving entities that the robot cannot communicate with to estimate its state. And that a #acr("SDF") representation of the entire environment is known before hand. This works in environments such as logistic facilities, but fails in scenarios where the environment is partially or fully unknown. A key limitation for more broader applicability in other potential application domains. Some existing work on #acr("VIO") #acr("SLAM") uses factorgraphs as the optimization methodology. A joint
+A limitation of the current approach to estimate obstacles in the environment is that it is assumed to be static, with no moving entities that the robot cannot communicate with to estimate its state. And that a #acr("SDF") representation of the entire environment is known before hand. This works in environments such as logistic facilities, but fails in scenarios where the environment is partially or fully unknown. A key limitation for more broader applicability in other potential application domains. Some existing work on #acr("VIO") based #acr("SLAM") uses factorgraphs as the optimization methodology @factor-graphs-exploiting-structure-in-robotics. Work into combining these two steps; localization and estimation with path planning could prove beneficial as pose estimation constrained with factors relating them to environment features could make the algorithm robust against obstacless. A key challenge is the question of how obstacle factors associated with future variable nodes can be estimated, when the camera cannot sample images into the future. Another limitation is that the dynamics factors are assuming the robot is not subjected to any non-holonomic constraints. A common choice for ground robots is to use differential drive dynamics, that has constraints on its ability to do lateral movements. A dynamic factor that captures this hard constraint would be necessary for moving towards real-world applicability. Another issue identified with current algorithm, as listed in @s.m.algorithm, is that the horizon state is updated to move closer towards the goal pose irrespective of the current state. If a robot has trouble finding a trajectory, and is moving very little our findings shows, that blindly advancing the horizon state can lead to situations where the robot is stuck with the horizon state having moved beyond an obstacle in a way that makes to robot unable to arrive at a path that would not collide with the obstacle. More sophisticated logic on how to advance the horizon satte would be needed in these infrequent situations to ensure more robustness.
 
-- This raises the question of how obstacle factors associated with future variable nodes can be estimated, when the camera cannot sample images into the future.
-
-#line(length: 100%, stroke: 1em + red)
-
-- Model sensing uncertainty to better bridge a move to real-scenario robotics
-- Merge with a #acr("VIO") SLAM solution, and to substitute for obstacle factors in unknown environments with mapping.
-  // - Use ray casting instead of sampling an SDF image of the environment
+// - Model sensing uncertainty to better bridge a move to real-scenario robotics
+// - Merge with a #acr("VIO") SLAM solution, and to substitute for obstacle factors in unknown environments with mapping.
+//   // - Use ray casting instead of sampling an SDF image of the environment
     // - Obstacle/SDF node will not work if the environment is not static.
 
-- Explore design of a modified dynamics factor that work with robots subjected to holonomic constraints. As is the case for unicycle robots
 
-- Use different behavior when communication is very bad. Either change the factor graph by adding new nodes with different policies or a new algorithm all together e.g. the game theory paper we read at the start.
+// - Use different behavior when communication is very bad. Either change the factor graph by adding new nodes with different policies or a new algorithm all together e.g. the game theory paper we read at the start.
 
-- Do not move the horizon state irrespective of the current state. If The robot has trouble finding a trajectory, and is moving very little our findings shows, that blindly advancing the horizon state can lead
+=== Extending to 3D with UAV's
+
+Extending the current algorithm to work in the context of a three-dimensional world would be interesting to explore to open up for broader applicability for use cases where #acrpl("UAV") are deployed. One challenge from this is that state is more complex with 12 states@tahir2019state#footnote[Position $x,y,z$, linear velocity $dot(x), dot(y), dot(z)$, orientation $phi.alt, theta, psi$ and angular velocity $dot(phi.alt), dot(theta), dot(psi)$.] instead of four. As a result the multivariate normal distribution messages exchanged during variable and factor iteration would be $7$ times larger in terms of bytes, and thereby a lot more computationaliy costly, which could limit the scalability to highly connected cases. Both the dynamic factor and obstable factor would have to be redesigned, with a new static environment representation to replace the #acr("SDF") representation used in 2D.
 
 
-=== New Environments
-
-#line(length: 100%, stroke: 1em + red)
-
-- Extend to 3D world. e.g. can it work with UAVS/drone. What would have to change?
- - The state space is more complex. As a result the matrices being sent around are larger, and more computationally costly
- - What factors would have to change or be updated?
- - Have other already done something similar
+// - Extend to 3D world. e.g. can it work with UAVS/drone. What would have to change?
+//  - The state space is more complex. As a result the matrices being sent around are larger, and more computationally costly
+//  - What factors would have to change or be updated?
+//  - Have other already done something similar
 
 
 
-- Verify simulation results in a Real World setup
-  - other sim-to-real considerations?
+// - Verify simulation results in a Real World setup
 
 === Simulation
 
@@ -51,6 +43,7 @@ A limitation of the current approach to estimate obstacles in the environment is
 - Try to make an estimate about the throughput of the system, in terms of messages per second, and try and estimate how much bandwidth is used. Based on the results, discuss what implications this would have for a real world system. There are some assumptions and corresponding limitations in the current implementation, which will be improved in future work. Firstly, we assumed that communication between robots was achieved instantly without delay
 
 
+- other sim-to-real considerations?
 
 === Deployment
 
