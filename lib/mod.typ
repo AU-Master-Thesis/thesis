@@ -23,3 +23,5 @@
 #import "marker.typ"
 #import "aos-soa.typ": aos, soa
 #import "seq.typ": fib
+
+#let cursor = line(length: 100%, stroke: 1em + red)
