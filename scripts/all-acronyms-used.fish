@@ -11,7 +11,7 @@ set -g blue (set_color blue)
 set -g cyan (set_color cyan)
 set -g magenta (set_color magenta)
 
-set -l acronyms (string match --regex --groups-only 'acronym: (\S+)$' < acronyms.yaml)
+set -l acronyms (string match --regex --groups-only '^- acronym: (\S+)$' < acronyms.yaml)
 
 set -l acronyms_used
 

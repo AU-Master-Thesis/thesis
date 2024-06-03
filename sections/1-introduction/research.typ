@@ -1,10 +1,10 @@
 #import "../../lib/mod.typ": *
 
-== Research Hypothesis <intro-research-hypothesis>
+== Research Hypotheses <intro-research-hypothesis>
 #let h-amount = context int(hyp-counter.at(<marker.end-of-hypothesis>).first())
 // This thesis poses the following #numbers.written(h-amount) hypothesis:
 // This thesis poses the following #h-amount hypothesis:
-This thesis poses the following three hypothesis:
+This thesis poses the following three hypotheses:
 
 // #repr(h-amount.get())
 // #todo[Maybe this should multiple hypothesis, or maybe it should be more specific or rephrased.]
@@ -18,7 +18,7 @@ This thesis poses the following three hypothesis:
 // + Reproducing the results of the original #acr("GBP") Planner, with thought to its architecture and design, and in a new programming language will improve the software's scientific communication and its extensibility.
 
 // Updated with Jonas feedback
-+ Reimplementing the original GBP Planner in a modern, flexible multi-agent simulator framework using a modern programming language will enhance the software's scientific communication and extendibility. This redevelopment will not only ensure fidelity in reproducing established results but also improve user engagement and development through advanced tooling, thereby significantly upgrading the usability and functionality for multi-agent system simulations.
++ Reimplementing the original GBP Planner in a modern, flexible, multi-agent simulator framework using a modern programming language will enhance the software's scientific communication and extendibility. This redevelopment will not only ensure fidelity in reproducing established results, but also improve user engagement and development through advanced tooling, thereby significantly upgrading the usability and functionality for multi-agent system simulations.
 
 
 // Jonas feedback:
@@ -40,7 +40,7 @@ From this point on, anything pertaining to the context of #H(1) will be referred
 
 == Research Questions <intro-research-questions>
 
-This section outlines which research questions will have to be answered to reach a conclusion for each hypothesis. The questions below are structured under each study, and are numbered accordingly. \ \
+This section outlines which research questions will have to be answered to reach a conclusion for each hypothesis. The questions below are structured under each research objective, and are numbered accordingly. \ \
 
 #[
   #set par(first-line-indent: 0em)
