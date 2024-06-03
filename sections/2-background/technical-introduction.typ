@@ -128,7 +128,7 @@ $
   p(#m.Xb|#m.D) = (p(#m.D|#m.Xb)p(#m.Xb)) / (p(#m.D))
 $<eq-bayes-theorom>
 
-This posterior distribution describes our belief of $#m.Xb$, after observing $#m.D$, which can then be used for decision making about possible future states.@gbp-visual-introduction Furthermore, when we have the posterior, properties about $#m.Xb$ can be computed;
+This posterior distribution describes our belief of $#m.Xb$, after observing $#m.D$, which can then be used for decision making about possible future states.@gbp-visual-introduction Furthermore, when we have the posterior, properties about $#m.Xb$ can be computed:
 
 #set enum(numbering: req-enum.with(prefix: "Property ", color: theme.green))
 + The most likely state of $#m.Xb $, the #acr("MAP") estimate $#m.Xb _"MAP"$, is the state with the highest probability in the posterior distribution. See @eq-map-estimate@gbp-visual-introduction:

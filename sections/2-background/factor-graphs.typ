@@ -30,7 +30,7 @@ $
   p(#m.Xb ) = product_{i} f_i (#m.Xb _i)
 $<eq.factor-product>
 
-Thus interpreting this, the factors are not necessarily in themselves probabilities, but rather the functions that determine the probabilities of the variables.@loeliger_introduction_2004@alevizos_factor_2012 Additionally, it can be useful to present factor graphs as energy-based models@energy-based-models, where, as seen in @eq.factor-energy@gbp-visual-introduction, each factor $f_i$ is associated with an energy $E_i > 0$:
+Interpreting this, the factors are not necessarily in themselves probabilities, but rather the functions that determine the probabilities of the variables.@loeliger_introduction_2004@alevizos_factor_2012 Additionally, it can be useful to present factor graphs as energy-based models@energy-based-models, where, as seen in @eq.factor-energy@gbp-visual-introduction, each factor $f_i$ is associated with an energy $E_i > 0$:
 
 $
   f_i(#m.Xb _i) = exp(-E_i(#m.Xb _i))
@@ -117,28 +117,28 @@ Inference on a factor graph is achieved by passing messages between the variable
 
 // #jonas[Is more context for BP and the sum-product algorithm needed?]
 
-In #step.s1 the computation of the marginal distribution of a variable $x_i$ takes place. This is done by finding the product of all messages from neighbouring factors $f_j$ to $x_i$, as seen in  @eq.mp-variable-update@gbpplanner@robotweb@gbp-visual-introduction.
+In #step.s1, the computation of the marginal distribution of a variable $x_i$ takes place. This is done by finding the product of all messages from neighbouring factors $f_j$ to $x_i$, as seen in  @eq.mp-variable-update@gbpplanner@robotweb@gbp-visual-introduction.
 
 $
   m_(x_i) = product_(s in N(i)) m_(f_s #ra x_i)
 $<eq.mp-variable-update>
 
-Secondly, in #step.s2 the variable to factor messages $m_(x_i #ra f_j)$ are computed as described in @eq-mp-variable-to-factor@gbpplanner, which is a product of all messages from neighbouring factors $f_s$ except $f_j$.@gbpplanner@robotweb@gbp-visual-introduction
+Secondly, in #step.s2, the variable to factor messages $m_(x_i #ra f_j)$ are computed as described in @eq-mp-variable-to-factor@gbpplanner, which is a product of all messages from neighbouring factors $f_s$ except $f_j$.@gbpplanner@robotweb@gbp-visual-introduction
 
 $
   m_(x_i #ra f_j) = product_(s in N(i) \\ j) m_(f_s #ra x_i)
 $<eq-mp-variable-to-factor>
 
-The factor to variable messages $m_(f_j #ra x_i)$ are described in @eq.mp-factor-to-variable@gbpplanner, where the message is the product of the factor $f_j$ and the messages from all neighbouring variables $x_i$ except $x_i$ itself.@gbpplanner@robotweb@gbp-visual-introduction This corresponds to the entire #iteration.factor, i.e. #step.s3 and #step.s4, also shown in @fig.message-passing.
+The factor to variable messages $m_(f_j #ra x_i)$ are described in @eq.mp-factor-to-variable@gbpplanner, where the message is the product of the factor $f_j$ and the messages from all neighbouring variables $x_i$, except $x_i$ itself.@gbpplanner@robotweb@gbp-visual-introduction This corresponds to the entire #iteration.factor, i.e. #step.s3 and #step.s4, also shown in @fig.message-passing.
 $
   m_(f_j #ra x_i) = sum_(X_j \\ x_i) f_j (X_j) product_(k in N(j) \\ i) m_(x_k #ra f_j)
 $<eq.mp-factor-to-variable>
 
-Originally #acr("BP"), was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction
+Originally, #acr("BP") was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier in @s.b.factor-graphs, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction
 
-The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
+The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such, the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimises the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
 
-Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm isn't guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loppy #acr("BP") is very capable of converging to the true marginals, as long as the graphs aren't highly cyclic#note.wording[too loopy? Is loopy and cyclic the same thing?].@gbp-visual-introduction
+Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm isn't guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loopy #acr("BP") is very capable of converging to the true marginals, as long as the graphs aren't highly cyclic#note.wording[too loopy? Is loopy and cyclic the same thing?].@gbp-visual-introduction
 
 // #todo[later mention that the specific factorgraph structure is non-cyclic in our case]
 
@@ -146,7 +146,7 @@ Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained mi
 
 // #jens[do this #emoji.face.smile]
 
-Having introduced both Gaussian models, and #acr("BP"), #acr("GBP") can now be looked at. #acr("GBP") is a variant of #acr("BP"), where, due to the closure properties#jens[cite] of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix, #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$). As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"); exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guaranteed.@gbp-visual-introduction
+Having introduced both Gaussian models, and #acr("BP"), #acr("GBP") can now be looked at. It is a variant of #acr("BP"), where, due to the closure properties#jens[cite] of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form, #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$). As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"), exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guarantee.@gbp-visual-introduction
 
 In a factor graph, where all factors are Gaussian, and since all energy terms are additive in the #gaussian.canonical, the energy of the factor graph is also Gaussian, which means that one can represent it as a single multivariate Gaussian. See the equation for this joint distribution in @eq.gaussian-joint@gbp-visual-introduction:
 
@@ -156,13 +156,13 @@ $<eq.gaussian-joint>
 
 ==== MAP Inference <s.b.gbp.map-inference>
 
-In the context of #acr("GBP"), the #acr("MAP") estimate can be found by the parameters $X_"MAP"$ that maximises the joint distribution in @eq.gaussian-joint. The total energy can then be written as @eq.gaussian-energy-total@gbp-visual-introduction
+In the context of #acr("GBP"), the #acr("MAP") estimate can be found by the parameters $X_"MAP"$ that maximises the joint distribution in @eq.gaussian-joint. The total energy can then be written as @eq.gaussian-energy-total@gbp-visual-introduction:
 
 $
   nabla_X E(X) = nabla_X log P(X) = -#m.Lambda X + #m.eta
 $<eq.gaussian-energy-total>
 
-which is the gradient of the log-probability, and can be set to zero, $nabla_X E = 0$, to find the #acr("MAP") estimate, which, in #acr("GBP") is reduced to the mean #m.mu, as seen in @eq.gaussian-map@gbp-visual-introduction:
+which is the gradient of the log-probability, and can be set to zero, $nabla_X E = 0$, to find the #acr("MAP") estimate, which, in #acr("GBP"), is reduced to the mean #m.mu, as seen in @eq.gaussian-map@gbp-visual-introduction:
 
 $
   X_"MAP" = #m.Lambda^(-1) #m.eta = #m.mu
@@ -179,7 +179,7 @@ $<eq.gaussian-marginal-moments>
 
 where $X_{-i}$ is the set of all variables except $x_i$, and $#m.Sigma _(i i)$ is the $i^"th"$ diagonal element of the covariance matrix $#m.Sigma = #m.Lambda$. The marginal posterior distribution is then a Gaussian with mean $#m.mu _i$ and variance $#m.Sigma _(i i)$. Furthermore, $#m.mu _i$ is the $i^"th"$ element of the joint mean vector $#m.mu$, as in @eq.gaussian-joint.
 
-With the understanding from #numref(<s.b.gbp.map-inference>) and #numref(<s.b.gbp.marginal-inference>); inference in #acr("GBP") ends up being a matter of solving the linear system of equations @eq.gaussian-linear-system@gbp-visual-introduction:
+With the understanding from #numref(<s.b.gbp.map-inference>) and #numref(<s.b.gbp.marginal-inference>), inference in #acr("GBP") ends up being a matter of solving the linear system of equations @eq.gaussian-linear-system@gbp-visual-introduction:
 
 $
   A x = b #sym.arrow.r.double #m.Lambda #m.mu = #m.eta
@@ -227,8 +227,7 @@ $<eq.gbp-variable-to-factor-canonical>
 
 === Factor Update <s.b.gbp.factor-update>
 
-// #jonas[I have written this section out, which was a todo box before, please read.]
-This step is not written out in @gbpplanner, as it is not a step like the rest, where state is updated. Instead, the updating of a factor here describes the mathematical steps taken before passing messages to neighbouring variables. Writing this step out also represents the developed software@repo more directly. The following steps take place:
+This step is not detailed in @gbpplanner, as it is not a regular step involving state updates. Instead, the updating of a factor describes the mathematical steps taken before passing messages to neighbouring variables. Writing this step out also represents the developed software@repo more directly. The following steps take place:
 #[
   #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve))
   // #set par(first-line-indent: 0em)
