@@ -195,6 +195,11 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 //   - The results of the provided code by #gbpplanner, with the same parameters as the #gbpplanner paper; #lm3-th13.n.
 // ]
 
+// O1
+// makespan: {20: 110.84, 40: 169.78, 60: 178.6, 80: 176.23999999999998}
+// distance: {20: 295.5999750811273, 40: 469.9587116164673, 60: 499.84999164026755, 80: 514.5135772497284}
+// ldj:      {20: -17.5307399430643, 40: -19.511392192446536, 60: -19.940552192799846, 80: -20.232993297885482}
+
 #figure(
   tablec(
     columns: (auto,) + range(12).map(_ => 1fr),
@@ -203,10 +208,10 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
     header: table.header(
       tc(rowspan: 2, [$bold(r_C)$\ \[$bold(m)$\]]), tc(colspan: 4, [Makespan \[$bold(s)$\]]), tc(colspan: 4, [Distance Travelled \[$bold(m)$\]]), tc(colspan: 4, [LDJ \[$bold(m"/"s^3)$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
     ),
-    vc[20], table.vline(), vc[$12.0$], oc2[], vc[$46.0$], vc[$199.50$], table.vline(), vc[$104$], oc2[], vc[$236.9$], vc[$519.5$], table.vline(), vc[$-9.02$], oc2[], vc[$-14.5$], vc[$-22.9$],
-    vc[40], vc[$12.3$], oc2[], vc[$64.6$], vc[$260.9$], vc[$104.5$], oc2[], vc[$286.0$], vc[$751.1$], vc[$-8.76$], oc2[], vc[$-16.0$], vc[$-23.7$],
-    vc[60], vc[$12.7$], oc2[], vc[$65.3$], vc[$443.3$], vc[$104.0$], oc2[], vc[$295.3$], vc[$1551.7$], vc[$-8.38$], oc2[], vc[$-16.3$], vc[$-25.3$],
-    vc[80], vc[$14.8$], oc2[], vc[$64.6$], vc[$379.0$], vc[$103$], oc2[], vc[$283.2$], vc[$1069.4$], vc[$-8.47$], oc2[], vc[$-16.1$], vc[$-24.9$],
+    vc[20], table.vline(), vc[$12.0$], vc[$110.8$], vc[$46.0$], vc[$199.50$], table.vline(), vc[$104$], vc[$295.6$], vc[$236.9$], vc[$519.5$], table.vline(), vc[$-9.02$], vc[$-17.5$], vc[$-14.5$], vc[$-22.9$],
+    vc[40], vc[$12.3$], vc[$169.8$], vc[$64.6$], vc[$260.9$], vc[$104.5$], vc[$470.0$], vc[$286.0$], vc[$751.1$], vc[$-8.76$], vc[$-19.5$], vc[$-16.0$], vc[$-23.7$],
+    vc[60], vc[$12.7$], vc[$178.6$], vc[$65.3$], vc[$443.3$], vc[$104.0$], vc[$499.8$], vc[$295.3$], vc[$1551.7$], vc[$-8.38$], vc[$-19.9$], vc[$-16.3$], vc[$-25.3$],
+    vc[80], vc[$14.8$], vc[$176.2$], vc[$64.6$], vc[$379.0$], vc[$103$], vc[$514.5$], vc[$283.2$], vc[$1069.4$], vc[$-8.47$], vc[$-20.2$], vc[$-16.1$], vc[$-24.9$],
   ),
   caption: [Results for the Varying Network Connectivity scenario. Shows the effect of varying communication range $r_C$ in the same environment as the Environment Obstacles scenario. Values in the #T1 column is taken from Table 1 in @gbpplanner. Column #T2 are results obtained by running the experiment in `gbpplanner`@gbpplanner-code, where #O1 and #O2 are results from #acr("MAGICS"). #O1 is with lookahead multiple $l_m=3$ and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. Performed over 5 different seeds; $#equation.as-set(params.seeds)$. Corresponds with Table 1 in @gbpplanner.],
 )<t.network-experiment>

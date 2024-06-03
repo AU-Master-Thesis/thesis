@@ -14,6 +14,8 @@
 
 #let kristoffer = note-gen.with(c: catppuccin.latte.blue, scope: "Kristoffer")
 #let k = kristoffer
+#let kevork = note-gen.with(c: catppuccin.latte.yellow, scope: "Kevork")
+#let ke = kevork
 #let jens = note-gen.with(c: catppuccin.latte.teal, scope: "Jens")
 #let j = jens
 #let jonas = note-gen.with(c: catppuccin.latte.mauve, scope: "Jonas")
