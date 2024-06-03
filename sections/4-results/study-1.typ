@@ -8,12 +8,12 @@
 This sections presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle-obstacles>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
 
 
-#kristoffer[
-  show screenshots side by side of different elements of the simulation from theirs and ours,
-  e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
-
-  use this to argue on a non-measurable level why our implementation has is similar to theirs / has been reproduced
-]
+// #kristoffer[
+//   show screenshots side by side of different elements of the simulation from theirs and ours,
+//   e.g. visualisation of the factorgraph, or how we added visualisation of each variables gaussian uncertainty
+//
+//   use this to argue on a non-measurable level why our implementation has is similar to theirs / has been reproduced
+// ]
 
 === Circle & Environment Obstacles <s.r.results.circle-obstacles>
 
