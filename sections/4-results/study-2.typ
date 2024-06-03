@@ -10,7 +10,7 @@
 
 #pagebreak()
 
-=== Schedules
+=== Schedules <s.r.schedules>
 
 For the _schedules_ experiment, three of the considered metrics are measured. @f.schedules-experiment-ldj plots the #acr("LDJ") metric, as a grouped histogram plot for each schedule. @f.schedules-experiment-makespan and @f.schedules-experiment-distance-travelled similarly shows the "Makespan" and "Distance Travelled" metric respectively. The plots shows that for all three metrics the choice of schedule does not have an significant effect. When looking across all metrics and schedules it is diffecult to assess whether the number of external iterations $M_R$ has a beneficial effect. For the _Centered_, _Late as Possible_ and _Soon as Possible_ in @f.schedules-experiment-ldj it appears to result in an improvement as $M_R$ increases. But for others such _Half Start, Half End_ and _Late as Possible_ in @f.schedules-experiment-distance-travelled no clear relation is observable. _Half Start, Half End_ is the best performing schedule in all three metrics, albeit only slightly.
 
@@ -123,7 +123,7 @@ For the _schedules_ experiment, three of the considered metrics are measured. @f
 ) <f.schedules-experiment-distance-travelled>
 
 
-=== Iteration Amount
+=== Iteration Amount <s.r.iteration-amount-plots>
 
 @f.iteration-amount-plots shows the results of the experiment, across four different metrics. A clear pattern shared across all four is that internal iteration $M_I = 1$ and external iteration $M_R = 1$, is not enough to properly solve for the optimum across the factorgraphs. Another general trend is that as both $M_I$ and $M_R$ the quality of each metric improves. With both the #acr("LDJ") and Makespan metric the 2D gradient is clear to see, with both a high $M_I$ and $M_R$ needed to reach the optimum. For the "Distance Travelled" metric only a couple of iterations are needed to reach the optimum plateou. "Finished at Difference" shows a more noisy histogram, with values fluctuating a lot more for $M_I < 10 and M_R < 10$.\
 All four metrics clearly shows that a large $M_R$ when $M_I in [1,2]$ is severely detrimental.
