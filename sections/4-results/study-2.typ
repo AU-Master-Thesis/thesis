@@ -13,12 +13,12 @@
 
 === Iteration Amount <s.r.iteration-amount-plots>
 
-@f.iteration-amount-plots shows the results of the experiment, across four different metrics. A clear pattern shared across all four is that internal iteration $M_I = 1$ and external iteration $M_R = 1$, is not enough to properly solve for the optimum across the factorgraphs. Another general trend is that as both $M_I$ and $M_R$ the quality of each metric improves. With both the #acr("LDJ") and Makespan metric the 2D gradient is clear to see, with both a high $M_I$ and $M_R$ needed to reach the optimum. For the "Distance Travelled" metric only a couple of iterations are needed to reach the optimum plateou. "Finished at Difference" shows a more noisy histogram, with values fluctuating a lot more for $M_I < 10 and M_R < 10$. All four metrics clearly shows that a large $M_R$ when $M_I in [1,2]$ is severely detrimental.
+@f.iteration-amount-plots shows the results of the experiment, across four different metrics. A clear pattern shared across all four is that internal iteration $M_I = 1$ and external iteration $M_E = 1$, is not enough to properly solve for the optimum across the factorgraphs. Another general trend is that as both $M_I$ and $M_E$ the quality of each metric improves. With both the #acr("LDJ") and Makespan metric the 2D gradient is clear to see, with both a high $M_I$ and $M_E$ needed to reach the optimum. For the _distance travelled_ metric only a couple of iterations are needed to reach the optimum plateou. _Finished at difference_ shows a more noisy histogram, with values fluctuating a lot more for $M_I < 10 and M_E < 10$. All four metrics clearly shows that a large $M_E$ when $M_I in [1,2]$ is severely detrimental.
 
 // - exponentially more
 //
-// performs significantly poorer than any of the other combinations. As both $M_I$ and $M_R$ increase each metric quickly converges toward an optimum plateau, from which no further increase appears to result in an improvement. Across all metrics performance is generally suboptimal when $M_I = 1 and M_R > 1$ or $M_I > 1 and M_R$. Although for $M_I in  {5, 13, 21} and M_R = 1 or M_I = 1 and M_R = {5, 13, 21}$ no drawback appears. \
-// Both the distance travelled metric and finished at difference contains noticeable outliers at $M_I = 8 and M_R = 1$ and $M_I = 3 and M_R = 1$ respectively. Contrary to both the #acr("LDJ") and makespan
+// performs significantly poorer than any of the other combinations. As both $M_I$ and $M_E$ increase each metric quickly converges toward an optimum plateau, from which no further increase appears to result in an improvement. Across all metrics performance is generally suboptimal when $M_I = 1 and M_E > 1$ or $M_I > 1 and M_E$. Although for $M_I in  {5, 13, 21} and M_E = 1 or M_I = 1 and M_E = {5, 13, 21}$ no drawback appears. \
+// Both the distance travelled metric and finished at difference contains noticeable outliers at $M_I = 8 and M_E = 1$ and $M_I = 3 and M_E = 1$ respectively. Contrary to both the #acr("LDJ") and makespan
 //
 // Although for the #acr("LDJ"), makespan and finished at difference, $5, 13, 21$
 //
@@ -28,11 +28,11 @@
 //
 // - repeating pattern of ... slightly worse results
 //
-// // best performance is achieved if both $M_I$ and $M_R$ a
+// // best performance is achieved if both $M_I$ and $M_E$ a
 //
 //
-// Across all metrics, lower values of external iterations ($M_R$) consistently lead to poorer performance.
-// Increasing internal iterations ($M_I$) generally enhances performance, but optimal results are achieved with a combination of higher values for both $M_I$ and $M_R$.
+// Across all metrics, lower values of external iterations ($M_E$) consistently lead to poorer performance.
+// Increasing internal iterations ($M_I$) generally enhances performance, but optimal results are achieved with a combination of higher values for both $M_I$ and $M_E$.
 //
 // A first observation is that the
 
@@ -90,14 +90,14 @@
     ),
   ),
   caption: [
-    Results of varying internal iteration $M_I$ and external $M_R$ split across four metrics: #acr("LDJ"), makespan, distance travelled, and largest time difference. Each metric is plotted as a 2D histogram with the $x$ and $y$-axis being $M_I$ and $M_R$ respectively. The gradient colors are chosen such that the orange colored end of the spectrum are cells #cell(theme.peach) which performed poorly for that metric. While blue #cell(theme.lavender) indicates cells with good metric values.
+    Results of varying internal iteration $M_I$ and external $M_E$ split across four metrics: #acr("LDJ"), makespan, distance travelled, and largest time difference. Each metric is plotted as a 2D histogram with the $x$ and $y$-axis being $M_I$ and $M_E$ respectively. The gradient colors are chosen such that the orange colored end of the spectrum are cells #cell(theme.peach) which performed poorly for that metric. While blue #cell(theme.lavender) indicates cells with good metric values.
   ]
 ) <f.iteration-amount-plots>
 
 
 === Iteration Schedules <s.r.schedules>
 
-For the Schedules experiment, three of the considered metrics are measured. @f.schedules-experiment-ldj plots the #acr("LDJ") metric, as a grouped histogram plot for each schedule. @f.schedules-experiment-makespan and @f.schedules-experiment-distance-travelled similarly shows the "Makespan" and "Distance Travelled" metric respectively. The plots shows that for all three metrics the choice of schedule does not have an significant effect. When looking across all metrics and schedules it is diffecult to assess whether the number of external iterations $M_R$ has a beneficial effect. For the _Centered_, _Late as Possible_ and _Soon as Possible_ in @f.schedules-experiment-ldj it appears to result in an improvement as $M_R$ increases. But for others such _Half Start, Half End_ and _Late as Possible_ in @f.schedules-experiment-distance-travelled no clear relation is observable. _Half Start, Half End_ is the best performing schedule in all three metrics, albeit only slightly.
+For the Schedules experiment, three of the considered metrics are measured. @f.schedules-experiment-ldj plots the #acr("LDJ") metric, as a grouped histogram plot for each schedule. @f.schedules-experiment-makespan and @f.schedules-experiment-distance-travelled similarly shows the _makespan_ and _distance travelled_ metric respectively. The plots shows that for all three metrics the choice of schedule does not have an significant effect. When looking across all metrics and schedules it is diffecult to assess whether the number of external iterations $M_E$ has a beneficial effect. For the _Centered_, _Late as Possible_ and _Soon as Possible_ in @f.schedules-experiment-ldj it appears to result in an improvement as $M_E$ increases. But for others such _Half Start, Half End_ and _Late as Possible_ in @f.schedules-experiment-distance-travelled no clear relation is observable. _Half Start, Half End_ is the best performing schedule in all three metrics, albeit only slightly.
 
 // interleave evenly
 // soon as possible
@@ -167,7 +167,7 @@ For the Schedules experiment, three of the considered metrics are measured. @f.s
     // ),
   ),
   caption: [
-    #acr("LDJ") metric for each schedules. Each column in a schedule group represent a different value of external iterations $M_R$, sorted in ascending order. The left-most column is $M_R = 5$, and the right-most is $M_R = 25$. Atop each group is the average value of the five columns shown.
+    #acr("LDJ") metric for each schedules. Each column in a schedule group represent a different value of external iterations $M_E$, sorted in ascending order. The left-most column is $M_E = 5$, and the right-most is $M_E = 25$. Atop each group is the average value of the five columns shown.
   ]
   // #acr("LDJ")]
 ) <f.schedules-experiment-ldj>
@@ -188,7 +188,7 @@ For the Schedules experiment, three of the considered metrics are measured. @f.s
     ),
     schedules-legend
   ),
-  caption: [Makespan metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot. Each column in a schedule group represent a different value of external iterations $M_R$, sorted in ascending order. The left-most column is $M_R = 5$, and the right-most is $M_R = 25$. Atop each group is the average value of the five columns shown.]
+  caption: [Makespan metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot. Each column in a schedule group represent a different value of external iterations $M_E$, sorted in ascending order. The left-most column is $M_E = 5$, and the right-most is $M_E = 25$. Atop each group is the average value of the five columns shown.]
 ) <f.schedules-experiment-makespan>
 
 #figure(
@@ -206,5 +206,5 @@ For the Schedules experiment, three of the considered metrics are measured. @f.s
     ),
     schedules-legend
   ),
-  caption: [Distance travelled metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot. Each column in a schedule group represent a different value of external iterations $M_R$, sorted in ascending order. The left-most column is $M_R = 5$, and the right-most is $M_R = 25$. Atop each group is the average value of the five columns shown.]
+  caption: [Distance travelled metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot. Each column in a schedule group represent a different value of external iterations $M_E$, sorted in ascending order. The left-most column is $M_E = 5$, and the right-most is $M_E = 25$. Atop each group is the average value of the five columns shown.]
 ) <f.schedules-experiment-distance-travelled>

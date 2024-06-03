@@ -18,21 +18,21 @@ global convergence can still be achieved. This quality is especially important i
 
 // - As it is desirable to run execute more internal message passes than external.
 
-To accomedate this discrepancy the gbpplanner algorithm can be configured to run a different amount of internal and external message passing iterations per $Delta_t$, through the parameters $M_I$ and $M_R$ respectively. The effect of varying $M_I$ and $M_R$ are not experimented with in @gbpplanner. All the provided experimental scenarios use $M_I = 50$ and $M_R = 10$. Furthermore it is not explained in which order internal and external message passing are scheduled relative to each other, in cases where $M_I != M_R$. The accompanying source code@gbpplanner-code does not answer this question either, and does in fact not implement a way to handle when $M_I != M_R$ as seen here #source-link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/src/Simulator.cpp#L82-L87", "gbpplanner/src/Simulatior.cpp:82-87"). Contrary to what they report in their paper.
+To accomedate this discrepancy the gbpplanner algorithm can be configured to run a different amount of internal and external message passing iterations per $Delta_t$, through the parameters $M_I$ and $M_E$ respectively. The effect of varying $M_I$ and $M_E$ are not experimented with in @gbpplanner. All the provided experimental scenarios use $M_I = 50$ and $M_E = 10$. Furthermore it is not explained in which order internal and external message passing are scheduled relative to each other, in cases where $M_I != M_E$. The accompanying source code@gbpplanner-code does not answer this question either, and does in fact not implement a way to handle when $M_I != M_E$ as seen here #source-link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/src/Simulator.cpp#L82-L87", "gbpplanner/src/Simulatior.cpp:82-87"). Contrary to what they report in their paper.
 
 
 
 // #k[insert github link to where this can be seen]
 
-// These variations are not experimented with in the paper@gbpplanner. They only present scenarios where $M_I = 50$ and $M_R = 10$. And make no remark on the how they schedule the different iterations. Likewise their published code ...
+// These variations are not experimented with in the paper@gbpplanner. They only present scenarios where $M_I = 50$ and $M_E = 10$. And make no remark on the how they schedule the different iterations. Likewise their published code ...
 
-// - dichotemy of messages being sent across _internal_ and _external_ edges. This split is parameterized through the variables $M_I$, and $M_R$ that expresses how many times per $Delta_t$
+// - dichotemy of messages being sent across _internal_ and _external_ edges. This split is parameterized through the variables $M_I$, and $M_E$ that expresses how many times per $Delta_t$
 
-To test what effect the ordering of $M_I$ and $M_R$ has on the global convergence of the algorithm,  the reimplementation is extended to incorporate the concept of an _iteration schedule_. A schedule which describes how to lay out the ordering of internal and external message passing relative to each other per simulated timestep $Delta_t$. More formally a schedule is defined to be a higher order function $S$ parameterized by $M_I, M_R$, as shown in @equ.iteration-schedule.
+To test what effect the ordering of $M_I$ and $M_E$ has on the global convergence of the algorithm,  the reimplementation is extended to incorporate the concept of an _iteration schedule_. A schedule which describes how to lay out the ordering of internal and external message passing relative to each other per simulated timestep $Delta_t$. More formally a schedule is defined to be a higher order function $S$ parameterized by $M_I, M_E$, as shown in @equ.iteration-schedule.
 
-$ S(M_I, M_R) = (S_I_(M_I, M_R)(n), S_R_(M_I, M_R)(n)) $ <equ.iteration-schedule>
+$ S(M_I, M_E) = (S_I_(M_I, M_E)(n), S_R_(M_I, M_E)(n)) $ <equ.iteration-schedule>
 
-It evaluates to a tuple of two _partial_ functions $S_I_(M_I, M_R)(n)$ and $S_R_(M_I, M_R)(n)$ defined over the range $n in [0, max(M_I, M_R)]$. That when evaluated with a iteration count $n$ returns $top$ if a message passing should be executed, and $bot$ otherwise.
+It evaluates to a tuple of two _partial_ functions $S_I_(M_I, M_E)(n)$ and $S_R_(M_I, M_E)(n)$ defined over the range $n in [0, max(M_I, M_E)]$. That when evaluated with a iteration count $n$ returns $top$ if a message passing should be executed, and $bot$ otherwise.
 
 To make it effortless to test different schedules and add new ones in the future, dependency injection is used. The interface is modelled through a Rust trait called `GbpSchedule` as seen in @l.gbp-schedule-trait. With the current implementation every robot entity is equipped with the same schedule, but this could be a point for experimentation in possible future work, where robots are modelled with possibly different schedules.
 
@@ -316,16 +316,16 @@ Five different iteration schedules are experimented with. Each schedule is liste
   show-schedule(iterations.values(), interleave-evenly, cmap: cmap.values(), inactive-color: inactive-color, title: [Interleave Evenly], show-xticks: false)
   show-schedule(iterations.values(), schedule-soon-as-possible, cmap: cmap.values(), inactive-color: inactive-color, title: [Soon as Possible], show-xticks: false)
   show-schedule(iterations.values(), schedule-late-as-possible, cmap: cmap.values(), inactive-color: inactive-color, title: [Late as Possible], show-xticks: false)
-  show-schedule(iterations.values(), schedule-half-at-the-end-half-at-the-beginning, cmap: cmap.values(), inactive-color: inactive-color,  title: [Half at the beginning, Half at the end], show-xticks: false)
+  show-schedule(iterations.values(), schedule-half-at-the-end-half-at-the-beginning, cmap: cmap.values(), inactive-color: inactive-color,  title: [Half Start, Half End], show-xticks: false)
   show-schedule(iterations.values(), schedule-centered, cmap: cmap.values(), inactive-color: inactive-color, title: [Centered])
 },
   caption: [
-  Visual representation of each schedule for $M_I = 50$, $M_R = 10$. Teal cells #cell(cmap.internal) indicate internal message passing at that iteration. Red #cell(cmap.external) represent external message passing and gray #cell(inactive-color) cells indicate no message passing.
+  Visual representation of each schedule for $M_I = 50$, $M_E = 10$. Teal cells #cell(cmap.internal) indicate internal message passing at that iteration. Red #cell(cmap.external) represent external message passing and gray #cell(inactive-color) cells indicate no message passing.
 ]
 ) <f.iteration-schedules>
 
 
-The effect of each schedule is experimented with and compared in @s.r.study-2. To make experimentation easy and discoverable the UI settings panel of the simulator has a dedicated section to control $M_I, M_R$ and the chosen schedule live as the simulation is running. A screenshot of the section is shown in @f.ui-schedule-settings.
+The effect of each schedule is experimented with and compared in @s.r.study-2. To make experimentation easy and discoverable the UI settings panel of the simulator has a dedicated section to control $M_I, M_E$ and the chosen schedule live as the simulation is running. A screenshot of the section is shown in @f.ui-schedule-settings.
 
 
 // ```toml
@@ -392,8 +392,8 @@ The effect of each schedule is experimented with and compared in @s.r.study-2. T
   set par(first-line-indent: 0em)
   [
     *Expectation:* For the algorithm to be robust and converge the relative order in which external messages are used to update the joint factorgraph should matter very little. The following three outcomes are expected:
-      - No difference between _Late as Possible_ and _Soon as Possible_ as they are identical expect for $min(M_I, M_R)$ being offset in phase by $max(M_I, M_R) - min(M_I, M_R)$.
-      - No difference between _Half at the Beginning_ and _Half at the End_. Similar to the above except with $min(M_I, M_R)$ being offset by $min(M_I, M_R)$ in phase.
+      - No difference between _Late as Possible_ and _Soon as Possible_ as they are identical expect for $min(M_I, M_E)$ being offset in phase by $max(M_I, M_E) - min(M_I, M_E)$.
+      - No difference between _Half at the Beginning_ and _Half at the End_. Similar to the above except with $min(M_I, M_E)$ being offset by $min(M_I, M_E)$ in phase.
       - _Interleave Evenly_ should be the best schedule of the five, as the updates from external robots are spaced more evenly in time. Distributing the amount of information evenly between iterations ensures variables are updated evenly in time, leading to a more even distribution of information. This even spacing makes the system less volatile and increases the likelihood of robust convergence, as even time distribution equates to even information density.
 
 // notes:

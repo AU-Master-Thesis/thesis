@@ -23,7 +23,7 @@ The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len(
 
 + #scenario[Collaborative Global Planning:] This scenario is similar to #boxed(color: colors.ours, [*SO-1*]), but with many robots. Several spawning locations are possible, where each individual robot get a task to traverse the complex environment. The purpose of this scenario is to test the interactivity between the tracking factors and the interrobot factors, $f_i$.
 
-+ #scenario[Iteration Amount:] Same environment as the Circle scenario. This explores the effect of varying $M_I$ and $M_R$. The goal is to determine optimal values for these parameters and whether increasing the iteration count consistently improves performance.
++ #scenario[Iteration Amount:] Same environment as the Circle scenario. This explores the effect of varying $M_I$ and $M_E$. The goal is to determine optimal values for these parameters and whether increasing the iteration count consistently improves performance.
 
 + #scenario[Iteration Schedules:] Identical environment and formation as the Circle scenario. This scenario explores the effect of the various iteration schedules presented in @s.iteration-schedules.
 
@@ -265,7 +265,7 @@ Here, the same complex environment as in the #scen.solo-gp.n scenario is used. H
       )
     )
   ),
-  caption: [Screenshot of the maze-like environment@fn.solo-gp.environment, with multiple robots spawned in different locations. Tracking factors are not enables here.]
+  caption: [Screenshot of the maze-like environment@fn.solo-gp.environment, with multiple robots spawning in nine different formations, sharing three spawning points and three exit points, see the accompanying `formation.yaml` file#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/97e40fdba0005fd91f903af04df74c31cbc1c05c/config/simulations/Collaborative%20GP%20Low%20Qin/formation.yaml", "config/simulations/Collaborative GP/formation.yaml")]. Tracking factors are not enabled here.]
 )<f.scenarios.collaborative-gp>
 
 #figure(
@@ -281,13 +281,13 @@ Here, the same complex environment as in the #scen.solo-gp.n scenario is used. H
 
 === #scen.iteration-amount.n <s.r.scenarios.iteration-amount>
 
-This scenario explores the effect of varying $M_I$ and $M_R$. Both $M_I$ and $M_R$ are varied over the second to tenth number in the Fibonacci sequence.
-$ M_I and M_R =  {"fib(i)" | i in [2,3, ..., 10]} $
+This scenario explores the effect of varying $M_I$ and $M_E$. Both $M_I$ and $M_E$ are varied over the second to tenth number in the Fibonacci sequence.
+$ M_I and M_E =  {"fib(i)" | i in [2,3, ..., 10]} $
 
 This sequence of values are chosen to test the algorithm at very few iterations initially and increasingly at more iterations with larger difference between each step.
 
 #par(first-line-indent: 0pt)[
-  _*Expectation*_: Performance should converge after 8-10 iterations of both $M_I$ and $M_R$. Performance is poor with very few iterations for either parameter. Consequently, performance will be suboptimal if either $M_I$ or $M_R$ are close to $1$ while the other is higher.
+  _*Expectation*_: Performance should converge after 8-10 iterations of both $M_I$ and $M_E$. Performance is poor with very few iterations for either parameter. Consequently, performance will be suboptimal if either $M_I$ or $M_E$ are close to $1$ while the other is higher.
 ]
 
 #figure(
@@ -304,7 +304,7 @@ This sequence of values are chosen to test the algorithm at very few iterations 
 
 === #scen.iteration-schedules.n <s.r.scenarios.iteration-schedules>
 
-The parameters for this scenario are listed in @t.scenarios.iteration-schedules. The number of robots spawning in the circular formation is kept constant at $N_R = 30$ for all runs. Each of the five schedules presented in @s.iteration-schedules are tested with internal iteration $M_i = 50$, and external iteration $M_R$ varied between ${5, 10, 15, 20, 25}$. $M_R$ is varied instead of $M_I$ as it represents the external communication that would be subject to jitter and latency in a real-scenario.
+The parameters for this scenario are listed in @t.scenarios.iteration-schedules. The number of robots spawning in the circular formation is kept constant at $N_R = 30$ for all runs. Each of the five schedules presented in @s.iteration-schedules are tested with internal iteration $M_i = 50$, and external iteration $M_E$ varied between ${5, 10, 15, 20, 25}$. $M_E$ is varied instead of $M_I$ as it represents the external communication that would be subject to jitter and latency in a real-scenario.
 
 #figure(
   grid(
