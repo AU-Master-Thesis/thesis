@@ -1214,3 +1214,16 @@ tahir2019state:
   date: 2019
   serial-number:
     arxiv: '1908.07401'
+
+ros2_rust:
+  type: repository
+  title: ros2-rust
+  author:
+    - The ros2-rust Contributors
+  url:
+    value: https://github.com/ros2-rust/ros2_rust
+    # value: https://github.com/rust-random/rand
+    date: 2024-06-03
+  serial-number:
+    version: 0.4.1
+  note: https://github.com/ros2-rust/ros2_rust
