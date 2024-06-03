@@ -525,7 +525,6 @@ original-rrt:
     date: 2024-04-24
   note: '[TLDR] This work introduces the concept of a Rapidly-exploring Random Tree as a randomized data structure that is designed for a broad class of path planning problems and successfully applied RRTs to holonomic, nonholonomic, and kinodynamic planning problems of up to twelve degrees of freedom.'
   abstract: We introduce the concept of a Rapidly-exploring Random Tree (RRT) as a randomized data structure that is designed for a broad class of path planning problems. While they share many of the bene cial properties of existing randomized planning techniques, RRTs are specifically designed to handle nonholonomic constraints (including dynamics) and high degrees of freedom. An RRT is iteratively expanded by applying control inputs that drive the system slightly toward randomly-selected points, as opposed to requiring point-to-point convergence, as in the probabilistic roadmap approach. Several desirable properties and a basic implementation of RRTs are discussed. To date, we have successfully applied RRTs to holonomic, nonholonomic, and kinodynamic planning problems of up to twelve degrees of freedom.
-  annote: '[TLDR] This work introduces the concept of a Rapidly-exploring Random Tree as a randomized data structure that is designed for a broad class of path planning problems and successfully applied RRTs to holonomic, nonholonomic, and kinodynamic planning problems of up to twelve degrees of freedom.'
   parent:
     type: periodical
     title: The annual research report
@@ -1204,3 +1203,44 @@ li2020graph:
   date: 2020
   serial-number:
     arxiv: '1912.06095'
+
+tahir2019state:
+  type: misc
+  title: State Space System Modelling of a Quad Copter UAV
+  author:
+  - Tahir, Zaid
+  - Tahir, Waleed
+  - Liaqat, Saad Ali
+  date: 2019
+  serial-number:
+    arxiv: '1908.07401'
+
+ros2_rust:
+  type: repository
+  title: ros2-rust
+  author:
+    - The ros2-rust Contributors
+  url:
+    value: https://github.com/ros2-rust/ros2_rust
+    # value: https://github.com/rust-random/rand
+    date: 2024-06-03
+  serial-number:
+    version: 0.4.1
+  note: https://github.com/ros2-rust/ros2_rust
+
+diffential-drive-constraints:
+  type: chapter
+  page-range: 57-63
+  parent:
+    type: book
+    title: Introduction to Autonomous Mobile Robots
+    author:
+    - Siegwart, Roland
+    - Nourbakhsh, Illah R.
+    - Scaramuzza, Davide
+    date: 2011
+    publisher: The MIT Press
+    volume: 1
+    edition: 2
+    serial-number:
+      isbn: 978-0-262-01535-6

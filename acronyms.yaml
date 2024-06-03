@@ -32,8 +32,8 @@
 - acronym: AABB
   definition: Axis Aligned Bounding Box
   plural: Axis Aligned Bounding Boxes
-# - acronym: UAV
-#   definition: Unmanned Aerial Vehicle
+- acronym: UAV
+  definition: Unmanned Aerial Vehicle
 - acronym: MAP
   definition: Maximum A Posteriori
 - acronym: KL
@@ -114,3 +114,15 @@
   definition: Graph Neural Network
 - acronym: MLP
   definition: Multilayer Perceptron
+- acronym: ROS2
+  definition: Robot Operating System 2
+- acronym: FFI
+  definition: Foreign Function Interface
+- acronym: CFFI
+  definition: C Foreign Function Interface
+- acronym: ABI
+  definition: Application Binary Interface
+- acronym: QoS
+  definition: Quality of Service
+- acronym: TCP
+  definition: Transmission Control Protocol
