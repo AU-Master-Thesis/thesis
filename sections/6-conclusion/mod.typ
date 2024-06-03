@@ -38,25 +38,30 @@ Furthermore, extensive though has been put into the configuration formats; the m
 // RQ-2.4 Are these targeted improvements able to enhance the original work without transforming it?
 
 // On hypothesis 2
-#k[hypothesis 2]
 
-While expected a ...
+// #k[hypothesis 2]
+
+// -------------------------------------------------------------------------------
 
 Two additional experiments have been performed to test different parameters of the GBP algorithm not explored in the original work.
 
-- Firstly the effect the number of internal and external iterations has on the converge of the algorithm and performance.
+Firstly the effect the number of internal and external iterations has on the convergange of the algorithm and performance. A key finding here is that more internal iterations than external iterations is beneficial. when internal iterations is low. Generally that no more than 10 iterations of each is sufficient across a broader range of scenarios to achieve good results. In addition, the information contained within each robots factorgraph, can be overwhelmed to detrimental effect in highly connected cases, if not enough intermal messages passes are executed. A result that is promising for the potential to deploy on a broad range of robots with not a lot of compute power.
 
-- Found that more internal iterations than external iterations is beneficial. when internal iterations is low. Generally that no more than 10 iterations of each is sufficient across a broader range of scenarios to achieve good results.
+Secondly the order in which new information is passed from interrobot factors between robots does not appear to be significant. With roughly the same results for all five schedules considered. Supporting the strong benefits of using GBP as an inference algorithm for multi agent path planning.  Although it is hard to state conclusively without real world test or a more advanced/sophisticated simulation of networking conditions.
 
-- A result that is promising for the potential to deploy on a broad range of robots with not a lot of compute power.
+Using singular owned stable graphs as the underlying in-memory representation of each robots factorgraph has been used as an alternative to bidirectional shared pointer data structure in the reimplemented version. Even with this fundamental transformation of the system it is still found to faithfully achieve similar results to the original, as shown across several different metrics. This is a promising finding that motivates further work on exploring the merits of the method in real-world scenarios with the the algorithm running distributed across multiple hosts.
 
-- Secondly the order in which new information is passed from interrobot factors between robots does not appear to be significant. With roughly the same results for all five schedules considered. Supporting the strong benefits of using GBP as an inference algorithm for multi agent path planning.  Although it is hard to state conclusively without real world test or a more advanced/sophisticated simulation of networking conditions.
 
-- Simulating factorgraphs in a more distributed manner that maps more realisticly to the a real-scenario.
+// -------------------------------------------------------------------------------
 
-- use different graph structure and still reproduce/get similar results
+// The alternatively p
+// - Simulating factorgraphs in a more distributed manner that maps more realisticly to the a real-scenario.
+// Achieves similar results on several metrics
 
-#line(length: 100%, stroke: 1em + red)
+
+// - use different graph structure and still reproduce/get similar results
+
+// #line(length: 100%, stroke: 1em + red)
 
 // Hypothesis 3
 // Extending the original GBP Planner software with a global planning layer will extend
@@ -76,6 +81,6 @@ Two additional experiments have been performed to test different parameters of t
 // On hypothesis 3
 The agents have received the ability to perform individual pathfinding by using an #acr("RRT*") algorithm. This path-finding element has been embedded into the concept of a _robot mission_, which keeps track of the mission state and when to call the asynchronous global path-finder. The global planning element in itself does not degrade the local cooperative collision avoidance. This is due to the fact that the waypoint tracking approach is simply an automated way of placing the waypoints that were placed manually before. The downside of the implemented solution is the random nature of the #acr("RRT*") algorithm, which causes an inoptimal amount of crossing paths. Oppositely, when manually placing waypoints, the waypoints can be placed in a risk-averse way; decreasing the amount of crosses.
 
-This problem is excaserbated by the introduction of the tracking factor, which pulls the actors towards the planned paths. And when these paths have no concern for the paths of other actors, the tracking factor makes it very difficult for the interrobot factors to push hard enough to avoid collisions. If the path tracking approach with the tracking factors is desired, this is the main problem to solve. Even with an attempt to balance the tracking and interrobot factors to the point where the tracking factor has little impact of the path deviation error, the amount of collisions is still worse than that of the waypoint tracking approach without tracking factors alltogether.
+This problem is excaserbated by the introduction of the tracking factor, which pulls the actors towards the planned paths. And when these paths have no concern for the paths of other actors, the tracking factor makes it very difficult for the interrobot factors to push hard enough to avoid collisions. If the path tracking approach with the tracking factors is desired, this is the main problem to solve. Even with an attempt to balance the tracking and interrobot factors to the point where the tracking factor has little impact of the path deviation error, the amount of collisions is still worse than that of the waypoint tracking approach without tracking factors altogether.
 
-One thing that becoms easier for the actors is the avoidance of static obstacles in the environment. As the global path-finder already takes care of only planning paths that are collision free, the actors can simply follow the planned paths without having to worry about the environment in any major way. Due to this, it can be concluded that the waypoint tracking approach is highly superior, as it lets the actors avoid each other much more effectively while still being able to use their obstacle factors to avoid static obstacles even when deviating from their otherwise collision-free paths.
+One thing that becomes easier for the actors is the avoidance of static obstacles in the environment. As the global path-finder already takes care of only planning paths that are collision free, the actors can simply follow the planned paths without having to worry about the environment in any major way. Due to this, it can be concluded that the waypoint tracking approach is highly superior, as it lets the actors avoid each other much more effectively while still being able to use their obstacle factors to avoid static obstacles even when deviating from their otherwise collision-free paths.
