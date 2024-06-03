@@ -171,10 +171,10 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
     header: table.header(
       tc(rowspan: 2, [$r_C$\ \[$m$\]]), tc(colspan: 4, [MS \[$s$\]]), tc(colspan: 4, [D \[$m$\]]), tc(colspan: 4, [LDJ \[$m"/"s^3$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
     ),
-    vc[20], table.vline(), vc[$12.0$], oc2[], vc[$46.0$], tc2[], table.vline(), vc[$104$], oc2[], vc[$236.9$], tc2[], table.vline(), vc[$-9.02$], oc2[], vc[$-14.5$], tc2[],
-    vc[40], vc[$12.3$], oc2[], vc[$64.6$], tc2[], vc[$104.5$], oc2[], vc[$286.0$], tc2[], vc[$-8.76$], oc2[], vc[$-16.0$], tc2[],
-    vc[60], vc[$12.7$], oc2[], vc[$65.3$], tc2[], vc[$104.0$], oc2[], vc[$295.3$], tc2[], vc[$-8.38$], oc2[], vc[$-16.3$], tc2[],
-    vc[80], vc[$14.8$], oc2[], vc[$64.6$], tc2[], vc[$103$], oc2[], vc[$283.2$], tc2[], vc[$-8.47$], oc2[], vc[$-16.1$], tc2[],
+    vc[20], table.vline(), vc[$12.0$], oc2[], vc[$46.0$], vc[$199.50$], table.vline(), vc[$104$], oc2[], vc[$236.9$], vc[$519.5$], table.vline(), vc[$-9.02$], oc2[], vc[$-14.5$], vc[$-22.9$],
+    vc[40], vc[$12.3$], oc2[], vc[$64.6$], vc[$260.9$], vc[$104.5$], oc2[], vc[$286.0$], vc[$751.1$], vc[$-8.76$], oc2[], vc[$-16.0$], vc[$-23.7$],
+    vc[60], vc[$12.7$], oc2[], vc[$65.3$], vc[$443.3$], vc[$104.0$], oc2[], vc[$295.3$], vc[$1551.7$], vc[$-8.38$], oc2[], vc[$-16.3$], vc[$-25.3$],
+    vc[80], vc[$14.8$], oc2[], vc[$64.6$], vc[$379.0$], vc[$103$], oc2[], vc[$283.2$], vc[$1069.4$], vc[$-8.47$], oc2[], vc[$-16.1$], vc[$-24.9$],
   ),
   caption: [Effect of varying communication range $r_C$ in the _Environment Obstacles_ experiment. Values in the #text(red, [them]) column is taken from table 1 in @gbpplanner. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.],
 )<t.network-experiment>
@@ -246,42 +246,46 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
   mean_collisions_15: (0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.8, 0.8, 0.8, 4.6),
 )
 
-#figure(
-  table(
-    columns: 5,
-    stroke: none,
-    table.hline(),
-    table.cell(colspan: 1, [Initial speed m/s]), table.cell(colspan: 2, $10$), table.cell(colspan: 2, $15$),
-    table.hline(),
-    [$gamma$], [Makespan $s$], [Mean num collisions], [Makespan $s$], [Mean num collisions],
-    table.hline(),
+// │ target_speed ┆ failure_rate ┆ makespan   │
+// │ 10.0         ┆ 0.0          ┆ 86.300003  │
+// │ 10.0         ┆ 0.1          ┆ 146.300003 │
+// │ 10.0         ┆ 0.2          ┆ 140.199997 │
+// │ 10.0         ┆ 0.3          ┆ 163.699997 │
+// │ 10.0         ┆ 0.4          ┆ 157.400009 │
+// │ 10.0         ┆ 0.5          ┆ 231.400009 │
+// │ 10.0         ┆ 0.9          ┆ 938.900024 │
 
-    ..tablify(aos(gbpplanner-results)),
-    table.hline(),
-  ),
-  caption: [ttt]
-)
-
+// │ 15.0         ┆ 0.0          ┆ 238.600006 │
+// │ 15.0         ┆ 0.1          ┆ 203.199997 │
+// │ 15.0         ┆ 0.2          ┆ 329.800018 │
+// │ 15.0         ┆ 0.3          ┆ 231.100006 │
+// │ 15.0         ┆ 0.4          ┆ 220.800003 │
+// │ 15.0         ┆ 0.5          ┆ 221.5      │
+// │ 15.0         ┆ 0.6          ┆ 328.700012 │
+// │ 15.0         ┆ 0.7          ┆ 505.600006 │
+// │ 15.0         ┆ 0.8          ┆ 799.600037 │
+// │ 15.0         ┆ 0.9          ┆ 864.600037 │
 #figure(
-  table(
-    columns: range(9).map(_ => 1fr),
-    align: center + horizon,
-    stroke: gray,
-    table.header(
-      tc(colspan: 1, [$|v_0|$]), tc(colspan: 4, $10$), tc(colspan: 4, $15$),
-      tc(rowspan: 2, $gamma$), tc(colspan: 2, [MS $s$]), tc(colspan: 2, [C]), tc(colspan: 2, [MS $s$]), tc(colspan: 2, [C]),
-      ..range(4).map(_ => ([them], [us])).flatten()
+  tablec(
+    columns: range(15).map(_ => 1fr),
+    alignment: center + horizon,
+    // stroke: gray,
+    header-color: (fill: theme.base, text: theme.text),
+    header: table.header(
+      tc(colspan: 1, [$bold(|v_0|)$]), tc(colspan: 7, $bold(10m"/"s)$), tc(colspan: 7, $bold(15m"/"s)$), table.hline(),
+      tc(rowspan: 2, $bold(gamma)$), tc(colspan: 4, [MS $s$]), tc(colspan: 3, [C]), tc(colspan: 4, [MS $s$]), tc(colspan: 3, [C]), table.hline(),
+      ..range(2).map(_ => (T1, O1, O2, T2, T1, O1, O2)).flatten(),
     ),
-    $0$, $19.5$, oc[], $0$, oc[], $14.9$, oc[], $0$, oc[],
-    $10$, $20.3$, oc[], $0$, oc[], $17.1$, oc[], $0$, oc[],
-    $20$, $22.9$, oc[], $0$, oc[], $18.9$, oc[], $0$, oc[],
-    $30$, $25.7$, oc[], $0$, oc[], $22.5$, oc[], $0$, oc[],
-    $40$, $30.8$, oc[], $0$, oc[], $26.5$, oc[], $0$, oc[],
-    $50$, $35.6$, oc[], $0$, oc[], $30.6$, oc[], $0.2$, oc[],
-    $60$, $42$, oc[], $0$, oc[], $38.8$, oc[], $0.8$, oc[],
-    $70$, $51.3$, oc[], $0$, oc[], $44.6$, oc[], $0.8$, oc[],
-    $80$, $87.4$, oc[], $0$, oc[], $63.4$, oc[], $0.8$, oc[],
-    $90$, $146.9$, oc[], $1.6$, oc[], $12.6$, oc[], $4.6$, oc[],
+    $0$, table.vline(), $19.5$, oc[], oc[], vc[$86.3$], table.vline(), $0$, oc[], tc2[], table.vline(), $14.9$, oc[], oc[], vc[$238.6$], table.vline(), $0$, oc[], tc2[],
+    $10$, $20.3$,  oc[], oc[], vc[$146.3$], $0$, oc[], tc2[], $17.1$,   oc[], oc[], vc[$203.2$], $0$, oc[], tc2[],
+    $20$, $22.9$,  oc[], oc[], vc[$140.2$], $0$, oc[], tc2[], $18.9$,   oc[], oc[], vc[$329.8$], $0$, oc[], tc2[],
+    $30$, $25.7$,  oc[], oc[], vc[$163.7$], $0$, oc[], tc2[], $22.5$,   oc[], oc[], vc[$231.1$], $0$, oc[], tc2[],
+    $40$, $30.8$,  oc[], oc[], vc[$157.4$], $0$, oc[], tc2[], $26.5$,   oc[], oc[], vc[$220.8$], $0$, oc[], tc2[],
+    $50$, $35.6$,  oc[], oc[], vc[$231.4$], $0$, oc[], tc2[], $30.6$,   oc[], oc[], vc[$221.5$], $0.2$, oc[], tc2[],
+    $60$, $42$,    oc[], oc[], tc2[], $0$, oc[], tc2[], $38.8$,   oc[], oc[],       vc[$328.7$], $0.8$, oc[], tc2[],
+    $70$, $51.3$,  oc[], oc[], tc2[], $0$, oc[], tc2[], $44.6$,   oc[], oc[],       vc[$505.6$], $0.8$, oc[], tc2[],
+    $80$, $87.4$,  oc[], oc[], tc2[], $0$, oc[], tc2[], $63.4$,   oc[], oc[],       vc[$799.6$], $0.8$, oc[], tc2[],
+    $90$, $146.9$, oc[], oc[], vc[$938.9$], $1.6$, oc[], tc2[], $12.6$, oc[], oc[], vc[$864.6$], $4.6$, oc[], tc2[],
   ),
   caption: [
     Values in the #text(red, [them]) column is taken from table 2 in @gbpplanner.

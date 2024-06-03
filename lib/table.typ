@@ -96,7 +96,7 @@
   let f = if fill == auto {
     (x, y) => if y in header-rows {
       header-color.fill
-    } else if calc.even(y) { even-color } else { odd-color }
+    } else if calc.even(y - header-rows.len()) { even-color } else { odd-color }
   } else {
     fill
   }
