@@ -780,6 +780,8 @@
   SA: $#text(theme.teal, $Sigma_A$)$,
   SB: $#text(theme.mauve, $Sigma_B$)$,
   // #let m = (
+  Xb: $bold(upright(X))$,
+  D: $bold(upright(D))$,
   x: $bold(upright(x))$,
   P: $bold(upright(P))$,
   p: $bold(upright(p))$,

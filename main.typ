@@ -57,6 +57,7 @@
 
 #show outline.entry.where() : it => {
   let t = it.body.fields().values().at(0)
+  // let p = it.page
 
   let size = 1em
   let color = black
@@ -77,34 +78,37 @@
     } else {
       0mm
     }
-    grid(
-      column-gutter: 2pt,
-      columns: ((it.element.level - 1) * 8mm + offset, auto, 1fr, auto),
-      align: (center, left + bottom, center + bottom, right + bottom),
-      [],
-      text(color, size: size, weight: weight, [
-        #box(
-          width: 8mm,
-          it.body.fields().values().at(0).at(0)
-        )
-        // #h(0.85em)
-        #it.body.fields().values().at(0).slice(2).join("")
-        // #repr(it.fill)
-      ]),
-      block(fill: color, height: 0.5pt, width: 100%),
-      text(color, size: 1em, weight: weight, it.page),
+    link(
+      it.element.location(),
+      grid(
+        column-gutter: 2pt,
+        columns: ((it.element.level - 1) * 8mm + offset, auto, 1fr, auto),
+        align: (center, left + bottom, center + bottom, right + bottom),
+        [],
+        text(color, size: size, weight: weight, [
+          #box(
+            width: 8mm,
+            it.body.fields().values().at(0).at(0)
+          )
+          #it.body.fields().values().at(0).slice(2).join("")
+        ]),
+        block(fill: color, height: 0.5pt, width: 100%),
+        text(color, size: 1em, weight: weight, it.page),
+      )
     )
   } else {
     v(-3em)
-    // text(accent, size: 1.2em, weight: black, it)
-    grid(
-      column-gutter: 2pt,
-      columns: (0em, auto, 1fr, auto),
-      align: (center, left + bottom, center + bottom, right + bottom),
-      [],
-      text(color, size: size, weight: weight, it.body),
-      block(fill: color, height: 0.5pt, width: 100%),
-      text(color, size: 1em, weight: weight, it.page),
+    link(
+      it.element.location(),
+      grid(
+        column-gutter: 2pt,
+        columns: (0em, auto, 1fr, auto),
+        align: (center, left + bottom, center + bottom, right + bottom),
+        [],
+        text(color, size: size, weight: weight, it.body),
+        block(fill: color, height: 0.5pt, width: 100%),
+        text(color, size: 1em, weight: weight, it.page),
+      )
     )
   }
 }

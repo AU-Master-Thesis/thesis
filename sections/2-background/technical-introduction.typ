@@ -109,38 +109,38 @@ As outlined in @f.gaussian-models the #gaussian.canonical is much more computati
 
 == Probabilistic Inference <s.b.probabilistic-inference>
 
-To contextualise factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $X$, given some observed or known quantities, $D$. This is done by combining prior knowledge with $D$, to infer the most likely distribution of the variables.@gbp-visual-introduction See @ex.probabilistic-inference.
+To contextualise factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $#m.Xb$, given some observed or known quantities, $#m.D$. This is done by combining prior knowledge with $#m.D$, to infer the most likely distribution of the variables.@gbp-visual-introduction See @ex.probabilistic-inference.
 
 #example(
   caption: [Probabilistic Inference in Meteorology]
 )[
   // Everyday example describing how meteorological forecasts are made
-  An everyday example of probabilistic inference is in the field of meteorology. Meteorologists use prior knowledge of weather patterns ($D$), combined with observed data to infer the most likely weather forecast for the upcoming days ($X$).
+  An everyday example of probabilistic inference is in the field of meteorology. Meteorologists use prior knowledge of weather patterns ($#m.D$), combined with observed data to infer the most likely weather forecast for the upcoming days ($#m.Xb$).
 ]<ex.probabilistic-inference>
 
 // @ex.probabilistic-inference
 
 
 // Explain bayesian inference
-Baye's rule is the foundation of probabilistic inference, and is used to update the probability distribution of a set of variables, $X$, given some observed data, $D$. The rule is defined as in @eq-bayes-theorom[Equation]@gbp-visual-introduction:
+Baye's rule is the foundation of probabilistic inference, and is used to update the probability distribution of a set of variables, $#m.Xb$, given some observed data, $#m.D$. The rule is defined as in @eq-bayes-theorom[Equation]@gbp-visual-introduction:
 
 $
-  p(X|D) = (p(D|X)p(X)) / (p(D))
+  p(#m.Xb|#m.D) = (p(#m.D|#m.Xb)p(#m.Xb)) / (p(#m.D))
 $<eq-bayes-theorom>
 
-This posterior distribution describes our belief of $X$, after observing $D$, which can then be used for decision making about possible future states.@gbp-visual-introduction Furthermore, when we have the posterior, properties about $X$ can be computed;
+This posterior distribution describes our belief of $#m.Xb$, after observing $#m.D$, which can then be used for decision making about possible future states.@gbp-visual-introduction Furthermore, when we have the posterior, properties about $#m.Xb$ can be computed;
 
 #set enum(numbering: req-enum.with(prefix: "Property ", color: theme.green))
-+ The most likely state of $X$, the #acr("MAP") estimate $X_"MAP"$, is the state with the highest probability in the posterior distribution. See @eq-map-estimate@gbp-visual-introduction:
++ The most likely state of $#m.Xb $, the #acr("MAP") estimate $#m.Xb _"MAP"$, is the state with the highest probability in the posterior distribution. See @eq-map-estimate@gbp-visual-introduction:
 
   $
-    X_"MAP" = "argmax"_X p(X|D)
+    #m.Xb _"MAP" = "argmax"_#m.Xb p(#m.Xb|D)
   $<eq-map-estimate>
 
-+ The marginal posteriors, summarising our beliefs of individual variables in $X$, can be computed by marginalising the posterior distribution, see @eq-marginal-posterior@gbp-visual-introduction, where $X\\x_i$ denotes the set difference operation:
++ The marginal posteriors, summarising our beliefs of individual variables in $#m.Xb $, can be computed by marginalising the posterior distribution, see @eq-marginal-posterior@gbp-visual-introduction, where $#m.Xb \\#m.x _i$ denotes the set difference operation:
 
   $
-    p(X_i|D) = sum_(X \\ x_i) p(X|D)
+    p(#m.Xb _i|D) = sum_(#m.Xb \\ x_i) p(#m.Xb|D)
   $<eq-marginal-posterior>
 
 // The most common methods for probabilistic inference are exact inference and approximate inference.

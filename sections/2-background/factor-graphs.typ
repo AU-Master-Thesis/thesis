@@ -24,23 +24,23 @@
 
 // Mathematically, the Hammersley-Clifford Theorom states that any positive joint distribution can be represented as a product of factors,
 
-A factor graph is a bipartite graph with undirected edges, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution, $p(X)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each set of related variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
+A factor graph is a bipartite graph with undirected edges, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution, $p(#m.Xb)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each set of related variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
 
 $
-  p(X) = product_{i} f_i (X_i)
+  p(#m.Xb ) = product_{i} f_i (#m.Xb _i)
 $<eq.factor-product>
 
 Thus interpreting this, the factors are not necessarily in themselves probabilities, but rather the functions that determine the probabilities of the variables.@loeliger_introduction_2004@alevizos_factor_2012 Additionally, it can be useful to present factor graphs as energy-based models@energy-based-models, where, as seen in @eq.factor-energy@gbp-visual-introduction, each factor $f_i$ is associated with an energy $E_i > 0$:
 
 $
-  f_i(X_i) = exp(-E_i(X_i))
+  f_i(#m.Xb _i) = exp(-E_i(#m.Xb _i))
 $<eq.factor-energy>
 
 This presentation also gives another way of finding the #acr("MAP") estimate, by finding the state with the lowest energy in the factor graph, see @eq.map-energy@gbp-visual-introduction:
 
 $
-  X_"MAP" &= "arg min"_X -log p(X) \
-          &= "arg min"_X sum_i E_i(X_i)
+  #m.Xb _"MAP" &= "arg min"_#m.Xb -log p(#m.Xb) \
+          &= "arg min"_#m.Xb sum_i E_i(#m.Xb _i)
 $<eq.map-energy>
 
 #example(
@@ -53,7 +53,7 @@ $<eq.map-energy>
       p(v_1,v_2,v_3,v_4) = 1/Z &f_1(v_1,v_2,v_3) f_2(v_3,v_4) \
       &f_3(v_3,v_4) f_4(v_4)
     $<eq.example.factor-graph>
-    Where $Z$ is the amount of factors in the graph.
+    Where $Z$ is the amount of factors in the graph. As such, the joint distribution also functions as a weighting of the different factors' influence.
   ]
 
   #let fig = [

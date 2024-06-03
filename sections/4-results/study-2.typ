@@ -61,7 +61,7 @@ For the _schedules_ experiment, three of the considered metrics are measured. @f
 
 #figure(
   grid(
-    columns: 2,
+    columns: (3.5fr, 1fr),
     align: horizon,
     block(
       clip: true,
@@ -72,17 +72,19 @@ For the _schedules_ experiment, three of the considered metrics are measured. @f
       ),
     ),
     schedules-legend,
-    // grid(
-    //   rows: 2,
-    //   // row-gutter: 1em,
-    //   std-block([222]),
-    //   schedules-legend
-    // )
+    // std-block(
+    //   inset: 0pt,
+    //   height: 34mm,
+    //   align(
+    //     horizon,
+    //     schedules-legend
+    //   )
+    // ),
   ),
   caption: [
-    #acr("LDJ") metric across the different schedules. Each schedule is shown in a different color as listed in the legend. Each column in a schedule group represent a different value of external iteration $M_R$, sorted in ascending order. i.e. the column to the left with the highest transparency corresponds to $M_R = 5$, and to the right with the lowest transparency is $M_R = 25$. Atop each group of columns is the average value of the five columns shown.
-
-  #acr("LDJ")]
+    #acr("LDJ") metric for each schedules. Each column in a schedule group represent a different value of external iterations $M_R$, sorted in ascending order. The left-most column is $M_R = 5$, and the right-most is $M_R = 25$. Atop each group is the average value of the five columns shown.
+  ]
+  // #acr("LDJ")]
 ) <f.schedules-experiment-ldj>
 
 
@@ -101,7 +103,7 @@ For the _schedules_ experiment, three of the considered metrics are measured. @f
     ),
     schedules-legend
   ),
-  caption: [Makespan metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot.]
+  caption: [Makespan metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot. Each column in a schedule group represent a different value of external iterations $M_R$, sorted in ascending order. The left-most column is $M_R = 5$, and the right-most is $M_R = 25$. Atop each group is the average value of the five columns shown.]
 ) <f.schedules-experiment-makespan>
 
 #figure(
@@ -119,7 +121,7 @@ For the _schedules_ experiment, three of the considered metrics are measured. @f
     ),
     schedules-legend
   ),
-  caption: [Distance travelled metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot.]
+  caption: [Distance travelled metric for each schedule. See @f.schedules-experiment-ldj for details about how to interpret the different elements of the plot. Each column in a schedule group represent a different value of external iterations $M_R$, sorted in ascending order. The left-most column is $M_R = 5$, and the right-most is $M_R = 25$. Atop each group is the average value of the five columns shown.]
 ) <f.schedules-experiment-distance-travelled>
 
 

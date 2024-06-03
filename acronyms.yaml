@@ -1,24 +1,24 @@
 - acronym: DOF
   definition: Degrees of Freedom
-- acronym: ATE
-  definition: Absolute Trajectory Error
+# - acronym: ATE
+#   definition: Absolute Trajectory Error
 # Suggested by Jonas
 - acronym: RMSE
   definition: Root Mean Squared Error
-- acronym: ADE
-  definition: Absolute Displacement Error
-- acronym: FDE
-  definition: Final Displacement Error
-- acronym: APE
-  definition: Absolute Position Error
+# - acronym: ADE
+#   definition: Absolute Displacement Error
+# - acronym: FDE
+#   definition: Final Displacement Error
+# - acronym: APE
+#   definition: Absolute Position Error
 # https://en.wikipedia.org/wiki/Mean_absolute_percentage_error
 # Suggested by Jonas
-- acronym: MAPE
-  definition: Mean Absolute Position Error
+# - acronym: MAPE
+#   definition: Mean Absolute Position Error
 # https://en.wikipedia.org/wiki/Mean_absolute_error
 # Suggested by Jonas
-- acronym: MAE
-  definition: Mean Absolute Error
+# - acronym: MAE
+#   definition: Mean Absolute Error
 - acronym: BP
   definition: Belief Propagation
 - acronym: GBP
@@ -38,10 +38,10 @@
   definition: Maximum A Posteriori
 - acronym: KL
   definition: Kullback-Leibler
-- acronym: SIMD
-  definition: Single Instruction, Multiple Data
-- acronym: SISD
-  definition: Single Instruction, Single Data
+# - acronym: SIMD
+#   definition: Single Instruction, Multiple Data
+# - acronym: SISD
+#   definition: Single Instruction, Single Data
 - acronym: OOP
   definition: Object Oriented Programming
 - acronym: DOP
@@ -70,8 +70,8 @@
   definition: Signed Distance Field
 - acronym: APF
   definition: Artificial Potential Field
-- acronym: MPC
-  definition: Model Predictive Control
+# - acronym: MPC
+#   definition: Model Predictive Control
 - acronym: NMPC
   definition: Nonlinear Model Predictive Control
 - acronym: SGD
@@ -90,10 +90,10 @@
   definition: Application Programming Interface
 - acronym: RAII
   definition: Resource Acquisition Is Initialization
-- acronym: NIST
-  definition: National Institute of Standards and Technology
-- acronym: NSA
-  definition: National Security Agency
+# - acronym: NIST
+#   definition: National Institute of Standards and Technology
+# - acronym: NSA
+#   definition: National Security Agency
 - acronym: CVE
   definition: Common Vulnerabilities and Exposures
 - acronym: PNG

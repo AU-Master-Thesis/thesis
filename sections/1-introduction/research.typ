@@ -49,7 +49,7 @@ This section outlines which research questions will have to be answered to reach
   #set enum(numbering: req-enum.with(prefix: "RQ-1.", color: theme.teal))
   // + Which programming language will be optimal for scientific communication and extensibility?
   // + Is it possible to reproduce the results of the original #acr("GBP") Planner in the developed simulator?
-  + Which architecture and framework is suitable for such a task, and can it reproduce the original results? #att[Specify which tasks it suitable for. Decoupling? Modelling? Visualisation?]
+  + Which architecture and framework is suitable for presenting an extensible simulator, an easy-to-understand visual, and a user-friendly interface, and can it reproduce the original results?#note.jo[this one got more detail, is it good?]
   + What kind of tooling will be most beneficial for the software?
   + How can tooling help with future reproducibility and engagement with the software?
   + How can tooling help with understanding and extending the software?
@@ -89,7 +89,7 @@ To answer each research question, a set of objectives will have to be met. The o
     #set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
     + Research possible programming languages and their ecosystems, to understand which one provides the most suitable architecture, and framework for the reimplementation.
     + Reimplement the original GBP Planner in the development simulation tool with the chosen language, architecture, and framework.
-    + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the #att[four metrics: distance travelled, makespan, smoothness, and collision count.]
+    + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.2.", color: theme.green))
@@ -130,7 +130,7 @@ To answer each research question, a set of objectives will have to be met. The o
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.1", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-3.1.", color: theme.green))
     + Implement a global planning layer in the reimplemented GBP Planner.
-    + Evaluate the actors' capability to move in complex environments by looking at the #att[four metrics: distance travelled, makespan, smoothness, and collision count], comparing against the reimplemented reproduction and the original GBP Planner.
+    + Evaluate the actors' capability to move in complex environments by looking at the four metrics: distance travelled, makespan, smoothness, and collision count, comparing against the reimplemented reproduction and the original GBP Planner.
 
     *Objectives for _Research Questions_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.2", weight: 900) and #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.3", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-3.2.", color: theme.green))
@@ -146,11 +146,11 @@ To answer each research question, a set of objectives will have to be met. The o
 
     *Objectives for _Research Questions_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.5", weight: 900) and #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.6", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-3.5.", color: theme.green))
-    + Measure the impact on the #att[four metrics: distance travelled, makespan, smoothness, and collision count].
+    + Measure the impact on the four metrics: distance travelled, makespan, smoothness, and collision count.
     + Evaluate the impact of the new factor on the actors' behaviour.
   ]
 }
 
 // #todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
-#jens[make figure that shows the connection of all these, including outlining which parts are which study.]
+#jens[make figure that shows the connection of all these, including outlining which parts are which study.#note.jo[would this be good, or unnecessary?]]
 #jens[Fix the objective numbering]

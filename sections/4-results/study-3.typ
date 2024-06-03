@@ -180,7 +180,7 @@ The amount of interrobot collisions for each configuration is also written in @t
       )
       v(6mm)
     },
-    caption: [Mean, standard deviation, min, and max path deviation error for tracking factors disabled in the first column and enabled in the second and third. The last row contains the mean number of collisions. NT = No Tracking.]
+    caption: [Mean, standard deviation, min, and max path deviation error for tracking factors disabled in the first column and enabled in the second and third. The last row contains the mean number of interrobot collisions. NT = No Tracking.]
   )<t.collaborative-stats>
 ]
 
