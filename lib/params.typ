@@ -12,11 +12,11 @@
 
 #let syms = (
   delta_t: $Delta_t$,
-  m_r: $M_R$,
+  m_r: $M_E$,
   m_i: $M_I$,
   sigma_d: $sigma_d$,
   sigma_p: $sigma_p$,
-  sigma_r: $sigma_r$,
+  sigma_r: $sigma_i$,
   sigma_o: $sigma_o$,
   sigma_t: $sigma_t$,
   radius: $C_("radius")$,
@@ -30,6 +30,10 @@
   lookahead-multiple: $l_m$,
   interrobot-safety-distance: $d_r$,
   variables: $|V|$,
+  max-iterations: $N_"RRT"$,
+  step-size: $s$,
+  collision-radius: $r_C$,
+  neighbourhood-radius: $r_N$,
 )
 
 // let params = (

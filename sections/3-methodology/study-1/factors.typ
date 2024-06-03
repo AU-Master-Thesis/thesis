@@ -100,9 +100,9 @@ $
   )
 $<eq.jacobian-d>
 
-Where $ident_n$ is the $n times n$ identity matrix, $zero_n$ is the $n times n$ zero matrix, $delta_t$ is the time step between the two variables, and $n = "DOFS" "/" 2$, that is, half the state space dimensions.
+Where $ident_n$ is the $n times n$ identity matrix, $zero_n$ is the $n times n$ zero matrix, $delta_t$ is the time step between the two variables, and $n = "DOFS""/" 2$ is half the state space dimensions.
 
-The measurement function, $h_d$, is defined as the dot product between the above jacobian, and the linearisation point, $x$.
+The measurement function, $h_d$, is defined as the dot product between the above jacobian, and the linearisation point, $#m.x$.
 
 $
   h_d (#m.x) &= jacobian_d #m.x,#h(1em)"where" \

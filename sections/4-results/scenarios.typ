@@ -189,26 +189,36 @@ The scenario is tested with 21 robots at two different initial speeds of 10 m/s 
 
 === #scen.solo-gp.n <s.r.scenarios.solor-gp>
 
-In this scenario a complex, maze-like environment has been constructed#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/c17370455af38a6cab0eb5acea1a576247a0e732/config/simulations/Complex/environment.yaml", "config/simulations/Complex/environment.yaml")], similar to the one shown in @f.m.maze-env. #att[A demonstration of this environment, with and without global planning enabled is shown in an accompanying video#todo[cite video or footnote]]. A single robot is spawned in the bottom-left corner of the environment, see @f.scenarios.solo-gp. The robot is tasked with reaching the top-right corner of the environment. The environment is designed to be challenging, with narrow corridors, tight corners, and a plethora of possible paths. The accompanying `formation.yaml`#footnote[#jens[source-link]] file specifies the planning strategy to be that of `rrt-star` instead of `only-local`, which has been the case for all of the above scenarios. The robot is equipped with a #acr("RRT*") pathfinding component, which, in @f.scenarios.solo-gp, has just finished computing the path it is expected to take. The path is shown as a faint red line across the corridors of the map. Parameters are listed in @f.scenarios.solo-gp.
+#let body = [
+  In this scenario a complex, maze-like environment has been constructed#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/c17370455af38a6cab0eb5acea1a576247a0e732/config/simulations/Complex/environment.yaml", "config/simulations/Complex/environment.yaml")]<fn.solo-gp.environment>, similar to the one shown in @f.m.maze-env. #att[A demonstration of this environment, with and without global planning enabled is shown in an accompanying video#todo[cite video or footnote]]. A single robot is spawned in the bottom-left corner of the environment, see @f.scenarios.solo-gp. The robot is tasked with reaching the top-right corner of the environment. The environment is designed to be challenging, with narrow corridors, tight corners, and a plethora of possible paths. The accompanying `formation.yaml`#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/97e40fdba0005fd91f903af04df74c31cbc1c05c/config/simulations/Solo%20GP/formation.yaml", "config/simulations/Solo GP/formation.yaml")]<fn.solo-gp.formation> file specifies the
+]
 
-```toml
-[rrt]
-max-iterations       = 5000000
-step-size            = 5.0
-collision-radius     = 3.0
-neighbourhood-radius = 8.0
-#
-# [rrt.smoothing]
-# enabled        = true
-# max-iterations = 500
-# step-size      = 0.5
-```
-#note.jo[this will be put into table and referenced to]
+#let rrt-params = (
+  max-iterations: $5000000$,
+  step-size: $5.0$,
+  collision-radius: $3.0$,
+  neighbourhood-radius: $8.0$
+)
 
-// The tracking factor $f_t$ is set to $0.5$ to test the impact of the tracking factor on a single robot in a complex environment.
+#let tab = [
+  #figure(
+    params.tabular(rrt-params, title: [RRT\*]),
+    caption: [Parameters for the #acr("RRT*") pathfinding algorithm.],
+    supplement: [Table],
+    kind: table
+  )<t.scenarios.solo-gp.rrt-params>
+]
+
+#grid(
+  columns: (1fr, 40mm),
+  gutter: 1em,
+  body,
+  tab
+)
+#v(-0.5em)
+planning strategy to be that of `rrt-star` instead of `only-local`, which has been the case for all of the above scenarios. The robot is equipped with a #acr("RRT*") pathfinding component, which, in @f.scenarios.solo-gp, has just finished computing the path it is expected to take. The path is shown as a faint red line across the corridors of the map. Parameters are listed in @t.scenarios.solo-gp, with #acr("RRT*") specific parameters in @t.scenarios.solo-gp.rrt-params.
 
 #figure(
-  // std-block(todo[Screen of environment after global planning]),
   std-block(
     width: 80%,
     block(
@@ -232,28 +242,15 @@ neighbourhood-radius = 8.0
     params.tabular(params.solo-gp.env, previous: params.circle.env, title: [Environment]),
     params.tabular(params.solo-gp.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.solo-gp.factor, previous: params.circle.factor, title: [Factor Settings]),
-  )
-  , caption: [#scenario[Solo GP] scenario parameters.],
+  ),
+  supplement: [Table],
+  kind: table,
+  caption: [#scenario[Solo GP] scenario parameters.],
 )<t.scenarios.solo-gp>
 
 === #scen.collaborative-gp.n <s.r.scenarios.collaborative-gp>
 
-Here, the same complex environment as in the #scen.solo-gp.n scenario is used. However, instead of a single robot, multiple robots are spawned in different locations across the environment. That means the `formation.yaml`#footnote[#jens[source-link to formation file]] file is significantly more detailed. Specifically there are four spawning location, one in each corner; where each robot is tasked with reaching the opposite corner. Each robot is, once again, equipped with a #acr("RRT*") pathfinding component, which will compute a collision free path in terms of the static environment. @f.scenarios.collaborative-gp shows a screenshot of the simulation in progress, where multiple robots are using the waypoint tracking approach, as described in @s.m.planning.waypoint-tracking. Parameters are listed in @t.scenarios.collaborative-gp
-
-```toml
-[rrt]
-max-iterations = 5000000
-step-size = 5.0
-collision-radius = 3.0
-neighbourhood-radius = 8.0
-
-# [rrt.smoothing]
-# enabled = true
-# max-iterations = 500
-# step-size = 0.5
-```
-#note.jo[this will be put into table and referenced to]
-
+Here, the same complex environment as in the #scen.solo-gp.n scenario is used. However, instead of a single robot, multiple robots are spawned in different locations across the environment. That means the `formation.yaml`@fn.solo-gp.formation file is significantly more detailed. Specifically there are four spawning location, one in each corner; where each robot is tasked with reaching the opposite corner. Each robot is, once again, equipped with a #acr("RRT*") pathfinding component, which will compute a collision free path in terms of the static environment. @f.scenarios.collaborative-gp shows a screenshot of the simulation in progress, where multiple robots are using the waypoint tracking approach, as described in @s.m.planning.waypoint-tracking. Parameters are listed in @t.scenarios.collaborative-gp, with the same #acr("RRT*") specific parameters as for Solo Global Planning in @t.scenarios.solo-gp.rrt-params.
 
 #figure(
   // std-block(todo[image of many robots driving in the maze]),
@@ -268,7 +265,7 @@ neighbourhood-radius = 8.0
       )
     )
   ),
-  caption: [Screenshot of the maze-like environment#footnote[#todo[...]], with multiple robots spawned in different locations. Tracking factors are not enables here.]
+  caption: [Screenshot of the maze-like environment@fn.solo-gp.environment, with multiple robots spawned in different locations. Tracking factors are not enables here.]
 )<f.scenarios.collaborative-gp>
 
 #figure(
