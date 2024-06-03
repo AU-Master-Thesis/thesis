@@ -77,7 +77,7 @@ The factor graph is a generalisation of constraint graphs, and can represent any
 
 #figure(
   image("../../figures/out/robot-factor-graph.svg", width: 70%),
-  caption: [Shown here are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in blue#sl, #text(theme.lavender, $n$) times-steps into the future, #text(theme.lavender, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.#note.jo[This figure has been changed to be viable in black/white as we talked about]],
+  caption: [Shown here are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in blue#sl, #text(theme.lavender, $n$) times-steps into the future, #text(theme.lavender, ${t_1, t_2, dots, t_n}$). Variables are visualised as circles, and factors as squares.],
 )<fig-robot-factor-graph>
 
 // Below is factor graph notions in terms of the multi-agent robotic system we have developed
@@ -243,7 +243,7 @@ This step is not written out in @gbpplanner, as it is not a step like the rest, 
   + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the initial linearisation point, $h(#m.Xb _0)$, and the current measurement, $h(#m.Xb _n)$, see @eq.factor-measurement@gbp-visual-introduction:
 
     $
-      h_r = h(#m.Xb _0) - h(#m.Xb _n)
+      h_i = h(#m.Xb _0) - h(#m.Xb _n)
     $<eq.factor-measurement>
 
     Where $X_0$ is the configuration at $t_0$, and $X_n$ is the configuration at the current timestep $t_n$.
@@ -316,8 +316,6 @@ As the factor has been updated, it is now possible to pass messages to neighbour
   + *Reorder the vector $eta_f^prime$ and the matrix $Lambda_f^prime$ to bring the contribution from the recipient $x_1$ to the top.* \
     _In our case no reordering is to be done, as $x_1$ is already at the top._
 
-    #jens[maybe an example where reordering is necessary is better]
-
   + *Recognise the subblocks $a$ and $b$ from @eq.ex.marginalisation-setup and @eq.ex.marginalisation.* \
     _In our case $a = x_1$ and $b = mat(x_2, x_3)$._
 ]<ex.factor-to-variable>
@@ -326,9 +324,7 @@ As such, each neighbouring variable receives an updated message from the factor,
 
 == Non-Linearities <s.b.non-linearities>
 
-// #jens[and this]
-
-#note.jo[This is where there was a candy shop of colours before; is this better?]Non-linear factors can exist, however, to understand the impact, let's first look at linear factors. A factor is usually modeled with data $#m.d$. Equation @eq.gaussian-factor@gbp-visual-introduction shows how this is written:
+Non-linear factors can exist, however, to understand the impact, let's first look at linear factors. A factor is usually modeled with data $#m.d$. Equation @eq.gaussian-factor@gbp-visual-introduction shows how this is written:
 
 $
   #m.d &tilde.op h(#m.Xb _n)) + epsilon.alt

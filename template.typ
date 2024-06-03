@@ -391,7 +391,7 @@
         if names.len() == 1 {
             text(names.at(0))
         } else if names.len() == 2 {
-            text(names.at(0) + " and " + names.at(1))
+            text(names.at(0) + " & " + names.at(1))
         } else {
             text(names.slice(0, -1).join(", ") + ", and " + names.at(-1))
         }

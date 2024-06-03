@@ -900,8 +900,20 @@
           } else if direction == btt {
             v(handle.space / 2)
           }
-          box(height: 0.8em, width: 0.8em, radius: 100%, fill: handle.color.lighten(handle.alpha), stroke: handle.color.lighten(handle.alpha), inset: (x: 2pt), baseline: 1pt)
-          h(1em)
+          let patch = if "patch" in handle {
+            handle.patch
+          } else {
+            box(height: 0.8em, width: 0.8em, radius: 100%, fill: handle.color.lighten(handle.alpha), stroke: handle.color.lighten(handle.alpha), inset: (x: 2pt), baseline: 1pt)
+          }
+          box(
+            width: 1em,
+            // baseline: 0.15em,
+            align(
+              center,
+              patch
+            )
+          )
+          h(0.5em)
           text(handle.color, size: 0.8em, handle.label)
           if direction == ltr {
             h(handle.space)
@@ -916,13 +928,13 @@
 
 
 #let lm3-th13 = (
-  s: text(theme.peach, $l_m=3,t_(K-1)=13.33s$),
+  s: text(theme.green, $l_m=3,t_(K-1)=13.33s$),
   n: $l_m=3,t_(K-1)=13.33s$
 )
 // #let lm1-th13 = text(theme.yellow, $l_m=1,t_(K-1)=13.33s$)
 // #let lm3-th5 = text(theme.lavender, $l_m=3,t_(K-1)=5s$)
 #let lm1-th13 = (
-  s: text(theme.yellow, $l_m=1,t_(K-1)=13.33s$),
+  s: text(theme.teal, $l_m=1,t_(K-1)=13.33s$),
   n: $l_m=1,t_(K-1)=13.33s$
 )
 #let lm3-th5 = (

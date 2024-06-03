@@ -49,7 +49,7 @@ This section outlines which research questions will have to be answered to reach
   #set enum(numbering: req-enum.with(prefix: "RQ-1.", color: theme.teal))
   // + Which programming language will be optimal for scientific communication and extensibility?
   // + Is it possible to reproduce the results of the original #acr("GBP") Planner in the developed simulator?
-  + Which architecture and framework is suitable for presenting an extensible simulator, an easy-to-understand visual, and a user-friendly interface, and can it reproduce the original results?#note.jo[this one got more detail, is it good?]
+  + Which architecture and framework is suitable for presenting an extensible simulator, an easy-to-understand visual, and a user-friendly interface, and can it reproduce the original results?
   + What kind of tooling will be most beneficial for the software?
   + How can tooling help with future reproducibility and engagement with the software?
   + How can tooling help with understanding and extending the software?
@@ -152,5 +152,5 @@ To answer each research question, a set of objectives will have to be met. The o
 }
 
 // #todo[argument for rust: Half way a modelling language, which is optimal for scientific communication and extensibility.]
-#jens[make figure that shows the connection of all these, including outlining which parts are which study.#note.jo[would this be good, or unnecessary?]]
-#jens[Fix the objective numbering]
+// #jens[make figure that shows the connection of all these, including outlining which parts are which study.#note.jo[would this be good, or unnecessary?]]
+// #jens[Fix the objective numbering]

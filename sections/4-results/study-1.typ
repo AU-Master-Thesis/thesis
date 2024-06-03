@@ -5,7 +5,7 @@
 // #jonas[all these results are new since last. We're working towards measuring ours and their code and then comparing their paper vs our code vs their code. Does that make sense? It will be obvious where we are still missing results]
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
-This sections presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
+This sections presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle-obstacles>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
 
 
 #kristoffer[
@@ -15,91 +15,123 @@ This sections presents all results pertaining to the first contribution, that is
   use this to argue on a non-measurable level why our implementation has is similar to theirs / has been reproduced
 ]
 
-=== Circle <s.r.results.circle>
+=== Circle & Environment Obstacles <s.r.results.circle-obstacles>
 
-For this scenario, similar to @gbpplanner, the #acr("LDJ") and _distance travelled_ metrics are presented, see @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled respectively. By comparing both figures to the corresponding ones of @gbpplanner (Fig. 4 and Fig. 5), it is evident that #acr("MAGICS") is unable to reproduce the results of the #acr("GBP") planner for lookahead multiple, $l_m=3$, and time horizon, $t_(K-1)=13.33s$.
+For this scenario, similar to @gbpplanner, the _#acr("LDJ")_ and _distance travelled_ metrics are presented, see @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled respectively. By comparing both figures to the corresponding ones of @gbpplanner, Figure 4 and 5, it is evident that #acr("MAGICS") is unable to reproduce the results of the #acr("GBP") planner for lookahead multiple, $l_m=3$, and time horizon, $t_(K-1)=13.33s$.
 
 #let handles = (
   (
-    label: [$l_m=3$, $t_(K-1)=5s$],
+    label: [C: $l_m=3,t_(K-1)=5s$],
     color: theme.lavender,
     alpha: 0%,
     space: 1em,
   ),
   (
-    label: [$l_m=1$, $t_(K-1)=13.33s$],
-    color: theme.yellow,
-    alpha: 50%,
+    label: [C: $l_m=1,t_(K-1)=13.33s$],
+    color: theme.teal,
+    alpha: 70%,
     space: 1em,
   ),
   (
-    label: [$l_m=3$, $t_(K-1)=13.33s$],
-    color: theme.peach,
+    label: [C: $l_m=3,t_(K-1)=13.33s$],
+    color: theme.green,
+    alpha: 70%,
+    space: 1em,
+  ),
+  (
+    label: [EB: $l_m=3,t_(K-1)=5s$],
+    color: theme.mauve,
     alpha: 50%,
     space: 0em,
   )
 )
-#let value-swatches = [#sl#swatch(theme.yellow.lighten(45%))#swatch(theme.peach.lighten(45%))]
+// #let value-swatches = [#sl#swatch(theme.yellow.lighten(45%))#swatch(theme.peach.lighten(45%))]
+
+#let value-swatches = {
+  for s in handles.map(handle => swatch(handle.color.lighten(handle.alpha))) {
+    s
+  }
+}
 
 #figure(
-  // image("../../figures/plots/circle-experiment-ldj.svg"),
-  z-stack(
-    image("../../figures/plots/circle-experiment-ldj.svg"),
+  grid(
+    columns: 2,
+    align: horizon,
+    block(
+      clip: true,
+      pad(
+        top: -2mm,
+        right: -2mm,
+        rest: -3mm,
+        image("../../figures/plots/circle-experiment-ldj.svg"),
+      )
+    ),
     {
-      set text(size: 1.1em)
-      place(right + bottom, dy: -3.6em, dx: -1em, legend(handles, direction: ltr))
+      v(-1.75em)
+      legend(handles, direction: ttb, fill: theme.base)
     }
   ),
   caption: [
-  #acr("LDJ") metric for the _Circle_ scenario as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$.
+  #acr("LDJ") metric for the _Circle_ scenario as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 5 in @gbpplanner. C = Circle Scenario, EB = Environment Obstacles Scenario.
 ]
 )<f.circle-experiment-ldj>
 
-
-The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled, show that lowering the lookahead multiple to #text(theme.yellow, $l_m=1$), or lowering the time horizon to #text(theme.peach, $t_(K-1)=5s$) individually obtain results that are closer to those of @gbpplanner. The best possible results are achieved with #text(theme.lavender, $l_m=3,t_(K-1)=5s$).
+The results on both figures #numref(<f.circle-experiment-ldj>) and #numref(<f.circle-experiment-distance-travelled>), show that lowering the lookahead multiple to $l_m=1$, or lowering the time horizon to $t_(K-1)=5s$ individually obtain results that are closer to those of @gbpplanner. The best possible results for are achieved with #text(theme.lavender, $l_m=3,t_(K-1)=5s$).
 
 #figure(
-  z-stack(
-    // columns: 2,
-    image("../../figures/plots/circle-experiment-distance-travelled.svg"),
-    // place(right + bottom, dy: -4em, image("../../figures/plots/legend.svg", width: 10em)),
+  grid(
+    columns: 2,
+    align: horizon,
+    block(
+      clip: true,
+      pad(
+        top: -2mm,
+        right: -2mm,
+        rest: -3mm,
+        image("../../figures/plots/circle-experiment-distance-travelled.svg"),
+      )
+    ),
     {
-      set text(size: 1.1em)
-      place(right + bottom, dy: -3.6em, dx: -1em, legend(handles, direction: ltr))
+      v(-1.75em)
+      legend(handles, direction: ttb, fill: theme.base)
     }
   ),
   caption: [
-    Distribution of distances travelled as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$.
+    Distribution of distances travelled as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 4 in @gbpplanner. C = Circle Scenario, EB = Environment Obstacles Scenario.
   ]
 )<f.circle-experiment-distance-travelled>
 
-=== Environment Obstacles <s.r.results.obstacles>
+The results for the Environment Obstacles scenario are shown with purple and a tag of EB in all three figures; #numref(<f.circle-experiment-ldj>), #numref(<f.circle-experiment-distance-travelled>), and #numref(<f.obstacle-experiment-makespan>). It can be seen how these results are consistently worse-
+#v(-0.55em)
 
 #let fig = [
+  #v(1em)
   #figure(
     z-stack(
       pad(
         x: -4mm,
         y: -4mm,
-        image("../../figures/plots/circle-experiment-makespan-no-legend.svg")
+        image("../../figures/plots/circle-experiment-makespan.svg")
       ),
       {
         set text(size: 1.1em)
-        place(right + top, dy: 0.5em, dx: -0.2em, legend(handles, direction: ttb))
+        place(right + top, dy: 0.2em, dx: 0.1em, legend(handles, direction: ttb, fill: white.transparentize(40%)))
       }
     ),
     caption: [
-      Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds; $#equation.as-set(params.seeds)$.
+      Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 6 in @gbpplanner. C = Circle Scenario, EB = Environment Obstacles Scenario.
     ]
   )<f.obstacle-experiment-makespan>
 ]
 
 #let body = [
-  The results of the _Environment Obstacles_ scenario are presented in @f.obstacle-experiment-makespan. The figure shows that the makespan for #lm3-th5.s is significantly lower than for the two runs with #text(gradient.linear(theme.yellow, theme.peach), $t_(K-1)=13.33s$). Furthermore, the the makespan values for #lm3-th5.s are much closer to the corresponding values of @gbpplanner.
+  performing than the Circle scenario, and are comparable to @gbpplanner, with only a small expected descrepency.
+
+  @f.obstacle-experiment-makespan presents the makespan results for both the Circle and Environment Obstacles scenarios. The figure shows that the makespan for #lm3-th5.n is significantly lower than for the two runs with $t_(K-1)=13.33s$. Furthermore, the the makespan values for #lm3-th5.s are much closer to the corresponding values of @gbpplanner. Hence, it was deemed unecessary to have validative results from the `gbpplanner` code itself.
 ]
 
 #grid(
-  columns: (1fr, 90mm),
+  columns: (1fr, 85mm),
   column-gutter: 1em,
   body,
   fig
@@ -129,7 +161,7 @@ The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-di
 //   theirs: theme.peach.lighten(20%),
 //   ours: theme.lavender
 // )
-#let vc = table.cell.with(inset: 1em)
+#let vc = table.cell.with(inset: 0.75em)
 #let tc = vc
 #let tc2 = table.cell.with(fill: colors.theirs.lighten(70%), stroke: none)
 #let oc = table.cell.with(fill: colors.ours.lighten(80%), stroke: none)
@@ -169,36 +201,63 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
     alignment: center + horizon,
     header-color: (fill: theme.base, text: theme.text),
     header: table.header(
-      tc(rowspan: 2, [$r_C$\ \[$m$\]]), tc(colspan: 4, [MS \[$s$\]]), tc(colspan: 4, [D \[$m$\]]), tc(colspan: 4, [LDJ \[$m"/"s^3$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
+      tc(rowspan: 2, [$bold(r_C)$\ \[$bold(m)$\]]), tc(colspan: 4, [Makespan \[$bold(s)$\]]), tc(colspan: 4, [Distance Travelled \[$bold(m)$\]]), tc(colspan: 4, [LDJ \[$bold(m"/"s^3)$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
     ),
     vc[20], table.vline(), vc[$12.0$], oc2[], vc[$46.0$], vc[$199.50$], table.vline(), vc[$104$], oc2[], vc[$236.9$], vc[$519.5$], table.vline(), vc[$-9.02$], oc2[], vc[$-14.5$], vc[$-22.9$],
     vc[40], vc[$12.3$], oc2[], vc[$64.6$], vc[$260.9$], vc[$104.5$], oc2[], vc[$286.0$], vc[$751.1$], vc[$-8.76$], oc2[], vc[$-16.0$], vc[$-23.7$],
     vc[60], vc[$12.7$], oc2[], vc[$65.3$], vc[$443.3$], vc[$104.0$], oc2[], vc[$295.3$], vc[$1551.7$], vc[$-8.38$], oc2[], vc[$-16.3$], vc[$-25.3$],
     vc[80], vc[$14.8$], oc2[], vc[$64.6$], vc[$379.0$], vc[$103$], oc2[], vc[$283.2$], vc[$1069.4$], vc[$-8.47$], oc2[], vc[$-16.1$], vc[$-24.9$],
   ),
-  caption: [Effect of varying communication range $r_C$ in the _Environment Obstacles_ experiment. Values in the #text(red, [them]) column is taken from table 1 in @gbpplanner. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.],
+  caption: [Results for the Varying Network Connectivity scenario. Shows the effect of varying communication range $r_C$ in the same environment as the Environment Obstacles scenario. Values in the #T1 column is taken from Table 1 in @gbpplanner. Column #T2 are results obtained by running the experiment in `gbpplanner`@gbpplanner-code, where #O1 and #O2 are results from #acr("MAGICS"). #O1 is with lookahead multiple $l_m=3$ and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. Performed over 5 different seeds; $#equation.as-set(params.seeds)$. Corresponds with Table 1 in @gbpplanner.],
 )<t.network-experiment>
 
 === Junction <s.r.results.junction>
 #let body = [
-  The results of the _junction_ experiment are presented on a plot in @f.qin-vs-qout, similarly to how it was done in @gbpplanner. The plot shows that the input flowrate $Q_"in"$ is very close to the output flowrate $Q_"out"$ for $Q_"in" in [0, 6.5]$, where it starts deviating from the optimal flowrate at $Q_"in" = 7.5$, decreasing to an output flowrate of $Q_"out" approx 6.6$. This result is consistent with both the presented numbers in @gbpplanner and the provided `gbpplanner` code. In @t.qin-vs-qout, the raw data is presented. Here it becomes clear that the output flowrate follows the input flowrate perfectly up until $Q_"in" = 4$, where $Q_"out" = 3.98$ #sym.dash.en _and from here on $Q_"out"$ consistently deviates more and more_.
+  The results of the Junction experiment are presented on a plot in @f.qin-vs-qout, similarly to how it was done in @gbpplanner. The plot shows that the input flowrate $Q_"in"$ is very close to the output flowrate $Q_"out"$ for $Q_"in" in [0, 6.5]$, where it starts deviating from the optimal flowrate at $Q_"in" = 7.5$, decreasing to an output flowrate of $Q_"out" approx 6.6$. This result is consistent with both the presented numbers in @gbpplanner and the provided `gbpplanner` code. In @t.qin-vs-qout, the raw data is presented. Here it becomes clear that the output flowrate follows the input flowrate perfectly up until $Q_"in" = 4$, where $Q_"out" = 3.98$ #sym.dash.en _and from here on $Q_"out"$ consistently deviates more and more_. These results are comparable to the results of @gbpplanner, looking at their Figure 7.
 ]
+
+
+#let handles = (
+  (
+    patch: inline-line(stroke: (thickness: 2pt, paint: theme.overlay2, dash: "dotted")),
+    label: [$Q_"in" = Q_"out"$],
+    color: theme.overlay2,
+    alpha: 0%,
+    space: 1em,
+  ),
+  (
+    label: [$60s$ Mean Flowrate],
+    color: theme.lavender,
+    alpha: 0%,
+    space: 0em,
+  ),
+)
 
 #let fig = [
   #figure(
-    image("../../figures/plots/qin-vs-qout.svg"),
-    // std-block({
-    //   image("../../figures/plots/qin-vs-qout.svg")
-    //   v(-1.5em)
-    // }),
+    block(
+      clip: true,
+      z-stack(
+        pad(
+          top: -2mm,
+          right: -2mm,
+          rest: -3mm,
+          image("../../figures/plots/qin-vs-qout.svg"),
+        ),
+        {
+          set text(size: 1.1em)
+          place(right + bottom, dy: -2.4em, dx: -0.9em, legend(handles, direction: ttb, fill: white.transparentize(40%)))
+        }
+      )
+    ),
     caption: [
-      This plot illustrates the relationship between the input flowrate $Q_"in"$ the output flowrate $Q_"out"$ robots for the *Junction* scenario, @s.r.scenarios.junction. The dashed dark-gray line #box(line(length: 15pt, stroke:(dash: "dotted", paint: theme.overlay2, thickness: 2pt)), baseline: -0.25em) represents the ideal scenario where $Q_"in" = Q_"out"$. The solid blue colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates. Performed over 5 different seeds; $#equation.as-set(params.seeds)$.
+      This plot illustrates the relationship between the input flowrate $Q_"in"$ the output flowrate $Q_"out"$ robots for the Junction scenario, @s.r.scenarios.junction. The dashed dark-gray line #inline-line(stroke: (thickness: 2pt, paint: theme.overlay2, dash: "dotted")) represents the ideal scenario where $Q_"in" = Q_"out"$. The solid blue colored line with circle markers#sl indicates the average flowrate measured over a 50-second steady-state period. The results demonstrate a close approximation to the ideal flowrate, with slight deviations observed at higher flowrates. Performed over 5 different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 7 in @gbpplanner.
     ]
   )<f.qin-vs-qout>
 ]
 
 #grid(
-  columns: (1fr, 90mm),
+  columns: (1fr, 80mm),
   column-gutter: 1em,
   body,
   fig
@@ -228,7 +287,7 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
       ..qouts.map(qout => [$#strfmt("{0:.2}", qout)$]),
     )
   },
-  caption: [The relationship between the input flowrate $Q_"in"$ and the output flowrate $Q_"out"$ for the *Junction* scenario.]
+  caption: [The relationship between the input flowrate $Q_"in"$ and the output flowrate $Q_"out"$ for the Junction scenario.]
 )<t.qin-vs-qout>
 
 
@@ -253,6 +312,9 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 // │ 10.0         ┆ 0.3          ┆ 163.699997 │
 // │ 10.0         ┆ 0.4          ┆ 157.400009 │
 // │ 10.0         ┆ 0.5          ┆ 231.400009 │
+// │ 10.0         ┆ 0.6          ┆ 257.200012 │
+// │ 10.0         ┆ 0.7          ┆ 260.899994 │
+// │ 10.0         ┆ 0.8          ┆ 362.100006 │
 // │ 10.0         ┆ 0.9          ┆ 938.900024 │
 
 // │ 15.0         ┆ 0.0          ┆ 238.600006 │
@@ -265,6 +327,37 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 // │ 15.0         ┆ 0.7          ┆ 505.600006 │
 // │ 15.0         ┆ 0.8          ┆ 799.600037 │
 // │ 15.0         ┆ 0.9          ┆ 864.600037 │
+
+// OURS 10 lm3 th5
+// │ 0.0          ┆ 21.125   │
+// │ 0.1          ┆ 24.24    │
+// │ 0.2          ┆ 27.1     │
+// │ 0.3          ┆ 29.06    │
+// │ 0.4          ┆ 33.16    │
+// │ 0.5          ┆ 39.84    │
+// │ 0.6          ┆ 48.4     │
+// │ 0.7          ┆ 60.82    │
+
+// OURS 15 lm3 th5
+// │ 0.0          ┆ 20.3     │
+// │ 0.1          ┆ 23.8     │
+// │ 0.2          ┆ 26.9     │
+// │ 0.3          ┆ 29.6     │
+// │ 0.4          ┆ 33.5     │
+// │ 0.5          ┆ 40.2     │
+// │ 0.6          ┆ 48.78    │
+// │ 0.7          ┆ 68.2     │
+
+// │ 0.0          ┆ 1.2        │
+// │ 0.1          ┆ 1.8        │
+// │ 0.2          ┆ 6.2        │
+// │ 0.3          ┆ 11.2       │
+// │ 0.4          ┆ 18.2       │
+// │ 0.5          ┆ 36.0       │
+// │ 0.6          ┆ 41.6       │
+// │ 0.7          ┆ 55.6       │
+
+#let d = sym.dash.en
 #figure(
   tablec(
     columns: range(15).map(_ => 1fr),
@@ -276,19 +369,19 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
       tc(rowspan: 2, $bold(gamma)$), tc(colspan: 4, [MS $s$]), tc(colspan: 3, [C]), tc(colspan: 4, [MS $s$]), tc(colspan: 3, [C]), table.hline(),
       ..range(2).map(_ => (T1, O1, O2, T2, T1, O1, O2)).flatten(),
     ),
-    $0$, table.vline(), $19.5$, oc[], oc[], vc[$86.3$], table.vline(), $0$, oc[], tc2[], table.vline(), $14.9$, oc[], oc[], vc[$238.6$], table.vline(), $0$, oc[], tc2[],
-    $10$, $20.3$,  oc[], oc[], vc[$146.3$], $0$, oc[], tc2[], $17.1$,   oc[], oc[], vc[$203.2$], $0$, oc[], tc2[],
-    $20$, $22.9$,  oc[], oc[], vc[$140.2$], $0$, oc[], tc2[], $18.9$,   oc[], oc[], vc[$329.8$], $0$, oc[], tc2[],
-    $30$, $25.7$,  oc[], oc[], vc[$163.7$], $0$, oc[], tc2[], $22.5$,   oc[], oc[], vc[$231.1$], $0$, oc[], tc2[],
-    $40$, $30.8$,  oc[], oc[], vc[$157.4$], $0$, oc[], tc2[], $26.5$,   oc[], oc[], vc[$220.8$], $0$, oc[], tc2[],
-    $50$, $35.6$,  oc[], oc[], vc[$231.4$], $0$, oc[], tc2[], $30.6$,   oc[], oc[], vc[$221.5$], $0.2$, oc[], tc2[],
-    $60$, $42$,    oc[], oc[], tc2[], $0$, oc[], tc2[], $38.8$,   oc[], oc[],       vc[$328.7$], $0.8$, oc[], tc2[],
-    $70$, $51.3$,  oc[], oc[], tc2[], $0$, oc[], tc2[], $44.6$,   oc[], oc[],       vc[$505.6$], $0.8$, oc[], tc2[],
-    $80$, $87.4$,  oc[], oc[], tc2[], $0$, oc[], tc2[], $63.4$,   oc[], oc[],       vc[$799.6$], $0.8$, oc[], tc2[],
-    $90$, $146.9$, oc[], oc[], vc[$938.9$], $1.6$, oc[], tc2[], $12.6$, oc[], oc[], vc[$864.6$], $4.6$, oc[], tc2[],
+    $0$, table.vline(), $19.5$, oc[], vc[$21.1$], vc[$86.3$], table.vline(), $0$, oc[], vc[$0.5$], table.vline(), $14.9$, oc[], vc[$20.3$], vc[$238.6$], table.vline(), $0$, oc[], vc[$1.2$],
+    $10$, $20.3$,  oc[], vc[$24.2$], vc[$146.3$], $0$,   oc[], vc[$1.8$],  $17.1$, oc[], vc[$23.8$], vc[$203.2$], $0$,   oc[], vc[$1,8$],
+    $20$, $22.9$,  oc[], vc[$27.1$], vc[$140.2$], $0$,   oc[], vc[$6.8$],  $18.9$, oc[], vc[$26.9$], vc[$329.8$], $0$,   oc[], vc[$6.2$],
+    $30$, $25.7$,  oc[], vc[$29.1$], vc[$163.7$], $0$,   oc[], vc[$11.0$], $22.5$, oc[], vc[$29.6$], vc[$231.1$], $0$,   oc[], vc[$11.2$],
+    $40$, $30.8$,  oc[], vc[$33.2$], vc[$157.4$], $0$,   oc[], vc[$18.4$], $26.5$, oc[], vc[$33.5$], vc[$220.8$], $0$,   oc[], vc[$18.2$],
+    $50$, $35.6$,  oc[], vc[$39.8$], vc[$231.4$], $0$,   oc[], vc[$33.0$], $30.6$, oc[], vc[$40.2$], vc[$221.5$], $0.2$, oc[], vc[$36.0$],
+    $60$, $42$,    oc[], vc[$48.4$], vc[$257.2$], $0$,   oc[], vc[$39.6$], $38.8$, oc[], vc[$48.8$], vc[$328.7$], $0.8$, oc[], vc[$41.6$],
+    $70$, $51.3$,  oc[], vc[$60.8$], vc[$260.9$], $0$,   oc[], vc[$51.8$], $44.6$, oc[], vc[$68.2$], vc[$505.6$], $0.8$, oc[], vc[$55.6$],
+    $80$, $87.4$,  vc[#d], vc[#d],     vc[$362.1$], $0$,   vc[#d], vc[#d],     $63.4$, vc[#d], vc[#d],     vc[$799.6$], $0.8$, vc[#d], vc[#d],
+    $90$, $146.9$, vc[#d], vc[#d],     vc[$938.9$], $1.6$, vc[#d], vc[#d],     $12.6$, vc[#d], vc[#d],     vc[$864.6$], $4.6$, vc[#d], vc[#d],
   ),
   caption: [
-    Values in the #text(red, [them]) column is taken from table 2 in @gbpplanner.
+    Communications Failure experiment results. Results pertaining to #acr("MAGICS") are marked #O1 and #O2. #O1 is with lookahead multiple $l_m=3$, and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. Values in column #T1 is taken from Table 2 in @gbpplanner, where #T2 columns are results obtained from the `gbpplanner`@gbpplanner-code with #lm3-th13.n. Cells marked with a dash, #sym.dash.en, had a very low rate of convergence as so few interrobot messages were shared, and thus weren't measurable. Corresponds with Table 2 in @gbpplanner.
   ]
 )<t.comms-failure-experiment>
 

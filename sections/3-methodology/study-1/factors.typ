@@ -1,7 +1,5 @@
 #import "../../../lib/mod.typ": *
 === Factor Graph <s.m.factor-graph>
-// #jonas[I don't think you have seen all the maths stuff here. Does it make sense?]
-#jens[Make sure factor graph notation is consistent with background math notation.]
 
 This section describes how the factor graph theory is used in the developed software. Thus, detailing each factor used in the #acr("GBP") algorithm, as was also done in the original work@gbpplanner. As touched on in @s.b.factor-graphs, the factors are the components of the factor grah that introduces constraints between the variables.
 
@@ -20,7 +18,7 @@ The first order Jacobian is used to calculate the gradient of the factor measure
 
 In mathematical terms, the implemented `first_order_jacobian`#footnote[Found in the #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L102", "/src/factorgraph/factor/mod.rs:102")] function, can be expressed as follows; let
 
-- $h : RR^n -> RR^m$#note.jens[be more specific with dimensions?] be the factor measurement function that maps a linearisation point to a measurement.
+- $h : RR^n -> RR^m$ be the factor measurement function that maps a linearisation point to a measurement.
 - $#m.x$ be the linearisation point, an $n$-dimensional vector, representing the state or states at which the Jacboian is computed.
 - $delta$ be a small perturbation value for computing the finite difference approximation.
 
@@ -177,7 +175,7 @@ The default standard deviation, $sigma_o$, for this factor is $0.01$, which is a
 The obstacle measurement function, $h_o (#m.x)$, is parameterised by the linearisation point, $x$, and the #acr("SDF") image. The resulting measurement is a scalar value, $0 <= h_o (#m.x) <= 1$, essentially representing the lightness of the inverted #acr("SDF") at the position of the linearisation point in 2D space. That is, the closer to 1, the closer the robot is to an obstacle, and 0 is completely free space.
 
 ==== Interrobot Factor $bold(f_i)$ <s.m.factors.interrobot-factor>
-The interrobot factor expresses how robots should interact with each other when they get close enough. Interrobot factors measure the distance between the two robots, and if they get too close, the factor will in turn impose a repulsive force on the robots. Interrobot factors only exist between robots that are close enough, however, as soon as they are, an interrobot factor will be created between each variable for each timestep. This happens symmetrically, which means both robots will have a factor for each of its variables that connects externally to the other robot's variables. These are the connection that are used when external iterations of #acr("GBP") are made#note.kristoffer[refer to where you explain these]. To identify the connected variable in the external factorgraph, the interrobot factor store an unique identifier that consists of a two field tuple of the robots id, and index offset from the current variable. The interrobot factors take a safety distance into account which is some scaled version of the two robots' radii, see @eq.interrobot-factor.#note.jo[these variables have now been explained]
+The interrobot factor expresses how robots should interact with each other when they get close enough. Interrobot factors measure the distance between the two robots, and if they get too close, the factor will in turn impose a repulsive force on the robots. Interrobot factors only exist between robots that are close enough, however, as soon as they are, an interrobot factor will be created between each variable for each timestep. This happens symmetrically, which means both robots will have a factor for each of its variables that connects externally to the other robot's variables. These are the connection that are used when external iterations of #acr("GBP") are made, see @s.iteration-schedules. To identify the connected variable in the external factorgraph, the interrobot factor store an unique identifier that consists of a two field tuple of the robots id, and index offset from the current variable. The interrobot factors take a safety distance into account which is some scaled version of the two robots' radii, see @eq.interrobot-factor.
 
 $
   h_i (#m.x _A, #m.x _B) = cases(
