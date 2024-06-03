@@ -146,46 +146,55 @@ All four metrics clearly shows that a large $M_R$ when $M_I in [1,2]$ is severel
 #let cell(c) = box(rect(height: 0.7em, width: 0.7em, stroke: c, fill: c), baseline: 0.05em)
 
 // #let cropping = -4mm
-#let cropping = 0mm
+#let cropping = (
+  left: -6mm,
+  bottom: -14mm,
+  x: -3mm,
+  y: -9mm
+)
 #figure(
   grid(
-    columns: 2,
+    columns: (50.8%, 1fr),
     align: center + horizon,
-    row-gutter: -2em,
+    row-gutter: -0.5mm,
     block(
       clip: true,
       pad(
-        x: cropping,
-        y: cropping,
+        bottom: cropping.bottom,
+        x: cropping.x,
+        y: cropping.y,
         image("../../figures/plots/iteration-amount-average-ldj.svg"),
       ),
     ),
     block(
       clip: true,
       pad(
-        x: cropping,
-        y: cropping,
+        left: cropping.left,
+        bottom: cropping.bottom,
+        x: cropping.x,
+        y: cropping.y,
         image("../../figures/plots/iteration-amount-average-makespan.svg"),
       ),
     ),
     block(
       clip: true,
       pad(
-        x: cropping,
-        y: cropping,
+        x: cropping.x,
+        y: cropping.y,
         image("../../figures/plots/iteration-amount-average-distance-travelled.svg"),
       ),
     ),
     block(
       clip: true,
       pad(
-        x: cropping,
-        y: cropping,
+        left: cropping.left,
+        x: cropping.x,
+        y: cropping.y,
         image("../../figures/plots/iteration-amount-largest-time-differense.svg"),
       ),
     ),
   ),
   caption: [
-    Results of varying internal iteration $M_I$ and external $M_R$ split across four metrics: #acr("LDJ"), makespan, distance travelled, and largest time difference. Each metric is plotted as a 2D histogram with the $x$ and $y$-axis being $M_I$ and $M_R$ respectively. The gradient colors are chosen such that the peach colored end of the spectrum are cells #cell(theme.peach) which performed poorly for that metric. While lavender #cell(theme.lavender) indicates cells with good metric values.
+    Results of varying internal iteration $M_I$ and external $M_R$ split across four metrics: #acr("LDJ"), makespan, distance travelled, and largest time difference. Each metric is plotted as a 2D histogram with the $x$ and $y$-axis being $M_I$ and $M_R$ respectively. The gradient colors are chosen such that the orange colored end of the spectrum are cells #cell(theme.peach) which performed poorly for that metric. While blue #cell(theme.lavender) indicates cells with good metric values.
   ]
 ) <f.iteration-amount-plots>
