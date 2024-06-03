@@ -37,7 +37,7 @@
   alignment: auto,
   stroke: none,
   header-color: (
-    fill: catppuccin.latte.lavender.lighten(0%),
+    fill: catppuccin.latte.lavender,
     text: white
   ),
   even-color: catppuccin.latte.mantle,

@@ -21,9 +21,9 @@ The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len(
 
 + _*Collaborative Global Planning:*_ This scenario is similar to #boxed(color: colors.ours, [*SO-1*]), but with many robots. Several spawning locations are possible, where each individual robot get a task to traverse the complex environment. The purpose of this scenario is to test the interactivity between the tracking factors and the interrobot factors, $f_i$.
 
-+ _*Iteration Amount*_ Same environment as the Circle scenario. This explores the effect of varying $M_I$ and $M_R$. The goal is to determine optimal values for these parameters and whether increasing the iteration count consistently improves performance.
++ _*Iteration Amount:*_ Same environment as the Circle scenario. This explores the effect of varying $M_I$ and $M_R$. The goal is to determine optimal values for these parameters and whether increasing the iteration count consistently improves performance.
 
-+ _*Schedules*_ Again same environment and formation as the Circle scenario. This scenario explores the effect of the various iteration schedules presented in @s.iteration-schedules.
++ _*Schedules:*_ Again same environment and formation as the Circle scenario. This scenario explores the effect of the various iteration schedules presented in @s.iteration-schedules.
 
 
 // + _*Communications Failure:*_ This scenario is based in the same environment as the Circle scenario. In this scenario simulates the possibility of communication failure between the robots by flipping a communication toggle with some probability at every timestep.

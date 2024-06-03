@@ -41,19 +41,26 @@ This section details the experiments conducted to test the hypotheses outlined i
         }).flatten()
       )
     },
-    caption: [System specifications for the machine, the experiments have been run on.]
+    caption: [System specifications for the machine, all of the experiments have been run on. This includes all results for #acr("MAGICS") and `gbpplanner` experiments.]
   )<t.specs>
 ]
 
 #let exp = [
-  #h(1em)All experiments were performed on the same laptop, featuring a #specs.cpu CPU, #specs.ram RAM, and running #specs.OS, see @t.specs. Although the computational capabilities of the machine should not influence the results, these specifications are provided for completeness and transparency.]
+  #h(1em)All experiments were performed on the same laptop, featuring a #specs.cpu CPU, #specs.ram RAM, and running #specs.OS, see @t.specs. Although the computational capabilities of the machine should not influence the results, these specifications are provided for completeness and transparency.
+
+  Generally in the following sections, results are to be compared against the original #gbpplanner@gbpplanner paper or results#h(1fr)obtained#h(1fr)for#h(1fr)this#h(1fr)thesis#h(1fr)using#h(1fr)the#h(1fr)`gbpplanner`
+]
 #v(-0.55em)
 #grid(
   columns: (1fr, 14em),
   column-gutter: 1em,
   exp,
-  spec-table,
+  v(0.75em) + spec-table + v(0.5em),
 )
+
+#v(-0.5em)
+
+ code@gbpplanner-code; expect results pertaining to this thesis to be presented in cold colours; #text(theme.lavender, "blue")#sl, #text(theme.teal, "teal")#stl, #text(theme.green, "green")#sg, and results from #gbpplanner in warm colours; #text(theme.maroon, "red")#sr, #text(theme.peach, "orange")#so, #text(theme.yellow, "yellow")#sy. Otherwise, when results are not presented in a comparative light, the colours are chosen to be distinct and easily distinguishable.
 
 #include "./metrics.typ"
 #include "./scenarios.typ"

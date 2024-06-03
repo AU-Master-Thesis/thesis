@@ -53,18 +53,20 @@
 	\draw[none] (f2) --++ (2.5 * \scale, \top) coordinate (ctib2);
 	\draw[none] (f2) --++ (-2.5 * \scale, \top) coordinate (ctib3);
 
-	\node[text=ctpMaroon] (t1) at (ct1) {$t_1$};
-	\node[text=ctpMaroon] (t2) at (ct2) {$t_2$};
-	\node[text=ctpMaroon] (t3) at (ct3) {$t_n$};
-	\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt1) at (ctib1) {};
-	\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt2) at (ctib2) {};
-	\node[dot, minimum size=0.5 * \scale, fill=ctpMaroon] (dt3) at (ctib3) {};
+	\node[text=ctpLavender] (t1) at (ct1) {$t_1$};
+	\node[text=ctpLavender] (t2) at (ct2) {$t_2$};
+	\node[text=ctpLavender] (t3) at (ct3) {$t_n$};
+	\node[dot, minimum size=0.5 * \scale, fill=ctpLavender] (dt1) at (ctib1) {};
+	\node[dot, minimum size=0.5 * \scale, fill=ctpLavender] (dt2) at (ctib2) {};
+	\node[dot, minimum size=0.5 * \scale, fill=ctpLavender] (dt3) at (ctib3) {};
 
-	\draw[csnake, draw=ctpMaroon] (t1.north) -- node[yshift=10 * \scale, pos=0.5, text=ctpMaroon] (time) {Prediction Horizon} (t3.north);
+	\draw[csnake, draw=ctpLavender] (t1.north) -- node[yshift=10 * \scale, pos=0.5, text=ctpLavender] (time) {Prediction Horizon} (t3.north);
 
 
 	\tikzset{shift={(0, -21 * \scale)}}
-	\draw[line, dotted] (-1 * \scale,0) --++ (10 * \scale, 0);
+	\node[none, rotate=90, text=ctpGreen, yshift=8 * \scale, xshift=13 * \scale] at (0,0) {Green Robot};
+	\node[none, rotate=90, text=ctpMauve, yshift=8 * \scale, xshift=-13 * \scale] at (0,0) {Purple Robot};
+	\draw[line, dotted] (-10 * \scale,0) --++ (105 * \scale, 0);
 
 	\tikzset{shift={(0, -21 * \scale)}}
 	\robot[robot two] sign (-1);

@@ -159,29 +159,41 @@
   title: project-name,
   subtitle: "Computer Engineering Master Thesis",
   title-page: true,
-  title-page-extra: align(center, [
-    #jonas[
-      #set align(left)
-      \
-      Hi Jonas \
-      - I have once again left notes on all the new and exciting additions!
-    ]
-    #todo[Front page picture of intertwining robots.]
-  ]),
+  title-page-extra: align(center,
+    std-block(
+      width: 90%,
+      std-block(
+        radius: 0.5em,
+        clip: true,
+        inset: 0pt,
+        pad(
+          rest: -1mm,
+          image("figures/img/showcase-during.png")
+          // top: -6mm,
+          // bottom: -10mm,
+          // rest: -1mm,
+          // image("figures/img/showcase-during-perspective-1.png")
+          // top: -20mm,
+          // bottom: -10mm,
+          // rest: -1mm,
+          // image("figures/img/showcase-during-perspective-2.png")
+        )
+      )
+    )
+  ),
   title-page-footer: align(center)[
-    #gridx(columns: (30%, 40%), align: center + horizon)
-    #gridx(
+    #grid(
       columns: 2,
-      row-gutter: 0em,
+      row-gutter: 1em,
       align: (x, y) => (right, left).at(x),
       [*Supervisor:*],
       supervisors.andriy,
       [*Co-supervisor:*],
       supervisors.jonas,
     )
-    #v(2mm, weak: true)
+    #v(1em, weak: true)
     \{andriy, jonas.le.fevre\}\@ece.au.dk
-    #v(5mm, weak: true)
+    #v(7mm, weak: true)
     #image("img/au-logo.svg", width: 30%)
   ],
   authors: authors,

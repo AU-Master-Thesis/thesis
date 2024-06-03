@@ -6,21 +6,22 @@
 
 \begin{document}
 \begin{tikzpicture}[
-collider dot/.style={dot, collider, minimum size=5 * \scale},
-valid collider dot/.style={collider dot, draw=ctpTeal},
+collider dot/.style={dot, collider, draw=ctpYellow, minimum size=3 * \scale},
+valid collider dot/.style={collider dot, draw=ctpGreen},
 ]
-	\def\mainSize{10 * \scale}
+	\begin{scope}[rotate=90]
+	\def\mainSize{6 * \scale}
 	\def\wScalar{3}
 	\def\pad{0.3 * \scale}
-	\def\s{0.5}
+	\def\s{0.3}
 
 	\pgfmathsetmacro{\wScalarExtra}{\wScalar + 1}
 	\pgfmathsetmacro{\wScalarLess}{\wScalar - 1}
 	\pgfmathsetmacro{\wScalarLessLess}{\wScalar - 2}
 
 	% Colliders
-	\draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, \pad + \mainSize) -- ++(\wScalar * \mainSize + 2 * \pad, 0) -- ++(0, -\wScalarExtra * \mainSize - 2 * \pad) -- ++(-\mainSize - 2 * \pad, 0) -- ++(0, \wScalar * \mainSize) -- ++(-\wScalarLess * \mainSize, 0) -- cycle;
-	\draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, -\wScalarLessLess * \mainSize + \pad) -- ++ (\mainSize + 2 * \pad, 0) -- ++(0, -\wScalar * \mainSize) -- ++(\wScalarLess * \mainSize, 0) -- ++(0, -\mainSize - 2 * \pad) -- ++(-\wScalar * \mainSize - 2 * \pad, 0) -- cycle;
+	% \draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, \pad + \mainSize) -- ++(\wScalar * \mainSize + 2 * \pad, 0) -- ++(0, -\wScalarExtra * \mainSize - 2 * \pad) -- ++(-\mainSize - 2 * \pad, 0) -- ++(0, \wScalar * \mainSize) -- ++(-\wScalarLess * \mainSize, 0) -- cycle;
+	% \draw[none, line, collider, draw=ctpLavender, fill=ctpLavender!25] (-\pad, -\wScalarLessLess * \mainSize + \pad) -- ++ (\mainSize + 2 * \pad, 0) -- ++(0, -\wScalar * \mainSize) -- ++(\wScalarLess * \mainSize, 0) -- ++(0, -\mainSize - 2 * \pad) -- ++(-\wScalar * \mainSize - 2 * \pad, 0) -- cycle;
 
 	\draw[none, line, collider] (0, 0) rectangle ++(\mainSize * \wScalar, \mainSize);
 	\draw[none, line, collider] (2 * \mainSize, 0) rectangle ++(\mainSize, -\wScalar * \mainSize);
@@ -47,17 +48,19 @@ valid collider dot/.style={collider dot, draw=ctpTeal},
 		-- ++(-20:\s) 	coordinate (rrt12)
 		--   (end) 		coordinate (rrt13);
 
-	\draw[rrt line] (rrt2) -- ++(20:\s) node[collider dot] () {};
-	\draw[rrt line] (rrt3) -- ++(-60:\s) node[collider dot] () {};
-	\draw[rrt line] (rrt6) -- ++(-45:\s) node[collider dot] () {};
-	\draw[rrt line] (rrt8) -- ++(-35:\s) node[collider dot] () {};
-	\draw[rrt line] (rrt10) -- ++(-65:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt2) -- ++(30:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt3) -- ++(-70:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt6) -- ++(-35:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt8) -- ++(-25:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt9) -- ++(-135:\s) node[collider dot] () {};
+	\draw[rrt line] (rrt10) -- ++(-85:\s) node[collider dot] () {};
 
 	\foreach \i in {2, ..., 12}
 		\node at (rrt\i) [line, valid collider dot] {};
 
-	\node[dot, fill=ctpBlue, minimum size=2.5 * \scale] at (start) {};
-	\node[dot, fill=ctpGreen, minimum size=2.5 * \scale] at (end) {};
+	\node[dot, fill=ctpLavender, minimum size=2.5 * \scale] at (start) {};
+	\node[dot, fill=ctpMauve, minimum size=2.5 * \scale] at (end) {};
 
+	\end{scope}
 \end{tikzpicture}%
 \end{document}

@@ -59,10 +59,10 @@ arrow/.style={->, line, >=Latex[round]},
 variable message/.style={arrow, draw=\variablecolor},
 factor message/.style={arrow, <-, draw=\factorcolor},
 dot/.style={circle, draw=none, fill=ctpText, minimum size=1 * \scale, inner sep=0},
-collider/.style={draw=ctpMaroon, fill=none, no rounding},
-collider dot/.style={dot, collider, minimum size=2 * \scale},
+collider/.style={rrt line, draw=ctpMaroon, fill=none},
+collider dot/.style={dot, collider, draw=ctpYellow, minimum size=2 * \scale},
 environment/.style={draw=ctpLavender, fill=ctpLavender!25},
-valid collider dot/.style={collider dot, draw=ctpTeal},
+valid collider dot/.style={collider dot, draw=ctpGreen},
 node at every point/.style={
     decoration={
         show path construction,
@@ -76,4 +76,4 @@ node at every point/.style={
 
 \def\scale{1mm}
 \def\factorcolor{ctpLavender}
-\def\variablecolor{ctpMaroon}
+\def\variablecolor{ctpGreen}

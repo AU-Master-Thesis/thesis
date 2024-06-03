@@ -90,7 +90,7 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
     //     position: top,
     //     [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
     //   )
-    caption: [Illustration of how the perpendicular path deviation error is calculated. The green#sg line segments are the optimal path between waypoints. The red#sr line segments are the planned path. The dashed gray#sgr2 lines show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
+    caption: [Illustration of how the perpendicular path deviation error is calculated. The green line #inline-line(stroke: theme.green + 2pt) segments are the optimal path between waypoints. The red line #inline-line(stroke: theme.red + 2pt) segments represent the driven path. The dashed gray lines #inline-line(stroke: (paint: theme.overlay2, thickness: 2pt, dash: "dashed", cap: "round")) show the projection with the shortest distance to one of the waypoint segments, from a sampled position.]
 
 ) <f.perpendicular-path-deviation>
   ]

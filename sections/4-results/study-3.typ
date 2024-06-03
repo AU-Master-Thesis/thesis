@@ -13,7 +13,7 @@ The results of the #scen.solo-gp.n scenario are shown as box plots in @f.solo-bo
 
   $tilde.op#strfmt("{0:.0}", solo-gp-mean-decrease)%$ improvement. @t.solo-stats presents some raw statics, where it is easy to make out, not only the decrease in mean path deviation error but also a reduction in variance as shown by the standard deviation.
 
-  Since the improvement is slightly intangible, the paths driven by the robots are visualised in @f.solo-plot. The blue#sl robot is using the waypoing tracking approach, which the green robot is equipped with path tracking. The figure shows how the tracking factor has kept the green robot much closer to the planned path, which is visualised in grey#swatch(theme.text). This is especially evident in the sharp turns, where the blue robot deviates significantly, both before and after the turn.
+  Since the improvement is slightly intangible, the paths driven by the robots are visualised in @f.solo-plot. The blue#sl robot is using the waypoing tracking approach, where the green robot is equipped with path tracking. The figure shows how the tracking factor has kept the green robot much closer to the planned path, which is visualised in grey#swatch(theme.text). This is especially evident in the sharp turns, where the blue robot deviates significantly, both before and after the turn.
 ]
 
 #let fig-deviation = [
@@ -35,7 +35,8 @@ The results of the #scen.solo-gp.n scenario are shown as box plots in @f.solo-bo
     block(
       clip: true,
       pad(
-        y: -4mm,
+        top: -4mm,
+        bottom: -3.5mm,
         x: -3.5mm,
         image("../../figures/plots/solo-gp.svg"),
       ),
@@ -91,7 +92,7 @@ The results of the #scen.solo-gp.n scenario are shown as box plots in @f.solo-bo
         [*Min*], [0.93], [0.67],
         [*Max*], [1.20], [0.86]
       )
-      v(4mm)
+      v(4.5mm)
     },
     caption: [Mean, standard deviation, minimum, and maximum path deviation error for tracking factors disabled in the first column and enabled in the second.]
   )<t.solo-stats>
@@ -117,6 +118,8 @@ $ sigma_t = 0.15#h(1em)"and"#h(1em)sigma_t = 0.5 $<eq.sigma-t>
 
 // Similar nothions as to the solo scenario
 Once again the tracking factor has a significant impact on the mean path deviation, this time reducing by $#strfmt("{0:.0}", collaborative-gp-mean-decrease)%$ for the same tracking factor certainty of $sigma_t = 0.15$ versus the pure waypoint tracking approach with no tracking factors at all. Furthmore, with a lower certainty where $sigma_t = 0.5$, the mean path deviation error is increased once again to basically match waypoint tracking in the mean, but a standard deviation which is a negligible $0.02$ lower, see @t.collaborative-stats.
+
+The amount of interrobot collisions for each configuration is also written in @t.collaborative-stats, where it is clear that path tracking has a significant impact. Note that the formation configuration for this scenario includes three spawning spots, where robots are spawned periodically with no accountance for whether an earlier robot has moved from the spawning area. The reason robots get _stuck_ in the beginning is due to the unpredictable nature of the #acr("RRT*") path-finding algorithm, which sometimes takes a while to find a path. It has been measured to take up to $10$ seconds in some outlier cases.#note.a[move to discussion?]
 
 
 #let fig = [

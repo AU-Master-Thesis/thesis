@@ -1,6 +1,7 @@
 
 #import "blocks.typ": *
 #import "note.typ"
+#import "colors.typ"
 #import "catppuccin.typ": *
 // #import "template.typ": *
 #import "@preview/codelst:2.0.1": sourcecode, codelst, sourcefile
@@ -22,10 +23,8 @@
 
 #let theme = catppuccin.latte
 #let accent = theme.lavender
-#let colors = (
-  variable: theme.maroon,
-  factor: theme.lavender,
-)
+// #let colors = (
+// )
 
 #let rep(item, n) = range(n).map(_ => item)
 
@@ -40,17 +39,16 @@
 #let supervisors = (
   andriy: [Andriy Sarabakha],
   jonas: [Jonas le Fevre Sejersen],
-
 )
 
 #let authors = ((
-  name: "Kristoffer Plagborg Bak Sørensen",
-  email: "201908140@post.au.dk",
-  auid: "au649525",
-), (
   name: "Jens Høigaard Jensen",
   email: "201907928@post.au.dk",
   auid: "au649507",
+), (
+  name: "Kristoffer Plagborg Bak Sørensen",
+  email: "201908140@post.au.dk",
+  auid: "au649525",
 ),).map(author => {
   author + (
     department: [Department of Electrical and Computer Engineering],

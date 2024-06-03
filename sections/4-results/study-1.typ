@@ -125,10 +125,10 @@ The results on both figures @f.circle-experiment-ldj and @f.circle-experiment-di
 )
 
 #let tablify(dictionaries) = dictionaries.map(dict => dict.values()).flatten().map(it => [#it])
-#let colors = (
-  theirs: theme.peach.lighten(20%),
-  ours: theme.lavender
-)
+// #let colors = (
+//   theirs: theme.peach.lighten(20%),
+//   ours: theme.lavender
+// )
 #let vc = table.cell.with(inset: 1em)
 #let tc = vc
 #let tc2 = table.cell.with(fill: colors.theirs.lighten(70%), stroke: none)
@@ -209,13 +209,22 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 #figure(
   {
     let header-columns = (0,)
+
+    show table.cell : it => {
+      if it.x == 0 {
+        set text(white)
+        it
+      } else {
+        it
+      }
+    }
     tablec(
       columns: (auto,) + range(qins.len()).map(_ => 1fr),
       align: center + horizon,
-      fill: (x, y) => if x in header-columns { theme.lavender.lighten(30%) } else if calc.even(x) { theme.base } else { theme.mantle },
-      $Q_"in"$,
+      fill: (x, y) => if x in header-columns { theme.lavender } else if calc.even(x) { theme.base } else { theme.mantle },
+      $bold(Q_"in")$,
       ..qins.map(qin => [$#qin$]),
-      $Q_"out"$,
+      $bold(Q_"out")$,
       ..qouts.map(qout => [$#strfmt("{0:.2}", qout)$]),
     )
   },

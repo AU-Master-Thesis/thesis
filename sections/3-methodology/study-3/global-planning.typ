@@ -3,8 +3,8 @@
 
 #let gp = (
   robot: text(theme.peach, $bold(R)$),
-  A: text(theme.green, $bold(A)$),
-  B: text(theme.blue, $bold(B)$),
+  A: text(theme.lavender, $bold(A)$),
+  B: text(theme.mauve, $bold(B)$),
   A1: boxed(text(weight: 900, "GP-1")),
   A2: boxed(text(weight: 900, "GP-2")),
 )
@@ -62,30 +62,31 @@ To extend the simulation to both handle local planners of fixed number of waypoi
 
 // #todo[Something something `parry`]
 
-As mentioned earlier in, the environment is built from several #acr("AABB") colliders. This is done using the 2D collision detection library `parry2d`@parry2d. @f.m.rrt-colliders shows how the environment#sl, is broken into smaller #acr("AABB") collider rectangles#sr. The #acr("RRT*") algorithm defines a collision problem between all the environment colliders, and a circle#stl with radius $r_C$. Every time the #acr("RRT*") algorithm wants to place a new node, it checks if this circle, placed at the position of the new node, intersects with any of the environment colliders; where the node is abondened if it does. The radius of this circle is important, as it defines how close the path will get to the obstacles. If the radius is small, the path will tend to get closer to the obstacles, as seen in @f.m.rrt-colliders#text(accent, "A"). If the radius is equal to the step length, $s$, the path will tend towards the middle of the free space, staying far from the environment, as seen in @f.m.rrt-colliders#text(accent, "B").
+As mentioned earlier in, the environment is built from several #acr("AABB") colliders. This is done using the 2D collision detection library `parry2d`@parry2d. @f.m.rrt-colliders shows how the environment is broken into smaller #acr("AABB") collider rectangles. The #acr("RRT*") algorithm defines a collision problem between all the environment colliders, and a collision circle with radius $r_C$. Every time the #acr("RRT*") algorithm wants to place a new node, it checks if the collision circle, placed at the position of the new node, intersects with any of the environment colliders. In case an intersection is found the new node is abondened, and the alhorithm tries again by sampling a new point. The radius of the collision circle is important, as it defines how close the path will get to the obstacles. If the radius is small, the path will tend to get closer to the obstacles, as seen in @f.m.rrt-colliders#text(accent, "A"). With a larger $r_C$, the path will tend towards the middle of the free space, staying far from the environment, as seen in @f.m.rrt-colliders#text(accent, "B"). Furthermore, to ensure that the algorithm doesn't accept any corner cutting of the environment, the radius of the collision circle has to exceed half of the step length, $r_C = s"/"2$. The step length is the distance between the current node, and where $acr("RRT*")$ wants to place the new node in direction of the sampled point.
 
 #figure(
   {
     // set text(font: "JetBrainsMono NF", size: 0.85em)
     grid(
-      columns: (30%, 30%),
+      // columns: (30%, 30%),
+      columns: 2,
       std-block(
         breakable: false,
       )[
-        #image("../../../figures/out/rrt-colliders.svg")
+        #pad(x: 2mm, scale(y: -100%, image("../../../figures/out/rrt-colliders.svg")))
         #v(0.5em)
         #text(theme.text, [A: Small Collision Radius])
       ],
       std-block(
         breakable: false,
       )[
-        #image("../../../figures/out/rrt-colliders-expand.svg")
+        #pad(x: 2mm, scale(y: -100%, image("../../../figures/out/rrt-colliders-expand.svg")))
         #v(0.5em)
         #text(theme.text, [B: Large Collision Radius])
       ],
     )
   },
-  caption: [RRT algorithm and environment avoidance integration. Left image shows a small collision radius#stl, which results in a path that tends to get closer to the obstacles#sl. Right image shows a collision radius, equal to the step length; $r_C = s$, which results in a path that tends towards the middle of the free space, staying far from the environment. The collision radius for each node is teal#stl when no intersection is detected, and red#sr when an intersection is detected.],
+  caption: [RRT algorithm and environment avoidance integration, where #acr("RRT*") is tasked with finding a path from the blue#sl to the purple#sp point. A) shows a small collision radius#sg, which results in a path that tends to get closer to the obstacles#sr. B) shows a collision radius, equal to the half the step length; $r_C = s"/"2$, which results in a path that tends towards the middle of the free space, staying far from the environment. The collision radius for each node is green#sg when no intersection is detected, and yellow#sy when an intersection is detected.],
 )<f.m.rrt-colliders>
 
 Again, do note that even though #acr("RRT*") is used here, the collision detection is a detached module, which can also be used with other path-finding algorithms. The `rrt` crate@rrt-crate has been extended for the purpose of this thesis, as it only provided an #acr("RRT") implementation, the authors have extended it to include the #acr("RRT*") algorithm as well. This is done through the `rrstar`#footnote[Found in the #source-link("https://github.com/AU-Master-Thesis/rrt", "rrt") crate at #source-link("https://github.com/AU-Master-Thesis/rrt/blob/d4384c7ef96cde507f893d8953ce053659483f85/src/rrtstar.rs#L159", "src/rrtstar.rs:159")]<footnote.rrtstar> function, which provides an interface taking two $N$-dimensional points, a step length, a neighbourhood radius, a max number of iterations, see @lst.rrtstar. Furthermore, it is a higher order function which takes two function closure trait objects; `is_collision_free` and `random_sample`.
@@ -121,12 +122,8 @@ In general the path-finding algorithm chosen doesn't matter for either of the ap
 + *Waypoint Tracking:* Simply perform a #acr("RRT*"), and use the resulting points as waypoints. Only difference from the original@gbpplanner is that the waypoints are not placed by hand, but by the #acr("RRT*") algorithm, which has information about the environment.
 + *Path Tracking:* From the points in the #acr("RRT*") path, introduce a new kind of factor, $f_t$; a tracking factor. This factor will be used to _track_ the robot along the path, by _pulling_ the prediction horizon towards the found path. This approach leverages the already-existing factorgraph structure, which is to follow a global path on a local level.
 
-#todo[
-  Tracking without global planning?
-]
-
 The main difference between the two approaches is that the second approach is more likely to adhere to the path, as it is _pulled_ towards the path, simply tracking directly towards the next waypoint. Both global planning approach #gp.A1 and #gp.A2 are generalisable over any sequence of waypoints. In effect these waypoints could be generated by a different path-finding algorithm such as A\* or Dijkstra. However, one could argue that the #acr("RRT*") and other sample-based algorithms are more suited for this task, as the found path hasn't been descritised into a grid, which might need a level of post-processing to be useful. Solutions that use these grid-based algorithms are not explored by this thesis, but not ruled out as a possibility either.
-#jens[Maybe mention this in future work?]
+// #jens[Maybe mention this in future work?]
 
 
 ==== Approach 1: Waypoint Tracking <s.m.planning.waypoint-tracking>
@@ -183,7 +180,7 @@ To achieve a level of adherence to the path given to each robot, the  factor gra
   {
     include "figure-tracking.typ"
   },
-  caption: [Visualisation of the tracking factor's measurements. On A) it is visualised how the tracking factor pulls the variable towards the path, while also trying to keep the variable moving along the path. Furthermore, a green area#swatch(theme.green.lighten(35%)) is shown close to the second waypoint $w_1$. Within this area, the tracking factor will track towards the corner. On B) tracking factors are visualised for a robot moving from $w_0$ to $w_1$. _Note that the tracking factor doesn't exactly pull towards the corner, but in bends that are close to 90#sym.degree it is close._],
+  caption: [Visualisation of the tracking factor's measurements in oragne#so. On A) it is visualised how the tracking factor pulls the variable towards the path, while also trying to keep the variable moving along the path. Furthermore, a green area#swatch(theme.green.lighten(35%)) is shown close to the second waypoint $w_1$. Within this area, the tracking factor will track towards the corner. On B) tracking factors are visualised for a robot, #text(theme.lavender, font: "JetBrainsMono NF", [*R*]), moving from $w_0$ to $w_1$. _Note that the underlying measurement math of the tracking factor doesn't exactly pull towards the corner, as is shown here, but in bends that are close to 90#sym.degree it is close._],
 )<f.m.tracking-factor>
 
 // #jens[make figure for each approach described above.]

@@ -200,7 +200,7 @@
 
     let robots = (
       (
-        name: "A",
+        name: "R",
         color: theme.lavender,
         position: (0.5, -1.5),
         variables: (
