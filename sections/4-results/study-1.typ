@@ -297,10 +297,11 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 
 
 === Communications Failure <s.r.results.failure>
-#jens[results from ours and their code.]
+// #jens[results from ours and their code.]
 // Circle experiment: distribution of distances travelled as number of robots in the formation NR is varied. The GBP planner creates shorter paths and a smaller spread of distances than ORCA; robots collaborate to achieve their goals.
-
 // Circle experiment: distribution of the LDJ metric as NR increases, with smoother trajectories shown by more positive values. The worst performing GBP planning robots had smoother paths than the best robots for ORCA.
+
+Results for communications failure rates $gamma in {0, 10, 20, 30, 40, 50, 60, 70, 80, 90}%$ are shown in @t.comms-failure-experiment. Results from the #gbpplanner paper are marked #T1 and #T2, where #O1 and #O2 are results from #acr("MAGICS"). #O1 is with lookahead multiple $l_m=3$ and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. For $gamma in {80, 90}%$ it was deemed impossible to gather results for #acr("MAGICS"), as the rate of convergence almost without any communication resulted in exceedingly long simulation times. That fact in itself should speak to the missing numbers.
 
 #let gbpplanner-results = (
   rc: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90),
