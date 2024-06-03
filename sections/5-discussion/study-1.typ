@@ -64,8 +64,6 @@ Due to Rusts nature#note.k[focus on something about the purpose of rust], it is 
 
 === On The Reproducibility <s.d.reproducibility>
 
-#jonas[Read this, however, all the results it is talking about are not yet visualised, and the some of the orange sections here with an Attention#note.a[] box are a bit unsure, but should hopefully hold. Do let us know whether these arguments are too harsh, or seem butthurt, cause even though we are, we don't want that reflected in the report.]
-
 As has been presented in the results sections #numref(<s.r.results.circle-obstacles>) the results of #acr("MAGICS"), the original paper@gbpplanner, and the code provided thereby@gbpplanner-code, are shown in comparative tables; #numref(<t.network-experiment>)-#numref(<t.comms-failure-experiment>). However, the plotted values do not contain the direct numbers from @gbpplanner as these where not available, see figures; #numref(<f.circle-experiment-ldj>)-#numref(<f.qin-vs-qout>). While reading this comparing it is recommended to keep the #gbpplanner planner open to be able to refer to figures 4, 5, and 6.
 
 // On the LDJ metric
