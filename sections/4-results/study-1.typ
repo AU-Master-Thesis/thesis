@@ -9,7 +9,7 @@ This section presents all results pertaining to the first contribution, that is 
 
 === Circle & Environment Obstacles <s.r.results.circle-obstacles>
 
-For this scenario, similar to @gbpplanner, the _#acr("LDJ")_ and _distance travelled_ metrics are presented, see @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled respectively. By comparing both figures to the corresponding ones of @gbpplanner, Figure 4 and 5, it is evident that #acr("MAGICS") is unable to reproduce the results of the #acr("GBP") planner for lookahead multiple, $l_m=3$, and time horizon, $t_(K-1)=13.33s$.
+For this scenario, similar to @gbpplanner, the _#acr("LDJ")_ and _distance travelled_ metrics are presented, see @f.circle-experiment-ldj and @f.circle-experiment-distance-travelled respectively. By comparing both figures to the corresponding ones of @gbpplanner, Figure 4 and 5, it is evident that #acr("MAGICS") is unable to reproduce the results of the #acr("GBP") Planner for lookahead multiple, $l_m=3$, and time horizon, $t_(K-1)=13.33s$.
 
 #let handles = (
   (

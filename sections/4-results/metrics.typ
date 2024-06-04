@@ -2,7 +2,7 @@
 == Metrics <s.r.metrics>
 // #jonas[This section mostly is simply missing some layouting concern. And also some equations other than that please do comment on content.]
 
-To objectively compare our reimplementation with the original #gbpplanner, the same four metrics: distance travelled, makespan, smoothness, and inter robot collisions@gbpplanner are measured and compared:
+To objectively compare our reimplementation with the original #gbpplanner, the same four metrics: distance travelled, makespan, smoothness, and inter-robot collisions@gbpplanner are measured and compared:
 
 #set enum(numbering: box-enum.with(prefix: "M-"))
 
@@ -12,7 +12,7 @@ To objectively compare our reimplementation with the original #gbpplanner, the s
 
 + #metric[Distance travelled] The cumulative distance covered by the robot until it reaches its destination. Effective trajectories aim to minimize this measure.
 + #metric[Makespan] The overall duration for all robots to achieve their objectives. A collaborative system of numerous robots should strive to reduce this measure.
-+ #metric[Smoothness] Continuous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot. Such as those due to wheel actuators/encoders.  Smoothness is inherently a geometric property of the path traversed. Too quantify this, the #acr("LDJ") metric is used@ldj-metric. It is a dimensionless metric that looks at how the jerk of a movement changes over a timespan. The equation for it is defined in @equ.ldj. Values lie in the interval $[0, -infinity]$ where closer to $0$ is better.
++ #metric[Smoothness] Continuous smooth trajectories are required in most cases, in order to be realisable for the dynamics model of the robot. Such as those caused by wheel actuators or encoders. Smoothness is inherently a geometric property of the path traversed. To quantify this, the #acr("LDJ") metric is used@ldj-metric. It is a dimensionless metric that looks at how the jerk of a movement changes over a timespan. The equation for it is defined in @equ.ldj. Values lie in the interval $[0, -infinity]$ where closer to $0$ is better.
 
 // as it does not depend on the time taken or velocity #note.kristoffer[how is this true given the equation]. It is defined as
 
@@ -35,7 +35,7 @@ To objectively compare our reimplementation with the original #gbpplanner, the s
   - $v(t)$ is the velocity of a robot at time $t$.
   - $attach(limits(v), t: dot.double)(t)$ is change in acceleration at time $t$. Also known as jerk.
 
-Each robots velocity is sampled and recorded with an interval of $20 H z$. For numerical integration Simpson's rule is used@simpsons-rule. The code for how the metric is computed can be found in the accompanying source code@repo under
+Each robots velocity is sampled and recorded with an interval of $20"Hz"$. For numerical integration Simpson's rule is used@simpsons-rule. The code for how the metric is computed can be found in the accompanying source code@repo under
 #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/main/scripts/ldj.py", "./scripts/ldj.py") and in @appendix.ldj-metric-computation.
 
 
@@ -46,7 +46,7 @@ Each robots velocity is sampled and recorded with an interval of $20 H z$. For n
 In addition to the metrics used by by Patwardhan _et al._@gbpplanner the following metrics are also looked at:
 
 #let explanation = [
-  At each sampled position the distance between it and the closest projection onto each line segment of the planned path is measured and accumulated using the #acr("RMSE") score. A visual depiction of this is shown in @f.perpendicular-path-deviation. This is measured to test the effect of the proposed tracking factor, presented in @s.m.planning.path-adherence, as some applications might require that robots follow a dictated path with little deviation. Written mathematically the metric is defined as shown in @equ.perpendicular-path-deviation.
+  At each sampled position, the distance between it and the closest projection onto each line segment of the planned path is measured and accumulated, using the #acr("RMSE") score. A visual depiction of this is shown in @f.perpendicular-path-deviation. This is measured to test the effect of the proposed tracking factor, presented in @s.m.planning.path-adherence, as some applications might require that robots follow a dictated path with little deviation. Written mathematically the metric is defined as shown in @equ.perpendicular-path-deviation.
 ]
 
 // #explanation
