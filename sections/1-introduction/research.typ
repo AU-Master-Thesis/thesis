@@ -57,7 +57,7 @@ This section outlines which research questions will have to be answered, to reac
   // === Study 2
   #study.H-2.prefix #sym.dash.em Questions for hypothesis #boxed(color: theme.lavender, fill: theme.lavender.lighten(80%), "H-2", weight: 900):
   #set enum(numbering: req-enum.with(prefix: "RQ-2.", color: theme.teal))
-  + Which possible ways can the #acr("GBP") iteration scheduling be improved?
+  + Which possible ways can the #acr("GBP") iteration scheduling be further analysed and improved?
   + How can such iteration schedules be tested, to ensure that they are an improvement?
   + Which possible avenues exist to advance towards a more distributed approach?
   + Are these targeted improvements able to enhance the original work without transforming it?

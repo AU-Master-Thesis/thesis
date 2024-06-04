@@ -137,7 +137,7 @@ Originally, #acr("BP") was created for inference in trees, where each message pa
 
 The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such, the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimizes the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
 
-Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm is not guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loopy #acr("BP") is very capable of converging to the true marginals, as long as the graphs are not highly cyclic#note.wording[too loopy? Is loopy and cyclic the same thing?].@gbp-visual-introduction
+Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm is not guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loopy #acr("BP") is very capable of converging to the true marginals, as long as the graphs are not highly cyclic.@gbp-visual-introduction
 
 // #todo[later mention that the specific factorgraph structure is non-cyclic in our case]
 
