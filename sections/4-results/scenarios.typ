@@ -79,7 +79,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
   // std-block(image("../../figures/img/circle-scenario-preview-2.png")),
   // std-block(image("../../figures/img/circle-scenario-preview-3.png")),
   caption: [
-  Screenshot of the circle environment with $N_R = 20$. The left image shows the robot in their start positions at $t=0$. Their factorgraph is extended infront of them pointing to the antipodal point across the circle. The right hand side shows the end of a run with each robot having moved across the circle. The traversed path of each robot is traced.
+  Screenshot of the #scenario[Circle] environment with $N_R = 20$. The left image shows the robot in their start positions at $t=0$. Their factorgraph is extended infront of them pointing to the antipodal point across the circle. The right hand side shows the end of a run with each robot having moved across the circle. The traversed path of each robot is traced.
 ],
 )<f.scenarios.circle>
 
@@ -102,10 +102,15 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
 )<t.scenarios.environment-obstacles>
 
 #figure(
+  grid(
+    columns: 2,
+    std-block(image("../../figures/img/environment-obstacles-start.png")),
+    std-block(image("../../figures/img/environment-obstacles-end.png")),
+  ),
   // image("../../../figures/out/clear-circle.svg", width: 30%),
   // std-block(todo[Add image]),
-  std-block(image("../../figures/img/environment-obstacles-scenario-preview.png")),
-  caption: [Visualisation of #scenario[Environment Obstacles] scenario. The red #sr outline of each obstacle is boundary of the collider volume used to check for environment collisions.]
+  // std-block(image("../../figures/img/environment-obstacles-scenario-preview.png")),
+  caption: [Screenshot of the #scenario[Environment Obstacles] environment with $N_R = 20$. The left image shows the robot in their start positions at $t=0$. Their factorgraph is extended infront of them pointing to the antipodal point across the circle. The right hand side shows the end of a run with each robot having moved across the circle. The traversed path of each robot is traced. The environment contains six static obstacles shown in dark gray. The red #sr outline of each obstacle is boundary of the collider volume used to check for environment collisions.]
 )<f.scenarios.environment-obstacles>
 
 
@@ -157,11 +162,16 @@ $ Q_("in") in [0.5, 1, ..., 7] $
 )<t.scenarios.junction>
 
 #figure(
+  grid(
+    columns: 2,
+    std-block(scale(x: 95%, y: 95%, image("../../figures/img/junction-experiment-preview-qin-2.png"))),
+    std-block(image("../../figures/img/junction-experiment-preview.png")),
+  ),
   // image("../../../figures/out/junction.svg", width: 30%),
   // std-block(todo[Add image]),
-  std-block(image("../../figures/img/junction-experiment-preview.png")),
+  // std-block(image("../../figures/img/junction-experiment-preview.png")),
   caption: [
-  Screenshot of the junction scenario with $Q_("in") = 6 "robots/s"$. The green #sg edges represent the the joint factorgraph.
+  Screenshot of the #scenario[Junction] scenario with $Q_("in") = 2 "robots/s"$ to the left and $Q_("in") = 6 "robots/s"$ to the right. The green #sg edges represent the the joint factorgraph.
 ],
 )<f.scenarios.junction>
 
