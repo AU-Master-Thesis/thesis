@@ -23,9 +23,13 @@ This master thesis is titled _"#project-name"_ and is devised by #a.jens and #a.
 
 The thesis has been conducted in the period from #important-datetimes.project.start.display("[day]-[month]-[year]") to #important-datetimes.project.end.display("[day]-[month]-[year]"), and supervised by Assistant Professor Andriy Sarabakha and co-supervised by PhD #supervisors.jonas.
 
+We would like to express our gratitudes to both our supervisors for their support and advice throughout the project. Over multiple sessions Jonas has provided extensive feedback on the structure and content of the thesis, which has been of substantial value.
+
+ An additional thanks goes to our friends; Kevork Christian Donato and Pernille Sonne Pallesen for their help with proof reading, and for providing us with constructive feedback on the thesis.
+
 All software developed in this thesis is released under the MIT license, and is provided as is without any warranty.
 \ \
 
 // Sign off
 Enjoy reading, \
-#a.jens & #a.kristoffer \
+#a.kristoffer & #a.jens \

@@ -18,7 +18,7 @@ This thesis poses the following three hypotheses:
 // + Reproducing the results of the original #acr("GBP") Planner, with thought to its architecture and design, and in a new programming language will improve the software's scientific communication and its extensibility.
 
 // Updated with Jonas feedback
-+ Reimplementing the original GBP Planner in a modern, flexible, multi-agent simulator framework using a modern programming language will enhance the software's scientific communication and extendibility. This redevelopment will not only ensure fidelity in reproducing established results, but also improve user engagement and development through advanced tooling, thereby significantly upgrading the usability and functionality for multi-agent system simulations.
++ Reimplementing the original GBP Planner in a modern, flexible, multi-agent simulator framework using a modern programming language, will enhance the software's scientific communication and extendibility. This redevelopment will not only ensure fidelity in reproducing established results, but also improve user engagement and development through advanced tooling, thereby significantly upgrading the usability and functionality for multi-agent system simulations.
 
 
 // Jonas feedback:
@@ -30,17 +30,17 @@ This thesis poses the following three hypotheses:
 // Updated with Jonas feedback
 + The original work can be enhanced through specific modifications without interfering with the original work's functionality. Specifically, we introduce and rigorously test various GBP iteration schedules, and strategically enhance the system by advancing towards a more distributed approach. These targeted improvements are expected to optimize flexibility and move towards a closer-to-reality system.
 
-+ Extending the original #acr("GBP") Planner software with a global planning layer will extend the actors' capability to move in complex environments, without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance. Furthermore, to this end, a new type of factor can be added to the #acr("GBP") factor graphs to aid in path-following.
++ Extending the original #acr("GBP") Planner software with a global planning layer, will extend the actors' capability to move in complex environments without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance. Furthermore, to this end, a new type of factor can be added to the #acr("GBP") factor graphs to aid in path-following.
 
 // Previous fourth hypothesis, merged with the first one
 // + Extensive tooling will create a great environment for others to understand the software and extend it further. Furthermore, such tooling will make it easier to reproduce and engage with the developed solution software.
 
-From this point on, anything pertaining to the context of #H(1) will be referred to as #study.H-1.full.s, #H(2) will be #study.H-2.full.s, #H(3) will be covered by #study.H-3.full.s.
+From this point on, anything pertaining to the context of #H(1) will be referred to as #study.H-1.full.s, #H(2) will be #study.H-2.full.s, #H(3) will be covered by #study.H-3.full.s.#note.ke[I would have liked to have been told each of these before reading each point.]
 <marker.end-of-hypothesis>
 
 == Research Questions <intro-research-questions>
 
-This section outlines which research questions will have to be answered to reach a conclusion for each hypothesis. The questions below are structured under each research objective, and are numbered accordingly. \ \
+This section outlines which research questions will have to be answered, to reach a conclusion for each hypothesis. The questions below are structured under each research objective, and are numbered accordingly. \ \
 
 #[
   #set par(first-line-indent: 0em)
@@ -83,7 +83,6 @@ To answer each research question, a set of objectives will have to be met. The o
 #{
   set enum(start: 1)
   [
-ddd
     /// Study 1
     #(study.heading)(study.H-1.full.n)
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):*
