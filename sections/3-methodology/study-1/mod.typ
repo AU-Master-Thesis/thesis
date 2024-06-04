@@ -21,7 +21,7 @@
 // 5. more code-heavy stuff -> architecture, data structures such as the graph representation and factor structure
 
 // Re-formulation:
-The methodology for developing the extensive simulation tool #acr("MAGICS"); with the goal of being capable of replicating the results of the #gbpplanner, is explained in this section. First, in sections #numref(<s.m.simulation-tool>) and #numref(<s.m.configuration>), the simulator, its internal and external design, and the configuration of it are described, providing closure for #boxed(color: theme.green, [*O-1.2.1*])-#boxed(color: theme.green, [*O-1.4.1*]). Then in @s.m.factor-graph, the mathematical methodology for the factor graph representation is detailed, thus answering #boxed(color: theme.green, [*O-1.1.2*]). Finally, @s.m.language introduces the chosen programming language, and presents arguments for the choice, completing #boxed(color: theme.green, [*O-1.1.1*]). After the language is introduced, some important implementation decision are detailed in #numref(<s.m.architecture>)-#numref(<s.m.factor-structure>). This part also details the differences in the reimplementation, justifying necessary deviations due to distinct capabilities or limitations of the programming language used as well as the chosen frameworks and libraries. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution. Research objective #boxed(color: theme.green, [*O-1.1.3*]) depends on the results and will be answered in @s.r.study-1, and the corresponding discussion.
+The methodology for developing the extensive simulation tool #acr("MAGICS"); with the goal of being capable of replicating the results of the #gbpplanner, is explained in this section. First, in sections #numref(<s.m.simulation-tool>) and #numref(<s.m.configuration>), the simulator, its internal and external design, and the configuration of it are described, providing closure for #boxed(color: theme.green, [*O-1.2.1*])-#boxed(color: theme.green, [*O-1.4.1*]). Then in @s.m.factor-graph, the mathematical methodology for the factor graph representation is detailed, thus answering #boxed(color: theme.green, [*O-1.1.2*]). Finally, @s.m.language introduces the chosen programming language, and presents arguments for the choice, completing #boxed(color: theme.green, [*O-1.1.1*]). After the language is introduced, some important implementation decision are detailed in #numref(<s.m.factor-structure>). This part also details the differences in the reimplementation, justifying necessary deviations due to distinct capabilities or limitations of the programming language used as well as the chosen frameworks and libraries. For issues where multiple solutions are viable, comparative analyses are provided to justify the choice of the selected solution. Research objective #boxed(color: theme.green, [*O-1.1.3*]) depends on the results and will be answered in @s.r.study-1, and the corresponding discussion.
 
 // As such _Research Objectives_ #boxed(color: theme.green, [*O-1.1.1*])#att[Maybe explain exactly which objectives are done by each subsection] through #boxed(color: theme.green, [*O-1.4.1*]) are addressed in this section.
 
@@ -29,8 +29,8 @@ The methodology for developing the extensive simulation tool #acr("MAGICS"); wit
 #include "configuration.typ"
 #include "factors.typ"
 #include "language.typ"
-#include "architecture.typ"
-#include "graph-representation.typ"
+// #include "architecture.typ"
+// #include "graph-representation.typ"
 #include "factor-structure.typ"
 #include "variable-structure.typ"
 #include "algorithm.typ"
