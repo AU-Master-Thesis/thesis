@@ -1,6 +1,7 @@
 #import "../../lib/mod.typ": *
 // #jonas[Alright you can stop reading now. No more content at all.]
 // == Overskrift
+#pagebreak(weak: true)
 == #study.H-1.full.n <s.r.study-1>
 // #jonas[all these results are new since last. We are working towards measuring ours and their code and then comparing their paper vs our code vs their code. Does that make sense? It will be obvious where we are still missing results]
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
@@ -93,6 +94,7 @@ The results on both figures #numref(<f.circle-experiment-ldj>) and #numref(<f.ci
   ]
 )<f.circle-experiment-distance-travelled>
 
+#pagebreak(weak: true)
 The results for the Environment Obstacles scenario are shown with purple and a tag of EB in all three figures; #numref(<f.circle-experiment-ldj>), #numref(<f.circle-experiment-distance-travelled>), and #numref(<f.obstacle-experiment-makespan>). It can be seen how these results are consistently worse-
 #v(-0.55em)
 
@@ -295,6 +297,8 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
 // Circle experiment: distribution of the LDJ metric as NR increases, with smoother trajectories shown by more positive values. The worst performing GBP planning robots had smoother paths than the best robots for ORCA.
 
 Results for communications failure rates $gamma in {0, 10, 20, 30, 40, 50, 60, 70, 80, 90}%$ are shown in @t.comms-failure-experiment. Results from the #gbpplanner paper are marked #T1 and #T2, where #O1 and #O2 are results from #acr("MAGICS"). #O1 is with lookahead multiple $l_m=3$ and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. For $gamma in {80, 90}%$ it was deemed impossible to gather results for #acr("MAGICS"), as the rate of convergence almost without any communication resulted in exceedingly long simulation times. That fact in itself should speak to the missing numbers.
+
+#pagebreak(weak: true)
 
 #let gbpplanner-results = (
   rc: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90),

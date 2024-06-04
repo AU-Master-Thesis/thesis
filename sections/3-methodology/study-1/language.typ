@@ -27,8 +27,8 @@ At the language and tooling level Rust offers several benefits@the-rust-book:
 
 - Borrow checker system, that prevents common bugs like use-after-free, null-pointer dereferences, buffer overflows, and memory leaks, which are typically manually managed in languages like C and C++.
 - Focus on expressiveness and correctness. The compiler is strict and forces one be to explicit about assumptions. Errors cannot be ignored, and has to handled close to the call cite, instead of being transparently passed up the call stack like with exceptions.
-- Strong and expressive type system. A lot of invariants can be encoded in the type system. Such as finite state machines using tagged unions or typestates. And partial subtypes, such as a floating point number that can never be zero or $infinity$, using newtypes. With these mechanisms software requirements such as pre and postconditions can be expressed closer to the implementation, and more reliably verified.
-- Irrefutable pattern matching, that forces one to handle all possible cases that combinations of variables can be in.
+- Strong and expressive type system. A lot of invariants can be encoded in the type system. Such as finite state machines using tagged unions or typestates. With these mechanisms software requirements such as pre and postconditions can be expressed closer to the implementation, and more reliably verified.
+// - Irrefutable pattern matching, that forces one to handle all possible cases that combinations of variables can be in.
 - Consistent tooling across the entire language stack. Building, testing, benchmarking, and documentation are all built into the package manager `cargo`. Thereby providing a unified way to work with Rust code. A quality that makes it very easy to use and integrate other libraries.
 
 All of these reasons together with a natural curiosity to learn the language and its ecosystem led to it being chosen.

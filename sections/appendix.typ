@@ -477,7 +477,7 @@ rmse: float = np.sqrt(error / len(positions))
 
 
 // == Perpendicular Path Deviation Metric Code <appendix.perpendicular-path-deviation-metric-code>
-== Visualisation Modules <appendix.visualisation-modules>
+== Visualization Modules <appendix.visualization-modules>
 
 // #let edges = (
 //   on: box(line(length: 10pt, stroke: theme.green), height: 0.25em),
@@ -503,12 +503,12 @@ rmse: float = np.sqrt(error / len(positions))
 //     [Generated map], [A 3D representation of the map generated from the environment configuration.],
 //     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it is occupied.],
 //     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it is inactive.],
-//     [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colors according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
+//     [Obstacle factors], [A line from each variable to the linearization point of their respective obstacle factors, and a circle in this point. Both the line and circle is colors according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
 //     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
 //     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating, and within the safety distance threshold $d_r$ of each other. The color varies on a yellow #sy to #sr gradient #gradient-box(theme.yellow, theme.red) visually highlighting the potential of a future collision.
 //     // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it is inactive.
 //   ],
-//     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
+//     [Interrobot factors safety distance], [A circle around each variable, visualization the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
 //     [Robot colliders], [A sphere in red#sr around each robot representing the collision radius.],
 //     [Environment colliders], [An outline in red#sr around each obstacle in the environment, that collision are being detected against.],
 //     [Robot-robot collisions], [An #acr("AABB") intersection, visualising each robot to robot collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
@@ -519,7 +519,7 @@ rmse: float = np.sqrt(error / len(positions))
 //   ]
 // )
 
-// <table.simulation-visualisations>
+// <table.simulation-visualizations>
 
 #let s(x, y, img) = scale.with(x: x, y: y, img)
 
@@ -558,7 +558,7 @@ rmse: float = np.sqrt(error / len(positions))
     // table.hline(),
     [Architecture], a, r,
     [Simulation Framework], r, a,
-    [Visualisation], r, r,
+    [Visualization], r, r,
     [GUI], r, a,
     table.hline(),
     hcell[Configuration],

@@ -1,7 +1,10 @@
 #import "../../../lib/mod.typ": *
+#v(-0.4em)
 === Factor Graph <s.m.factor-graph>
+#v(-0.4em)
 
 This section describes how the factor graph theory is used in the developed software. Thus, detailing each factor used in the #acr("GBP") algorithm, as was also done in the original work@gbpplanner. As touched on in @s.b.factor-graphs, the factors are the components of the factor grah that introduces constraints between the variables.
+
 
 ==== Variables $bold(V)$ <s.m.factors.variables>
 
@@ -14,12 +17,12 @@ $<eq.state>
 Hence, the variables and thus robots all have four #acr("DOF") each; i.e. $"DOFS" = 4$ and does not change during the inference process. The implemented mathematics for the variables align with that which is described in #nameref(<s.b.gaussian-belief-propagation>, "Gaussian Belief Propagation").
 
 ==== First Order Jacobian <s.m.factors.jacobian-first-order>
-The first order Jacobian is used to calculate the gradient of the factor measurement. The Jacobian is defined in $RR^(R times C)$, where $R$ is defined by the amount of rows in the factor measurement $h(#m.x)$, and $C$ is the amount of columns in the linearisation point, which is state space columns multiplied by the amount of variables the factor connects.
+The first order Jacobian is used to calculate the gradient of the factor measurement. The Jacobian is defined in $RR^(R times C)$, where $R$ is defined by the amount of rows in the factor measurement $h(#m.x)$, and $C$ is the amount of columns in the linearization point, which is state space columns multiplied by the amount of variables the factor connects.
 
 In mathematical terms, the implemented `first_order_jacobian`#footnote[Found in the #gbp-rs(content: [#crates.gbpplanner-rs]) crate at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/9d06aab257eec234a57a8a8a87ce54369da00cce/crates/gbpplanner-rs/src/factorgraph/factor/mod.rs#L102", "/src/factorgraph/factor/mod.rs:102")] function, can be expressed as follows; let
 
-- $h : RR^n -> RR^m$ be the factor measurement function that maps a linearisation point to a measurement.
-- $#m.x$ be the linearisation point, an $n$-dimensional vector, representing the state or states at which the Jacboian is computed.
+- $h : RR^n -> RR^m$ be the factor measurement function that maps a linearization point to a measurement.
+- $#m.x$ be the linearization point, an $n$-dimensional vector, representing the state or states at which the Jacboian is computed.
 - $delta$ be a small perturbation value for computing the finite difference approximation.
 
 The function computes the Jacobian matrix $jacobian$ of $h$ at $#m.x$ by approximating the partial derivatives with respect to each component of $x$ using the #acr("FDM"). Mathematically, the $j$-th column of $jacobian$, denoted as $jacobian_j$, is computed using @eq.foj-column-j:
@@ -30,7 +33,7 @@ $<eq.foj-column-j>
 
 #let eq-exp = [
   #show regex("(Matrix)"): set text(theme.mauve, font: "JetBrainsMono NF")
-  where $e_j$ is the $j$-th unit vector in $RR^n$, i.e. with 1 in the $j$-th position and 0 elsewhere. The Jacobian matrix is then computed by stacking the columns $jacobian_j$ for $j = 1, 2, ..., n$, which is described in @alg.jacobian-first-order; where `Matrix(r,c)` is a function that creates a zero matrix of size $r times c$.
+  Where $e_j$ is the $j$-th unit vector in $RR^n$, i.e. with 1 in the $j$-th position and 0 elsewhere. The Jacobian matrix is then computed by stacking the columns $jacobian_j$ for $j = 1, 2, ..., n$, which is described in @alg.jacobian-first-order; where `Matrix(r,c)` is a function that creates a zero matrix of size $r times c$.
 ]
 
 #let func(content) = text(theme.mauve, content)
@@ -58,7 +61,7 @@ $<eq.foj-column-j>
   )<alg.jacobian-first-order>
 ]
 
-#let exp = [Thus the first order Jacobian is formed, resulting in an $RR^(m times n)$ matrix, where $m$ is the amount of rows in the measurement, $h$, and $n$ is the amount of columns in the linearisation point, $#m.x$. This Jacobian represents the linear approximation of how the factor measurement changes with respect to small changes in each component of the linearisation point.]
+#let exp = [Thus the first order Jacobian is formed, resulting in an $RR^(m times n)$ matrix, where $m$ is the amount of rows in the measurement, $h$, and $n$ is the amount of columns in the linearization point, $#m.x$. This Jacobian represents the linear approximation of how the factor measurement changes with respect to small changes in each component of the linearization point.]
 
 #grid(
   columns: (
@@ -102,7 +105,7 @@ $<eq.jacobian-d>
 
 Where $ident_n$ is the $n times n$ identity matrix, $zero_n$ is the $n times n$ zero matrix, $delta_t$ is the time step between the two variables, and $n = "DOFS""/" 2$ is half the state space dimensions.
 
-The measurement function, $h_d$, is defined as the dot product between the above jacobian, and the linearisation point, $#m.x$.
+The measurement function, $h_d$, is defined as the dot product between the above jacobian, and the linearization point, $#m.x$.
 
 $
   h_d (#m.x) &= jacobian_d #m.x,#h(1em)"where" \
@@ -137,7 +140,7 @@ $
 $<eq.dynamic-factor.measurement.result>
 
 ==== Obstacle Factor $bold(f_o)$ <s.m.factors.obstacle-factor>
-The obstacle factor makes sure that the robot does not collide with any of the static environment. This is done by using a 2D #acr("SDF") representation of the environment baked into a rasterized image. The obstacle factors then measure the lightness of the #acr("SDF") at the linearisation point, which determines whether the factor detects future collision or not. And example #acr("SDF") was shown earlier in @f.m.sdf#text(accent, "C"). As it is only the middle variables that are free to move, obstacle factors are only connected to these. However, do note that even though they only connect to a single variable, they are not anchoring factors as they do not override the variable priors, but are part of the message passing inference process.
+The obstacle factor makes sure that the robot does not collide with any of the static environment. This is done by using a 2D #acr("SDF") representation of the environment baked into a rasterized image. The obstacle factors then measure the lightness of the #acr("SDF") at the linearization point, which determines whether the factor detects future collision or not. And example #acr("SDF") was shown earlier in @f.m.sdf#text(accent, "C"). As it is only the middle variables that are free to move, obstacle factors are only connected to these. However, do note that even though they only connect to a single variable, they are not anchoring factors as they do not override the variable priors, but are part of the message passing inference process.
 
 The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4)$, and is the first order Jacobian following @alg.jacobian-first-order. As such, using the first order Jacobian, measuring the gradient of the underlying #acr("SDF"), enables the Jacobian to impact the factor potential to _push_ the variable in the opposite direction of environment obstacles, during the next message iteration. The measuring and effect of the obstacle factor is shown in @f.m.obstacle-factor.
 
@@ -172,7 +175,7 @@ The Jacobian for the obstacle factor, $jacobian_o$, is defined in $RR^(1 times 4
 
 The default standard deviation, $sigma_o$, for this factor is $0.01$, which is an order of magnitude lower than for the dynamic factor. This means that the obstacle factors' influence is stronger than the dynamic factor, making sure that avoiding obstacles is prioritized as a stronger constraint.
 
-The obstacle measurement function, $h_o (#m.x)$, is parameterized by the linearisation point, $x$, and the #acr("SDF") image. The resulting measurement is a scalar value, $0 <= h_o (#m.x) <= 1$, essentially representing the lightness of the inverted #acr("SDF") at the position of the linearisation point in 2D space. That is, the closer to 1, the closer the robot is to an obstacle, and 0 is completely free space.
+The obstacle measurement function, $h_o (#m.x)$, is parameterized by the linearization point, $x$, and the #acr("SDF") image. The resulting measurement is a scalar value, $0 <= h_o (#m.x) <= 1$, essentially representing the lightness of the inverted #acr("SDF") at the position of the linearization point in 2D space. That is, the closer to 1, the closer the robot is to an obstacle, and 0 is completely free space.
 
 ==== Interrobot Factor $bold(f_i)$ <s.m.factors.interrobot-factor>
 The interrobot factor expresses how robots should interact with each other when they get close enough. Interrobot factors measure the distance between the two robots, and if they get too close, the factor will in turn impose a repulsive force on the robots. Interrobot factors only exist between robots that are close enough, however, as soon as they are, an interrobot factor will be created between each variable for each timestep. This happens symmetrically, which means both robots will have a factor for each of its variables that connects externally to the other robot's variables. These are the connection that are used when external iterations of #acr("GBP") are made, see @s.iteration-schedules. To identify the connected variable in the external factorgraph, the interrobot factor store an unique identifier that consists of a two field tuple of the robots id, and index offset from the current variable. The interrobot factors take a safety distance into account which is a scaled version of the two robots' radii, see @eq.interrobot-factor.
@@ -184,7 +187,7 @@ $
   )
 $<eq.interrobot-factor>
 
-where $#m.x _A$ is the linearisation point for a variable in robot A's factor graph, $#m.x _B$ is the linearisation point for the corresponding variable in robot B's factor graph, $d_r$ is the distance between the two robots, see @eq.interrobot-distance, and $d_s$ is the safety distance, which is calculated as $d_s = f times r$, where $f$ is a configurable parameter; scaling the robot's radius.
+where $#m.x _A$ is the linearization point for a variable in robot A's factor graph, $#m.x _B$ is the linearization point for the corresponding variable in robot B's factor graph, $d_r$ is the distance between the two robots, see @eq.interrobot-distance, and $d_s$ is the safety distance, which is calculated as $d_s = f times r$, where $f$ is a configurable parameter; scaling the robot's radius.
 
 $
   d_r (#m.x _A, #m.x _B) = ||#m.x _A - #m.x _B||

@@ -9,7 +9,7 @@
 // #pagebreak()
 
 // #jens[bait for you, use it however you see fit]
-#let sc = 60%
+#let sc = 50%
 #let coordinate-grid(x, y) = {
 
   import cetz.draw: *
@@ -452,6 +452,6 @@
       tn-4,
       tn-5,
       tn-k
-    ).map(it => std-block(breakable: false, height: 71mm, it))
+    ).map(it => std-block(breakable: false, height: 66mm, v(1em) + it))
   )
 }

@@ -1,13 +1,14 @@
 #import "../../../lib/mod.typ": *
-
+#v(-0.8em)
 === Configuration <s.m.configuration>
+#v(-0.5em)
 
-To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `config.toml`, uses #acr("TOML"), and is used to define all the general parameters for the simulation, visualisation, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualisation`. The smaller sections are described in the code documentation itself.@repo
+To make the developed software more flexible and easier to use, several configuration formats have been developed. The main configuration file, `config.toml`, uses #acr("TOML"), and is used to define all the general parameters for the simulation, visualization, and #acr("UI"). The most important sections of the main configuration file are: `GBP`, `Robot`, `Simulation`, `Visualization`. The smaller sections are described in the code documentation itself.@repo
 #set enum(numbering: box-enum.with(prefix: "Section "))
 + `GBP:` Outlines all initial factor standard deviations, $sigma$, used in the #acr("GBP") message passing, alogn with the iteration schedule to use and how many of _internal_ vs _external_ iterations to run.
 + `Robot:` Defines each robot's properties, such as size, target speed, communication radius and failure rate, and degrees of freedom. Additionally, some properties for the structure of the underlying factor are in this section; i.e. the planning-horizon, whether to use symmetric interrobot factors, and scaling of the safety distance between robots.
 + `Simulation:` Contains the parameters for the simulation itself, such as the maximum simulation time, the #acr("RNG") seed, and the fixed time-step frequency to run the #acr("GBP") algorithm at. More are described in @repo.
-+ `Visualisation:` Contains the parameters for the visual elements. This includes which properties to draw to the screen like communication radius, interrobot connections, planning horizon, waypoints, etc. Furthermore, some scaling factors, i.e. for the variable uncertainties, to make them visible on the screen, are defined here. Again, more are described in @repo.
++ `Visualization:` Contains the parameters for the visual elements. This includes which properties to draw to the screen like communication radius, interrobot connections, planning horizon, waypoints, etc. Furthermore, some scaling factors, i.e. for the variable uncertainties, to make them visible on the screen, are defined here. Again, more are described in @repo.
 
 
 ==== Environment Configuration <s.m.configuration.environment>
@@ -331,6 +332,8 @@ Lastly, some timing options are available; `repeat-every` and `delay`. The `repe
       ]
     )
   ),
+  kind: "listing",
+  supplement: [Listing],
   caption: [Formation configuration example spawning a single robot every 8 seconds with an initial delay of 2 seconds. Here, the `line-segment` _distribution shape_ is used, along with the `even` _placement strategy_, and `cross` _projection strategy_.],
 )<f.m.formation-config>
 
@@ -402,13 +405,13 @@ Furthermore, this single source of truth, allows the #acr("MAGICS") to visualize
 
 As shown in @f.m.sdf, the process of generating the #acr("SDF") image is done in three steps:
 #set enum(numbering: box-enum.with(prefix: "Step "))
-+ *Rasterisation:* The rasterisation of the environment happens by creating a white image with resolution calculated by @eq.sdf-rasterisation:
++ *Rasterization:* The rasterization of the environment happens by creating a white image with resolution calculated by @eq.sdf-rasterization:
 
   $
     "width" = r_t times c#h(1em)"and"#h(1em)"height" = r_t times r
-  $<eq.sdf-rasterisation>
+  $<eq.sdf-rasterization>
 
-  where $r_t$ is the tile-resolution from `environment.yaml`, and $c$ and $r$ are the number of columns and rows in the environment matrix respectively. Now going through each pixel of the environment, it is determined whether to make it black if it is either a part of the environment from the character matrix, or if it is part of an obstacle from the `obstacles` list. See @f.m.sdf#text(accent, "A") for the resulting rasterisation of the `environment.yaml` written in @lst.env-obstacle-config, but without any expansion.
+  where $r_t$ is the tile-resolution from `environment.yaml`, and $c$ and $r$ are the number of columns and rows in the environment matrix respectively. Now going through each pixel of the environment, it is determined whether to make it black if it is either a part of the environment from the character matrix, or if it is part of an obstacle from the `obstacles` list. See @f.m.sdf#text(accent, "A") for the resulting rasterization of the `environment.yaml` written in @lst.env-obstacle-config, but without any expansion.
 
 + *Expansion:* The expansion of the obstacles is done, not by simply dilating the black pixels, but by expanding the underlying data of each of the placeable shapes providing the obstacles. This method provides a more accurate representation of the obstacles as if they were bigger, where a dilation would round over corners that would otherwise be sharp, which is an important detail to retain. See @f.m.sdf#text(accent, "B") for an example of the same `environment.yaml`, but with an expansion applied.
 

@@ -1,20 +1,21 @@
 #import "../../lib/mod.typ": *
+// #v(-1em)
 == Factor Graphs <s.b.factor-graphs>
 
 // NOTES:
 // Explain the concept of factor graphs
 // - variables and factors
 // - visually it is undirected bipartite graph
-// - factorisation of a joint function
+// - factorization of a joint function
 // - factors are functions that determine probability, not probability in themself @alevizos_factor_2012
-// - representing the factorisation of a joint function
+// - representing the factorization of a joint function
 // from @loeliger_introduction_2004:
 // - in probability used to represent a _probability distribution function_
 //
 // Properties:
 // - enables efficient computation
 // - enables computation of marginal distributions through the sum-product algorithm
-// - generalisation of constraint graphs
+// - generalization of constraint graphs
 //
 // Gaussian factor graph:
 // Explaining how the
@@ -24,7 +25,7 @@
 
 // Mathematically, the Hammersley-Clifford Theorom states that any positive joint distribution can be represented as a product of factors,
 
-A factor graph is a bipartite graph with undirected edges, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorisation of any positive joint distribution, $p(#m.Xb)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each set of related variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
+A factor graph is a bipartite graph with undirected edges, where the nodes are divided into two disjoint sets; variables and factors. And exemplification of a factor graph and important intuition is shown in @ex.factor-graph. The edges between nodes each connect one from each set, and represent the dependencies between the variables and factors. A factor graph represents the factorization of any positive joint distribution, $p(#m.Xb)$, as stated by the Hammersley-Clifford Theorom. That is, a product of factors for each set of related variables in the graph, which can be seen in @eq.factor-product@gbpplanner@gbp-visual-introduction@dellaert_factor_2017@loeliger_introduction_2004@alevizos_factor_2012.
 
 $
   p(#m.Xb ) = product_{i} f_i (#m.Xb _i)
@@ -36,13 +37,7 @@ $
   f_i(#m.Xb _i) = exp(-E_i(#m.Xb _i))
 $<eq.factor-energy>
 
-This presentation also gives another way of finding the #acr("MAP") estimate, by finding the state with the lowest energy in the factor graph, see @eq.map-energy@gbp-visual-introduction:
-
-$
-  #m.Xb _"MAP" &= "arg min"_#m.Xb -log p(#m.Xb) \
-          &= "arg min"_#m.Xb sum_i E_i(#m.Xb _i)
-$<eq.map-energy>
-
+#pagebreak(weak: true)
 #example(
   caption: [Factor Graph]
 )[
@@ -57,30 +52,31 @@ $<eq.map-energy>
 
   #let fig = [
     #figure(
-      image("../../figures/out/factor-graph.svg", width: 50%),
+      image("../../figures/out/factor-graph.svg", width: 40%),
       caption: [A factor graph is a bipartite graph, where the nodes are divided into two sets; variables and factors. Variables are represented as green circles#sg, and factors as blue squares#sl. The edges between the nodes represent the dependencies between the variables and factors.],
     )<fig.factor-graph>
   ]
 
   #body
   #fig
-
-  // #grid(
-  //   columns: (90mm, 1fr),
-  //   body,
-  //   fig
-  // )
 ]<ex.factor-graph>
 
-The factor graph is a generalisation of constraint graphs, and can represent any joint function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm@loeliger_introduction_2004@alevizos_factor_2012. The sum-product algorithm is detailed in @s.b.belief-propagation.
+This presentation also gives another way of finding the #acr("MAP") estimate, by finding the state with the lowest energy in the factor graph, see @eq.map-energy@gbp-visual-introduction:
+
+$
+  #m.Xb _"MAP" &= "arg min"_#m.Xb -log p(#m.Xb) \
+          &= "arg min"_#m.Xb sum_i E_i(#m.Xb _i)
+$<eq.map-energy>
+
+The factor graph is a generalization of constraint graphs, and can represent any joint function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm@loeliger_introduction_2004@alevizos_factor_2012. The sum-product algorithm is detailed in @s.b.belief-propagation.
 
 #figure(
-  image("../../figures/out/robot-factor-graph.svg", width: 70%),
+  image("../../figures/out/robot-factor-graph.svg", width: 60%),
   caption: [Shown here are two factor graphs, one for a green#sg robot, and one for a purple#sp robot. In this specific case the two robots are close to each other, and perfectly aligned. At the top, the planning horizon is shown in blue#sl, #text(theme.lavender, $n$) times-steps into the future, #text(theme.lavender, ${t_1, t_2, dots, t_n}$). Variables are visualized as circles, and factors as squares.],
 )<fig-robot-factor-graph>
 
-// Below is factor graph notions in terms of the multi-agent robotic system we have developed
 In @fig-robot-factor-graph two joint factor graphs are visualized in the context of multi-agent robotics. The first variables in each factor graph $v_1$, represent the location of a green#sg and purple#sp robot respectively. Each robot has a corresponding factorgraph, where the figure shows how the two factor graphs are connected with interrobot factors $f_i$ when they are close enough to each other. Variables $v_2, dots, v_n$ represent the future predicted states of each robot respectively at timesteps $t_2, dots, t_n$, where $t_1$ is the current time.
+// Below is factor graph notions in terms of the multi-agent robotic system we have developed
 
 == Belief Propagation <s.b.belief-propagation> // The Sum-Product Algorithm <background-sum-product-algorithm>
 
@@ -92,7 +88,7 @@ In @fig-robot-factor-graph two joint factor graphs are visualized in the context
 // #acr("BP") is carried out by the sum-product algorithm.@robotweb@gbpplanner@gbp-visual-introduction
 
 
-Inference on a factor graph is achieved by passing messages between the variables and factors. @fig.message-passing visualizes the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
+Inference on a factor graph is achieved by passing messages between the variables and factors. @fig.message-passing visualizes the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step, see @fig.message-passing.
 
 // The process of performing inference#note.wording[] on a factor graph is done by passing messages between the variables and factors. @fig.message-passing visualizes the two major steps; #iteration.variable and #iteration.factor, each with two sub-steps; an internal update, and a message passing step.
 
@@ -122,22 +118,22 @@ $
   m_(x_i) = product_(s in N(i)) m_(f_s #ra x_i)
 $<eq.mp-variable-update>
 
-Secondly, in #step.s2, the variable to factor messages $m_(x_i #ra f_j)$ are computed as described in @eq-mp-variable-to-factor@gbpplanner, which is a product of all messages from neighboring factors $f_s$ except $f_j$.@gbpplanner@robotweb@gbp-visual-introduction
+Secondly, in #step.s2, the variable to factor messages $m_(x_i #ra f_j)$ are computed as described in @eq-mp-variable-to-factor@gbpplanner, which is a product of all messages from neighboring factors $f_s$ except $f_j$@gbpplanner@robotweb@gbp-visual-introduction.
 
 $
   m_(x_i #ra f_j) = product_(s in N(i) \\ j) m_(f_s #ra x_i)
 $<eq-mp-variable-to-factor>
 
-The factor to variable messages $m_(f_j #ra x_i)$ are described in @eq.mp-factor-to-variable@gbpplanner, where the message is the product of the factor $f_j$ and the messages from all neighboring variables $x_i$, except $x_i$ itself.@gbpplanner@robotweb@gbp-visual-introduction This corresponds to the entire #iteration.factor, i.e. #step.s3 and #step.s4, also shown in @fig.message-passing.
+The factor to variable messages $m_(f_j #ra x_i)$ are described in @eq.mp-factor-to-variable@gbpplanner, where the message is the product of the factor $f_j$ and the messages from all neighboring variables $x_i$, except $x_i$ itself@gbpplanner@robotweb@gbp-visual-introduction. This corresponds to the entire #iteration.factor, i.e. #step.s3 and #step.s4, also shown in @fig.message-passing.
 $
   m_(f_j #ra x_i) = sum_(X_j \\ x_i) f_j (X_j) product_(k in N(j) \\ i) m_(x_k #ra f_j)
 $<eq.mp-factor-to-variable>
 
 Originally, #acr("BP") was created for inference in trees, where each message passing iteration is synchronous. This is a simpler environment to guarantee convergence in, and in fact after one synchronous message sweep from root to leaves, exact marginals would be calculated. However, factor graphs, as explained earlier in @s.b.factor-graphs, are not necessarily trees; they can contain cycles, and as such loopy #acr("BP") is required. Loopy #acr("BP"), instead of sweeping messages, applies the message passing steps to each each at every iteration, but still in a synchronous fashion.@gbp-visual-introduction
 
-The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such, the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimizes the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimisation.@gbp-visual-introduction
+The expansion to loopy graphs is not without its challenges, as the convergence of the algorithm is not guaranteed. As such, the problem transforms from an exact method to an approximate one. This means, that instead of minimising the factor energies through #acr("MAP") directly, loopy #acr("BP") minimizes the #acr("KL") divergence between the true distribution and the approximated distribution, which can then be used as a proxy for marginals after satisfactory optimization.@gbp-visual-introduction
 
-Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimisation of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm is not guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loopy #acr("BP") is very capable of converging to the true marginals, as long as the graphs are not highly cyclic.@gbp-visual-introduction
+Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained minimization of an approximation of the #acr("KL") divergence. As the Bethe free energy is non-convex, the algorithm is not guaranteed to converge, and furthermore, it might converge to local minima in some cases. It has been shown that empirically loopy #acr("BP") is very capable of converging to the true marginals, as long as the graphs are not highly cyclic.@gbp-visual-introduction
 
 // #todo[later mention that the specific factorgraph structure is non-cyclic in our case]
 
@@ -236,9 +232,9 @@ This step is not detailed in @gbpplanner, as it is not a regular step involving 
       m_(f_i #ra x_j) = product_(s in N(j) \\ i) m_(x_s #ra f_i)
     $<eq.gbp-factor-to-variable>
 
-  + *Update Linearisation Point:* As the factor has received new messages from neighboring variables, the linearisation point is updated to the new mean, $mu_f$.
+  + *Update Linearization Point:* As the factor has received new messages from neighboring variables, the linearization point is updated to the new mean, $mu_f$.
 
-  + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the initial linearisation point, $h(#m.Xb _0)$, and the current measurement, $h(#m.Xb _n)$, see @eq.factor-measurement@gbp-visual-introduction:
+  + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the initial linearization point, $h(#m.Xb _0)$, and the current measurement, $h(#m.Xb _n)$, see @eq.factor-measurement@gbp-visual-introduction:
 
     $
       h_r = h(#m.Xb _0) - h(#m.Xb _n)
@@ -261,7 +257,7 @@ This step is not detailed in @gbpplanner, as it is not a regular step involving 
 
 As the factor has been updated, it is now possible to pass messages to neighboring variables. The messages to each neighboring variables has to be marginalized with respect to all other variables, that is; to find the message to variable $x_i$, margininalize out its own contribution to the aggregated message. This is best described through an example, see @ex.factor-to-variable@gbp-visual-introduction.
 
-#example(caption: [Factor Message Marginalisation@gbp-visual-introduction])[
+#example(caption: [Factor Message Marginalization@gbp-visual-introduction])[
   Consider a factor $f$ connected to 3 variables; $x_1,x_2,x_3$, and we want to compute the message to be passed to variable $x_1$. Write the factor out as a Gaussian distribution, see @eq.ex.factor@gbp-visual-introduction:
 
   $
@@ -292,7 +288,7 @@ As the factor has been updated, it is now possible to pass messages to neighbori
     )
   $<eq.ex.product-adjacent>
 
-  Now as we are passing a message to $x_1$, we have to marginalize out all other variables, $x_2$ and $x_3$. This is done by the marginalisation equations given by @marginalisation for Gaussians in #gaussian.canonical. See @eq.ex.marginalisation-setup and @eq.ex.marginalisation for the joint  distribution over variables $a$ and $b$@gbp-visual-introduction@marginalisation.
+  Now as we are passing a message to $x_1$, we have to marginalize out all other variables, $x_2$ and $x_3$. This is done by the marginalization equations given by @marginalisation for Gaussians in #gaussian.canonical. See @eq.ex.marginalization-setup and @eq.ex.marginalization for the joint  distribution over variables $a$ and $b$@gbp-visual-introduction@marginalisation.
 
   $
     eta = mat(eta_a; eta_b)
@@ -301,20 +297,20 @@ As the factor has been updated, it is now possible to pass messages to neighbori
       Lambda_(a a), Lambda_(a b);
       Lambda_(b a), Lambda_(b b)
     )
-  $<eq.ex.marginalisation-setup>
+  $<eq.ex.marginalization-setup>
 
   $
     eta_(M a) = eta_a + Lambda_(a b) Lambda_(b b)^(-1) eta_b
     #h(1em)"and"#h(1em)
     Lambda_(a a) = Lambda_(M a) - Lambda_(a b) Lambda_(b b)^(-1) Lambda_(b a)
-  $<eq.ex.marginalisation>
+  $<eq.ex.marginalization>
 
   Now to marginalize, perform the two steps:
     #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.peach))
   + *Reorder the vector $eta_f^prime$ and the matrix $Lambda_f^prime$ to bring the contribution from the recipient $x_1$ to the top.* \
     _In our case no reordering is to be done, as $x_1$ is already at the top._
 
-  + *Recognize the subblocks $a$ and $b$ from @eq.ex.marginalisation-setup and @eq.ex.marginalisation.* \
+  + *Recognize the subblocks $a$ and $b$ from @eq.ex.marginalization-setup and @eq.ex.marginalization.* \
     _In our case $a = x_1$ and $b = mat(x_2, x_3)$._
 ]<ex.factor-to-variable>
 
@@ -347,11 +343,11 @@ $
   &"where" #text(theme.yellow, $eta$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) (#m.d - c) "and" #text(theme.yellow, $Lambda$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) jacobian
 $<eq.gaussian-canonical>
 
-However, in case of a non-linearity in $h$, the energy is also not quadratic in $#m.Xb _n$, which in turn means that the factor is not Gaussian. To achieve a Gaussian distribution for the factor in this case, it is necessary to linearize around a current estimate $#m.Xb _0$, which is from here called the #factor.lp. This linearisation takes place by @eq.factor-linearisation@gbp-visual-introduction:
+However, in case of a non-linearity in $h$, the energy is also not quadratic in $#m.Xb _n$, which in turn means that the factor is not Gaussian. To achieve a Gaussian distribution for the factor in this case, it is necessary to linearize around a current estimate $#m.Xb _0$, which is from here called the #factor.lp. This linearization takes place by @eq.factor-linearization@gbp-visual-introduction:
 
 $
   h(#m.Xb _n) = h(#m.Xb _0) + jacobian(#m.Xb _n - #m.Xb _0)
-$<eq.factor-linearisation>
+$<eq.factor-linearization>
 
 As such, we end up with a linearized factor on the form @eq.linearized-factor@gbp-visual-introduction, which ends up with a Gaussian approximation of the true non-linear distribution:
 
@@ -361,7 +357,7 @@ $<eq.linearized-factor>
 
 The underlying potential non-linearities of factors is exemplified in @ex.non-linearities, and visualized in @fig.non-linearities.
 
-#example(caption: [Factor Linearisation])[
+#example(caption: [Factor Linearization])[
   Consider a 2D world, where a robot exists alongside a landmark. As seen in @fig.non-linearities, the robot is located at $r_0$, and the landmark at $l_0$. This figure visualizes the contour plot for the factor $f(r_0, l)$, assuming the robot's true position is known to be $r_0$ without uncertainties. The true non-linear belief of the landmark's position is visualized as a grey#sgr2 contour plot. The factor measurement function $h(r,l)$ in @eq.non-linear-measurement@gbp-visual-introduction is non-linear.
 
   $
@@ -395,8 +391,9 @@ The underlying potential non-linearities of factors is exemplified in @ex.non-li
         ]
       )
     },
-    caption: [A non-linear factor is visualized, where the measurement function $h(#m.Xb _n)$ is non-linear. The linearisation point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualized as a grey#sr contour plot underneath the linearized gaussian distribution#sgr2 on top.@gbp-visual-introduction],
+    caption: [A non-linear factor is visualized, where the measurement function $h(#m.Xb _n)$ is non-linear. The linearization point $l_0$#st is shown, and the robot's position#sg. The non-linear true distribution is visualized as a grey#sr contour plot underneath the linearized gaussian distribution#sgr2 on top.@gbp-visual-introduction],
   )<fig.non-linearities>
 
-  The purpose of this example is to make it clear, that the accuracy of a gaussian factor is dependent on the linearity of the measurement function, $h$. As in @fig.non-linearities#text(accent, "A"), the measurement model is reasonably smooth, and the linearized gaussian factor is a fairly good approximation, however, in @fig.non-linearities#text(accent, "B") highlights how a larger variance can lead to a very poor approximation, even without straying too far from the linearisation point.
 ]<ex.non-linearities>
+
+The purpose of this @ex.non-linearities is to make it clear, that the accuracy of a gaussian factor is dependent on the linearity of the measurement function, $h$. As in @fig.non-linearities#text(accent, "A"), the measurement model is reasonably smooth, and the linearized gaussian factor is a fairly good approximation, however, in @fig.non-linearities#text(accent, "B") highlights how a larger variance can lead to a very poor approximation, even without straying too far from the linearization point.

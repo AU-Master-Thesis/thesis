@@ -1,7 +1,7 @@
 #import "../../lib/mod.typ": *
 == Rapidly Exploring Random Trees <s.b.rrt>
 
-#acr("RRT") is a sampling-based path planning algorithm, introduced by Steven M. LaValle in 1998@original-rrt. The algorithm incrementally builds a tree of nodes, each node a specific step length, $s$, from the last. The tree is built by randomly sampling a point in the configuration space, and then extending the tree towards that point with $s$. See the entire algorithm in @alg-rrt.@original-rrt@sampling-based-survey @ex.rrt goes through an contextual example of the algorithm.
+#acr("RRT") is a sampling-based path planning algorithm, introduced by Steven M. LaValle in 1998@original-rrt. The algorithm incrementally builds a tree of nodes, each node a specific step length, $s$, from the last. The tree is built by randomly sampling a point in the configuration space, and then extending the tree towards that point with $s$. See the entire algorithm in @alg-rrt@original-rrt@sampling-based-survey. @ex.rrt goes through a contextual example of the algorithm.
 
 // What about `inline` code? Also shown in @lst.python-rrt.
 // #listing(caption: [Pseudo-code for the regular RRT algorithm.])[
@@ -46,7 +46,7 @@
     #ind()#ind()$E #la E union {(x_"nearest", x_"new")}$ \
     #ind()*else* \
     #ind()#ind()*continue* \
-    #ind()*end* \ \
+    #ind()*end* \
 
     #ind()*if* $"WithinGoalTolerance"(g_"tolerance", x_"new", x_"goal")$ \
     #ind()#h(1em)$and "CollisionFree"(x_"new", x_"goal")$ *then* \
@@ -179,18 +179,12 @@
 // In the image above, after rearranging the connections, the path to the green points, i.e.,
 // is shorter through the red connections than through the earlier connections.
 
-#acr("RRT*") is an extension of the #acr("RRT") algorithm, which was introduced in 2011 by Sertac Karaman and Emilio Frazzoli in their paper _Sampling-based Algorithms for Optimal Motion Planning_@sampling-based-survey. With only a couple of modifications to #acr("RRT"), the algorithm is able to reach asymptotic optimality, where the original algorithm makes no such promises. The modifications are explained below:
-
-#set enum(numbering: box-enum.with(prefix: "M-", color: theme.mauve))
-+ _*Cost Function:*_ The first modification is the introduction of a _cost function_, $c(v)$, for each node, $v in V$. The cost function outputs the length of the shortest path from the start node to the node $v$. This modification encodes an optimizable metric for each branch, which enables the next modification, #boxed(color: theme.mauve, [*M-2*]), to take place.
-+ _*Rewiring:*_ The second modification is the introduction of a _neighbourhood radius_, $r in RR^+$, around each newly created node, which is used to search for nodes that can be reached with a lower cost.
-
-  As such every time a new node is created, there is a possibility that other nodes within that radius, will have a lower cost if they were to be connected to the new node. Thus, comparing the nodes' old cost, and the cost they would have in case we connect them to the newly created node, determines whether to rewire or not.
+#acr("RRT*") is an extension of the #acr("RRT") algorithm, which was introduced in 2011 by Sertac Karaman and Emilio Frazzoli in their paper _Sampling-based Algorithms for Optimal Motion Planning_@sampling-based-survey. With only a couple of modifications to #acr("RRT"), the algorithm is able to reach asymptotic optimality, where the original algorithm makes no such promises. The modifications are explained in listing #boxed(color: theme.mauve, [*M-X*]).
 
 #algorithm(
   caption: [The RRT\* Algorithm],
 )[
-  #set text(size: 0.85em)
+  // #set text(size: 0.85em)
   #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
   #let ind() = h(2em)
   *Input:* $x_"start", x_"goal", s, N, g_"tolerance"$ \ \
@@ -227,7 +221,14 @@
   *Output:* $G = (V, E)$
 ]<alg.rrt-star>
 
-With the modifications made, the #acr("RRT*") algorithm is shown in @alg.rrt-star@erc-rrt-star. Two important blocks of the algorithm has been sectioned out in sub-algorithms @alg.rrt-star.min-cost-connection and #numref(<alg.rrt-star.rewire>), which are described along side the other new functions of #acr("RRT*") under @s.b.rrt-star.functions. The main parts of the algorithm are visualized in @f.rrt-rewire as three steps:
+#set enum(numbering: box-enum.with(prefix: "M-", color: theme.mauve))
++ _*Cost Function:*_ The first modification is the introduction of a _cost function_, $c(v)$, for each node, $v in V$. The cost function outputs the length of the shortest path from the start node to the node $v$. This modification encodes an optimizable metric for each branch, which enables the next modification, #boxed(color: theme.mauve, [*M-2*]), to take place.
++ _*Rewiring:*_ The second modification is the introduction of a _neighbourhood radius_, $r in RR^+$, around each newly created node, which is used to search for nodes that can be reached with a lower cost.
+
+  As such every time a new node is created, there is a possibility that other nodes within that radius, will have a lower cost if they were to be connected to the new node. Thus, comparing the nodes' old cost, and the cost they would have in case we connect them to the newly created node, determines whether to rewire or not.
+
+
+With the modifications made, the #acr("RRT*") algorithm is shown in @alg.rrt-star@erc-rrt-star. Two important blocks of the algorithm has been sectioned out in sub-algorithms #numref(<alg.rrt-star.min-cost-connection>) and #numref(<alg.rrt-star.rewire>), which are described along side the other new functions of #acr("RRT*") under @s.b.rrt-star.functions. The main parts of the algorithm are visualized in @f.rrt-rewire as three steps:
 #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve))
 + A new point has been sampled, deemed collision-free, and thus node $v_"new"$ can be added to the tree. But first, we need to find which existing node to connect to. Here, $v_"nearest"$ is chosen by the `MinCostConnection` algorithm, as it is the node that minimizes the total cost from the root to $v_"new"$, within the step-length radius $s$.
 + In preparation, rewiring candidates will be found, by looking at all nodes in the tree, that are within a certain requiring radius, $r$, from $v_"new"$. This is done by the `Neighbourhood` function, which returns the set $V_"near" = {n_1, n_2, dots, n_n}$.
@@ -256,53 +257,75 @@ Here the functions used in the #acr("RRT*") algorithm are described in @alg.rrt-
 
 // ==== `MinCostConnection(V_near, x_new, x_init, c_init) -> v` <s.b.rrt-star.min-cost-connection>
 ==== #fsig[MinCostConnection(V_near, v_new, v_init, c_init) -> v] <s.b.rrt-star.min-cost-connection>
-This function is a main part of the #acr("RRT*") modification, as it attached the new node $v_"new"$, not to the node nearest to the randomly sampled point in $cal(X)$, but to the node that minimizes the cost from the root to $v_"new"$. This happens by looking at all nodes in a neighbourhood $V_"near"$ of radius $r$ from $v_"new"$, and then finding the node that minimizes the cost. To begin with the initial node $v_"init"$ and its cost $c_"init"$ is passed to the function as the initial comparison point. The initial comparison point is typically the nearest node in the tree, that would have been the parent for $v_"new"$ in #acr("RRT"). The function's operation is described in @alg.rrt-star.min-cost-connection.
-#algorithm(
-  caption: [Finding the Minimum Cost Connection],
-  [
-    #set text(size: 0.85em)
-    #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
-    #let ind() = h(2em)
-    *Input:* $V_"near", x_"new", x_"nearest", c_"nearest"$ \ \
+#let body = [This function is a main part of the #acr("RRT*") modification, as it attached the new node $v_"new"$, not to the node nearest to the randomly sampled point in $cal(X)$, but to the node that minimizes the cost from the root to $v_"new"$. This happens by looking at all nodes in a neighbourhood $V_"near"$ of radius $r$ from $v_"new"$, and then finding the node that minimizes the cost. To begin with the initial node $v_"init"$ and its cost $c_"init"$ is passed to the function as the initial comparison point. The initial comparison point is typically the nearest node in the tree, that would have been the parent for $v_"new"$ in #acr("RRT"). The function's operation is described in @alg.rrt-star.min-cost-connection.]
+#let alg = [
+  #algorithm(
+    caption: [Min Cost Connection],
+    [
+      #set par(justify: false)
+      #set text(size: 0.85em)
+      #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+      #let ind() = h(2em)
+      *Input:* $V_"near", x_"new", x_"nearest", c_"nearest"$ \ \
 
-    $x_"min" #la x_"nearest"$ \
-    $c_"min" #la c_"nearest"$ \ \
+      $x_"min" #la x_"nearest"$ \
+      $c_"min" #la c_"nearest"$ \ \
 
-    *for* $x_"near" in X_"near"$ *do* \
-    #ind()$c_"near" #la "Cost"(x_"near") + c("Line"(x_"near", x_"new"))$ \
-    #ind()*if* $"CollisionFree"(x_"near", x_"new") and c_"near" < c_"min"$ *then* \
-    #ind()#ind()$x_"min" #la x_"near"$ \
-    #ind()#ind()$c_"min" #la "Cost"(x_"near") + c("Line"(x_"near", x_"new"))$ \
-    #ind()*end* \
-    *end* \ \
+      *for* $x_"near" in X_"near"$ *do* \
+      #ind()$c_"near" #la "Cost"(x_"near") + c("Line"(x_"near", x_"new"))$ \
+      #ind()*if* $"CollisionFree"(x_"near", x_"new")$ \
+      #ind()#ind()#ind()$and c_"near" < c_"min"$ *then* \
+      #ind()#ind()$x_"min" #la x_"near"$ \
+      #ind()#ind()$c_"min" #la "Cost"(x_"near") + c("Line"(x_"near", x_"new"))$ \
+      #ind()*end* \
+      *end* \ \
 
-    *Output:* $x_"min"$
-  ]
-)<alg.rrt-star.min-cost-connection>
+      *Output:* $x_"min"$
+    ]
+  )<alg.rrt-star.min-cost-connection>
+]
+
+#grid(
+  columns: (90mm, 1fr),
+  gutter: 1em,
+  alg,
+  body,
+)
 
 // ==== `Rewire(V_near, x_new)` <s.b.rrt-star.rewire>
 ==== #fsig[Rewire(V_near, v_new)] <s.b.rrt-star.rewire>
-The rewiring function is the second part of the #acr("RRT*") optimisation steps, which changes previously established connections in the tree. The function uses the neighbourhood $V_"near"$ of nodes in radius $r$ around $v_"new"$. For each $n_i in V_"near"$, if the cost of $n_i$ with $v_"new"$ as parent is lower than the previously established cost for $n_i$, the tree is rewired. The function is described in @alg.rrt-star.rewire.
-#algorithm(
-  caption: [Rewiring],
-  [
-    #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
-    #set text(size: 0.85em)
-    #let ind() = h(2em)
-    *Input:* $V_"near", x_"new"$ \ \
+#let body = [The rewiring function is the second part of the #acr("RRT*") optimization steps, which changes previously established connections in the tree. The function uses the neighbourhood $V_"near"$ of nodes in radius $r$ around $v_"new"$. For each $n_i in V_"near"$, if the cost of $n_i$ with $v_"new"$ as parent is lower than the previously established cost for $n_i$, the tree is rewired. The function is described in @alg.rrt-star.rewire.]
 
-    *for* $x_"near" in V_"near"$ *do* \
-    #ind()$c_"near" #la "Cost"(x_"new") + c("Line"(x_"new", x_"near"))$ \
-    #ind()*if* $"CollisionFree"(x_"new", x_"near") and c_"near" < "Cost"(x_"near")$ *then* \
-    #ind()#ind()$x_"parent" #la "Parent"(x_"near")$ \
-    #ind()#ind()$E #la E \\ {[x_"parent", x_"near"]}$ \
-    #ind()#ind()$E #la E union {[x_"new", x_"near"]}$ \
-    #ind()*end* \
-    *end* \ \
+// #pagebreak(weak: true)
+#let alg = [
+  #algorithm(
+    caption: [Rewiring],
+    [
+      #show regex("(MinCostConnection|Rewire|Sample|Nearest|Steer|ObstacleFree|Neighbourhood|Cost|Line|CollisionFree|Parent|WithinGoalTolerance)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+      #set text(size: 0.85em)
+      #let ind() = h(2em)
+      *Input:* $V_"near", x_"new"$ \ \
 
-    *Output:* None
-  ]
-)<alg.rrt-star.rewire>
+      *for* $x_"near" in V_"near"$ *do* \
+      #ind()$c_"near" #la "Cost"(x_"new") + c("Line"(x_"new", x_"near"))$ \
+      #ind()*if* $"CollisionFree"(x_"new", x_"near") and c_"near" < "Cost"(x_"near")$ *then* \
+      #ind()#ind()$x_"parent" #la "Parent"(x_"near")$ \
+      #ind()#ind()$E #la E \\ {[x_"parent", x_"near"]}$ \
+      #ind()#ind()$E #la E union {[x_"new", x_"near"]}$ \
+      #ind()*end* \
+      *end* \ \
+
+      *Output:* None
+    ]
+  )<alg.rrt-star.rewire>
+]
+
+#grid(
+  columns: (1fr, 105mm),
+  gutter: 1em,
+  body,
+  alg,
+)
 
 // ==== `Cost(v) -> c` <s.b.rrt-star.cost>
 ==== #fsig[Cost(v) -> c] <s.b.rrt-star.cost>

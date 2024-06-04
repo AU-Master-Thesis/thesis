@@ -13,7 +13,7 @@
 // ality for multi-agent system simulations.
 
 // Accompanying research questions:
-// RQ-1.1 Which architecture and framework is suitable for such a task, and can it reproduce the original results? Specify which tasks it suitable for. Decoupling? Modelling? Visualisation?
+// RQ-1.1 Which architecture and framework is suitable for such a task, and can it reproduce the original results? Specify which tasks it suitable for. Decoupling? Modelling? Visualization?
 // RQ-1.2 What kind of tooling will be most beneﬁcial for the software?
 // RQ-1.3 How can tooling help with future reproducibility and engagement with the software?
 // RQ-1.4 How can tooling help with understanding and extending the software?
@@ -23,7 +23,7 @@
 // A valuable tool that can be used by others, e.g. companies to quickly assess if the gbpplanner algorithm is a suitable method for doing multi-agent distributed path planning given their requirements, such as density of robots, and environment structure.
 
 // On hypothesis 1
-The original GBP Planner has been reimplemented in a modern, flexible multi-agent simulator framework using a modern programming language. The chosen #acr("ECS") architecture in the Bevy Engine has proven itself to be a suitable framework both for reproducing the original `gbpplanner` and for extending it with a large amount of tooling. The result is a fully-fledged interactive simulation tool called #acr("MAGICS"). The tool is designed to enhance the scientific communication and extendibility by introducing a highly configurable #acr("UI"), with a lot of options for visualisation; providing many different perspective on the underlying theoretical concepts. The hope is that #acr("MAGICS") can provide a simple playground for the further development of multi-agent systems based off of #acr("GBP") at its core.
+The original GBP Planner has been reimplemented in a modern, flexible multi-agent simulator framework using a modern programming language. The chosen #acr("ECS") architecture in the Bevy Engine has proven itself to be a suitable framework both for reproducing the original `gbpplanner` and for extending it with a large amount of tooling. The result is a fully-fledged interactive simulation tool called #acr("MAGICS"). The tool is designed to enhance the scientific communication and extendibility by introducing a highly configurable #acr("UI"), with a lot of options for visualization; providing many different perspective on the underlying theoretical concepts. The hope is that #acr("MAGICS") can provide a simple playground for the further development of multi-agent systems based off of #acr("GBP") at its core.
 
 Furthermore, extensive though has been put into the configuration formats; the main configuration `config.toml` providing the initial tool state, while the `environment.yaml` provides a simplified way to design a plethora of environments, either by using the character matrix or placing obstacles manually; both in a highly declarative manner. Lastly, the `formation.yaml` once again provides a declarative interface, but this time for expressing the otherwise highly dynamic and sporadic nature of multi-agent formations. This is accomplished through a series of spawning rules that when put together can represent highly complex scenarios of interweaving robots. Not only do these three configuration formats provide a single source of truth, not dependant on the program state, but they also collectively make up the notion of a scenario, which is easily reproduced and shared between users of #acr("MAGICS").
 

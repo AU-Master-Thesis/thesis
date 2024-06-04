@@ -222,11 +222,11 @@ They demonstrate in a simulation how their method can handle high-density scenar
 One key strength of their approach is its robustness in the presence of communication failures. As new messages are iteratively incorporated into the other robots' factor graphs, there are no strict constraints on messages arriving out of order or guarantees about the frequency of message arrival. These attributes enable it to tackle some of the previously listed challenges common in distributed multi-robot path planning systems. Qualities like these, along with others to be presented, motivate the choice of this method as the basis for further analysis and improvement in this thesis.
 
 
-// // _A Robot Web for Distributed Many-Device Localisation_, by incorporating #acr("GBP") as the messaging scheme used for doing inference on a joint factorgraph shared between robots.
+// // _A Robot Web for Distributed Many-Device Localization_, by incorporating #acr("GBP") as the messaging scheme used for doing inference on a joint factorgraph shared between robots.
 //
 // earlier showed that large parts of the same approach can be used fro multi robot localization demonstrating the versatility of their method.
 //
-// that #acr("GBP") can be utilised to solve multi-agent _localisation_
+// that #acr("GBP") can be utilised to solve multi-agent _localization_
 //
 // // *good*
 //
@@ -239,7 +239,7 @@ One key strength of their approach is its robustness in the presence of communic
 //
 // @bazzana_handling_2023
 //
-// - A Robot Web for Distributed Many-Device Localisation
+// - A Robot Web for Distributed Many-Device Localization
 //
 // proposes the idea of modelling the communication scheme using for exchanging messages between robots similar to how hypermedia is exchanged on the world wide web using a protocol like HTTP
 //

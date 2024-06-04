@@ -116,7 +116,7 @@
 
 // OVERSKRIFTER
 #show heading.where(numbering: "1.1") : it => [
-  #v(1em)
+  #v(0.75em)
   #block({
     box(width: 18mm, text(counter(heading).display(), weight: 600))
     text(it.body, weight: 600)
@@ -138,13 +138,13 @@
     text(it.body, size: 24pt, weight: "bold"),
     if it.numbering != none {
       text(subdued, weight: 200, size: 100pt)[#counter(heading).get().at(0)]
-      v(1.5em)
+      v(1em)
     },
   )
   #v(-0.5em)
   // #hr
   #hline-with-gradient(cmap: (accent, subdued), height: 2pt)
-  #v(1.5em)
+  #v(1em)
 ]
 
 #show heading.where(level: 4) : it => text(

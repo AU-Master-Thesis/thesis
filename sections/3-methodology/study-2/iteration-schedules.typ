@@ -4,7 +4,7 @@
 
 // Scheduling, order in which we call internal and external iteration
 
-One of the appreciative properties of the #acr("GBP") algorithm is the relaxed constraints on the order in which variable and factor messages are processed within the joint factorgraph. In the presence of events normally detrimental to peer-to-peer distributed systems without synchronisation mechanisms, such as
+One of the appreciative properties of the #acr("GBP") algorithm is the relaxed constraints on the order in which variable and factor messages are processed within the joint factorgraph. In the presence of events normally detrimental to peer-to-peer distributed systems without synchronization mechanisms, such as
 
 - Messages arriving out of _order_.
 - Messages being temporarily _dropped_.

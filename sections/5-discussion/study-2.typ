@@ -1,4 +1,6 @@
 #import "../../lib/mod.typ": *
+
+// #pagebreak(weak: true)
 == #study.H-2.full.n <s.d.study-2>
 
 This part discusses, and evaluates the results of the contribution, which pertains to the second hypothesis, #study.H-2.box. This hypothesis specifically concerns the testing of an enhancement to the original `gbpplanner`, which have been implemented in the #acr("MAGICS") tool. Further, the effect of varying the number of both internal and external iterations in the #acr("GBP") inference process is discussed. The deliberations take place in the following sections; #numref(<s.d.iteration-amount>), #numref(<s.d.iteration-schedules>).

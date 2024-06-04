@@ -76,6 +76,7 @@ This section outlines which research questions will have to be answered, to reac
 
 // #todo[1 hypothesis to many research question]
 
+#pagebreak(weak: true)
 == Research Objectives <intro-research-objectives>
 
 To answer each research question, a set of objectives will have to be met. The objective for each question is listed and numbered below.
@@ -126,6 +127,8 @@ To answer each research question, a set of objectives will have to be met. The o
     + Evaluate the enhanced system's performance and flexibility, and compare it to the original system.
 
     /// Study 3
+    #pagebreak(weak: true)
+
     #(study.heading)(study.H-3.full.n)
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-3.1", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-3.1.", color: theme.green))

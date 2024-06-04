@@ -765,7 +765,7 @@
 )
 
 #let factor = (
-  lp: [_linearisation point_],
+  lp: [_linearization point_],
 )
 
 

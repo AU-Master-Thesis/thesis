@@ -29,20 +29,21 @@ $
   #m.proj _(i-1) &= "proj"(#m.x, #m.p _(i-1), #m.p _i)
 $<eq.projections>
 
-Whether to consider the projection to the next line segment becomes the logical conditional statement, $q$, defined in @eq.switch.
-
+Whether to consider the projection to the next line segment becomes the logical conditional statement, $q$, defined in @eq.switch. And hereby, the point to measure the distance to $#m.x _"meas"$ becomes equation @eq.measurement-point.
+#v(-0.5em)
 $
   q = norm(#m.proj _i - #m.p _i) < r_"switch" and norm(#m.proj _(i-1) - #m.p _i) < r_"switch"
 $<eq.switch>
-
-Hereby, the point to measure the distance to $#m.x _"meas"$ becomes equation @eq.measurement-point. The first case of @eq.measurement-point happens when the variable is close to the waypoint, and the tracking factor will measure towards the actual waypoint itself by taking both projections into account. This behaviour is visualized in @f.m.tracking-factor, along with the conditional $q$ as a green area#swatch(theme.green.lighten(35%)).
-
+// #v(-1em)
 $
   #m.x _"meas" = cases(
     #m.x _"pos" + 1/2 ((#m.proj _i - #m.x _"pos") + (#m.proj _(i-1) - #m.x _"pos")) &"if" q \
     #m.proj _i + #m.d dot norm(#m.x _"vel") / s_v &"otherwise"
   )
 $<eq.measurement-point>
+
+The first case of @eq.measurement-point happens when the variable is close to the waypoint, and the tracking factor will measure towards the actual waypoint itself by taking both projections into account. This behaviour is visualized in @f.m.tracking-factor, along with the conditional $q$ as a green area#swatch(theme.green.lighten(35%)).
+
 
 Where $#m.d = #m.l _i / norm(#m.l _i)$ is the normalized direction vector of the line segment $#m.l _i$. The addition of $#m.d dot norm(#m.x _"vel") / s_v$ in the second case of @eq.measurement-point is a way to ensure that the tracking factor always tries to also move the variable along the line segment, and not only perpendicularly towards it; which in turn helps alleviate local minima where the variable might get stuck #sym.dash.en _this happens especially when some tracking factors are tracking towards the corner, without having others pulling it along_. This pulling along is also shown in @f.m.tracking-factor. It is chosen that $s_v = 5$ in the denominator, which is somewhat arbitrary, but it does a good job of allowing the factor to pull slightly on the variable without pulling so much that the variable overtakes future variables; a large $s_v$ makes previous variables shoot far ahead overtaking future variables, thus resulting in the robot far exceeding the target speed. The last piece of the puzzle is to define the measurement function, $h_t$, as the distance between the variable's position and the measurement point, $#m.x _"meas"$, as shown in @eq.measurement.
 
@@ -60,13 +61,14 @@ Two modifications to the raw distance take place;
 
     *Reasoning:* This acts as a knob that can be turned for the user to control how quickly the attraction force should reach its maximum.
 
-  + *Modification:* The distance is clamped to a maximum of $1$, after normalisation.
+  + *Modification:* The distance is clamped to a maximum of $1$, after normalization.
 
     #v(0.5em)
 
     *Reasoning:* This is a safety measure to ensure that the factor measurement is bounded, and as such helping to keep the factor graph inference stable.
 ]
 
+#pagebreak(weak: true)
 ==== Jacobian <s.m.tracking-factor.jacobian>
 The Jacobian's, $jacobian_t$, responsibility is to encode the measurement strength of the tracking factor into a direction for the variable to move towards. First let us find the difference $#m.x _"diff"$
 
@@ -74,7 +76,7 @@ $
   #m.x _"diff" = #m.x _"meas" - #m.x _"pos"
 $<eq.diff>
 
-Where the Jacobian, $J_t$, is then defined as the normalized difference, $#m.x _"diff"$, where the normalisation factor is the current measurement value $h$, see @eq.jacobian.
+Where the Jacobian, $J_t$, is then defined as the normalized difference, $#m.x _"diff"$, where the normalization factor is the current measurement value $h$, see @eq.jacobian.
 
 $
   jacobian_(t,"pos") = #m.x _"diff" / h
@@ -86,4 +88,4 @@ $
   jacobian_t = [jacobian_(t,"pos"), 0, 0] = mat(1/h (x_"meas" - x_"pos"), 1/h (y_"meas" - y_"pos"), 0, 0)
 $<eq.jacobian-padding>
 
-Where $#m.x _"meas" = [x_"meas"#h(0.5em)y_"meas"]^top$ and $#m.x _"pos" = [x#h(0.5em)y]^top$ is the positional component of the linearisation point as defined in @eq.variable-components. Looking at the interrobot factor Jacobian, $jacobian_i$, in @eq.jacobian-i, it is clear that they both utilize the normalized difference between two points, and the only difference is that, for the tracking factor, only one of the two points come from a variable, which can be moved, the other from the instantaneously static projection onto the path.
+Where $#m.x _"meas" = [x_"meas"#h(0.5em)y_"meas"]^top$ and $#m.x _"pos" = [x#h(0.5em)y]^top$ is the positional component of the linearization point as defined in @eq.variable-components. Looking at the interrobot factor Jacobian, $jacobian_i$, in @eq.jacobian-i, it is clear that they both utilize the normalized difference between two points, and the only difference is that, for the tracking factor, only one of the two points come from a variable, which can be moved, the other from the instantaneously static projection onto the path.

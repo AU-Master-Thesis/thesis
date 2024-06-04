@@ -14,7 +14,7 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
 
 #figure(
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
-  std-block[
+  std-block(width: 90%)[
     #set text(theme.text)
     #{
       show table.cell : it => {
@@ -90,7 +90,7 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
 
 ==== Live Configuration <s.m.settings>
 
-Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in #acr("MAGICS") will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
+Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in #acr("MAGICS") will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualizations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
 Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The notable sections are described in the following sections.
 
 ==== Hot Loading Scenarios <s.m.hot-loading>
@@ -146,7 +146,7 @@ Do not confuse this for _hot reloading_, as is known in many front-end framework
   caption: [The simulation control section in the #acr("MAGICS"). From left to right, top to bottom: Reload current scenario, scenario dropdown selector, simulation time, simulation frequency $Delta_t$, simulation speed, manual step, play/pause, how many steps to advance per manual step, pause when a robots spawns, exit program when scenario finishes.],
 )<f.m.simulation-tool-time-control>
 
-==== Visualisation <s.m.visualisation>
+==== Visualization <s.m.visualization>
 
 // robots                             = true
 // communication-graph                = false
@@ -166,7 +166,7 @@ Do not confuse this for _hot reloading_, as is known in many front-end framework
 // robot-robot-collisions             = true
 // robot-environment-collisions       = true
 
-#acr("MAGICS") supports visualisations of most aspects of the simulation. All possible visualisations are listed and described in @table.simulation-visualisations. The visualisations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool. The visualisations are updated in real-time as the simulation progresses.
+#acr("MAGICS") supports visualizations of most aspects of the simulation. All possible visualizations are listed and described in @table.simulation-visualizations. The visualizations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool. The visualizations are updated in real-time as the simulation progresses.
 
 
 #let edges = (
@@ -193,12 +193,12 @@ Do not confuse this for _hot reloading_, as is known in many front-end framework
     [Generated map], [A 3D representation of the map generated from the environment configuration.],
     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it is occupied.],
     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it is inactive.],
-    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colors according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
+    [Obstacle factors], [A line from each variable to the linearization point of their respective obstacle factors, and a circle in this point. Both the line and circle is colors according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating, and within the safety distance threshold $d_r$ of each other. The color varies on a yellow #sy to #sr gradient #gradient-box(theme.yellow, theme.red) visually highlighting the potential of a future collision.
     // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it is inactive.
   ],
-    [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
+    [Interrobot factors safety distance], [A circle around each variable, visualization the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
     [Robot colliders], [A sphere in red#sr around each robot representing the collision radius.],
     [Environment colliders], [An outline in red#sr around each obstacle in the environment, that collision are being detected against.],
     [Robot-robot collisions], [An #acr("AABB") intersection, visualising each robot to robot collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
@@ -207,16 +207,17 @@ Do not confuse this for _hot reloading_, as is known in many front-end framework
   caption: [
     Every visualizable setting, and a description of how it has been chosen to visualize it.
   ]
-)<table.simulation-visualisations>
+)<table.simulation-visualizations>
 
-Along with these visualisation further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.introspection-tools. Screenshots demonstrating each visualization module is shown in @appendix.visualisation-modules.
+Along with these visualization further in-depth measures have been taken to make it possible to understand the underlying theory; these are described in @s.m.introspection-tools. Screenshots demonstrating each visualization module is shown in @appendix.visualization-modules.
 
 ==== Viewport <s.m.viewport>
 
-The viewport is where the action happens. This is what the user is represented with when the simulation tool is initially loaded. All visualisations described in the previous section #numref(<s.m.visualisation>) are drawn in the viewport. Technically, the viewport is the user's eyes in the simulated environment, which happens through a camera in a 3D scene. The camera is a perspective camera, which is initially placed directly above the center of the environment, looking at it from a top-down perspective. The user can directly interact with the viewport, both through the keybindings, but also the mouse. The user can choose to stay in this top-down, pseudo-2D perspective, which gives a great overview, or switch the camera to orbital controls, which allows the user to rotate around the environment and zoom in and out. The #panel.viewport is shown in @f.m.simulation-tool. Through the viewport, the user gets a live update of the #acr("GBP") mathematical simulation happening under the surface.
+The viewport is where the action happens. This is what the user is represented with when the simulation tool is initially loaded. All visualizations described in the previous section #numref(<s.m.visualization>) are drawn in the viewport. Technically, the viewport is the user's eyes in the simulated environment, which happens through a camera in a 3D scene. The camera is a perspective camera, which is initially placed directly above the center of the environment, looking at it from a top-down perspective. The user can directly interact with the viewport, both through the keybindings, but also the mouse. The user can choose to stay in this top-down, pseudo-2D perspective, which gives a great overview, or switch the camera to orbital controls, which allows the user to rotate around the environment and zoom in and out. The #panel.viewport is shown in @f.m.simulation-tool. Through the viewport, the user gets a live update of the #acr("GBP") mathematical simulation happening under the surface.
 
 Additionally to providing a visual representation of the underlying mathematics, the user can use the interface to extract information. Most objects in the viewport are clickable, and when clicked, relevant information and measurements are printed out into the console. This is both a useful tool for rapid development and debugging, but also to aid in understanding the computations and theory in the background.
 
+#pagebreak(weak: true)
 ==== Introspection Tools <s.m.introspection-tools>
 
 All entities in the simuliation with a mesh can be clicked on to introspect their current state. This functionality aids in discoverabiliy when trying out different parameters and environments. When clicked; data structured as YAML will be outputted to `stdout` with colored keys for easy navigation, and can be viewed in the attached console:
@@ -243,6 +244,7 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
 
   - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualize various graph structures. It's based on a textual format that the Graphviz compiler DOT uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If DOT is installed on the system, it is used to compile the transpiled representation into a PNG image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
 
+  #pagebreak(weak: true)
   *Quantitative:*
 
   - *Historical data* aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environment data is recorded for each robot.

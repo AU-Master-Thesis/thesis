@@ -1,4 +1,6 @@
 #import "../../lib/mod.typ": *
+
+#pagebreak(weak: true)
 == #study.H-3.full.n <s.r.study-3>
 
 The results for the two scenarios; #scen.solo-gp.n and #scen.collaborative-gp.n, are presented in @s.r.study-3.solo-global and @s.r.study-3.collaborative-global respectively. These experiments belong to the third contribution of this thesis, which corresponds to the third hypothesis, #study.H-3.box.

@@ -11,6 +11,9 @@
 
 Global planning has been made as an extension to the original GBP Planner software developed by @gbpplanner. The original algorithm works very well on a local level, and lacks a global overview of how to get from #gp.A to #gp.B. In order to solve this problem; a pathfinding algorithm has to be leveraged. In this thesis, the optimal #acr("RRT*") path planning algorithm has been utilized. The theory behind #acr("RRT*")@sampling-based-survey@erc-rrt-star can be found in @s.b.rrt-star, which builds on the original #acr("RRT")@original-rrt algorithm in @s.b.rrt. However, do note that the method described here is algorithm-agnostic, that is; as long at the path-finding algorithm in use outputs a series of points that avoid obstacles, it can be swapped in instead of #acr("RRT*"). The global planning procedure follows @ex.global-planning.
 
+The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.configuration, and the experimentation scenarios can be seen in @s.r.scenarios.
+
+#pagebreak(weak: true)
 #example(
   caption: [Global Planning Procedure],
 )[
@@ -42,8 +45,6 @@ Global planning has been made as an extension to the original GBP Planner softwa
     ]
   )
 ]<ex.global-planning>
-
-The environment for each experiment scenario is generated from an configuration file, which is described in @s.m.configuration, and the experimentation scenarios can be seen in @s.r.scenarios.
 
 
 
@@ -145,11 +146,11 @@ The steps to perform this approach is visualized in @f.m.waypoint-tracking, and 
   *Expectation:* The waypoints from the path will be followed, however, without any guarantees or attempts to adhere to the known obstacle free path that the line the resulting #acr("RRT*") path represents. However, as the #acr("RRT*") path is obstacle-free, the original difficulty with more complex environments without global planning is solved. Furthermore, without any path adherence measures, other than aiming for the next waypoint, the robots will have much more freedom to cut corners, and also to move around each other in more creative ways.
 ]
 
-
+#pagebreak(weak: true)
 ==== Approach 2: Path Tracking <s.m.planning.path-tracking>
 
 
-To achieve a level of adherence to the path given to each robot, the  factor graph structure can be utilized. A new factor, namely the tracking factor, $f_t$, has been designed to reach this goal. The tracking factor is designed to attach to each variable in the prediction horizon, except for the first and last that already have anchoring pose factors, as these cannot be influenced either way. In @s.m.tracking-factor, the design of the tracking factor is explained in detail, while @f.m.tracking-factor visualizes the inner workings. On @f.m.tracking-factor#text(accent, "A") an array of isolated variables with corresponding tracking factors are shown. These variables are spread over a path, with a likely trajectory, as if different timesteps for the same variable is show. Both on @f.m.tracking-factor#text(accent, "A") and @f.m.tracking-factor#text(accent, "B") it can be seen how the tracking factor measures perpendicularly onto the path and then pulls slightly forwards as well, where close to the corner; the tracking factor essentially pulls towards the corner.
+To achieve a level of adherence to the path given to each robot, the  factor graph structure can be utilized. A new factor, namely the tracking factor, $f_t$, has been designed to reach this goal. The tracking factor is designed to attach to each variable in the prediction horizon, except for the first and last that already have anchoring pose factors, as these cannot be influenced either way. In @s.m.tracking-factor, the design of the tracking factor is explained in detail, while @f.m.tracking-factor visualizes the inner workings. In @f.m.tracking-factor#text(accent, "A") an array of isolated variables with corresponding tracking factors are shown. These variables are spread over a path, with a likely trajectory, as if different timesteps for the same variable is show. Both in @f.m.tracking-factor#text(accent, "A") and @f.m.tracking-factor#text(accent, "B") it can be seen how the tracking factor measures perpendicularly onto the path and then pulls slightly forwards as well, where close to the corner; the tracking factor essentially pulls towards the corner.
 // #figure(
 //   {
 //     // set text(font: "JetBrainsMono NF", size: 0.85em)
@@ -158,9 +159,9 @@ To achieve a level of adherence to the path given to each robot, the  factor gra
 //       std-block(
 //         breakable: false,
 //       )[
-//         #image("../../../figures/out/rrt-optimisation-no-env.svg")
+//         #image("../../../figures/out/rrt-optimization-no-env.svg")
 //         #v(0.5em)
-//         #text(theme.text, [A: Path Optimisation])
+//         #text(theme.text, [A: Path Optimization])
 //       ],
 //       std-block(
 //         breakable: false,
@@ -178,7 +179,7 @@ To achieve a level of adherence to the path given to each robot, the  factor gra
   {
     include "figure-tracking.typ"
   },
-  caption: [Visualisation of the tracking factor's measurements in oragne#so. On A) it is visualized how the tracking factor pulls the variable towards the path, while also trying to keep the variable moving along the path. Furthermore, a green area#swatch(theme.green.lighten(35%)) is shown close to the second waypoint $w_1$. Within this area, the tracking factor will track towards the corner. On B) tracking factors are visualized for a robot, #text(theme.lavender, font: "JetBrainsMono NF", [*R*]), moving from $w_0$ to $w_1$. _Note that the underlying measurement math of the tracking factor does not exactly pull towards the corner, as is shown here, but in bends that are close to 90#sym.degree it is close._],
+  caption: [Visualization of the tracking factor's measurements in oragne#so. On A) it is visualized how the tracking factor pulls the variable towards the path, while also trying to keep the variable moving along the path. Furthermore, a green area#swatch(theme.green.lighten(35%)) is shown close to the second waypoint $w_1$. Within this area, the tracking factor will track towards the corner. On B) tracking factors are visualized for a robot, #text(theme.lavender, font: "JetBrainsMono NF", [*R*]), moving from $w_0$ to $w_1$. _Note that the underlying measurement math of the tracking factor does not exactly pull towards the corner, as is shown here, but in bends that are close to 90#sym.degree it is close._],
 )<f.m.tracking-factor>
 
 // #jens[make figure for each approach described above.]

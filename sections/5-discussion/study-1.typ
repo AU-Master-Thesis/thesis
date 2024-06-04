@@ -38,6 +38,7 @@ The developed simulation framework, #acr("MAGICS"), is very capable, and has ext
     + Ability to turn factors on and off, to see their individual impact.
     + A completely reproducible simulation, along with seedable #acr("PRNG").
 
+  #pagebreak(weak: true)
   #set enum(numbering: box-enum.with(prefix: "C-", color: colors.at(1)), start: 2)
   + *Configuration:*
     + An environment declarative configuration format for simple scenario setup.
@@ -53,7 +54,7 @@ The developed simulation framework, #acr("MAGICS"), is very capable, and has ext
   + *Gaphical User Interface:*
     + A modern, #acr("UI") and #acr("UX").
     + A more flexible and configurable simulation framework.
-    + Visualisation of all aspects of the underlying #acr("GBP") process.
+    + Visualization of all aspects of the underlying #acr("GBP") process.
 ]
 
 // #note.k[focus on something about the purpose of rust]

@@ -1,4 +1,6 @@
 #import "../../lib/mod.typ": *
+
+#pagebreak(weak: true)
 == #study.H-2.full.n <s.r.study-2>
 
 // This section presents all results pertaining to the ﬁrst contribution, that is the MAGICS sim-
@@ -50,16 +52,16 @@ This section presents results related to the second contribution around studying
 
 // #let cropping = -4mm
 #let cropping = (
-  left: -6mm,
-  bottom: -14mm,
-  x: -3mm,
-  y: -9mm
+  left: -4mm,
+  bottom: -11mm,
+  x: -2mm,
+  y: -7mm
 )
 #figure(
   grid(
-    columns: (50.8%, 1fr),
+    columns: (39%, 36%),
     align: center + horizon,
-    row-gutter: -0.5mm,
+    // row-gutter: -0.5mm,
     block(
       clip: true,
       pad(
@@ -105,7 +107,7 @@ This section presents results related to the second contribution around studying
 
 === Iteration Schedules <s.r.schedules>
 
-For the Schedules experiment, three of the considered metrics are measured. @f.schedules-experiment-ldj plots the #acr("LDJ") metric, as a grouped histogram plot for each schedule. @f.schedules-experiment-makespan and @f.schedules-experiment-distance-travelled similarly shows the _makespan_ and _distance travelled_ metric respectively. The plots show that for all three metrics the choice of schedule does not have an significant effect. When looking across all metrics and schedules it is diffecult to assess whether the number of external iterations $M_E$ has a beneficial effect. For the _Centered_, _Late as Possible_ and _Soon as Possible_ in @f.schedules-experiment-ldj it appears to result in an improvement as $M_E$ increases. But for others such _Half Start, Half End_ and _Late as Possible_ in @f.schedules-experiment-distance-travelled, no clear relation is observable. _Half Start, Half End_ is the best performing schedule in all three metrics, albeit only slightly.
+For the Schedules experiment, three of the considered metrics are measured. @f.schedules-experiment-ldj plots the #acr("LDJ") metric, as a grouped histogram plot for each schedule. @f.schedules-experiment-makespan and #numref(<f.schedules-experiment-distance-travelled>) similarly shows the _makespan_ and _distance travelled_ metric respectively. The plots show that for all three metrics the choice of schedule does not have an significant effect. When looking across all metrics and schedules it is diffecult to assess whether the number of external iterations $M_E$ has a beneficial effect. For the _Centered_, _Late as Possible_ and _Soon as Possible_ in @f.schedules-experiment-ldj it appears to result in an improvement as $M_E$ increases. But for others such _Half Start, Half End_ and _Late as Possible_ in @f.schedules-experiment-distance-travelled, no clear relation is observable. _Half Start, Half End_ is the best performing schedule in all three metrics, albeit only slightly.
 
 // interleave evenly
 // soon as possible
