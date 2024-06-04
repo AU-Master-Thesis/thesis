@@ -521,17 +521,203 @@ rmse: float = np.sqrt(error / len(positions))
 
 // <table.simulation-visualizations>
 
+// #let s(x, y, img) = scale.with(x: x, y: y, img)
+//
+// #figure(
+//   scale(x: 80%, y: 80%, image("../figures/img/visualizer-generated-map.png")),
+//   caption: [Generated map from `environment.yaml`]
+// ) <appendix.visualizer-generated-map>
+//
+// #figure(
+//   scale(x: 80%, y: 80%, image("../figures/img/visualizer-sdf.png")),
+//   caption: [Generated #acr("SDF") from `environment.yaml`]
+// ) <appendix.visualizer-sdf>
+//
+
+// == Perpendicular Path Deviation Metric Code <appendix.perpendicular-path-deviation-metric-code>
+== Visualisation Modules <appendix.visualisation-modules>
+
+A screenshot of each visualization module presented in @s.m.visualization is listed below. See @table.simulation-visualizations for a detailed description of each module.
+
+// #let edges = (
+//   on: box(line(length: 10pt, stroke: theme.green), height: 0.25em),
+//   off: box(line(length: 10pt, stroke: theme.red), height: 0.25em),
+// )
+//
+// #figure(
+//   tablec(
+//     columns: 2,
+//     align: left,
+//     header: table.header(
+//       [Settings], [Description]
+//     ),
+//     [Robots], table.vline(), [A large sphere at the estimated position of each robot.],
+//     [Communication graph], [A graph that shows an edge between all currently communicating robots. Each edge is colored dependent on the robots radio state. If the antenna is active then half of the edge from the robot to the center is green#sg, and red#sr if turned off. For three robots $R_a, R_b, R_c$, this could look like
+//
+//     #align(center, [$R_a$ #edges.on #edges.off $R_b$ #edges.off #edges.off $R_c$])
+//   ],
+//     [Predicted trajectories], [All of each robot's factor graph variables, visualised as small spheres with a line between.],
+//     [Waypoints], [A small sphere at each waypoint for each robot.],
+//     [Uncertainty], [A 2D ellipse for each variable in each robot's factor graph, visualising the covariance of the internal Gaussian belief.],
+//     [Paths], [Lines tracing out each robot's driven path.],
+//     [Generated map], [A 3D representation of the map generated from the environment configuration.],
+//     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it's occupied.],
+//     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
+//     [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
+//     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
+//     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating, and within the safety distance threshold $d_r$ of each other. The color varies on a yellow #sy to #sr gradient #gradient-box(theme.yellow, theme.red) visually highlighting the potential of a future collision.
+//     // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.
+//   ],
+//     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
+//     [Robot colliders], [A sphere in red#sr around each robot representing the collision radius.],
+//     [Environment colliders], [An outline in red#sr around each obstacle in the environment, that collision are being detected against.],
+//     [Robot-robot collisions], [An #acr("AABB") intersection, visualising each robot to robot collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
+//     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
+//   ),
+//   caption: [
+//     Every visualisable setting, and a description of how it has been chosen to visualise it.
+//   ]
+// )
+
+// <table.simulation-visualisations>
+
 #let s(x, y, img) = scale.with(x: x, y: y, img)
 
+#let (x, y) = (90%, 90%)
+
+=== Robots
+
 #figure(
-  scale(x: 80%, y: 80%, image("../figures/img/visualizer-generated-map.png")),
+  scale(x: x, y: y, image("../figures/img/visualizer-robots.png")),
+  // caption: [#todo[]]
+) <appendix.visualizer-robots>
+
+#pagebreak()
+
+=== Communication Graph
+
+#figure(
+  scale(x: x, y: y, image("../figures/img/visualizer-communication-graph.png")),
+  caption: [Communication graph between robots]
+) <appendix.visualizer-communication-graph>
+
+=== Trajectories
+
+#figure(
+  scale(x: x, y: y, image("../figures/img/visualizer-trajectories.png")),
+  caption: [Variable of each robots factorgraph, outlining the planned path at the current timestep.]
+) <appendix.visualizer-trajectories>
+
+=== Waypoints
+
+#figure(
+  scale(x: x, y: y, image("../figures/img/visualizer-waypoints.png")),
+  caption: [Each waypoint is shown as sphere, and then a traced path between them.]
+) <appendix.visualizer-waypoints>
+
+=== Uncertainty
+
+#figure(
+  scale(x: x, y: y, image("../figures/img/visualizer-uncertainty.png")),
+  caption: [The uncertainty about each variables estimated position. Based on its covariance matrix belief.]
+) <appendix.visualizer-uncertainty>
+
+=== Paths
+
+#figure(
+  scale(x: x, y: y, image(height: 45%, "../figures/img/visualizer-paths.png")),
+  caption: [The travelled path of each robot is traced as a line, with a color similar to the robots.]
+) <appendix.visualizer-paths>
+
+=== Communication Radius
+
+#figure(
+  scale(x: x, y: y, image(height: 35%, "../figures/img/visualizer-communication-radius.png")),
+  caption: [Communication radius of a robot. The circle is teal#stl when the radio is active, and red#sr when it's inactive.]
+) <appendix.visualizer-communication-radius>
+
+=== Obstacle Factors
+
+#figure(
+  scale(x: x, y: y, image("../figures/img/obstacle-factors-example-with-variables.png")),
+  caption: [Obstacle factors are visualized as a line from the variable to the lineraisation point that the obstacle measures the #acr("SDF") in. At the lineraization point a circle perimeter is shown. The color varies from #gradient-box(theme.green, theme.yellow, theme.red) with red#sr representing a sample directly into a static obstacle.]
+) <appendix.visualizer-obstacle-factors>
+
+#pagebreak()
+
+=== Tracking
+
+// #v(-3em)
+
+#figure(
+  v(-25mm) + rotate(270deg, scale(x: 80%, y: 80%, image("../figures/img/visualizer-tracking.png"))) + v(-25mm),
+  caption: [The projections used by tracking factors.]
+) <appendix.visualizer-tracking>
+
+#pagebreak()
+
+=== Interrobot Factors
+
+#figure(
+  scale(x: x, y: y, image(height: 45%, "../figures/img/visualizer-interrobot-factors.png")),
+  caption: [Active interrobot factors between two robots.]
+) <appendix.visualizer-interrobot-factors>
+
+=== Interrobot Factors Safety Distance
+
+#figure(
+  scale(x: x, y: y, image("../figures/img/visualizer-interrobot-factors-safety-distance.png")),
+  caption: [The radial safety distace $d_s$ of each interrobot factor. orange#so when communication is enabled and gray#sgr3 when disabled.]
+) <appendix.visualizer-interrobot-factors-safety-distance>
+
+=== Robot Colliders
+
+#figure(
+  scale(x: x, y: y, image(height: 45%, "../figures/img/visualizer-robot-collider.png")),
+  caption: [Visual indication of the spherical volume used by robots for collision detection.]
+) <appendix.visualizer-robot-colliders>
+
+
+
+=== Environment Colliders
+
+#figure(
+  scale(x: x, y: y, image(height: 40%, "../figures/img/visualizer-environment-collider.png")),
+  caption: [Visual indication of the polygonal volume used by the environment for collision detection.]
+) <appendix.visualizer-environment-colliders>
+
+
+=== Robot-robot Collisions
+
+#figure(
+  scale(x: x, y: y, image("../figures/img/visualizer-robot-robot-collisions.png")),
+  caption: [An afterimage of collisions between robots. The shape of the box is based on the intersected volumes #acr("AABB").]
+) <appendix.visualizer-robot-robot-collisions>
+
+
+=== Robot-environment Collisions
+
+#figure(
+  scale(x: x, y: y, image(height: 40%, "../figures/img/visualizer-robot-environment-collisions.png")),
+  caption: [An afterimage of collisions between robots and the environment. The shape of the box is based on the intersected volumes #acr("AABB").]
+) <appendix.visualizer-robot-environment-collisions>
+
+
+=== Generated Map
+
+#figure(
+  image("../figures/img/visualizer-generated-map.png"),
   caption: [Generated map from `environment.yaml`]
 ) <appendix.visualizer-generated-map>
 
+
+=== SDF
+
 #figure(
-  scale(x: 80%, y: 80%, image("../figures/img/visualizer-sdf.png")),
+  image("../figures/img/visualizer-sdf.png"),
   caption: [Generated #acr("SDF") from `environment.yaml`]
 ) <appendix.visualizer-sdf>
+
 
 // #s(80%, 80%, image("../figures/img/visualizer-sdf.png"))
 // #s(80%, 80%, image("../figures/img/visualizer-generated-map.png"))
