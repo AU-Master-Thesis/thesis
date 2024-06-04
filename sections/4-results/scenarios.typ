@@ -68,15 +68,18 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 
 #figure(
+  grid(
+    columns: 2,
+    std-block(image("../../figures/img/obstacle-environment-start.png")),
+    std-block(image("../../figures/img/obstacle-environment-end.png")),
+  ),
   // image("../../../figures/out/circle.svg", width: 30%),
   // std-block(todo[Add image]),
   // std-block(image("../../figures/img/circle-scenario-preview-1.png")),
-  std-block(image("../../figures/img/circle-scenario-preview-2.png")),
+  // std-block(image("../../figures/img/circle-scenario-preview-2.png")),
   // std-block(image("../../figures/img/circle-scenario-preview-3.png")),
   caption: [
-  Screenshot of the circle environment with $N_R = 20$. The lines with low opacity represent the trajectory that each robot has to follow.
-
-  // with $Q_("in") = 6$. The green #sg edges represent the the joint factorgraph.
+  Screenshot of the circle environment with $N_R = 20$. The left image shows the robot in their start positions at $t=0$. Their factorgraph is extended infront of them pointing to the antipodal point across the circle. The right hand side shows the end of a run with each robot having moved across the circle. The traversed path of each robot is traced.
 ],
 )<f.scenarios.circle>
 
