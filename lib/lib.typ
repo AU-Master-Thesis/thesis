@@ -374,7 +374,7 @@
     let total-days = important-datetimes.project.end - important-datetimes.project.start
     let days-left = important-datetimes.project.end - datetime.today()
 
-    let pages-person-day = (total-pages - normal-pages) / (people * days-left).days()
+    // let pages-person-day = (total-pages - normal-pages) / (people * days-left).days()
 
     set text(size: 10pt, font: "JetBrainsMono NF")
     set par(first-line-indent: 0em)
@@ -389,7 +389,7 @@
       rule,
       [*goal pages*], [#total-pages],
       [*goal characters*], [#(total-pages * 2400)],
-      [*pp./person/day*], [#calc.round(pages-person-day, digits: 2)],
+      // [*pp./person/day*], [#calc.round(pages-person-day, digits: 2)],
       [*days left*], [#days-left.days()],
     )
 
