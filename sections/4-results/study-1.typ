@@ -167,14 +167,14 @@ The results for the Environment Obstacles scenario are shown with purple and a t
 #let O1 = ours[*O-1*]
 #let O2 = ours[*O-2*]
 
-The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.network-experiment. From these numbers, the experiment with communication range of 20 meters, $r_C=20"m"$, did much worse than the other three $r_C in {40, 60, 80}m$, where the change is very minimal in all three metrics.#note.j[Discussion: #sym.dash.en _if not negligible_.] In @t.network-experiment, results of 4 experiments are shown:
+The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.network-experiment. From these numbers, the experiment with communication range of 20 meters, $r_C=20"m"$, did much worse than the other three $r_C in {40, 60, 80}m$, where the change is very minimal in all three metrics.#note.j[Discussion: #sym.dash.en _if not negligible_.] In @t.network-experiment, results of four experiments are shown:
 
 #term-table(
-  colors: (colors.theirs, colors.ours, colors.ours, colors.theirs),
+  colors: (colors.theirs, colors.theirs, colors.ours, colors.ours),
   boxed(color: colors.theirs, [*Theirs-1*]), [The results from the #gbpplanner paper@gbpplanner],
+  boxed(color: colors.theirs, [*Theirs-2*]), [The results of the provided code by #gbpplanner, with the same parameters as the #gbpplanner paper; #lm3-th13.n.],
   boxed(color: colors.ours, [*Ours-1*]), [The results of #acr("MAGICS"), with the same parameters as the #gbpplanner paper; #lm3-th13.n.],
   boxed(color: colors.ours, [*Ours-2*]), [The results of #acr("MAGICS"), with tuned parameters; #lm3-th5.n.],
-  boxed(color: colors.theirs, [*Theirs-2*]), [The results of the provided code by #gbpplanner, with the same parameters as the #gbpplanner paper; #lm3-th13.n.],
 )
 // #[
 //   #set list(marker: boxed(color: theme.peach, [*Theirs-1*]))
@@ -198,12 +198,13 @@ The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.netw
     alignment: center + horizon,
     header-color: (fill: theme.base, text: theme.text),
     header: table.header(
-      tc(rowspan: 2, [$bold(r_C)$\ \[$bold(m)$\]]), tc(colspan: 4, [Makespan \[$bold(s)$\]]), tc(colspan: 4, [Distance Travelled \[$bold(m)$\]]), tc(colspan: 4, [LDJ \[$bold(m"/"s^3)$\]]), table.hline(), T1, O1, O2, T2, T1, O1, O2, T2, T1, O1, O2, T2
+      tc(rowspan: 2, [$bold(r_C)$\ \[$bold(m)$\]]), tc(colspan: 4, [Makespan \[$bold(s)$\]]), tc(colspan: 4, [Distance Travelled \[$bold(m)$\]]), tc(colspan: 4, [LDJ \[$bold(m"/"s^3)$\]]), table.hline(), T1, T2, O1, O2, T1, T2, O1, O2, T1, T2, O1, O2
     ),
-    vc[20], table.vline(), vc[$12.0$], vc[$110.8$], vc[$46.0$], vc[$199.50$], table.vline(), vc[$104$], vc[$295.6$], vc[$236.9$], vc[$519.5$], table.vline(), vc[$-9.02$], vc[$-17.5$], vc[$-14.5$], vc[$-22.9$],
-    vc[40], vc[$12.3$], vc[$169.8$], vc[$64.6$], vc[$260.9$], vc[$104.5$], vc[$470.0$], vc[$286.0$], vc[$751.1$], vc[$-8.76$], vc[$-19.5$], vc[$-16.0$], vc[$-23.7$],
-    vc[60], vc[$12.7$], vc[$178.6$], vc[$65.3$], vc[$443.3$], vc[$104.0$], vc[$499.8$], vc[$295.3$], vc[$1551.7$], vc[$-8.38$], vc[$-19.9$], vc[$-16.3$], vc[$-25.3$],
-    vc[80], vc[$14.8$], vc[$176.2$], vc[$64.6$], vc[$379.0$], vc[$103$], vc[$514.5$], vc[$283.2$], vc[$1069.4$], vc[$-8.47$], vc[$-20.2$], vc[$-16.1$], vc[$-24.9$],
+    // vc[20], table.vline(), vc[$12.0$], vc[$110.8$], vc[$46.0$], vc[$199.50$], table.vline(), vc[$104$], vc[$295.6$], vc[$236.9$], vc[$519.5$], table.vline(), vc[$-9.02$], vc[$-17.5$], vc[$-14.5$], vc[$-22.9$],
+    vc[20], table.vline(), vc[$12.0$], vc[$199.50$], vc[$110.8$], vc[$46.0$], table.vline(), vc[$104$],   vc[$519.5$],  vc[$295.6$], vc[$236.9$], table.vline(), vc[$-9.02$], vc[$-22.9$], vc[$-17.5$], vc[$-14.5$],
+    vc[40], vc[$12.3$], vc[$260.9$],  vc[$169.8$], vc[$64.6$], vc[$104.5$], vc[$751.1$],  vc[$470.0$], vc[$286.0$], vc[$-8.76$], vc[$-23.7$], vc[$-19.5$], vc[$-16.0$],
+    vc[60], vc[$12.7$], vc[$443.3$],  vc[$178.6$], vc[$65.3$], vc[$104.0$], vc[$1551.7$], vc[$499.8$], vc[$295.3$], vc[$-8.38$], vc[$-25.3$], vc[$-19.9$], vc[$-16.3$],
+    vc[80], vc[$14.8$], vc[$379.0$],  vc[$176.2$], vc[$64.6$], vc[$103$],   vc[$1069.4$], vc[$514.5$], vc[$283.2$], vc[$-8.47$], vc[$-24.9$], vc[$-20.2$], vc[$-16.1$],
   ),
   caption: [Results for the Varying Network Connectivity scenario. Shows the effect of varying communication range $r_C$ in the same environment as the Environment Obstacles scenario. Values in the #T1 column is taken from Table 1 in @gbpplanner. Column #T2 are results obtained by running the experiment in `gbpplanner`@gbpplanner-code, where #O1 and #O2 are results from #acr("MAGICS"). #O1 is with lookahead multiple $l_m=3$ and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. Performed over 5 different seeds; $#equation.as-set(params.seeds)$. Corresponds with Table 1 in @gbpplanner.],
 )<t.network-experiment>
@@ -365,18 +366,19 @@ Results for communications failure rates $gamma in {0, 10, 20, 30, 40, 50, 60, 7
     header: table.header(
       tc(colspan: 1, [$bold(|v_0|)$]), tc(colspan: 7, $bold(10m"/"s)$), tc(colspan: 7, $bold(15m"/"s)$), table.hline(),
       tc(rowspan: 2, $bold(gamma)$), tc(colspan: 4, [MS $s$]), tc(colspan: 3, [C]), tc(colspan: 4, [MS $s$]), tc(colspan: 3, [C]), table.hline(),
-      ..range(2).map(_ => (T1, O1, O2, T2, T1, O1, O2)).flatten(),
+      ..range(2).map(_ => (T1, T2, O1, O2, T1, O1, O2)).flatten(),
     ),
-    $0$, table.vline(), $19.5$, oc[], vc[$21.1$], vc[$86.3$], table.vline(), $0$, oc[], vc[$0.5$], table.vline(), $14.9$, oc[], vc[$20.3$], vc[$238.6$], table.vline(), $0$, oc[], vc[$1.2$],
-    $10$, $20.3$,  oc[], vc[$24.2$], vc[$146.3$], $0$,   oc[], vc[$1.8$],  $17.1$, oc[], vc[$23.8$], vc[$203.2$], $0$,   oc[], vc[$1,8$],
-    $20$, $22.9$,  oc[], vc[$27.1$], vc[$140.2$], $0$,   oc[], vc[$6.8$],  $18.9$, oc[], vc[$26.9$], vc[$329.8$], $0$,   oc[], vc[$6.2$],
-    $30$, $25.7$,  oc[], vc[$29.1$], vc[$163.7$], $0$,   oc[], vc[$11.0$], $22.5$, oc[], vc[$29.6$], vc[$231.1$], $0$,   oc[], vc[$11.2$],
-    $40$, $30.8$,  oc[], vc[$33.2$], vc[$157.4$], $0$,   oc[], vc[$18.4$], $26.5$, oc[], vc[$33.5$], vc[$220.8$], $0$,   oc[], vc[$18.2$],
-    $50$, $35.6$,  oc[], vc[$39.8$], vc[$231.4$], $0$,   oc[], vc[$33.0$], $30.6$, oc[], vc[$40.2$], vc[$221.5$], $0.2$, oc[], vc[$36.0$],
-    $60$, $42$,    oc[], vc[$48.4$], vc[$257.2$], $0$,   oc[], vc[$39.6$], $38.8$, oc[], vc[$48.8$], vc[$328.7$], $0.8$, oc[], vc[$41.6$],
-    $70$, $51.3$,  oc[], vc[$60.8$], vc[$260.9$], $0$,   oc[], vc[$51.8$], $44.6$, oc[], vc[$68.2$], vc[$505.6$], $0.8$, oc[], vc[$55.6$],
-    $80$, $87.4$,  vc[#d], vc[#d],     vc[$362.1$], $0$,   vc[#d], vc[#d],     $63.4$, vc[#d], vc[#d],     vc[$799.6$], $0.8$, vc[#d], vc[#d],
-    $90$, $146.9$, vc[#d], vc[#d],     vc[$938.9$], $1.6$, vc[#d], vc[#d],     $12.6$, vc[#d], vc[#d],     vc[$864.6$], $4.6$, vc[#d], vc[#d],
+    // $0$, table.vline(), $19.5$, oc[], vc[$21.1$], vc[$86.3$], table.vline(), $0$, oc[], vc[$0.5$], table.vline(), $14.9$, oc[], vc[$20.3$], vc[$238.6$], table.vline(), $0$, oc[], vc[$1.2$],
+    $0$,  table.vline(), $19.5$,  vc[$86.3$],  oc[],   vc[$21.1$], table.vline(), $0$,   oc[],   vc[$0.5$], table.vline(), $14.9$, vc[$238.6$], oc[],   vc[$20.3$], table.vline(), $0$,   oc[],   vc[$1.2$],
+    $10$, $20.3$,  vc[$146.3$], oc[],   vc[$24.2$], $0$,   oc[],   vc[$1.8$],  $17.1$, vc[$203.2$], oc[],   vc[$23.8$], $0$,   oc[],   vc[$1,8$],
+    $20$, $22.9$,  vc[$140.2$], oc[],   vc[$27.1$], $0$,   oc[],   vc[$6.8$],  $18.9$, vc[$329.8$], oc[],   vc[$26.9$], $0$,   oc[],   vc[$6.2$],
+    $30$, $25.7$,  vc[$163.7$], oc[],   vc[$29.1$], $0$,   oc[],   vc[$11.0$], $22.5$, vc[$231.1$], oc[],   vc[$29.6$], $0$,   oc[],   vc[$11.2$],
+    $40$, $30.8$,  vc[$157.4$], oc[],   vc[$33.2$], $0$,   oc[],   vc[$18.4$], $26.5$, vc[$220.8$], oc[],   vc[$33.5$], $0$,   oc[],   vc[$18.2$],
+    $50$, $35.6$,  vc[$231.4$], oc[],   vc[$39.8$], $0$,   oc[],   vc[$33.0$], $30.6$, vc[$221.5$], oc[],   vc[$40.2$], $0.2$, oc[],   vc[$36.0$],
+    $60$, $42$,    vc[$257.2$], oc[],   vc[$48.4$], $0$,   oc[],   vc[$39.6$], $38.8$, vc[$328.7$], oc[],   vc[$48.8$], $0.8$, oc[],   vc[$41.6$],
+    $70$, $51.3$,  vc[$260.9$], oc[],   vc[$60.8$], $0$,   oc[],   vc[$51.8$], $44.6$, vc[$505.6$], oc[],   vc[$68.2$], $0.8$, oc[],   vc[$55.6$],
+    $80$, $87.4$,  vc[$362.1$], vc[#d], vc[#d],     $0$,   vc[#d], vc[#d],     $63.4$, vc[$799.6$], vc[#d], vc[#d],     $0.8$, vc[#d], vc[#d],
+    $90$, $146.9$, vc[$938.9$], vc[#d], vc[#d],     $1.6$, vc[#d], vc[#d],     $12.6$, vc[$864.6$], vc[#d], vc[#d],     $4.6$, vc[#d], vc[#d],
   ),
   caption: [
     Communications Failure experiment results. Results pertaining to #acr("MAGICS") are marked #O1 and #O2. #O1 is with lookahead multiple $l_m=3$, and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. Values in column #T1 is taken from Table 2 in @gbpplanner, where #T2 columns are results obtained from the `gbpplanner`@gbpplanner-code with #lm3-th13.n. Cells marked with a dash, #sym.dash.en, had a very low rate of convergence as so few interrobot messages were shared, and thus weren't measurable. Corresponds with Table 2 in @gbpplanner.

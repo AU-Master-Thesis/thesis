@@ -63,7 +63,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
     params.tabular(params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [#scenario[Circle] scenario parameters.],
+  caption: [#scenario[Circle] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
 )<t.scenarios.circle>
 
 
@@ -87,8 +87,7 @@ This scenario is the basis for all the other scenarios expect for the Junction s
 
 // EXCEPT from their paper
 // Environment obstacles: Also shown in figure 6 with dotted lines are the makespans for ORCA and our GBP planner when 6 polygonal obstacles are placed in the middle of the circle. The paths can be seen in figure 3. The results are for one layout of obstacles averaged over 5 seeds. For NR = 25 and 30 some robots using ORCA became deadlocked with the obstacle configuration. Our method performs well with obstacles, producing makespans that are only slightly higher than in those in free space
-In this scenario the robots are placed in a circle similar to the Circle scenario, see @s.r.scenarios.circle. The environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed near the middle of the environment. This change adds to the difficultly. The robots must find collision-free paths around each other and also adjust their routes to avoid obstacles obstructing the optimal path across the circle's interior.
-
+In this scenario the robots are placed in a circle similar to the Circle scenario, see @s.r.scenarios.circle. The environment is sparsely populated with six small obstacles; two triangles, three squares and one rectangle. The obstacles are placed near the middle of the environment. This change adds to the difficultly. The robots must find collision-free paths around each other and also adjust their routes to avoid obstacles obstructing the optimal path across the circle's interior. Refer to @t.scenarios.environment-obstacles for the full list of parameters.
 
 #figure(
   grid(
@@ -98,7 +97,7 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
     params.tabular(params.clear-circle.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.clear-circle.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [#scenario[Environment Obstacles] scenario parameters.],
+  caption: [#scenario[Environment Obstacles] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
 )<t.scenarios.environment-obstacles>
 
 #figure(
@@ -120,7 +119,7 @@ In this scenario the robots are placed in a circle similar to the Circle scenari
 // Varying network connectivity: Robots within a communication range rC of each other form a partially connected network, and can collaboratively modify their planned paths. We investigate the effect of varying rC for NR = 30 for the 100 m diameter circle formation with obstacles. Table I shows that as rC increases robots take more of their neighbours into account, resulting in greater makespans but small changes in the distances travelled and path smoothness. This highlights the applicability of our method to real networks where sensing and communication range may be limited.
 
 
-This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. Now each robots' communication range $r_C$ is varied from $20m$ up to $80m$ at $20m$ intervals. The purpore of this scenario is to check what affect connectivity between factorgraphs has on the robots capability to plan collaboratively. When $r_C$ is small, it is more likely that robots have few connected neighbours, resulting in multiple smaller disjoint subclusters. When $r_C$ grows larger, the connectivity of the overall network will grow as disjoint subclusters are merged into larger connected ones.
+This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. Now each robots' communication range $r_C$ is varied from $20m$ up to $80m$ at $20m$ intervals, see @t.scenarios.network. The purpore of this scenario is to check what affect connectivity between factorgraphs has on the robots capability to plan collaboratively. When $r_C$ is small, it is more likely that robots have few connected neighbours, resulting in multiple smaller disjoint subclusters. When $r_C$ grows larger, the connectivity of the overall network will grow as disjoint subclusters are merged into larger connected ones.
 
 // As $r_C$
 // Robots within a communication range $r_C$ of each other form a partially connected network. By varying $r_C$ most
@@ -135,15 +134,15 @@ This scenario uses the same environment as the Environment Obstacles scenario, s
     params.tabular(params.varying-network-connectivity.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.varying-network-connectivity.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [#scenario[Junction] scenario parameters.],
-)<t.scenarios.junction>
+  caption: [#scenario[Junction] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
+)<t.scenarios.network>
 
 === #scen.junction.n <s.r.scenarios.junction>
 
-Robots working in crowded environments may need to operate at high speeds with high levels of coordination, such as when traversing junctions between shelves in a warehouse. This scenario simulates one such junction with channel widths of 16 meters, and robots moving at 15 $m "/" s$. $t_(K-1) = 2s$, to force the robots to have a short horizon, to plan a path within when they reach the junction center. In addition $sigma_d =0.5m$. An explanation for why this parameter is changed from $1m$ is not given. It's presumed here that it is done to have the dynamic factors have a larger influence, to better react when robots are crossing each other, perpendicularly in the junction.
-A desirable trait of multirobot systems is to maintain a high flow rate without causing blockages at junctions. To test this the the rate $Q_("in")$ at which robots enter the central section of the junction is adjusted, and the rate $Q_("out")$ at which they exit is measured. To measure flow, the central section is observed over 500 timesteps to represent steady-state behavior. Robots must exit the junction in the same direction they entered, without collisions. $Q_("in")$ is adjusted over the list of values
+Robots working in crowded environments may need to operate at high speeds with high levels of coordination, such as when traversing junctions between shelves in a warehouse. This scenario simulates one such junction with channel widths of 16 meters, and robots moving at $15m "/" s$. Having a time horizon of $t_(K-1) = 2s$, forces the robots to have a short prediction of future states. In addition $sigma_d =0.5m$.
+A desirable trait of multirobot systems is to maintain a high flow rate without causing blockages at junctions. To test this the the rate $Q_("in")$ at which robots enter the central section of the junction is adjusted, and the rate $Q_("out")$ at which they exit is measured. To measure flow, the central section is observed over 500 timesteps to represent steady-state behavior. Robots must exit the junction in the same direction they entered, without collisions. $Q_("in")$ is adjusted over the list of values in @eq.qin. For all parameters refer to @t.scenarios.p.junction, and a screenshot of the scenario at both high and low values of $Q_"in"$ is shown in @f.scenarios.junction.
 
-$ Q_("in") in [0.5, 1, ..., 7] $
+$ Q_("in") in [0.5, 1, ..., 7] $<eq.qin>
 
 // - $Q_("in")$ vary $"robots" "/" s$
 // - $Q_("out")$ measure $"robots" "/" s$
@@ -158,8 +157,8 @@ $ Q_("in") in [0.5, 1, ..., 7] $
     params.tabular(params.junction.gbp, previous: params.circle.gbp,  title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.junction.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [Junction scenario parameters. $C_("radius")$ is not relevant for this scenario, as robots are not spawned in a circle. Likewise the number of robots $N_R$ is not fixed, but instead given as $Q_("in") times 500 "/" Delta_t = Q_("in") times 50 s$.],
-)<t.scenarios.junction>
+  caption: [Junction scenario parameters. $C_("radius")$ is not relevant for this scenario, as robots are not spawned in a circle. Likewise the number of robots $N_R$ is not fixed, but instead given as $Q_("in") times 500 "/" Delta_t = Q_("in") times 50 s$. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
+)<t.scenarios.p.junction>
 
 #figure(
   grid(
@@ -181,13 +180,13 @@ $ Q_("in") in [0.5, 1, ..., 7] $
 // EXCEPT from their paper
 // Our GBP planner relies on per-timestep peer-to-peer communication between robots. It is assumed that each robot follows a protocol similar to [11]; it always broadcasts its state information. We consider a communications failure scenario where a robot is not able to receive messages from robots it is connected to. We would expect more cautious behaviour when planning a trajectory. We simulate a communication failure fraction γ: at each timestep the robot cannot receive any messages from a randomly sampled proportion γ of its connected neighbours. We repeat the circle experiment with 21 robots at two different initial speeds of 10 m/s and 15 m/s, measuring the makespan. The reported result is an average over 5 different random seeds. To be fair, at any timestep for any robot, the failed communications are exactly the same given a fixed seed for both initial velocities considered.
 
-This scenario uses the same environment as the Environment Obstacles scenario (see @s.r.scenarios.environment-obstacles). The purpose of this scenario is to test the planning algorithm's performance under sub-optimal external communication conditions. In real-world situations, this could be caused by phenomena such as packet loss, due to congestion in the radio frequency band, or high interference from other electrical equipment transmitting messages. Under these conditions, the expected behavior for the planning algorithm to exhibit is increased caution when determining a trajectory. #note.k[should probably be in the dedicated section about interrobot factor] To simulate this, the same non-zero probability $gamma$ is assigned to each robot. At every simulated timestep, a robot's ability to communicate with other factorgraphs through any established interrobot factors are toggled with probability $gamma$. For two robots, $A$ and $B$, with variable $v_n^A$ and $v_n^B$, connected by interrobot factors $f_(r_n)^A (v_n^A, v_n^B)$ and $f_(r_n)^B (v_n^A, v_n^B)$. There are four possible states the system can be in.
+This scenario uses the same environment as the Environment Obstacles scenario, see @s.r.scenarios.environment-obstacles. The purpose of this scenario is to test the planning algorithm's performance under sub-optimal external communication conditions. In real-world situations, this could be caused by phenomena such as packet loss, due to congestion in the radio frequency band, or high interference from other electrical equipment transmitting messages. Under these conditions, the expected behavior for the planning algorithm to exhibit is increased caution when determining a trajectory. #note.k[should probably be in the dedicated section about interrobot factor] To simulate this, the same non-zero probability $gamma$ is assigned to each robot. At every simulated timestep, a robot's ability to communicate with other factorgraphs through any established interrobot factors are toggled with probability $gamma$. For two robots, $A$ and $B$, with variable $v_n^A$ and $v_n^B$, connected by interrobot factors $f_(i_n)^A (v_n^A, v_n^B)$ and $f_(i_n)^B (v_n^A, v_n^B)$. There are four possible states the system can be in.
 + The communication medium of both $A$ and $B$ are active, allowing the factors and variable to exchange messages between each other during external message passing.
 + The communication medium of both $A$ and $B$ are inactive, preventing the factors and variable from exchanging messages.
 + The communication medium of $A$ is active, preventing $B$ from exchanging messages with $A$ during external message passing.
 + The communication medium of $B$ is active, preventing $A$ from exchanging messages with $B$ during external message passing.
 
-The scenario is tested with 21 robots at two different initial speeds of 10 m/s and 15 m/s.
+The scenario is tested with 21 robots at two different initial speeds of 10 m/s and 15 m/s, see @t.scenarios.communications-failure.
 
 #figure(
   grid(
@@ -197,13 +196,13 @@ The scenario is tested with 21 robots at two different initial speeds of 10 m/s 
     params.tabular(params.communications-failure.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.communications-failure.factor, previous: params.circle.factor, title: [Factor Settings]),
   )
-  , caption: [#scenario[Communications Failure] scenario parameters.],
+  , caption: [#scenario[Communications Failure] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
 )<t.scenarios.communications-failure>
 
 === #scen.solo-gp.n <s.r.scenarios.solor-gp>
 
 #let body = [
-  In this scenario, a complex maze-like environment has been constructed#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/c17370455af38a6cab0eb5acea1a576247a0e732/config/simulations/Complex/environment.yaml", "config/simulations/Complex/environment.yaml")]<fn.solo-gp.environment>, similar to the one shown in @f.m.maze-env. #att[A demonstration of this environment, with and without global planning enabled is shown in an accompanying video#todo[cite video or footnote]]. A single robot is spawned in the bottom-left corner of the environment, see @f.scenarios.solo-gp. The robot is tasked with reaching the top-right corner of the environment. The environment is designed to be challenging, with narrow corridors, tight corners, and a plethora of possible paths. The accompanying `formation.yaml`#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/97e40fdba0005fd91f903af04df74c31cbc1c05c/config/simulations/Solo%20GP/formation.yaml", "config/simulations/Solo GP/formation.yaml")]<fn.solo-gp.formation> file specifies the
+  In this scenario, a complex maze-like environment has been constructed#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/c17370455af38a6cab0eb5acea1a576247a0e732/config/simulations/Complex/environment.yaml", "config/simulations/Complex/environment.yaml")]<fn.solo-gp.environment>, similar to the one shown in @f.m.maze-env. A demonstration of this environment, with and without global planning enabled is shown in an accompanying video#footnote[Video found on #link("https://youtu.be/Uzz57A4Tk5E", "YouTube: Master Thesis - Path Tracking vs Waypoint Tracking vs Default")]. A single robot is spawned in the bottom-left corner of the environment, see @f.scenarios.solo-gp. The robot is tasked with reaching the top-right corner of the environment. The environment is designed to be challenging, with narrow corridors, tight corners, and a plethora of possible paths. The accompanying `formation.yaml`#footnote[Found in #gbp-rs(content: "AU-Master-Thesis/gbp-rs"), in file #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/97e40fdba0005fd91f903af04df74c31cbc1c05c/config/simulations/Solo%20GP/formation.yaml", "config/simulations/Solo GP/formation.yaml")]<fn.solo-gp.formation> file specifies the
 ]
 
 #let rrt-params = (
@@ -258,7 +257,7 @@ planning strategy to be that of `rrt-star` instead of `only-local`, which has be
   ),
   supplement: [Table],
   kind: table,
-  caption: [#scenario[Solo GP] scenario parameters.],
+  caption: [#scenario[Solo GP] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
 )<t.scenarios.solo-gp>
 
 === #scen.collaborative-gp.n <s.r.scenarios.collaborative-gp>
@@ -289,13 +288,14 @@ Here, the same complex environment as in the #scen.solo-gp.n scenario is used. H
     params.tabular(params.collaborative-gp.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.collaborative-gp.factor, previous: params.circle.factor, title: [Factor Settings]),
   )
-  , caption: [#scenario[Collaborative GP] scenario parameters.],
+  , caption: [#scenario[Collaborative GP] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
 )<t.scenarios.collaborative-gp>
 
 === #scen.iteration-amount.n <s.r.scenarios.iteration-amount>
 
-This scenario explores the effect of varying $M_I$ and $M_E$. Both $M_I$ and $M_E$ are varied over the second to tenth number in the Fibonacci sequence.
-$ M_I and M_E =  {"fib(i)" | i in [2,3, ..., 10]} $
+This scenario explores the effect of varying $M_I$ and $M_E$. Both $M_I$ and $M_E$ are varied over the second to tenth number in the Fibonacci sequence, see <eq.fibonacci>, and the rest of the paremeters listed in @t.scenarios.iteration-amount.
+
+$ M_I and M_E =  {"fib(i)" | i in [2,3, ..., 10]} $<eq.fibonacci>
 
 This sequence of values is selected to test the algorithm with initially few iterations, gradually increasing the number of iterations with larger differences between each step.
 
@@ -311,13 +311,12 @@ This sequence of values is selected to test the algorithm with initially few ite
     params.tabular(params.iteration-amount.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.iteration-amount.factor, previous: params.circle.factor, title: [Factor Settings]),
   ),
-  caption: [#scenario[Iteration Amount] scenario parameters.],
-)
-<t.scenarios.iteration-amount>
+  caption: [#scenario[Iteration Amount] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
+)<t.scenarios.iteration-amount>
 
 === #scen.iteration-schedules.n <s.r.scenarios.iteration-schedules>
 
-The parameters for this scenario are listed in @t.scenarios.iteration-schedules. The number of robots spawning in the circular formation is kept constant at $N_R = 30$ for all runs. Each of the five schedules presented in @s.iteration-schedules are tested with internal iteration $M_i = 50$, and external iteration $M_E$ varied between ${5, 10, 15, 20, 25}$. $M_E$ is varied instead of $M_I$ as it represents the external communication that would be subject to jitter and latency in a real-scenario.
+The parameters for this scenario are listed in @t.scenarios.iteration-schedules. The number of robots spawning in the circular formation is kept constant at $N_R = 30$ for all runs. Each of the five schedules presented in @s.iteration-schedules are tested with internal iteration $M_i = 50$, and external iteration $M_E$ varied between ${5, 10, 15, 20, 25}$. $M_E$ is varied instead of $M_I$ as it represents the external communication that would be subject to jitter and latency in a real scenario.
 
 #figure(
   grid(
@@ -327,5 +326,5 @@ The parameters for this scenario are listed in @t.scenarios.iteration-schedules.
     params.tabular(params.iteration-schedules.gbp, previous: params.circle.gbp, title: [GBP Algorithm], extra-rows: 0),
     params.tabular(params.iteration-schedules.factor, previous: params.circle.factor, title: [Factor Settings]),
   )
-  , caption: [#scenario[Iteration Schedules] scenario parameters.],
+  , caption: [#scenario[Iteration Schedules] scenario parameters. Text in #text(theme.peach, [orange]) marks the differences from the Circle scenario.],
 )<t.scenarios.iteration-schedules>

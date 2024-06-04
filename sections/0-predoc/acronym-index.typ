@@ -57,7 +57,7 @@
 
     assert(calc.rem(cells.len(), 2) == 0)
 
-    let split = 46
+    let split = 50
     // let split = int(cells.len() / 2)
     let first-half = cells.slice(0, split)
     let last-half = cells.slice(split)
