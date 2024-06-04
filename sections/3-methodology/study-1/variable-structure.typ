@@ -48,7 +48,7 @@ A thorough argument for this method of placing variables is not provided in the 
 
 // The middle sequence with lm=19lm​=19 demonstrates this, with larger gaps indicating less frequent updates for distant future states. This approach captures uncertainty without excessive computational load.
 //
-// The bottom sequence, with lm=3lm​=3, strikes a balance between detailed immediate control and broader future planning. This method ensures that the robot can coordinate path deviations and interactions with other robots using inter-robot factors effectively, without the burden of overly dense variable placement.
+// The bottom sequence, with lm=3lm​=3, strikes a balance between detailed immediate control and broader future planning. This method ensures that the robot can coordinate path deviations and interactions with other robots using interrobot factors effectively, without the burden of overly dense variable placement.
 //
 // This method ensures a practical trade-off between precision in the immediate future and computational efficiency for long-term planning, making it a robust choice for dynamic and uncertain environments. Despite the lack of a thorough explanation, the chosen approach appears to balance immediate responsiveness with long-term strategy effectively.
 //
@@ -75,7 +75,7 @@ A thorough argument for this method of placing variables is not provided in the 
 //
 // Secondly, variables spaced further into the future are less dense to prevent them from overwhelming the influence of near-term variables. This spacing accounts for the increasing uncertainty and broader maneuvers required as the robot plans further ahead. The middle sequence with lm=19lm​=19 demonstrates this, with larger gaps indicating less frequent updates for distant future states. This approach captures uncertainty without excessive computational load.
 //
-// The bottom sequence, with lm=3lm​=3, strikes a balance between detailed immediate control and broader future planning. This method ensures that the robot can coordinate path deviations and interactions with other robots using inter-robot factors effectively, without the burden of overly dense variable placement.
+// The bottom sequence, with lm=3lm​=3, strikes a balance between detailed immediate control and broader future planning. This method ensures that the robot can coordinate path deviations and interactions with other robots using interrobot factors effectively, without the burden of overly dense variable placement.
 //
 // This method ensures a practical trade-off between precision in the immediate future and computational efficiency for long-term planning, making it a robust choice for dynamic and uncertain environments. Despite the lack of a thorough explanation, the chosen approach appears to balance immediate responsiveness with long-term strategy effectively.
 //
