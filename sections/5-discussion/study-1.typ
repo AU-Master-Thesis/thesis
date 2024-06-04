@@ -56,20 +56,24 @@ The developed simulation framework, #acr("MAGICS"), is very capable, and has ext
     + Visualisation of all aspects of the underlying #acr("GBP") process.
 ]
 
+// #note.k[focus on something about the purpose of rust]
 
 // closer to a modelling language
 // better tool for setting up a large system
 // leans closer to something like VDM, where logical constraints and system specifications can be written in a more formal way
 
+In the context of developing complex software applications such as scientific simulators, strongly typed languages with extensive static guarantees offer significant benefits. The robust type system in Rust and its capability to prevent invalid states entirely  makes it a great choice for these types of applications. Although it is not a modeling language, it enables rigorous and formal system specifications akin to declarative modeling languages like VDM@vdm. This is particularly advantageous for large systems like #acr("MAGICS"), where many different parts of the system need to interact in a very specific way.
 
-The ability
+// where maintaining clear and organized code is crucial for ensuring precise interactions between various system components.
 
-languages that are able to provide strong guarantees about invariants are beneficial for scientific simulations
+// #cursor
 
-Due to Rusts nature#note.k[focus on something about the purpose of rust], it is a language that emulates modelling languages to a certain estent, where code quickly becomes very imperative and messy, modelling languages like VDM, tend towards a declarative style of simply writing out system specifications in a rigorous and formal way. Although Rust is not a modelling language, it has a very strong type system, and many logical constraints can be imposed in a meta-programming kind of approach. These features come in very handy when developing a large system like #acr("MAGICS"), where many different parts of the system need to interact in a very specific way.
+// The ability
 
+// languages that are able to provide strong guarantees about invariants are beneficial for scientific simulations
 
-vdm@vdm
+// Due to Rusts nature, it is a language that emulates modelling languages to a certain estent, where code quickly becomes very imperative and messy, modelling languages like VDM, tend towards a declarative style of simply writing out system specifications in a rigorous and formal way. Although Rust is not a modelling language, it has a very strong type system, and many logical constraints can be imposed in a meta-programming kind of approach. These features come in very handy when developing a large system like #acr("MAGICS"), where many different parts of the system need to interact in a very specific way.
+
 
 === On The Reproducibility <s.d.reproducibility>
 
