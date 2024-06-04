@@ -1,8 +1,8 @@
 #import "../../../lib/mod.typ": *
 
-=== Simulation Tool <s.m.simulation-tool>
+=== The Simulation Tool MAGICS <s.m.simulation-tool>
 
-// #jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you're missing something.]
+// #jonas[A lot of the subsections here are 50% done. As in they explain the context and such but not details. Let us know if what is here is enough and it would be too much to go deeper, or if you are missing something.]
 
 
 // Hypothesis 4:
@@ -10,7 +10,7 @@
 // and extend it further. Furthermore, such tooling will make it easier to reproduce and
 // engage with the developed solution software.
 
-As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software. The developed simulation tool is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine and the immediate mode #acr("UI") library _egui_@egui. Together they allow for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. The simulation tool is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation. All panels are implemented using immediate mode UI instead of retained mode, which simplifies state management and makes it easier for others to extend the tool. With this approach, the code responsible for creating each part of the panel is straightforward and easy to locate, facilitating quick modifications and enhancements.
+As described in hypothesis #study.H-1.box, this thesis poses the idea the extensive tooling will help facilitate reproduction of the results and further development of the software, and thus, #acr("MAGICS") is a key component in this regard. The simulation tool presents a #acr("GUI") to interact with the live simulation. The tool is built with the Bevy@bevyengine game engine and the immediate mode #acr("UI") library _egui_@egui. Together they allow for rapid prototyping and development of interactive applications. The tool is designed to be used by researchers and developers to understand the underlying theory of factor graphs and their application in multi-agent planning scenarios. The tool is equipped with several features to facilitate this goal, where the most important features are described in sections #numref(<s.m.settings>)-#numref(<s.m.export-formats>). The tool is open-source and available on the thesis' #gbp-rs()@repo. #acr("MAGICS") is shown in @f.m.simulation-tool, where the #panel.viewport and #panel.settings are visible. The user also has access to a #panel.bindings, by pressing `H`, which shows the keybindings for the tool and enables the user to change them. Lastly, a floating #panel.metrics can be opened with `D`, which shows live metrics and diagnostics for the current simulation. All panels are implemented using immediate mode UI instead of retained mode, which simplifies state management and makes it easier for others to extend the tool. With this approach, the code responsible for creating each part of the panel is straightforward and easy to locate, facilitating quick modifications and enhancements.
 
 #figure(
   // std-block(todo[screenshot of settings panel, or at least a part of it]),
@@ -88,13 +88,13 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
 
 ==== Live Configuration <s.m.settings>
 
-Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in the simulation tool will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
+Most of the configurable settings described in #nameref(<s.m.configuration>, "Configuration") section can be changed live during the simulation. Pressing `L` in #acr("MAGICS") will expose a side-panel with all the settings, see #panel.settings in @f.m.simulation-tool; hereunder, the mutable configuration settings, e.g. amount of internal and external #acr("GBP") iterations to compute, communication failure rate and radius, and which visualisations to draw. A screenshot of the side-panel is shown in @f.m.simulation-tool, which includes all these and more useful options.
 Some of the sections in the settings panel are off-screen in @f.m.simulation-tool, but they are accessible by scrolling down. The notable sections are described in the following sections.
 
 ==== Hot Loading Scenarios <s.m.hot-loading>
 // #jonas[New content here with the folder structure and such]
 
-Do not confuse this for hot reloading, but the simulation tool allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios. Each scenario is loaded from disk by the scenario loader module by reading through the folder `./config/scenarios/`#footnote[The default, but can be changed using the `--scenario-dir <DIR>` flag when starting the simulator] for every folder with the three different configuration files in them. As seen in @listing.scenario-folder-structure. This makes it uncomplicated to work on multiple scenarios at once, and share them with others.
+Do not confuse this for hot reloading, as is known in many front-end frameworks, but #acr("MAGICS") allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios. Each scenario is loaded from disk by the scenario loader module by reading through the folder `./config/scenarios/`#footnote[The default, but can be changed using the `--scenario-dir <DIR>` flag when starting the simulator] for every folder with the three different configuration files in them. As seen in @listing.scenario-folder-structure. This makes it uncomplicated to work on multiple scenarios at once, and share them with others.
 
 // 📂
 #listing([
@@ -135,13 +135,13 @@ Do not confuse this for hot reloading, but the simulation tool allows for hot lo
 
 ==== Time Control <s.m.time-control>
 
-The simulation tool allows for control of the simulated time. In @f.m.simulation-tool-time-control the time controls are shown under the #text(theme.lavender, "Simulation") section in the settings panel. Here the user can see the simulation time, and the frequency at which the fixed #acr("GBP") simulation steps are computed. Additionally, the user has access to a pause/play button to stop and start the simulation, and a manual step button to step through the simulation $n$ fixed timesteps at a time. As a default $n=1$. The user can only use the manual stepping when the simulation is paused.
+#acr("MAGICS") also allows for control of the simulated time. In @f.m.simulation-tool-time-control the time controls are shown under the #text(theme.lavender, "Simulation") section in the settings panel. Here the user can see the simulation time, and the frequency at which the fixed #acr("GBP") simulation steps are computed. Additionally, the user has access to a pause/play button to stop and start the simulation, and a manual step button to step through the simulation $n$ fixed timesteps at a time. As a default $n=1$. The user can only use the manual stepping when the simulation is paused.
 
 #figure(
   // std-block(todo[screenshot of time control]),
   // std-block(width: 60%, height: auto, image("../../../figures/img/tool-settings-simulation-latte.png")),
   std-block(width: 60%, height: auto, image("../../../figures/img/simulations-settings.png")),
-  caption: [The simulation control section in the simulation tool. From left to right, top to bottom: Reload current scenario, scenario dropdown selector, simulation time, simulation frequency $Delta_t$, simulation speed, manual step, play/pause, how many steps to advance per manual step, pause when a robots spawns, exit program when scenario finishes.],
+  caption: [The simulation control section in the #acr("MAGICS"). From left to right, top to bottom: Reload current scenario, scenario dropdown selector, simulation time, simulation frequency $Delta_t$, simulation speed, manual step, play/pause, how many steps to advance per manual step, pause when a robots spawns, exit program when scenario finishes.],
 )<f.m.simulation-tool-time-control>
 
 ==== Visualisation <s.m.visualisation>
@@ -164,7 +164,7 @@ The simulation tool allows for control of the simulated time. In @f.m.simulation
 // robot-robot-collisions             = true
 // robot-environment-collisions       = true
 
-The simulation tool supports visualisations of most aspects of the simulation. All possible visualisations are listed and described in @table.simulation-visualisations. The visualisations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool. The visualisations are updated in real-time as the simulation progresses.
+#acr("MAGICS") supports visualisations of most aspects of the simulation. All possible visualisations are listed and described in @table.simulation-visualisations. The visualisations can be toggled on and off in the settings panel, as shown in @f.m.simulation-tool. The visualisations are updated in real-time as the simulation progresses.
 
 
 #let edges = (
@@ -184,17 +184,17 @@ The simulation tool supports visualisations of most aspects of the simulation. A
 
     #align(center, [$R_a$ #edges.on #edges.off $R_b$ #edges.off #edges.off $R_c$])
   ],
-    [Predicted trajectories], [All of each robot's factor graph variables, visualised as small spheres with a line between.],
+    [Predicted trajectories], [All of each robot's factor graph variables, visualized as small spheres with a line between.],
     [Waypoints], [A small sphere at each waypoint for each robot.],
     [Uncertainty], [A 2D ellipse for each variable in each robot's factor graph, visualising the covariance of the internal Gaussian belief.],
     [Paths], [Lines tracing out each robot's driven path.],
     [Generated map], [A 3D representation of the map generated from the environment configuration.],
-    [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it's occupied.],
-    [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it's inactive.],
-    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
+    [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it is occupied.],
+    [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it is inactive.],
+    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colors according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating, and within the safety distance threshold $d_r$ of each other. The color varies on a yellow #sy to #sr gradient #gradient-box(theme.yellow, theme.red) visually highlighting the potential of a future collision.
-    // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it's inactive.
+    // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it is inactive.
   ],
     [Interrobot factors safety distance], [A circle around each variable, visualisation the internally used safety distance for the interrobot factors. orange #so when communication is enabled and gray#sgr3 when disabled.],
     [Robot colliders], [A sphere in red#sr around each robot representing the collision radius.],
@@ -203,7 +203,7 @@ The simulation tool supports visualisations of most aspects of the simulation. A
     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
   ),
   caption: [
-    Every visualisable setting, and a description of how it has been chosen to visualise it.
+    Every visualisable setting, and a description of how it has been chosen to visualize it.
   ]
 )<table.simulation-visualisations>
 
@@ -220,7 +220,7 @@ Additionally to providing a visual representation of the underlying mathematics,
 All entities in the simuliation with a mesh can be clicked on to introspect their current state. This functionality aids in discoverabiliy when trying out different parameters and environments. When clicked data structured as `YAML` will be outputted to stdout with colored keys for easy navigation, and can be viewed in the attached console:
 
 - *Robot:* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages set and received and the structure of its factorgraph.
-- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
+- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precizely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
 
 - *Obstacle:* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
 
@@ -238,7 +238,7 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
   *Qualitative:*
   - *Screenshot* of the simulation. The UI exposes a button, and a keybinding, default `Ctrl+P`, to take a screenshot of the viewport.
 
-  - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualise various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
+  - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualize various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
 
   *Quantitative:*
 

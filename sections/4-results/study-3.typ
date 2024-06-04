@@ -13,7 +13,7 @@ The results of the #scen.solo-gp.n scenario are shown as box plots in @f.solo-bo
 
   $tilde.op#strfmt("{0:.0}", solo-gp-mean-decrease)%$ improvement. @t.solo-stats presents some raw statistics, where it is easy to make out, not only the decrease in mean path deviation error, but also a reduction in variance as shown by the standard deviation.
 
-  Since the improvement is slightly intangible, the paths driven by the robots are visualised in @f.solo-plot. The blue#sl robot is using the waypoing tracking approach, where the green robot is equipped with path tracking. The figure shows how the tracking factor has kept the green robot much closer to the planned path, which is visualised in grey#swatch(theme.text). This is especially evident in the sharp turns, where the blue robot deviates significantly, both before and after the turn.
+  Since the improvement is slightly intangible, the paths driven by the robots are visualized in @f.solo-plot. The blue#sl robot is using the waypoing tracking approach, where the green robot is equipped with path tracking. The figure shows how the tracking factor has kept the green robot much closer to the planned path, which is visualized in grey#swatch(theme.text). This is especially evident in the sharp turns, where the blue robot deviates significantly, both before and after the turn.
 ]
 
 #let fig-deviation = [
@@ -26,7 +26,7 @@ The results of the #scen.solo-gp.n scenario are shown as box plots in @f.solo-bo
         image("../../figures/plots/solo-gp-deviation.svg"),
       ),
     ),
-    caption: [The paths of the robot with no tracking factors is shown as a blue line #inline-line(stroke: theme.lavender + 2pt), and a robot with tracking factors as a green line #inline-line(stroke: theme.green + 2pt). Underneath the planned path is visualised in grey #inline-line(stroke: theme.text + 2pt).]
+    caption: [The paths of the robot with no tracking factors is shown as a blue line #inline-line(stroke: theme.lavender + 2pt), and a robot with tracking factors as a green line #inline-line(stroke: theme.green + 2pt). Underneath the planned path is visualized in grey #inline-line(stroke: theme.text + 2pt).]
   )<f.solo-plot>
 ]
 
@@ -119,8 +119,7 @@ $ sigma_t = 0.15#h(1em)"and"#h(1em)sigma_t = 0.5 $<eq.sigma-t>
 // Similar nothions as to the solo scenario
 Once again the tracking factor has a significant impact on the mean path deviation, this time reducing by $#strfmt("{0:.0}", collaborative-gp-mean-decrease)%$ for the same tracking factor certainty of $sigma_t = 0.15$ versus the pure waypoint tracking approach with no tracking factors at all. Furthermore, with a lower certainty where $sigma_t = 0.5$, the mean path deviation error increases again, essentially matching waypoint tracking in the mean. However, the standard deviation is negligibly lower by $0.02$, as detailed in @t.collaborative-stats.
 
-The amount of interrobot collisions for each configuration is also written in @t.collaborative-stats, where it is clear that path tracking has a significant impact. Note that the formation configuration for this scenario includes three spawning spots, where robots are spawned periodically with no accountance for whether an earlier robot has moved from the spawning area. The reason robots get _stuck_ in the beginning, is due to the unpredictable nature of the #acr("RRT*") path-finding algorithm, which sometimes takes a while to find a path. It has been measured to take up to $10$ seconds in some outlier cases.#note.a[move to discussion?]#note.ke[I don't think it should be moved, as the measurement still a simple result observation.]
-
+The amount of interrobot collisions for each configuration is also written in @t.collaborative-stats, where it is clear that path tracking has a significant impact. Note that the formation configuration for this scenario includes three spawning spots, where robots are spawned periodically with no accountance for whether an earlier robot has moved from the spawning area. The reason robots get _stuck_ in the beginning, is due to the unpredictable nature of the #acr("RRT*") path-finding algorithm, which sometimes takes a while to find a path. It has been measured to take up to $10$ seconds in some outlier cases.
 
 #let fig = [
   #figure(

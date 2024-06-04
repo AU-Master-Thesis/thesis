@@ -2,7 +2,7 @@
 // #jonas[Alright you can stop reading now. No more content at all.]
 // == Overskrift
 == #study.H-1.full.n <s.r.study-1>
-// #jonas[all these results are new since last. We're working towards measuring ours and their code and then comparing their paper vs our code vs their code. Does that make sense? It will be obvious where we are still missing results]
+// #jonas[all these results are new since last. We are working towards measuring ours and their code and then comparing their paper vs our code vs their code. Does that make sense? It will be obvious where we are still missing results]
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
 This section presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with its capabilities to reproduce the results of the #acr("GBP") Planner@gbpplanner. Sections #numref(<s.r.results.circle-obstacles>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
@@ -381,7 +381,7 @@ Results for communications failure rates $gamma in {0, 10, 20, 30, 40, 50, 60, 7
     $90$, $146.9$, vc[$938.9$], vc[#d], vc[#d],     $1.6$, vc[#d], vc[#d],     $12.6$, vc[$864.6$], vc[#d], vc[#d],     $4.6$, vc[#d], vc[#d],
   ),
   caption: [
-    Communications Failure experiment results. Results pertaining to #acr("MAGICS") are marked #O1 and #O2. #O1 is with lookahead multiple $l_m=3$, and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. Values in column #T1 is taken from Table 2 in @gbpplanner, where #T2 columns are results obtained from the `gbpplanner`@gbpplanner-code with #lm3-th13.n. Cells marked with a dash, #sym.dash.en, had a very low rate of convergence as so few interrobot messages were shared, and thus weren't measurable. Corresponds with Table 2 in @gbpplanner.
+    Communications Failure experiment results. Results pertaining to #acr("MAGICS") are marked #O1 and #O2. #O1 is with lookahead multiple $l_m=3$, and time horizon $t_(K-1)=13.33s$, where #O2 is with #lm3-th5.n. Values in column #T1 is taken from Table 2 in @gbpplanner, where #T2 columns are results obtained from the `gbpplanner`@gbpplanner-code with #lm3-th13.n. Cells marked with a dash, #sym.dash.en, had a very low rate of convergence as so few interrobot messages were shared, and thus were not measurable. Corresponds with Table 2 in @gbpplanner.
   ]
 )<t.comms-failure-experiment>
 

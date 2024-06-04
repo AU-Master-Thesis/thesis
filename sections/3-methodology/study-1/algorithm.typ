@@ -32,7 +32,7 @@
     )
   ]
 
-  The algorithm is written out in @a.m.algorithm, where `CurrentlyConnected` is a way to retrieve which robots are currently set as being connected to a specific robot, $R_i$. Before the main loop, find which robots are within communication distance at the current timestep, $N(R_i)$. Then in the main loop while the simulation is _running_, create an interrobot factor between all robots within communication distance if it doesn't already exist with `Connect`, and delete the interrobot factor if the robot is no longer within communication distance with `Disconnect`. After this, the internal and external #acr("GBP") iterations are run with `InternalGBP` and `ExternalGBP`, respectively.
+  The algorithm is written out in @a.m.algorithm, where `CurrentlyConnected` is a way to retrieve which robots are currently set as being connected to a specific robot, $R_i$. Before the main loop, find which robots are within communication distance at the current timestep, $N(R_i)$. Then in the main loop while the simulation is _running_, create an interrobot factor between all robots within communication distance if it does not already exist with `Connect`, and delete the interrobot factor if the robot is no longer within communication distance with `Disconnect`. After this, the internal and external #acr("GBP") iterations are run with `InternalGBP` and `ExternalGBP`, respectively.
 
   #algorithm(
     caption: [GBP For Robot $R_i$@gbpplanner]
@@ -72,7 +72,7 @@
   #let space = v(0.5em)
   #set par(first-line-indent: 0em)
   #set enum(numbering: box-enum.with(prefix: "GBP-"))
-  + `update_robot_neighbours`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1247", "src/planner/robot.rs:1247")] utilises the #acr("ECS") to mutably query for all entities that have a `RobotConnections` component, and then consequently update them with all robots within communication range.
+  + `update_robot_neighbours`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1247", "src/planner/robot.rs:1247")] utilizes the #acr("ECS") to mutably query for all entities that have a `RobotConnections` component, and then consequently update them with all robots within communication range.
     #space
     *Parity* with `Simulator::calculateRobotNeighbours` in #gbpplanner. Corresponds to the setting the internal data of `RobotConnection` to that of $N(R_i)$.
 
@@ -86,7 +86,7 @@
 
   + `update_failed_comms`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1478", "src/planner/robot.rs:1478")] updates the communication status of all robots, based on the configurable parameter `communication_failure_rate` under the `robot``.communication` table in `config.toml`.
     #space
-    *Parity* with `Simulator::setCommsFailure` in #gbpplanner. This doesn't have a correlary in @a.m.algorithm.
+    *Parity* with `Simulator::setCommsFailure` in #gbpplanner. This does not have a correlary in @a.m.algorithm.
 
   + `iterate_gbp`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1654", "src/planner/robot.rs:1654")] iterates the #acr("GBP") algorithm for all robots in the simulation. That is, it has the responsibilitity for the 4 inference steps; _variable update, variable to factor message passing, factor update, and factor to variable message passing_.
     #space
@@ -106,7 +106,7 @@
   B: text(theme.mauve, weight: "bold", "B")
 )
 
-Through these steps the lifecycle of the interrobot factors has been allured to. This lifecycle is visualised in @f.interrobot-lifecycle, where two robots #r.A and #r.B approach each other. When they are within communication range, interrobot factors are created. The messaging happens through these factors is the communication that would happen wirelessly in a real-world implementation. Furthermore, when one of the robots' radio fails, the interrobot factors that are maintained by that robot are simply deactivated instead of removed. This has been done as an optimisation, instead of deallocating, for then possibly reallocating in the next timestep. Finally, when the robots are no longer within communication range, the interrobot factors are deallocated.
+Through these steps the lifecycle of the interrobot factors has been allured to. This lifecycle is visualized in @f.interrobot-lifecycle, where two robots #r.A and #r.B approach each other. When they are within communication range, interrobot factors are created. The messaging happens through these factors is the communication that would happen wirelessly in a real-world implementation. Furthermore, when one of the robots' radio fails, the interrobot factors that are maintained by that robot are simply deactivated instead of removed. This has been done as an optimisation, instead of deallocating, for then possibly reallocating in the next timestep. Finally, when the robots are no longer within communication range, the interrobot factors are deallocated.
 
 To summarize for two robots, $A$ and $B$, with variable $v_n^A$ and $v_n^B$, connected by interrobot factors $f_(i_n)^A (v_n^A, v_n^B)$ and $f_(i_n)^B (v_n^A, v_n^B)$. There are four possible states the pairing between the two can be in.
 + The communication medium of both $A$ and $B$ are inactive, preventing the factors and variable from exchanging messages.

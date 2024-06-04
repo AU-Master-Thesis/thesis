@@ -42,7 +42,7 @@ The developed simulation framework, #acr("MAGICS"), is very capable, and has ext
   + *Configuration:*
     + An environment declarative configuration format for simple scenario setup.
     + A highly flexible formation configuration format, to describe how to spawn robots, and supply their mission, in a concise and declarative way.
-    + A more in-depth main configuration file, to initialise all the simulation parameters.
+    + A more in-depth main configuration file, to initialize all the simulation parameters.
 
   #set enum(numbering: box-enum.with(prefix: "C-", color: colors.at(2)), start: 3)
   + *Planner Extension:*

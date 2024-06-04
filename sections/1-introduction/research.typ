@@ -88,7 +88,7 @@ To answer each research question, a set of objectives will have to be met. The o
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.1", weight: 900):*
     #set enum(numbering: req-enum.with(prefix: "O-1.1.", color: theme.green))
     + Research possible programming languages and their ecosystems, to understand which one provides the most suitable architecture, and framework for the reimplementation.
-    + Reimplement the original GBP Planner in the development simulation tool with the chosen language, architecture, and framework.
+    + Reimplement the original GBP Planner in the developed simulation tool with the chosen language, architecture, and framework.
     + Evaluate whether the reimplementation is faithful to the original GBP Planner by comparing the four metrics: distance travelled, makespan, smoothness, and collision count.
 
     *Objectives for _Research Question_ #boxed(color: theme.teal, fill: theme.teal.lighten(80%), "RQ-1.2", weight: 900):*

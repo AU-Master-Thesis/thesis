@@ -84,7 +84,7 @@
 
   That is; the set of all randomly sampled points, $cal(X)_"rand"$, which is the result of the above mapping, is a subset of the configuration space, $cal(X)$.
 
-  // #jens[finish this one, it doesn't make too much sense]
+  // #jens[finish this one, it does not make too much sense]
 
   // \ #text(size: 1.25em, weight: "bold", [`NearestNeighbor(G, x)`])  \
   // ==== `NearestNeighbor(G, x) -> v`
@@ -135,14 +135,14 @@
 
 #example(caption: [Contextual RRT Application])[
   #set par(first-line-indent: 0em)
-  *Scenario:* Let's look at an example, where the possible state space is _two-dimensional euclidean space_. A Robot wants to go from 2D position $x_A$ to $x_B$ \ \
+  *Scenario:* Let us look at an example, where the possible state space is _two-dimensional euclidean space_. A Robot wants to go from 2D position $x_A$ to $x_B$ \ \
 
   *Input:* In @alg-rrt, the input is outlined to be a starting position, $x_"start"$, a goal position $x_"goal"$, a step length $s$, a maximum number of iterations, $N$, and lastly, a goal tolerance, $g_"tolerance"$. \ \
 
   *Output:* At the end of algorithm execution, the resulting graph is outputted as the combination of; $V$, the set of vertices, and $E$, the set of edges. \ \
 
   *Execution:*
-  + $V$ is initialised to contain the initial position of the robot $x_"start" = x_A$, thus the set ${x_A}$. $E$ is initialised to be empty.
+  + $V$ is initialized to contain the initial position of the robot $x_"start" = x_A$, thus the set ${x_A}$. $E$ is initialized to be empty.
   + Enter a for loop, that will maximally run $N$ times, but will break early if the goal is reached.
 
     *Each iteration:*
@@ -170,7 +170,7 @@
 
 // The node sampling and selection process is exactly the same as RRT, wherein a point is randomly generated and a node is created at that point or at a specified maximum distance from the existing node, whichever is closer.
 
-// However, the difference is where the connection is made. We assign every node a cost function that denotes the length of the shortest path from the start node. We then search for nodes inside a circle of given radius r centred at the newly sampled point.
+// However, the difference is where the connection is made. We assign every node a cost function that denotes the length of the shortest path from the start node. We then search for nodes inside a circle of given radius r centered at the newly sampled point.
 
 // We then rearrange the connections such that they minimize the cost function and optimize the path. This can rearrange the graph in such a way that we get the shortest path.
 
@@ -227,7 +227,7 @@
   *Output:* $G = (V, E)$
 ]<alg.rrt-star>
 
-With the modifications made, the #acr("RRT*") algorithm is shown in @alg.rrt-star@erc-rrt-star. Two important blocks of the algorithm has been sectioned out in sub-algorithms @alg.rrt-star.min-cost-connection and #numref(<alg.rrt-star.rewire>), which are described along side the other new functions of #acr("RRT*") under @s.b.rrt-star.functions. The main parts of the algorithm are visualised in @f.rrt-rewire as three steps:
+With the modifications made, the #acr("RRT*") algorithm is shown in @alg.rrt-star@erc-rrt-star. Two important blocks of the algorithm has been sectioned out in sub-algorithms @alg.rrt-star.min-cost-connection and #numref(<alg.rrt-star.rewire>), which are described along side the other new functions of #acr("RRT*") under @s.b.rrt-star.functions. The main parts of the algorithm are visualized in @f.rrt-rewire as three steps:
 #set enum(numbering: box-enum.with(prefix: "Step ", color: theme.mauve))
 + A new point has been sampled, deemed collision-free, and thus node $v_"new"$ can be added to the tree. But first, we need to find which existing node to connect to. Here, $v_"nearest"$ is chosen by the `MinCostConnection` algorithm, as it is the node that minimizes the total cost from the root to $v_"new"$, within the step-length radius $s$.
 + In preparation, rewiring candidates will be found, by looking at all nodes in the tree, that are within a certain requiring radius, $r$, from $v_"new"$. This is done by the `Neighbourhood` function, which returns the set $V_"near" = {n_1, n_2, dots, n_n}$.

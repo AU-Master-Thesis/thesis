@@ -60,7 +60,7 @@ This section details the experiments conducted to test the hypotheses outlined i
 
 #v(-0.5em)
 
- code@gbpplanner-code; expect results pertaining to this thesis to be presented in cold colours; #text(theme.lavender, "blue")#sl, #text(theme.teal, "teal")#stl, #text(theme.green, "green")#sg, and results from #gbpplanner in warm colours; #text(theme.maroon, "red")#sr, #text(theme.peach, "orange")#so, #text(theme.yellow, "yellow")#sy. Otherwise, when results are not presented in a comparative light, the colours are chosen to be distinct and easily distinguishable.
+ code@gbpplanner-code; expect results pertaining to this thesis to be presented in cold colors; #text(theme.lavender, "blue")#sl, #text(theme.teal, "teal")#stl, #text(theme.green, "green")#sg, and results from #gbpplanner in warm colors; #text(theme.maroon, "red")#sr, #text(theme.peach, "orange")#so, #text(theme.yellow, "yellow")#sy. Otherwise, when results are not presented in a comparative light, the colors are chosen to be distinct and easily distinguishable.
 
 #include "./metrics.typ"
 #include "./scenarios.typ"
