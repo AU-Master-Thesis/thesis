@@ -205,7 +205,7 @@ Do not confuse this for _hot reloading_, as is known in many front-end framework
     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
   ),
   caption: [
-    Every visualisable setting, and a description of how it has been chosen to visualize it.
+    Every visualizable setting, and a description of how it has been chosen to visualize it.
   ]
 )<table.simulation-visualisations>
 

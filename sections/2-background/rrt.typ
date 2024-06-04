@@ -182,7 +182,7 @@
 #acr("RRT*") is an extension of the #acr("RRT") algorithm, which was introduced in 2011 by Sertac Karaman and Emilio Frazzoli in their paper _Sampling-based Algorithms for Optimal Motion Planning_@sampling-based-survey. With only a couple of modifications to #acr("RRT"), the algorithm is able to reach asymptotic optimality, where the original algorithm makes no such promises. The modifications are explained below:
 
 #set enum(numbering: box-enum.with(prefix: "M-", color: theme.mauve))
-+ _*Cost Function:*_ The first modification is the introduction of a _cost function_, $c(v)$, for each node, $v in V$. The cost function outputs the length of the shortest path from the start node to the node $v$. This modification encodes an optimisable metric for each branch, which enables the next modification, #boxed(color: theme.mauve, [*M-2*]), to take place.
++ _*Cost Function:*_ The first modification is the introduction of a _cost function_, $c(v)$, for each node, $v in V$. The cost function outputs the length of the shortest path from the start node to the node $v$. This modification encodes an optimizable metric for each branch, which enables the next modification, #boxed(color: theme.mauve, [*M-2*]), to take place.
 + _*Rewiring:*_ The second modification is the introduction of a _neighbourhood radius_, $r in RR^+$, around each newly created node, which is used to search for nodes that can be reached with a lower cost.
 
   As such every time a new node is created, there is a possibility that other nodes within that radius, will have a lower cost if they were to be connected to the new node. Thus, comparing the nodes' old cost, and the cost they would have in case we connect them to the newly created node, determines whether to rewire or not.

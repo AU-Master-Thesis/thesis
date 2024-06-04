@@ -515,7 +515,7 @@ rmse: float = np.sqrt(error / len(positions))
 //     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
 //   ),
 //   caption: [
-//     Every visualisable setting, and a description of how it has been chosen to visualise it.
+//     Every visualizable setting, and a description of how it has been chosen to visualise it.
 //   ]
 // )
 
