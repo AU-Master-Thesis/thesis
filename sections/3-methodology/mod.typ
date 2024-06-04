@@ -2,8 +2,9 @@
 = Methodology <methodology>
 
 
-This section covers the methodology and work produced as part of the thesis. The different work items related to each hypothesis in @intro-research-hypothesis, will be presented in turn. \
-All work on the reproduction part is done by assessment of the openly available material i.e. the paper@gbpplanner and available source code distributed along with it. Where certain parts of the algorithm are stated in an ambiguous way in the available material an argument for the chosen interpretation will be made.
+This section covers the methodology and work produced as part of the thesis. The different work items related to each hypothesis in @intro-research-hypothesis, will be presented in turn.
+
+All work on the reproduction part is done by assessment of the openly available material i.e. the paper@gbpplanner and available source code distributed along with it@gbpplanner-code. Where certain parts of the algorithm are stated in an ambiguous way in the available material an argument for the chosen interpretation will be made.
 
 // Where ambiguities arise, explanations or arguments for the chosen interpretations are provided.
 

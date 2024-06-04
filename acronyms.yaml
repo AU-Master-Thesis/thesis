@@ -35,9 +35,15 @@
 - acronym: CPU
   definition: Central Processing Unit
   plural: Central Processing Units
+- acronym: DOT
+  definition: DAG of Tomorrow
+- acronym: DAG
+  definition: Directed Acyclic Graph
 - acronym: ID
   definition: Identifier
   plural: Identifiers
+- acronym: YAML
+  definition: YAML Ain't Markup Language
 - acronym: UAV
   definition: Unmanned Aerial Vehicle
 - acronym: MAP

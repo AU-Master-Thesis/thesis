@@ -83,6 +83,8 @@ As described in hypothesis #study.H-1.box, this thesis poses the idea the extens
       )
     }
   ],
+  kind: image,
+  supplement: [Figure],
   caption: [Screenshot of the #acr("MAGICS") with the #panel.settings, #panel.bindings, and #panel.metrics open at the same time. In the middle, the #panel.viewport is shown. The #panel.settings and #panel.bindings are scrollable, hence only a part of them are visible here.],
 )<f.m.simulation-tool>
 
@@ -94,7 +96,7 @@ Some of the sections in the settings panel are off-screen in @f.m.simulation-too
 ==== Hot Loading Scenarios <s.m.hot-loading>
 // #jonas[New content here with the folder structure and such]
 
-Do not confuse this for hot reloading, as is known in many front-end frameworks, but #acr("MAGICS") allows for hot loading of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios. Each scenario is loaded from disk by the scenario loader module by reading through the folder `./config/scenarios/`#footnote[The default, but can be changed using the `--scenario-dir <DIR>` flag when starting the simulator] for every folder with the three different configuration files in them. As seen in @listing.scenario-folder-structure. This makes it uncomplicated to work on multiple scenarios at once, and share them with others.
+Do not confuse this for _hot reloading_, as is known in many front-end frameworks, but #acr("MAGICS") allows for _hot loading_ of scenarios. This means that the simulation scenarios that are described later in #nameref(<s.r.scenarios>, "Scenarios") can be selected through a drop-down at any time during the simulation#footnote[`f4` and `f6` can be use to load the previous and next scenario respectively. Allowing one to quickly go back and forth and compare scenarios.]. This will reset the simulation and load the new scenario, loading the corresponding `configuration.toml`, `environment.yaml`, and `formation.yaml`. The dropdown menu contains all scenarios listed under @s.r.scenarios along with other miscelleanous scenarios. Each scenario is loaded from disk by the scenario loader module by reading through the folder `./config/scenarios/`#footnote[The default, but can be changed using the `--scenario-dir <DIR>` flag when starting the simulator] for every folder with the three different configuration files in them. As seen in @listing.scenario-folder-structure. This makes it uncomplicated to work on multiple scenarios at once, and share them with others.
 
 // 📂
 #listing([
@@ -114,7 +116,7 @@ Do not confuse this for hot reloading, as is known in many front-end frameworks,
   caption: [Folder structure expected by the scenario loader module. Each scenario is a separate subfolder in the `./config/scenarios/` folder, with a `config.toml`, `environment.yaml` and `formation.yaml` in each.],
 ) <listing.scenario-folder-structure>
 
-#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the `  󰑓 ​ ​` button in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm such as the communications failure rate, $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour. Once a desired set of parameters have been found they can effortlessly be saved to the scenarios `config.toml` by pressing `Ctrl+S` or clicking on the `   ​ ​​​​` button in the general section.]
+#par(first-line-indent: 0pt)[The active scenario can be reloaded repeatedly by pressing `F5` or clicking on the reload button `  󰑓 ​ ​` in the simulation section, as can be seen in @f.m.simulation-tool-time-control. Simulation parameters, and parameters related to the algorithm, such as the communications failure rate, $gamma$, specified in the `config.toml` are not reloaded, allowing rapid testing of different values. By changing values in the UI, reloading the scenario, and observing the immediate effects, one can quickly iterate on tuning the system for a specific scenario. And get a better understanding of how parameters affect the systems behaviour. Once a desired set of parameters have been found they can effortlessly be saved to the scenarios `config.toml` by pressing `Ctrl+S` or clicking on the screenshot button `   ​ ​​​​` in the general section.]
 
 
 // ==== Swapping Scenarios <s.m.swapping>
@@ -217,14 +219,15 @@ Additionally to providing a visual representation of the underlying mathematics,
 
 ==== Introspection Tools <s.m.introspection-tools>
 
-All entities in the simuliation with a mesh can be clicked on to introspect their current state. This functionality aids in discoverabiliy when trying out different parameters and environments. When clicked data structured as `YAML` will be outputted to stdout with colored keys for easy navigation, and can be viewed in the attached console:
+All entities in the simuliation with a mesh can be clicked on to introspect their current state. This functionality aids in discoverabiliy when trying out different parameters and environments. When clicked; data structured as YAML will be outputted to `stdout` with colored keys for easy navigation, and can be viewed in the attached console:
 
-- *Robot:* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages set and received and the structure of its factorgraph.
-- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precizely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
+- *Robot:* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages sent and received and the structure of its factorgraph.
+
+- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
 
 - *Obstacle:* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
 
-- *Collision #acr("AABB"):* All collisions leave behind an #acr("AABB") of the collision colored in red#sr. By clicking on it information about when it happened and who collided is outputted.
+- *Collision #acr("AABB"):* All collisions leave behind an #acr("AABB") of the collision colored in red#sr. By clicking on it; information about when it happened and who collided is outputted.
 
 Example outputs of each of these are shown in @appendix.introspection-outputs.
 
@@ -238,17 +241,17 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
   *Qualitative:*
   - *Screenshot* of the simulation. The UI exposes a button, and a keybinding, default `Ctrl+P`, to take a screenshot of the viewport.
 
-  - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualize various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
+  - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualize various graph structures. It's based on a textual format that the Graphviz compiler DOT uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If DOT is installed on the system, it is used to compile the transpiled representation into a PNG image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
 
   *Quantitative:*
 
   - *Historical data* aswell as parameters of each robot in the running scenario. To make it easy to compare the effects of different parameters across different environment data is recorded for each robot.
     - A count of every message sent and received during message passing is recorded, further labelled if the message was sent across an internal or an external factorgraph edge.
     - The number of collisions a robot has had with other robots and environment obstacles.
-    - The position and linear velocity sampled and recorded with an interval of $Delta_t$ seconds.
+    - The position and linear velocity sampled and recorded with an interval of $Delta t$ seconds.
     - A description of the route a robot took. Containing the list of waypoints it has visited. When the robot started its route. And if it has finished its route how long it took.
-    - What planning strategy was used.
-  Hyper parameters such as the #acr("PRNG") seed used, the name of the scenario, and a copy of all settings found in `config.toml` is embedded into the output aswell. With this results can be reliably reproduced and compared.
-#par(first-line-indent: 0pt)[The data is automatically exported when the scenario has finished i.e. all robots have finished their route. Alternatively a snapshot of the currently recorded state can be exported from the settings UI by pressing `F7` or clicking the "metrics" button in the "Export" section. See @appendix.json-schema-for-exported-data for a typed schema of the entire #acr("JSON") object exported.]
-
+    - Which planning strategy was used, currently either `only-local` or `rrt-star`.
 ]
+Hyperparameters such as the #acr("PRNG") seed used, the name of the scenario, and a copy of all settings found in `config.toml` is embedded into the output aswell. With this results can be reliably reproduced and compared.
+
+The data is automatically exported when the scenario has finished i.e. all robots have finished their route. Alternatively a snapshot of the currently recorded state can be exported from the settings UI by pressing `F7` or clicking the "metrics" button in the "Export" section. See @appendix.json-schema-for-exported-data for a typed schema of the entire #acr("JSON") object exported.
