@@ -432,7 +432,7 @@ energy-based-models:
   - Hadsell, Raia
   date: 2006-01
   page-range: 34-37
-  abstract: Energy-Based Models (EBMs) capture dependencies between variables by as- sociating a scalar energy to each configuration of the variab les. Inference consists in clamping the value of observed variables and finding config urations of the re- maining variables that minimize the energy. Learning consists in finding an energy function in which observed configurations of the variables a re given lower energies than unobserved ones. The EBM approach provides a common theoretical frame- work for many learning models, including traditional discr iminative and genera- tive approaches, as well as graph-transformer networks, co nditional random fields, maximum margin Markov networks, and several manifold learning methods. Probabilistic models must be properly normalized, which sometimes requires evaluating intractable integrals over the space of all poss ible variable configura- tions. Since EBMs have no requirement for proper normalization, this problem is naturally circumvented. EBMs can be viewed as a form of non-probabilistic factor graphs, and they provide considerably more flexibility in th e design of architec- tures and training criteria than probabilistic approaches .
+  abstract: Energy-Based Models (EBMs) capture dependencies between variables by as- sociating a scalar energy to each configuration of the variab les. Inference consists in clamping the value of observed variables and finding config urations of the re- maining variables that minimize the energy. Learning consists in finding an energy function in which observed configurations of the variables a re given lower energies than unobserved ones. The EBM approach provides a common theoretical frame- work for many learning models, including traditional discr iminative and genera- tive approaches, as well as graph-transformer networks, co nditional random fields, maximum margin Markov networks, and several manifold learning methods. Probabilistic models must be properly normalized, which sometimes requires evaluating intractable integrals over the space of all poss ible variable configura- tions. Since EBMs have no requirement for proper normalization, this problem is naturally circumvented. EBMs can be viewed as a form of non-probabilistic factor graphs, and they provide considerably more flexibility in th e design of architec- tures and training criteria than probabilistic approaches.
   parent:
     type: anthology
 
@@ -465,6 +465,8 @@ marginalisation:
 erc-rrt-star:
   type: misc
   title: '{RRT} {Star} - {ERC} {Handbook}'
+  author: Electronics and Robotics Club (ERC) of BITS Goa
+  date: 2024-05-02
   url:
     value: https://erc-bpgc.github.io/handbook/automation/PathPlanners/Sampling_Based_Algorithms/RRT_Star/
     date: 2024-05-02
@@ -559,10 +561,10 @@ the-rust-book:
 essential-university-physics:
   type: chapter
   page-range: 55
+  author: Richard Wolfson
   parent:
     type: book
     title: Essential University Physics Volume 1
-    author: Richard Wolfson
     date: 2015-01-03
     publisher: Pearson Education
     volume: 1
@@ -574,14 +576,14 @@ essential-university-physics:
 simpsons-rule:
   type: chapter
   page-range: 105
+  author:
+    - William H. Press
+    - Saul A. Teukolsky
+    - William T. Vetterling
+    - Brian P. Flannery
   parent:
     type: book
     title: Numerical Recipes The Art of Scientific Computing
-    author:
-      - William H. Press
-      - Saul A. Teukolsky
-      - William T. Vetterling
-      - Brian P. Flannery
     publisher: Cambridge University Press
     date: 1986
 
@@ -663,7 +665,7 @@ graphviz:
 # --- Rust Crates ---
 repo:
   type: repository
-  title: gbpplanner-rs
+  title: gbp-rs
   author:
     - Jens Høigaard Jensen
     - Kristoffer Plagborg Bak Sørensen
@@ -756,6 +758,7 @@ rust-std:
 bevy_prng:
   type: repository
   title: bevy_prng
+  date: 2024-05-15
   author:
     - Gonçalo Rica Pais da Silva
     # - The Rust Project Developers
@@ -848,7 +851,7 @@ orca:
     title: Robotics Research
     publisher: Springer Berlin Heidelberg
     location: Berlin, Heidelberg
-    volume: 70
+    # volume: 70
 
 # artificial potential fields
 matoui_contribution_2020:
@@ -870,8 +873,8 @@ matoui_contribution_2020:
   parent:
     type: periodical
     title: Intelligent Service Robotics
-    issue: 1
-    volume: 13
+    # issue: 1
+    # volume: 13
 
 
 zhang2023multirobot:
@@ -1002,7 +1005,8 @@ algorithms-fourth-edition:
 
 gang-of-four-design-patterns:
   type: book
-  title: 'Design Patterns: Elements of Reusable Object-Oriented Software'
+  title: 'Design Patterns: Elements of Reusable Object-Oriented Software (P. 233)'
+  page-range: 233
   author:
   - Erich Gamma
   - Richard Helm
@@ -1014,7 +1018,8 @@ gang-of-four-design-patterns:
 
 tour-of-cpp:
   type: book
-  title: A Tour of C++ Second Edition
+  title: A Tour of C++ Second Edition (P. 93-104)
+  page-range: 93-104
   author: Bjarne Stroustrup
   date: 2019
   publisher: Pearson Addison-Wesley
@@ -1155,7 +1160,6 @@ schwabe_automation_2020:
   - Schwabe, Henrik
   - Castellacci, Fulvio
   date: 2020-11
-  page-range: e242929
   url:
     value: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0242929
     date: 2024-05-31
@@ -1166,8 +1170,8 @@ schwabe_automation_2020:
   parent:
     type: periodical
     title: PLOS ONE
-    issue: 11
-    volume: 15
+    # issue: 11
+    # volume: 15
 
 Mukadam_2018:
   type: article
@@ -1218,12 +1222,12 @@ tahir2019state:
 ros2_rust:
   type: repository
   title: ros2-rust
+  date: 2024-06-03
   author:
     - The ros2-rust Contributors
   url:
     value: https://github.com/ros2-rust/ros2_rust
     # value: https://github.com/rust-random/rand
-    date: 2024-06-03
   serial-number:
     version: 0.4.1
   note: https://github.com/ros2-rust/ros2_rust
@@ -1231,13 +1235,13 @@ ros2_rust:
 diffential-drive-constraints:
   type: chapter
   page-range: 57-63
+  author:
+  - Siegwart, Roland
+  - Nourbakhsh, Illah R.
+  - Scaramuzza, Davide
   parent:
     type: book
     title: Introduction to Autonomous Mobile Robots
-    author:
-    - Siegwart, Roland
-    - Nourbakhsh, Illah R.
-    - Scaramuzza, Davide
     date: 2011
     publisher: The MIT Press
     volume: 1
