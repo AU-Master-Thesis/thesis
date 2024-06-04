@@ -222,7 +222,7 @@ This scenario uses the same environment as the #scenario[Environment Obstacles] 
   tab
 )
 #v(-0.5em)
-planning strategy to be that of `rrt-star` instead of `only-local`, which has been the case for all of the above scenarios. The robot is equipped with a #acr("RRT*") pathfinding component, which, in @f.scenarios.solo-gp, has just finished computing the path it is expected to take. The path is shown as a faint red line across the corridors of the map. Parameters are listed in @t.scenarios.solo-gp, with #acr("RRT*") specific parameters in @t.scenarios.solo-gp.rrt-params.
+planning strategy to be that of `rrt-star` instead of `only-local`, which has been the case for all of the above scenarios. The robot is equipped with a #acr("RRT*") pathfinding component, which, in @f.scenarios.solo-gp, has just finished computing the path it is expected to take. The path is shown as a faint green line across the corridors of the map. Parameters are listed in @t.scenarios.solo-gp, with #acr("RRT*") specific parameters in @t.scenarios.solo-gp.rrt-params.
 
 #figure(
   std-block(

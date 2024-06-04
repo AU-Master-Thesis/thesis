@@ -119,7 +119,7 @@ The results for the Environment Obstacles scenario are shown with purple and a t
 #let body = [
   performing than the Circle scenario, and are comparable to @gbpplanner, with only a small expected descrepency.
 
-  @f.obstacle-experiment-makespan presents the makespan results for both the Circle and Environment Obstacles scenarios. The figure shows that the makespan for #lm3-th5.n is significantly lower than for the two runs with $t_(K-1)=13.33s$. Furthermore, the the makespan values for #lm3-th5.s are much closer to the corresponding values of @gbpplanner. Hence, it was deemed unnecessary to have validative results from the `gbpplanner` code itself.
+  @f.obstacle-experiment-makespan presents the makespan results for both the Circle and Environment Obstacles scenarios. The figure shows that the makespan for #lm3-th5.n is significantly lower than for the two runs with $t_(K-1)=13.33s$. Furthermore, the makespan values for #lm3-th5.s are much closer to the corresponding values of @gbpplanner. Hence, it was deemed unnecessary to have validative results from the `gbpplanner` code itself.
 ]
 
 #grid(
