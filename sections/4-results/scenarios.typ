@@ -287,7 +287,7 @@ Here, the same complex environment as in the #scen.solo-gp.n scenario is used. H
 
 === #scen.iteration-amount.n <s.r.scenarios.iteration-amount>
 
-This scenario explores the effect of varying $M_I$ and $M_E$. Both $M_I$ and $M_E$ are varied over the second to tenth number in the Fibonacci sequence, see <eq.fibonacci>, and the rest of the paremeters listed in @t.scenarios.iteration-amount.
+This scenario explores the effect of varying $M_I$ and $M_E$. Both $M_I$ and $M_E$ are varied over the second to tenth number in the Fibonacci sequence, see <eq.fibonacci>, and the rest of the parameters listed in @t.scenarios.iteration-amount.
 
 $ M_I and M_E =  {"fib(i)" | i in [2,3, ..., 10]} $<eq.fibonacci>
 
