@@ -1,6 +1,7 @@
 #import "lib/mod.typ": *
 #import "template.typ": *
 
+
 #set raw(theme: "catppuccin.tmTheme")
 #show figure.where(kind: raw): set block(breakable: true)
 // #show raw : it => text(font: "JetBrainsMono NF", catppuccin.latte.text, it)
@@ -242,17 +243,31 @@
   ]
 )
 
+#let acronyms = yaml("acronyms.yaml")
+
+#let acrostiche-acronyms = merge(..acronyms.map(it => {
+  let v = (it.definition,)
+  if "plural" in it {
+    v.push(it.plural)
+  }
+
+  (it.acronym: v)
+}))
+
+
+#init-acronyms(acrostiche-acronyms)
+
 // This is important! Call it whenever your page is reconfigured.
 #if not release {
   set-page-properties()
 }
 
-#if "release" in sys.inputs and sys.inputs.release == "true" {
-  set-margin-note-defaults(hidden: true)
-} else {
-  set-margin-note-defaults(hidden: false)
-}
-#show: word-count
+// #if "release" in sys.inputs and sys.inputs.release == "true" {
+//   set-margin-note-defaults(hidden: true)
+// } else {
+//   set-margin-note-defaults(hidden: false)
+// }
+// #show: word-count
 
 // Pre-introduction
 #set heading(numbering: none)
@@ -279,7 +294,7 @@
 #v(1em)
 #toc-printer(target: heading.where(numbering: none).after(<appendix>))
 
-#stats()
+// #stats()
 
 // Report
 #set heading(numbering: main-numbering)

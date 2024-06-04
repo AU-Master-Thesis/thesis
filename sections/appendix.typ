@@ -110,7 +110,7 @@ pub trait GbpSchedule {
     [$s$], [prng seed], [$NN_0$],
     [$delta_t$], [Time passed between each simulation step], [$s$],
     [$M_I$], [Internal #acr("GBP") message passing iterations], [$NN_0$],
-    [$M_R$], [External inter-robot #acr("GBP") messages], [$NN_0$],
+    [$M_E$], [External inter-robot #acr("GBP") messages], [$NN_0$],
     [$gamma$], [probability for the communication module to be toggled on/off], [$percent$],
     [$t_K-1$], [Extend of time horizon. The time it should take for the current variable to reach the horizon variable], [$s$],
     [$|V|$], [Number of variables in each factorgraph], [$NN_1 \\ {1}$],
@@ -470,7 +470,9 @@ rmse: float = np.sqrt(error / len(positions))
 // == Perpendicular Path Deviation Metric Code <appendix.perpendicular-path-deviation-metric-code>
 == Visualisation Modules <appendix.visualisation-modules>
 
-A screenshot of each visualization module presented in @s.m.visualisation is listed below. See @table.simulation-visualisations for a detailed description of each module.
+#k[
+  insert screenshots of each visualisation component
+]
 
 // #let edges = (
 //   on: box(line(length: 10pt, stroke: theme.green), height: 0.25em),
@@ -516,133 +518,10 @@ A screenshot of each visualization module presented in @s.m.visualisation is lis
 
 #let s(x, y, img) = scale.with(x: x, y: y, img)
 
-#let (x, y) = (90%, 90%)
-
-=== Robots
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/visualizer-robots.png")),
-  // caption: [#todo[]]
-) <appendix.visualizer-robots>
-
-#pagebreak()
-
-=== Communication Graph
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/visualizer-communication-graph.png")),
-  caption: [Communication graph between robots]
-) <appendix.visualizer-communication-graph>
-
-=== Trajectories
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/visualizer-trajectories.png")),
-  caption: [Variable of each robots factorgraph, outlining the planned path at the current timestep.]
-) <appendix.visualizer-trajectories>
-
-=== Waypoints
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/visualizer-waypoints.png")),
-  caption: [Each waypoint is shown as sphere, and then a traced path between them.]
-) <appendix.visualizer-waypoints>
-
-=== Uncertainty
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/visualizer-uncertainty.png")),
-  caption: [The uncertainty about each variables estimated position. Based on its covariance matrix belief.]
-) <appendix.visualizer-uncertainty>
-
-=== Paths
-
-#figure(
-  scale(x: x, y: y, image(height: 45%, "../figures/img/visualizer-paths.png")),
-  caption: [The travelled path of each robot is traced as a line, with a color similar to the robots.]
-) <appendix.visualizer-paths>
-
-=== Communication Radius
-
-#figure(
-  scale(x: x, y: y, image(height: 35%, "../figures/img/visualizer-communication-radius.png")),
-  caption: [Communication radius of a robot. The circle is teal#stl when the radio is active, and red#sr when it's inactive.]
-) <appendix.visualizer-communication-radius>
-
-=== Obstacle Factors
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/obstacle-factors-example-with-variables.png")),
-  caption: [Obstacle factors are visualized as a line from the variable to the lineraisation point that the obstacle measures the #acr("SDF") in. At the lineraization point a circle perimeter is shown. The color varies from #gradient-box(theme.green, theme.yellow, theme.red) with red#sr representing a sample directly into a static obstacle.]
-) <appendix.visualizer-obstacle-factors>
-
-#pagebreak()
-
-=== Tracking
-
-#figure(
-  rotate(270deg, scale(x: x, y: y, image("../figures/img/visualizer-tracking.png"))),
-  caption: [The projections used by tracking factors.]
-) <appendix.visualizer-tracking>
-
-#pagebreak()
-
-=== Interrobot Factors
-
-#figure(
-  scale(x: x, y: y, image(height: 45%, "../figures/img/visualizer-interrobot-factors.png")),
-  caption: [Active interrobot factors between two robots.]
-) <appendix.visualizer-interrobot-factors>
-
-=== Interrobot Factors Safety Distance
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/visualizer-interrobot-factors-safety-distance.png")),
-  caption: [The radial safety distace $d_s$ of each interrobot factor. orange#so when communication is enabled and gray#sgr3 when disabled.]
-) <appendix.visualizer-interrobot-factors-safety-distance>
-
-=== Robot Colliders
-
-#figure(
-  scale(x: x, y: y, image(height: 45%, "../figures/img/visualizer-robot-collider.png")),
-  caption: [Visual indication of the spherical volume used by robots for collision detection.]
-) <appendix.visualizer-robot-colliders>
-
-
-
-=== Environment Colliders
-
-#figure(
-  scale(x: x, y: y, image(height: 40%, "../figures/img/visualizer-environment-collider.png")),
-  caption: [Visual indication of the polygonal volume used by the environment for collision detection.]
-) <appendix.visualizer-environment-colliders>
-
-
-=== Robot-robot Collisions
-
-#figure(
-  scale(x: x, y: y, image("../figures/img/visualizer-robot-robot-collisions.png")),
-  caption: [An afterimage of collisions between robots. The shape of the box is based on the intersected volumes #acr("AABB").]
-) <appendix.visualizer-robot-robot-collisions>
-
-
-=== Robot-environment Collisions
-
-#figure(
-  scale(x: x, y: y, image(height: 40%, "../figures/img/visualizer-robot-environment-collisions.png")),
-  caption: [An afterimage of collisions between robots and the environment. The shape of the box is based on the intersected volumes #acr("AABB").]
-) <appendix.visualizer-robot-environment-collisions>
-
-
-=== Generated Map
-
 #figure(
   scale(x: 80%, y: 80%, image("../figures/img/visualizer-generated-map.png")),
   caption: [Generated map from `environment.yaml`]
 ) <appendix.visualizer-generated-map>
-
-
-=== SDF
 
 #figure(
   scale(x: 80%, y: 80%, image("../figures/img/visualizer-sdf.png")),
@@ -651,3 +530,41 @@ A screenshot of each visualization module presented in @s.m.visualisation is lis
 
 // #s(80%, 80%, image("../figures/img/visualizer-sdf.png"))
 // #s(80%, 80%, image("../figures/img/visualizer-generated-map.png"))
+
+= Individual Contributions <appendix.contributions>
+#let a = [(#sym.checkmark)]
+#let r = sym.checkmark
+#let hcell(body) = table.cell(colspan: 3, fill: theme.text.lighten(30%), text(white, weight: 900, body))
+#figure(
+  tablec(
+    columns: (auto, 20mm, 20mm),
+    alignment: (x, y) => (left, center, center).at(x) + horizon,
+    header: table.header(
+      [Area], [JHJ], [KPBS]
+    ),
+    table.hline(),
+    hcell[GBP],
+    // table.hline(),
+    [Reimplementation], table.vline(), a, r,
+    [Iteration Schedules], [], r,
+    [Iteration Amount], [], r,
+    table.hline(),
+    hcell[MAGICS],
+    // table.hline(),
+    [Architecture], a, r,
+    [Simulation Framework], r, a,
+    [Visualisation], r, r,
+    [GUI], r, a,
+    table.hline(),
+    hcell[Configuration],
+    // table.hline(),
+    [Environment Configuration & Generation], r, [],
+    [Formation Configuration], a, r,
+    table.hline(),
+    hcell[Global Pathfinding Layer],
+    // table.hline(),
+    [Global Pathfinding with RRT\*], r, a,
+    [Tracking Factor Design & Integration], r, [],
+  ),
+  caption: [Contributions of each author to the project. JHJ = Jens Høigaard Jensen, KPBS = Kristoffer Plagborg Bak Sørensen, and #r = responsible, #a = assisted. However, there have been more overlaps, as it has been a collaborative effort.]
+)<t.appendix.contributions>

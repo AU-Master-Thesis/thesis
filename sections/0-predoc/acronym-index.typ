@@ -2,19 +2,6 @@
 
 
 
-#let acronyms = yaml("../../acronyms.yaml")
-
-#let acrostiche-acronyms = merge(..acronyms.map(it => {
-  let v = (it.definition,)
-  if "plural" in it {
-    v.push(it.plural)
-  }
-
-  (it.acronym: v)
-}))
-
-
-#init-acronyms(acrostiche-acronyms)
 // == Acronym Index
 // #v(1em)
 // #todo[Make acronym table break, so it starts on this page]
