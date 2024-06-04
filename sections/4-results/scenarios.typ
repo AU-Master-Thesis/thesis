@@ -4,7 +4,7 @@
 #let scenario(name) = [_*#name*_]
 
 // #jonas[Read this, and all subsections]
-The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len()) different scenarios. The first five, #boxed(color: theme.peach, [*S-X*]), scenarios adhere to the original paper's@gbpplanner experiments, where the last 2, #boxed(color: colors.ours, [*S-X*]), are specifically designed for the global planning extension that #acr("MAGICS") provides. The scenarios are:
+The performance of #acr("MAGICS") is evaluated across #numbers.written(scen.len()) different scenarios. The first five, #boxed(color: theme.peach, [*S-X*]), scenarios adhere to the original paper's@gbpplanner experiments, where the last two, #boxed(color: colors.ours, [*S-X*]), are specifically designed for the global planning extension that #acr("MAGICS") provides. The scenarios are:
 // #jonas[fixed the boldness overload here]
 
 #set enum(numbering: box-enum.with(color: colors.theirs, prefix: "ST-"))
