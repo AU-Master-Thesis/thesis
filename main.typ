@@ -162,7 +162,7 @@
 #show: paper.with(
   paper-size: "a4",
   title: project-name,
-  subtitle: "Computer Engineering Master Thesis",
+  subtitle: "Master's Thesis in Computer Engineering",
   title-page: true,
   title-page-extra: align(center,
     std-block(
@@ -253,7 +253,6 @@
 
   (it.acronym: v)
 }))
-
 
 #init-acronyms(acrostiche-acronyms)
 

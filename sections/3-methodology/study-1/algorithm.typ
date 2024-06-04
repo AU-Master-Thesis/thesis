@@ -32,7 +32,7 @@
     )
   ]
 
-  The algorithm is written out in @a.m.algorithm, where `CurrentlyConnected` is a way to retrieve which robots are currently set as being connected to a specific robot, $R_i$. Before the main loop, find which robots are within communication distance at the current timestep, $N(R_i)$. Then in the main loop while the simulation is _running_, create an interrobot factor between all robots within communication distance if it doesn't already exist with `Connect`, and delete the interrobot factor if the robot is no longer within communication distance with `Disconnect`. After this, the internal and external #acr("GBP") iterations are run with `InternalGBP` and `ExternalGBP`, respectively.
+  The algorithm is written out in @a.m.algorithm, where `CurrentlyConnected` is a way to retrieve which robots are currently set as being connected to a specific robot, $R_i$. Before the main loop, find which robots are within communication distance at the current timestep, $N(R_i)$. Then in the main loop while the simulation is _running_, create an interrobot factor between all robots within communication distance if it does not already exist with `Connect`, and delete the interrobot factor if the robot is no longer within communication distance with `Disconnect`. After this, the internal and external #acr("GBP") iterations are run with `InternalGBP` and `ExternalGBP`, respectively.
 
   #algorithm(
     caption: [GBP For Robot $R_i$@gbpplanner]
@@ -86,7 +86,7 @@
 
   + `update_failed_comms`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1478", "src/planner/robot.rs:1478")] updates the communication status of all robots, based on the configurable parameter `communication_failure_rate` under the `robot``.communication` table in `config.toml`.
     #space
-    *Parity* with `Simulator::setCommsFailure` in #gbpplanner. This doesn't have a correlary in @a.m.algorithm.
+    *Parity* with `Simulator::setCommsFailure` in #gbpplanner. This does not have a correlary in @a.m.algorithm.
 
   + `iterate_gbp`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1654", "src/planner/robot.rs:1654")] iterates the #acr("GBP") algorithm for all robots in the simulation. That is, it has the responsibilitity for the 4 inference steps; _variable update, variable to factor message passing, factor update, and factor to variable message passing_.
     #space

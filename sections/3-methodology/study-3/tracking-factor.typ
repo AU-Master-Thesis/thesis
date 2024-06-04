@@ -14,7 +14,7 @@ $
   #m.x _"pos" = mat(x, y)^top#h(2em)"and"#h(2em)#m.x _"vel" = mat(equation.overdot(x), equation.overdot(y))^top
 $<eq.variable-components>
 
-The main idea behind the tracking factor, is that it projects the variable's position onto the line segment that is should currently be following, and then uses the measurement of the distance between the projected point and the variable's position as the measurement. This idea needs further modifications, will be covered in the following explanation of how to arrive at the measurement function $h_t$. First let's define a projection function, $"proj"(#m.x, #m.p _"start", #m.p _"end")$, that projects a point, $#m.x$, onto a line segment defined by two points, $#m.p _"start"$ and $#m.p _"end"$, as shown in <eq.projection>.
+The main idea behind the tracking factor, is that it projects the variable's position onto the line segment that is should currently be following, and then uses the measurement of the distance between the projected point and the variable's position as the measurement. This idea needs further modifications, will be covered in the following explanation of how to arrive at the measurement function $h_t$. First let us define a projection function, $"proj"(#m.x, #m.p _"start", #m.p _"end")$, that projects a point, $#m.x$, onto a line segment defined by two points, $#m.p _"start"$ and $#m.p _"end"$, as shown in <eq.projection>.
 
 $
   "proj"(#m.x, #m.p _"start", #m.p _"end") = #m.p _"start" +
@@ -68,7 +68,7 @@ Two modifications to the raw distance take place;
 ]
 
 ==== Jacobian <s.m.tracking-factor.jacobian>
-The Jacobian's, $jacobian_t$, responsibility is to encode the measurement strength of the tracking factor into a direction for the variable to move towards. First let's find the difference $#m.x _"diff"$
+The Jacobian's, $jacobian_t$, responsibility is to encode the measurement strength of the tracking factor into a direction for the variable to move towards. First let us find the difference $#m.x _"diff"$
 
 $
   #m.x _"diff" = #m.x _"meas" - #m.x _"pos"

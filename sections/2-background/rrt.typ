@@ -84,7 +84,7 @@
 
   That is; the set of all randomly sampled points, $cal(X)_"rand"$, which is the result of the above mapping, is a subset of the configuration space, $cal(X)$.
 
-  // #jens[finish this one, it doesn't make too much sense]
+  // #jens[finish this one, it does not make too much sense]
 
   // \ #text(size: 1.25em, weight: "bold", [`NearestNeighbor(G, x)`])  \
   // ==== `NearestNeighbor(G, x) -> v`
@@ -135,7 +135,7 @@
 
 #example(caption: [Contextual RRT Application])[
   #set par(first-line-indent: 0em)
-  *Scenario:* Let's look at an example, where the possible state space is _two-dimensional euclidean space_. A Robot wants to go from 2D position $x_A$ to $x_B$ \ \
+  *Scenario:* Let us look at an example, where the possible state space is _two-dimensional euclidean space_. A Robot wants to go from 2D position $x_A$ to $x_B$ \ \
 
   *Input:* In @alg-rrt, the input is outlined to be a starting position, $x_"start"$, a goal position $x_"goal"$, a step length $s$, a maximum number of iterations, $N$, and lastly, a goal tolerance, $g_"tolerance"$. \ \
 

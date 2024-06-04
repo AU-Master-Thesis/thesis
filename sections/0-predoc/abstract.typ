@@ -1,15 +1,13 @@
 #import "../../lib/mod.typ": *
 = Abstract <abstract>
 
-This thesis explores enhancing multi-agent path planning in complex environments using #acr("GBP") and global pathfinding strategies such as #acr("RRT*"). It addresses inefficiencies and limitations in current systems, particularly in collision avoidance and navigation through intricate and constrained spaces. The key contributions are developing the flexible simulation framework #acr("MAGICS"), study possible enhancements to algorithms, integrating a global planning layer and introducing a new tracking factor to the #acr("GBP") structure.
-
-Automation advancements ultimately lead to sophisticated autonomous systems in fields like agriculture and transportation, requiring efficient path planning to optimize movement and prevent collisions. This research aims to enhance multi-agent systems by tackling current challenges and improving path planning techniques.
+Automation advancements ultimately lead to sophisticated autonomous systems in fields like agriculture and transportation, requiring efficient path planning to optimize movement and prevent collisions. As such, this thesis explores enhancing multi-agent path planning in complex environments using #acr("GBP") and global pathfinding strategies such as #acr("RRT*"). It addresses inefficiencies and limitations in current systems, particularly in collision avoidance and navigation through intricate and constrained spaces. The key contributions are; the development of a flexible simulation framework called #acr("MAGICS"), in-depth studies of possible enhancements to #acr("GBP") algorithms, integrating a global planning layer and introducing a new tracking factor to the #acr("GBP") structure.
 
 The core problem is the inefficiency and limitations of current systems in complex environments, exacerbated by a lack of robust simulation frameworks. The integration of global planning capabilities with #acr("GBP") is relatively unexplored. This thesis proposes solutions to enhance the usability, functionality, and scalability of such systems.
 
 Three hypotheses guide this research: 1) Reimplementing the #gbpplanner@gbpplanner in a modern, flexible framework will enhance scientific communication and extendibility; 2) Enhancements, such as different #acr("GBP") iteration schedules and a more distributed approach, will improve flexibility and performance without altering core functionality; and 3) Adding a global planning layer will improve navigation in complex environments without compromising local collision avoidance or performance. The new tracking factor will be able reduce path deviation.
 
-The methodology involves reimplementing the #gbpplanner, in the new simulation tool #acr("MAGICS"), introducing and testing various #acr("GBP") iteration schedules and amounts, and extending the reimplementation with a global planning layer, and a tracking factor.
+The methodology involves reimplementing the original #gbpplanner in the new simulation tool #acr("MAGICS"), introducing and testing various #acr("GBP") iteration schedules and amounts, and extending the reimplementation with a global planning layer, and a tracking factor.
 
 // #acr("MAGICS") enhances usability while reproducing original results on some metrics, and on others it lacks behind. Studying iteration schedules and amount deepens current knowledge, and concretises factualities before left up to assumptions. The global planning layer significantly improves navigation in complex environments, without degrading performance.
 
