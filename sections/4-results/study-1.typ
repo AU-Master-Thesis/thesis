@@ -5,7 +5,7 @@
 // #jonas[all these results are new since last. We're working towards measuring ours and their code and then comparing their paper vs our code vs their code. Does that make sense? It will be obvious where we are still missing results]
 // #todo[create an experiment where we measure the effect of number of internal iterations. Should give a lower error the higher it is.]
 
-This section presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with it's capabilities to reproduce the results of the #acr("GBP") planner@gbpplanner. Sections #numref(<s.r.results.circle-obstacles>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
+This section presents all results pertaining to the first contribution, that is the #acr("MAGICS") simulator, along with its capabilities to reproduce the results of the #acr("GBP") Planner@gbpplanner. Sections #numref(<s.r.results.circle-obstacles>)-#numref(<s.r.results.failure>) present the results of the experiments conducted in scenarios #boxed[*S-1*] to #boxed[*S-5*] respectively. For a description of these scenarios see the previous section #nameref(<s.r.scenarios>, "Scenarios").
 
 === Circle & Environment Obstacles <s.r.results.circle-obstacles>
 
@@ -89,7 +89,7 @@ The results on both figures #numref(<f.circle-experiment-ldj>) and #numref(<f.ci
     }
   ),
   caption: [
-    Distribution of distances travelled as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 4 in @gbpplanner. C = Circle Scenario, EB = Environment Obstacles Scenario.
+    Distribution of distances travelled, as the number of robots $N_R$ increases. Each value#value-swatches is averaged over five different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 4 in @gbpplanner. C = Circle Scenario, EB = Environment Obstacles Scenario.
   ]
 )<f.circle-experiment-distance-travelled>
 
@@ -111,7 +111,7 @@ The results for the Environment Obstacles scenario are shown with purple and a t
       }
     ),
     caption: [
-      Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 6 in @gbpplanner. C = Circle Scenario, EB = Environment Obstacles Scenario.
+      Comparison of makespan for the _Circle_ and _Environment Obstacles_ scenarios, as the number of robots $N_R$ increases. Each value #sl is averaged over five different seeds; $#equation.as-set(params.seeds)$. Corresponds with Figure 6 in @gbpplanner. C = Circle Scenario, EB = Environment Obstacles Scenario.
     ]
   )<f.obstacle-experiment-makespan>
 ]
