@@ -184,14 +184,14 @@ Do not confuse this for hot reloading, as is known in many front-end frameworks,
 
     #align(center, [$R_a$ #edges.on #edges.off $R_b$ #edges.off #edges.off $R_c$])
   ],
-    [Predicted trajectories], [All of each robot's factor graph variables, visualised as small spheres with a line between.],
+    [Predicted trajectories], [All of each robot's factor graph variables, visualized as small spheres with a line between.],
     [Waypoints], [A small sphere at each waypoint for each robot.],
     [Uncertainty], [A 2D ellipse for each variable in each robot's factor graph, visualising the covariance of the internal Gaussian belief.],
     [Paths], [Lines tracing out each robot's driven path.],
     [Generated map], [A 3D representation of the map generated from the environment configuration.],
     [Signed distance field], [The 2D #acr("SDF") image used for collision detection. White#swatch(white) where the environment is free, black#swatch(black) where it is occupied.],
     [Communication radius], [A circle around each robot representing the communication radius. The circle is teal#stl when the radio is active, and red#sr when it is inactive.],
-    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colours according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
+    [Obstacle factors], [A line from each variable to the linearisation point of their respective obstacle factors, and a circle in this point. Both the line and circle is colors according to the factor's measurement on a green#sg to yellow#sy to red#sr gradient; #gradient-box(theme.green, theme.yellow, theme.red).],
     [Tracking], [The measurement of the tracking factors and the line segments between each waypoint, that are being measured.],
     [Interrobot factors], [Two lines from each variable in one robot to each variable in another robot if they are currently communicating, and within the safety distance threshold $d_r$ of each other. The color varies on a yellow #sy to #sr gradient #gradient-box(theme.yellow, theme.red) visually highlighting the potential of a future collision.
     // The line is green#sg if the communication is active in that direction, and grey#sgr3 if it is inactive.
@@ -203,7 +203,7 @@ Do not confuse this for hot reloading, as is known in many front-end frameworks,
     [Robot-environment collisions], [An #acr("AABB") intersection, visualising each robot to environment collision and its magnitude. Shown as semi-transparent cuboids in red#sr.],
   ),
   caption: [
-    Every visualisable setting, and a description of how it has been chosen to visualise it.
+    Every visualisable setting, and a description of how it has been chosen to visualize it.
   ]
 )<table.simulation-visualisations>
 
@@ -220,7 +220,7 @@ Additionally to providing a visual representation of the underlying mathematics,
 All entities in the simuliation with a mesh can be clicked on to introspect their current state. This functionality aids in discoverabiliy when trying out different parameters and environments. When clicked data structured as `YAML` will be outputted to stdout with colored keys for easy navigation, and can be viewed in the attached console:
 
 - *Robot:* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages set and received and the structure of its factorgraph.
-- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
+- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precizely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
 
 - *Obstacle:* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
 
@@ -238,7 +238,7 @@ To work with the simulated environments *qualitatively* and *quantatatively* and
   *Qualitative:*
   - *Screenshot* of the simulation. The UI exposes a button, and a keybinding, default `Ctrl+P`, to take a screenshot of the viewport.
 
-  - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualise various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
+  - *Graphviz* representation of all factorgraphs. Graphviz is a common format and tool to visualize various graph structures. It's based on a textual format that the Graphviz compiler `dot` uses to generate images from@graphviz. The `FactorGraph` structure can be introspected to query it for all its nodes an external connections. This information is then transpiled into a `factorgraphs.dot` file written to disk. If `dot` is installed on the system, it is used to compile the transpiled representation into an #acr("PNG") image. That can be viewed in a traditional image viewer#footnote([This was invaluable during the development to visually assure that construction of the factorgraphs was correct.]). See @appendix.graphviz-representation-of-factorgraphs for examples of the generated output.
 
   *Quantitative:*
 

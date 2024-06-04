@@ -54,7 +54,7 @@ A datastructure for describing the static environment has been developed, and in
 #let b = [
   ===== The Main Environment<s.m.configuration.environment.main>
 
-  This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the coloured-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
+  This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the colored-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
 
   The#h(1fr)environment#h(1fr)shown#h(1fr)in#h(1fr)@f.m.maze-env#h(1fr)is#h(1fr)built
 ]
@@ -68,7 +68,7 @@ A datastructure for describing the static environment has been developed, and in
 #v(-0.60em)
 from the character matrix, in @f.m.maze-env#text(accent, "A"). Even though each character is taller than it is wide when written out in most fonts, the map-generation code produces one _square *tile*_ for each character. This makes up for the seeming descrepency in aspect ratio between the character grid in @f.m.maze-env#text(accent, "A"), and the actual environment in @f.m.maze-env#text(accent, "B"). A few special case characters are `U+2588 █`, and a space, where, the former represents free space, and the latter represents a filled-in tile, similarly to how the white-space in the other path characters are the actual obstacles.
 
-The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, where a 2$times$1 segment is highlighted#sg. In @f.m.maze-env#text(accent, "C") the highlighted section is shown bigger, where, in red#sr, the resulting #acr("AABB") colliders are shown. These colliders are generated on a per-tile basis, which means that the there are seams between the tiles, where the colliders meet. One could argue that these seams could be eliminated to optimise computational efficiency, as less intersection tests would have to be made in the #acr("RRT*") algorithm.
+The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, where a 2$times$1 segment is highlighted#sg. In @f.m.maze-env#text(accent, "C") the highlighted section is shown bigger, where, in red#sr, the resulting #acr("AABB") colliders are shown. These colliders are generated on a per-tile basis, which means that the there are seams between the tiles, where the colliders meet. One could argue that these seams could be eliminated to optimize computational efficiency, as less intersection tests would have to be made in the #acr("RRT*") algorithm.
 
 #figure(
   {
@@ -360,7 +360,7 @@ The simulation tool, #acr("MAGICS"), described in @s.m.simulation-tool, displays
           )
         )
 
-        A: Rasterised Environment
+        A: Rasterized Environment
       ],
       std-block[
         #box(
@@ -388,15 +388,15 @@ The simulation tool, #acr("MAGICS"), described in @s.m.simulation-tool, displays
       ],
     )
   },
-  caption: [An example of an automatically generated SDF file. A) Rasterise the environment into a black and white image. B) Expand the obstacles to make the eventual blur eat less into the obstacles. C) Blur the image to create the final SDF.],
+  caption: [An example of an automatically generated SDF file. A) Rasterize the environment into a black and white image. B) Expand the obstacles to make the eventual blur eat less into the obstacles. C) Blur the image to create the final SDF.],
 )<f.m.sdf>
 
-Furthermore, this single source of truth, allows the #acr("MAGICS") to visualise the true environment as meshes; generated from the same configuration file. As explained later, in , the user can choose to toggle visibility of both this _generated map_ mesh, and the #acr("SDF") image, which allows the user to understand both the actual environment and how the factors are measuring the environment. Furthermore, true collisions between the robots and the environment are calculated using the `parry2d`@parry2d library, which also uses the environment configuration to generate all the necessary colliders.
+Furthermore, this single source of truth, allows the #acr("MAGICS") to visualize the true environment as meshes; generated from the same configuration file. As explained later, in , the user can choose to toggle visibility of both this _generated map_ mesh, and the #acr("SDF") image, which allows the user to understand both the actual environment and how the factors are measuring the environment. Furthermore, true collisions between the robots and the environment are calculated using the `parry2d`@parry2d library, which also uses the environment configuration to generate all the necessary colliders.
 
 // ==== Signed Distance Field <s.m.sdf.sdf>
 
 // Automatic generation of SDF image
-// 1. Rasterise the environment into a black and white image.
+// 1. Rasterize the environment into a black and white image.
 // 2. Expand the obstacles to make the eventual blur eat less into the obstacles.
 // 3. Blur the image to create the final SDF.
 

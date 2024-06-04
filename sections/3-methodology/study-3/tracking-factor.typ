@@ -35,7 +35,7 @@ $
   q = norm(#m.proj _i - #m.p _i) < r_"switch" and norm(#m.proj _(i-1) - #m.p _i) < r_"switch"
 $<eq.switch>
 
-Hereby, the point to measure the distance to $#m.x _"meas"$ becomes equation @eq.measurement-point. The first case of @eq.measurement-point happens when the variable is close to the waypoint, and the tracking factor will measure towards the actual waypoint itself by taking both projections into account. This behaviour is visualised in @f.m.tracking-factor, along with the conditional $q$ as a green area#swatch(theme.green.lighten(35%)).
+Hereby, the point to measure the distance to $#m.x _"meas"$ becomes equation @eq.measurement-point. The first case of @eq.measurement-point happens when the variable is close to the waypoint, and the tracking factor will measure towards the actual waypoint itself by taking both projections into account. This behaviour is visualized in @f.m.tracking-factor, along with the conditional $q$ as a green area#swatch(theme.green.lighten(35%)).
 
 $
   #m.x _"meas" = cases(
@@ -44,7 +44,7 @@ $
   )
 $<eq.measurement-point>
 
-Where $#m.d = #m.l _i / norm(#m.l _i)$ is the normalised direction vector of the line segment $#m.l _i$. The addition of $#m.d dot norm(#m.x _"vel") / s_v$ in the second case of @eq.measurement-point is a way to ensure that the tracking factor always tries to also move the variable along the line segment, and not only perpendicularly towards it; which in turn helps alleviate local minima where the variable might get stuck #sym.dash.en _this happens especially when some tracking factors are tracking towards the corner, without having others pulling it along_. This pulling along is also shown in @f.m.tracking-factor. It is chosen that $s_v = 5$ in the denominator, which is somewhat arbitrary, but it does a good job of allowing the factor to pull slightly on the variable without pulling so much that the variable overtakes future variables; a large $s_v$ makes previous variables shoot far ahead overtaking future variables, thus resulting in the robot far exceeding the target speed. The last piece of the puzzle is to define the measurement function, $h_t$, as the distance between the variable's position and the measurement point, $#m.x _"meas"$, as shown in @eq.measurement.
+Where $#m.d = #m.l _i / norm(#m.l _i)$ is the normalized direction vector of the line segment $#m.l _i$. The addition of $#m.d dot norm(#m.x _"vel") / s_v$ in the second case of @eq.measurement-point is a way to ensure that the tracking factor always tries to also move the variable along the line segment, and not only perpendicularly towards it; which in turn helps alleviate local minima where the variable might get stuck #sym.dash.en _this happens especially when some tracking factors are tracking towards the corner, without having others pulling it along_. This pulling along is also shown in @f.m.tracking-factor. It is chosen that $s_v = 5$ in the denominator, which is somewhat arbitrary, but it does a good job of allowing the factor to pull slightly on the variable without pulling so much that the variable overtakes future variables; a large $s_v$ makes previous variables shoot far ahead overtaking future variables, thus resulting in the robot far exceeding the target speed. The last piece of the puzzle is to define the measurement function, $h_t$, as the distance between the variable's position and the measurement point, $#m.x _"meas"$, as shown in @eq.measurement.
 
 $
   h_t (#m.x, #m.P, i) = "min"(1, norm(#m.x _"pos" - #m.x _"meas") / d_a)
@@ -54,7 +54,7 @@ Two modifications to the raw distance take place;
 #[
   #set par(first-line-indent: 0em)
   #set enum(numbering: box-enum.with(prefix: "M-"))
-  + *Modification:* The distance is normalised by $d_a$, which is a configurable parameter called `attraction_distance`#footnote[Example in the #source-link("https://github.com/AU-Master-Thesis/gbp-rs", "gbp-rs") repository at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/ac49ddb764078e34290708e0f60846e45055e9c1/config/simulations/Intersection/config.toml#L53", "/config/simulations/Intersection/config.toml:53")] under the `gbp.tracking` table in the `config.toml` file.
+  + *Modification:* The distance is normalized by $d_a$, which is a configurable parameter called `attraction_distance`#footnote[Example in the #source-link("https://github.com/AU-Master-Thesis/gbp-rs", "gbp-rs") repository at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/ac49ddb764078e34290708e0f60846e45055e9c1/config/simulations/Intersection/config.toml#L53", "/config/simulations/Intersection/config.toml:53")] under the `gbp.tracking` table in the `config.toml` file.
 
     #v(0.5em)
 
@@ -74,7 +74,7 @@ $
   #m.x _"diff" = #m.x _"meas" - #m.x _"pos"
 $<eq.diff>
 
-Where the Jacobian, $J_t$, is then defined as the normalised difference, $#m.x _"diff"$, where the normalisation factor is the current measurement value $h$, see @eq.jacobian.
+Where the Jacobian, $J_t$, is then defined as the normalized difference, $#m.x _"diff"$, where the normalisation factor is the current measurement value $h$, see @eq.jacobian.
 
 $
   jacobian_(t,"pos") = #m.x _"diff" / h
@@ -86,4 +86,4 @@ $
   jacobian_t = [jacobian_(t,"pos"), 0, 0] = mat(1/h (x_"meas" - x_"pos"), 1/h (y_"meas" - y_"pos"), 0, 0)
 $<eq.jacobian-padding>
 
-Where $#m.x _"meas" = [x_"meas"#h(0.5em)y_"meas"]^top$ and $#m.x _"pos" = [x#h(0.5em)y]^top$ is the positional component of the linearisation point as defined in @eq.variable-components. Looking at the interrobot factor Jacobian, $jacobian_i$, in @eq.jacobian-i, it is clear that they both utilise the normalised difference between two points, and the only difference is that, for the tracking factor, only one of the two points come from a variable, which can be moved, the other from the instantaneously static projection onto the path.
+Where $#m.x _"meas" = [x_"meas"#h(0.5em)y_"meas"]^top$ and $#m.x _"pos" = [x#h(0.5em)y]^top$ is the positional component of the linearisation point as defined in @eq.variable-components. Looking at the interrobot factor Jacobian, $jacobian_i$, in @eq.jacobian-i, it is clear that they both utilize the normalized difference between two points, and the only difference is that, for the tracking factor, only one of the two points come from a variable, which can be moved, the other from the instantaneously static projection onto the path.

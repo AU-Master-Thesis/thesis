@@ -72,7 +72,7 @@
   #let space = v(0.5em)
   #set par(first-line-indent: 0em)
   #set enum(numbering: box-enum.with(prefix: "GBP-"))
-  + `update_robot_neighbours`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1247", "src/planner/robot.rs:1247")] utilises the #acr("ECS") to mutably query for all entities that have a `RobotConnections` component, and then consequently update them with all robots within communication range.
+  + `update_robot_neighbours`#footnote[Found in crate #crates.gbpplanner-rs at #source-link("https://github.com/AU-Master-Thesis/gbp-rs/blob/8960686facb7d38c0259141e5b22346c7d745271/crates/gbpplanner-rs/src/planner/robot.rs#L1247", "src/planner/robot.rs:1247")] utilizes the #acr("ECS") to mutably query for all entities that have a `RobotConnections` component, and then consequently update them with all robots within communication range.
     #space
     *Parity* with `Simulator::calculateRobotNeighbours` in #gbpplanner. Corresponds to the setting the internal data of `RobotConnection` to that of $N(R_i)$.
 
@@ -106,7 +106,7 @@
   B: text(theme.mauve, weight: "bold", "B")
 )
 
-Through these steps the lifecycle of the interrobot factors has been allured to. This lifecycle is visualised in @f.interrobot-lifecycle, where two robots #r.A and #r.B approach each other. When they are within communication range, interrobot factors are created. The messaging happens through these factors is the communication that would happen wirelessly in a real-world implementation. Furthermore, when one of the robots' radio fails, the interrobot factors that are maintained by that robot are simply deactivated instead of removed. This has been done as an optimisation, instead of deallocating, for then possibly reallocating in the next timestep. Finally, when the robots are no longer within communication range, the interrobot factors are deallocated.
+Through these steps the lifecycle of the interrobot factors has been allured to. This lifecycle is visualized in @f.interrobot-lifecycle, where two robots #r.A and #r.B approach each other. When they are within communication range, interrobot factors are created. The messaging happens through these factors is the communication that would happen wirelessly in a real-world implementation. Furthermore, when one of the robots' radio fails, the interrobot factors that are maintained by that robot are simply deactivated instead of removed. This has been done as an optimisation, instead of deallocating, for then possibly reallocating in the next timestep. Finally, when the robots are no longer within communication range, the interrobot factors are deallocated.
 
 #figure(
   block(breakable: false,

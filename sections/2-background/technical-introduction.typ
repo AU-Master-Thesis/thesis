@@ -109,7 +109,7 @@ As outlined in @f.gaussian-models the #gaussian.canonical is much more computati
 
 == Probabilistic Inference <s.b.probabilistic-inference>
 
-To contextualise factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $#m.Xb$, given some observed or known quantities, $#m.D$. This is done by combining prior knowledge with $#m.D$, to infer the most likely distribution of the variables.@gbp-visual-introduction See @ex.probabilistic-inference.
+To contextualize factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $#m.Xb$, given some observed or known quantities, $#m.D$. This is done by combining prior knowledge with $#m.D$, to infer the most likely distribution of the variables.@gbp-visual-introduction See @ex.probabilistic-inference.
 
 #example(
   caption: [Probabilistic Inference in Meteorology]

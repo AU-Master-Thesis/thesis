@@ -799,7 +799,7 @@
 
 #let fsig(content) = text(font: "JetBrainsMono NF", size: 0.85em, content)
 #let algeq(content) = {
-  show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance|MinCostConnection|Rewire|Sample|Nearest|ObstacleFree|Neighbourhood|Cost|Line|Parent)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
+  show regex("(SampleRandomPoint|NearestNeighbor|Steer|CollisionFree|WithinGoalTolerance|MinCostConnection|Rewire|Sample|Nearest|ObstacleFree|neighborhood|Cost|Line|Parent)"): set text(theme.mauve, font: "JetBrainsMono NF", size: 0.85em)
   content
 }
 
