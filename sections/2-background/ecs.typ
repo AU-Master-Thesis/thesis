@@ -2,15 +2,15 @@
 
 == Entity Component System <s.b.ecs>
 
-#acr("ECS") is an architectural software design pattern specifically tailored for #acr("DOP"). #acr("DOP") is a design paradigm that focuses on organizing and processing data efficiently, by structuring the layout of data to play well with the caching mechanisms built into modern CPUs. Instead of organizing repeated structures as #acr("AOS") structures are instead decoupled into its constituent components grouped into separate in-memory continuous arrays called #acr("SOA"). This approach is characterized by the separation of data storage from behavior and logic at the programming level. ECS architecture is commonly employed in computer games and intensive data analytics to enhance performance. Additionally, it has been utilized in robotic simulation projects such as the Potato simulator, which models large-scale heterogeneous swarm robotics@li2023potato.
+#acr("ECS") is an architectural software design pattern specifically tailored for #acr("DOP"). #acr("DOP") is a design paradigm that focuses on organizing and processing data efficiently, by structuring the layout of data to play well with the caching mechanisms built into modern CPUs. Instead of organizing repeated structures as #acr("AOS"), structures are instead decoupled into its constituent components, grouped into separate in-memory continuous arrays called #acr("SOA"). This approach is characterized by the separation of data storage from behavior and logic at the programming level. ECS architecture is commonly employed in computer games and intensive data analytics to enhance performance. Additionally, it has been utilized in robotic simulation projects such as the Potato simulator, which models large-scale heterogeneous swarm robotics@li2023potato.
 
 // At the programming level this is visible by the separation of data storage from behaviour and logic. This architecture is commonly used in computer games and intensive data analytics computations to achieve higher performance. It has also been used in other robotic simulations projects such as @li2023potato, that uses it simulate large scale heterogeneous swarm robotics.
 
 At the heart of #acrpl("ECS") are three complementary concepts, from which its name comes from; _entities_, _components_ and _systems_:
 
 #term-table(
-  [*Entity*], [A collection of components with a unique id.  Every object in the #acr("ECS") world is an entity. Most often the id a single unsigned integer. An entity could be a robot, a camera or a cylinder.],
-  [*Component*], [Data scoped to a single piece of functionality. For example position, velocity, rigid body, a timer etc.],
+  [*Entity*], [A collection of components with unique IDs.  Every object in the #acr("ECS") world is an entity. Most often the ID is a single unsigned integer. An entity could be a robot, a camera or a cylinder.],
+  [*Component*], [Data scoped to a single piece of functionality; e.g. position, velocity, rigid body, timer etc.],
   [*System*], [Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.]
 )
 
@@ -29,7 +29,7 @@ At the heart of #acrpl("ECS") are three complementary concepts, from which its n
 // / Component: Data scoped to a sitable.vline(stroke: (paint: accent, thickness: 0.75pt, cap: "round"))ngle piece of functionality. For example position, velocity, rigid body, a timer etc.
 // / System: Functions that operate on the data by querying the #acr("ECS") world for entities and components and updating them.
 
-It leads to a different approach to software design in comparison to more traditional #acr("OOP") based ways of modelling simulated environments. Instead of using object hierarchies facilitated by inheritance all components are logically laid out in a flat hierarchy, managed by a single instance of some "data store" structure. This data store is then queried and mutated by systems. All of this leads to a conceptual model which is close to relational database models. In this perspective entities are equivalent to primary keys. Components to table columns and systems to SQL queries@papagiannakis2023project. @f.ecs-entity-component-table shows an example of how the data store structures components into one large table indexed by entity ids.
+It leads to a different approach to software design in comparison to more traditional #acr("OOP") based ways of modelling simulated environments. Instead of using object hierarchies facilitated by inheritance all components are logically laid out in a flat hierarchy, managed by a single instance of some _data store_ structure. This data store is then queried and mutated by systems. All of this leads to a conceptual model which is close to relational database models. In this perspective entities are equivalent to primary keys, components to table columns, and systems to SQL queries@papagiannakis2023project. @f.ecs-entity-component-table shows an example of how the data store structures components into one large table indexed by entity ids.
 
 
 
@@ -153,7 +153,7 @@ It leads to a different approach to software design in comparison to more tradit
 
 // In Bevy systems are ordinary functions
 
-For this thesis the Bevy game engine is used, as the underline framework for both rendering and #acr("ECS") implementation@bevyengine. Its #acr("ECS") implementation utilizes Rusts powerful type system, to encode queries as variadic generic types that are verified at compile time. To get a sense for how queries are expressed using the type system, have a look at @l.example-ecs-query. It showcases how the three concepts of #acr("ECS") blends well together with the Rust language. Systems are ordinary functions, with `Query<...>` arguments. Components are structs and enums implementing the `Component` trait. And entities are simply type aliases for unsigned integers.
+For this thesis the Bevy Engine is used, as the uderlying framework for both rendering and #acr("ECS") implementation@bevyengine. Its #acr("ECS") implementation utilizes Rusts powerful type system, to encode queries as variadic generic types that are verified at compile time. To get a sense for how queries are expressed using the type system, have a look at @l.example-ecs-query. It showcases how the three concepts of #acr("ECS") blends well together with the Rust language. Systems are ordinary functions, with `Query<...>` arguments. Components are structs and enums implementing the `Component` trait. Entities are simply type aliases for unsigned integers.
 
 
 
@@ -174,7 +174,7 @@ fn move_robots(mut query: Query<(&mut Transform, &Velocity2d), With<Robot>>) {
 ],
 
   line-numbering: none,
-caption: [An example of how bevy uses the Rust type system to implement #acr("ECS") queries with a high level of expressitivity. The constructed type can be read as. "Give me a mutable reference to a `Transform` component, and immutable reference to a `Velocity2d` component. But only for the entities with a `Robot` marker component."]
+caption: [An example of how bevy uses the Rust type system to implement #acr("ECS") queries with a high level of expressitivity. The constructed type can be read as: "Give me a mutable reference to a `Transform` component, and immutable reference to a `Velocity2d` component. But only for the entities with a `Robot` marker component."]
 ) <l.example-ecs-query>
 
 
@@ -213,4 +213,4 @@ Executing the system in @l.example-ecs-query against the data store in @f.ecs-en
 
 // A powerful feature of the Bevy game engine is that it will automatically schedule systems in parallel across available CPU cores, if it can guarantee that no data races will occur between systems accessing the same components. i.e. no two queries request a `&mut` mutable reference to a component column, that overlaps give any predicate clauses. This analysis is performed based on the query signatures given in systems.
 
-A powerful feature of the Bevy game engine is that it automatically schedules systems in parallel across available CPU cores if it can guarantee that no data races will occur between systems accessing the same components. This means no two queries can request a `&mut` mutable reference to a component column that overlaps with any predicate clauses. This analysis is performed at compile time based on the query types provided in the system signatures.
+A powerful feature of the Bevy Engine is that it automatically schedules systems in parallel across available CPU cores if it can guarantee that no data races will occur between systems accessing the same components. This means no two queries can request a `&mut` mutable reference to a component column that overlaps with any predicate clauses. This analysis is performed at compile time based on the query types provided in the system signatures.

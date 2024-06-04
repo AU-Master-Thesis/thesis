@@ -32,6 +32,12 @@
 - acronym: AABB
   definition: Axis Aligned Bounding Box
   plural: Axis Aligned Bounding Boxes
+- acronym: CPU
+  definition: Central Processing Unit
+  plural: Central Processing Units
+- acronym: ID
+  definition: Identifier
+  plural: Identifiers
 - acronym: UAV
   definition: Unmanned Aerial Vehicle
 - acronym: MAP

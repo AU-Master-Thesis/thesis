@@ -21,13 +21,14 @@
   }).flatten()
 
   // repr(rows)
-
+  v(-0.5em)
   table(
     columns: (auto, auto, 1fr),
     stroke: none,
     row-gutter: 0.25em,
     ..rows
   )
+  v(-0.5em)
 }
 
 #let tablec(
