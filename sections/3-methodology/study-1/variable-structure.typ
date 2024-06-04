@@ -28,23 +28,23 @@
 === Variable Structure <s.variable-structure>
 // #jonas[Check this]
 
-Each variable is a separate structure holding internal state such as its belief expressed in the Gaussian moments form, aswell as a hashmap that buffers messages from connected factors. When the factorgraph is constructed, the variables are initialized such that the mean of their initial belief have them placed along the line segment from the robots spawn point to its first waypoint. Variables are not spaced evenly in time, but are instead spaced apart in a monotonically increasing order. The algorithm for this is parameterized over $l_h in RR_+$ and $l_m in ZZ_+$ called _lookahead horizon_ and  _lookahead multiple_ respectively.
+Each variable is a separate structure holding internal state such as its belief expressed in the Gaussian moments form, aswell as a hashmap that buffers messages from connected factors. When the factorgraph is constructed, the variables are initialized such that the mean of their initial belief have them placed along the line segment from the robot's spawn point to its first waypoint. Variables are not spaced evenly in time, but are instead spaced apart in a monotonically increasing order. The algorithm for this is parameterized over $l_h in RR_+$ and $l_m in ZZ_+$ called _lookahead horizon_ and  _lookahead multiple_ respectively.
 
 - #[$l_h$ is the time horizon in seconds that the last variable also referred to as the _horizon_ variable should be placed at. It is a dependant quantity that is computed from $r_R$, $|v_("target")|$ and $t_(K-1)$ as shown in @equ.time-between-current-and-next-state@equ.lookahead-horizon.
 
   $ t_(0,1) = r_R / 2 |v_("target")|^(-1) $ <equ.time-between-current-and-next-state>
 
-  $t_(0,1)$ is the time between the current state $v_0$ and the next state $v_(1)$. Is is defined as such to constrain the robot from moving more than half its radius $r_R "/" 2$ in a timestep $Delta_t$.
+  $t_(0,1)$ is the time between the current state $v_0$ and the next state $v_(1)$. It is defined as such to constrain the robot from moving more than half its radius $r_R "/" 2$ in a timestep $Delta t$.
 
   $ l_h = t_(K-1) / t_(0,1) $ <equ.lookahead-horizon>
 
-  $l_h$ is the ratio between $t_(K-1)$ and $t_(0,1)$ and represent the granularity/discretization of the timespan at which variables can be placed in.
+  $l_h$ is the ratio between $t_(K-1)$ and $t_(0,1)$ and represent the granularity or discretization of the timespan at which variables can be placed in.
 ]
 
 - $l_m$ groups variables together into chunks with even relative distance in time. After each $l_m$ group of variables the size between each increases by $1$.
 
 @f.variable-timesteps illustrates how the algorithm place the variables, and how the parameters influence the output. One thing of note is that $l_m - 1 = l_h$ achieves an even spacing of all variables. \
-A thorough argument for this method of placing variables is not provided in the paper nor the source code. However, a plausible argument for this approach can be made based on the theory presented earlier in @s.b.factor-graphs. Firstly, variables close to the current state are placed with little distance between each other to ensure high maneuverability and fidelity. This arrangement ensures that the immediate future, has a higher influence on the trajectory optimized for. Secondly, variables spaced further into the future are less dense to prevent them from overwhelming the influence of near-term variables. This spacing accounts for the increasing uncertainty and broader maneuvers required as the robot plans further ahead. As the figure shows $l_m$ can be modified to control how closely variables are grouped. $l_m = 1$ gives an strictly monotonically increasing sequence. As $l_m$ increases the number of variables increases. The bottom sequence with $l_m = 3$ strikes a balance between certain immediate control and broader future planning.
+A thorough argument for this method of placing variables is not provided in #gbpplanner paper@gbpplanner nor the source code@gbpplanner-code. However, a plausible argument for this approach can be made based on the theory presented earlier in @s.b.factor-graphs. Firstly, variables close to the current state are placed with little distance between each other to ensure high maneuverability and fidelity. This arrangement ensures that the immediate future, has a higher influence on the trajectory optimized for. Secondly, variables spaced further into the future are less dense to prevent them from overwhelming the influence of near-term variables. This spacing accounts for the increasing uncertainty and broader maneuvers required as the robot plans further ahead. As the figure shows; $l_m$ can be modified to control how closely variables are grouped. A lookahead multiple of $1$ gives a strictly monotonically increasing sequence. As $l_m$ increases the number of variables increases. The bottom sequence with $l_m = 3$ strikes a balance between certain immediate control and broader future planning.
 
 // The middle sequence with lm=19lm​=19 demonstrates this, with larger gaps indicating less frequent updates for distant future states. This approach captures uncertainty without excessive computational load.
 //

@@ -223,7 +223,7 @@ All entities in the simuliation with a mesh can be clicked on to introspect thei
 
 - *Robot:* All data related to the robot is printed out. Such as its position, linear velocity, active connections, number of collisions, messages sent and received and the structure of its factorgraph.
 
-- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the #panel.settings and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
+- *Variable:* When clicked the variables belief will be printed, together with a list of all its connected factors. Each factor provides a custom representation of its internal state through the `Display` trait. As variables can have a lot of neighbours it might not of interest to inspect the state of all factors, due to visual clutter. As such the Settings Panel and `config.toml` provide a section of toggles to precisely choose what state to include in the output. This was found to be useful when developing the tracking factor extension.
 
 - *Obstacle:* All obstacles keep a log over which robots that have collided with it. A list of the robots that have collided with this obstacle is outputted, together with the #acr("AABB") of their collision.
 

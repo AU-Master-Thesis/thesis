@@ -142,7 +142,7 @@ The steps to perform this approach is visualized in @f.m.waypoint-tracking, and 
 
 #[
   #set par(first-line-indent: 0em)
-  *Expectation:* The waypoints from the path will be followed, however, without any guarantees or attempts to adhere to the known obstacle free path that the line the resulting #acr("RRT*") path represents. However, as the #acr("RRT*") path is obstacle-free, the original difficulty with more complex environments without global planning is solved. Furthermore, without any path adherence measures, other than aiming for the next waypoint, the robots will have much more freedom to cut corners, and also to move around each other in more _complex_#note.wording[creative / sophisticated ?] ways.
+  *Expectation:* The waypoints from the path will be followed, however, without any guarantees or attempts to adhere to the known obstacle free path that the line the resulting #acr("RRT*") path represents. However, as the #acr("RRT*") path is obstacle-free, the original difficulty with more complex environments without global planning is solved. Furthermore, without any path adherence measures, other than aiming for the next waypoint, the robots will have much more freedom to cut corners, and also to move around each other in more creative ways.
 ]
 
 

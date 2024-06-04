@@ -167,7 +167,7 @@ The results for the Environment Obstacles scenario are shown with purple and a t
 #let O1 = ours[*O-1*]
 #let O2 = ours[*O-2*]
 
-The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.network-experiment. From these numbers, the experiment with communication range of 20 meters, $r_C=20"m"$, did much worse than the other three $r_C in {40, 60, 80}m$, where the change is very minimal in all three metrics.#note.j[Discussion: #sym.dash.en _if not negligible_.] In @t.network-experiment, results of four experiments are shown:
+The _makespan_, _distance travelled_, and _LDJ_ metrics are presented in @t.network-experiment. From these numbers, the experiment with communication range of 20 meters, $r_C=20"m"$, did much worse than the other three $r_C in {40, 60, 80}m$, where the change is very minimal in all three metrics.//#note.j[Discussion: #sym.dash.en _if not negligible_.] In @t.network-experiment, results of four experiments are shown:
 
 #term-table(
   colors: (colors.theirs, colors.theirs, colors.ours, colors.ours),
