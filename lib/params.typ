@@ -46,7 +46,7 @@
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
       sigma_t: na,
-      interrobot-safety-distance: $2.2 C_("radius")$,
+      interrobot-safety-distance: $2.2 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
@@ -56,9 +56,9 @@
     comms-failure-prob: $0%$,
     // variable-temporal-dist: {let v = 2 * 50 / 15; $#v$},
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
-    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: ${5, 13.33}s^*$, // 2 * 50m / 15m/s
   // variables: todo[...],
-  lookahead-multiple: $3^*$,
+  lookahead-multiple: ${1, 3}^*$,
   ),
   env: (
     radius: $50m$,
@@ -81,7 +81,7 @@
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
       sigma_t: na,
-      interrobot-safety-distance: $2.2 C_("radius")$,
+      interrobot-safety-distance: $2.2 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
@@ -91,7 +91,7 @@
     comms-failure-prob: $0%$,
     // variable-temporal-dist: todo[...],
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
-    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: $5s^*$, // 2 * 50m / 15m/s
     // variables: todo[...],
     lookahead-multiple: $3^*$,
   ),
@@ -113,7 +113,7 @@
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
       sigma_t: na,
-      interrobot-safety-distance: $2.2 C_("radius")$,
+      interrobot-safety-distance: $2.2 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
@@ -123,7 +123,7 @@
     comms-failure-prob: $0%$,
     // variable-temporal-dist: todo[...],
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
-    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: ${5, 13.33}s^*$, // 2 * 50m / 15m/s
     // variables: todo[...],
     lookahead-multiple: $3^*$,
   ),
@@ -149,7 +149,7 @@
       sigma_r: $0.005m$,
       sigma_o: $0.005m$,
       sigma_t: na,
-      interrobot-safety-distance: $2.2 C_("radius")$,
+      interrobot-safety-distance: $2.2 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
@@ -183,7 +183,7 @@
       sigma_r: $0.005$,
       sigma_o: $0.005$,
       sigma_t: na,
-      interrobot-safety-distance: $2.2 C_("radius")$,
+      interrobot-safety-distance: $2.2 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
@@ -192,7 +192,7 @@
     comms-failure-prob: ${0, 10, ..., 90}%$,
     // variable-temporal-dist: todo[...],
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
-    variable-temporal-dist: $13.33s^*$, // 2 * 50m / 15m/s
+    variable-temporal-dist: ${5, 13.33}s^*$, // 2 * 50m / 15m/s
     lookahead-multiple: $3^*$,
     // variables: todo[...],
     // S_r: $2.2$,
@@ -225,13 +225,13 @@
       sigma_r: $0.005$,
       sigma_o: $0.005$,
       sigma_t: $0.15$,
-      interrobot-safety-distance: $2.2 C_("radius")$,
+      interrobot-safety-distance: $2.2 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
     m_r: $10$,
     m_i: $10$,
-    comms-failure-prob: $0$,
+    comms-failure-prob: $0%$,
     // variable-temporal-dist: todo[...],
     // variable-temporal-dist: $6.67s^*$, // 2 * 50m / 15m/s
     variable-temporal-dist: $5s$, // 2 * 50m / 15m/s
@@ -269,7 +269,7 @@
       sigma_r: $0.005$,
       sigma_o: $0.005$,
       sigma_t: ${0.15, 0.5}$,
-      interrobot-safety-distance: $4 C_("radius")$,
+      interrobot-safety-distance: $4 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
@@ -306,7 +306,7 @@
       sigma_r: $0.005$,
       sigma_o: $0.005$,
       sigma_t: na,
-      interrobot-safety-distance: $2.5 C_("radius")$,
+      interrobot-safety-distance: $2.5 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
@@ -340,7 +340,7 @@
       sigma_r: $0.005$,
       sigma_o: $0.005$,
       sigma_t: na,
-      interrobot-safety-distance: $2.5 C_("radius")$,
+      interrobot-safety-distance: $2.5 times C_("radius")$,
     ),
   gbp: (
     delta_t: $0.1$,
