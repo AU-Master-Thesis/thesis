@@ -107,7 +107,7 @@ pub trait GbpSchedule {
     [$r_C$], [Robot communication radius], [$m$],
     [$|v_0|$], [Initial speed], [$m"/"s$],
     [$N_r$], [Number of robots], [$NN_1$],
-    [$s$], [prng seed], [$NN_0$],
+    [$"seed"$], [prng seed], [$NN_0$],
     [$delta_t$], [Time passed between each simulation step], [$s$],
     [$M_I$], [Internal #acr("GBP") message passing iterations], [$NN_0$],
     [$M_E$], [External inter-robot #acr("GBP") messages], [$NN_0$],
@@ -121,6 +121,15 @@ pub trait GbpSchedule {
     [$d_s$], [Inter-robot safety distance. When two variables connected by a interrobot factor are within this distance, the factor will send factor messages to alternate the course of both robot's path.], [$C_("radius")$],
     [$Q_("in")$], [Rate at which robots enter the central section in the Junction scenario (see @s.r.scenarios.junction)], [$"robots""/"s$],
     [$Q_("out")$], [Rate at which robots exit the central section in the Junction scenario (see @s.r.scenarios.junction)], [$"robots""/"s$],
+    [$M_("RRT")$], [Maximum number of iterations for the RRT\* pathfinding algorithm.], [$NN_1$],
+    [$s$], [Step size for the RRT\* pathfinding algorithm.], [$m$],
+    [$r_C$], [Collision radius for the RRT\* pathfinding algorithm. [$m$]],
+    [$r_N$], [Neighbourhood radius for the RRT\* pathfinding algorithm. [$m$]],
+
+  // max-iterations: $5000000$,
+  // step-size: $5.0$,
+  // collision-radius: $3.0$,
+  // neighbourhood-radius: $8.0$
   ),
   caption: [Experiment parameters for all reproduction scenarios. See @s.r.scenarios for an writeup of the scenarios.]
 ) <t.appendix.reproduction-experiment-parameters>
@@ -469,10 +478,6 @@ rmse: float = np.sqrt(error / len(positions))
 
 // == Perpendicular Path Deviation Metric Code <appendix.perpendicular-path-deviation-metric-code>
 == Visualisation Modules <appendix.visualisation-modules>
-
-#k[
-  insert screenshots of each visualisation component
-]
 
 // #let edges = (
 //   on: box(line(length: 10pt, stroke: theme.green), height: 0.25em),

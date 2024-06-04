@@ -24,7 +24,7 @@
   speed: $abs(v_0)$,
   n_r: $N_R$,
   s: $s e e d$,
-  comms-radius: $r_C$,
+  comms-radius: $r_("comms")$,
   comms-failure-prob: $gamma$,
   variable-temporal-dist: $t_(K-1)$,
   lookahead-multiple: $l_m$,

@@ -54,7 +54,7 @@ A datastructure for describing the static environment has been developed, and in
 #let b = [
   ===== The Main Environment<s.m.configuration.environment.main>
 
-  This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a aquare tile, with a configurable side-length, and the colored-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
+  This section of the configuration file is a matrix of strings. Each character in the matrix represents a tile in the environment. The supported characters are listed in @t.unicode-list. The environment is generated from this matrix, where each character is a square tile, with a configurable side-length, and the colored-in parts of the characters are the free paths and the rest are walls. The path-width is configurable as a percentage of the tile side-length.
 
   The#h(1fr)environment#h(1fr)shown#h(1fr)in#h(1fr)@f.m.maze-env#h(1fr)is#h(1fr)built
 ]
@@ -160,7 +160,7 @@ The resulting grid of _tiles_ in @f.m.maze-env#text(accent, "B") is, 5$times$8, 
   param-fig,
 )
 #v(-0.5em)
-where within the tile, and have any size. The map-generator supports the shapes listed in @t.environment-shapes. @t.environment-shapes also details all configurable parameters for each shape.
+where within the tile, and have any size. The map-generator supports the shapes listed in @t.environment-shapes. The table also details all configurable parameters for each shape.
 
 #figure(
   std-block(
@@ -265,7 +265,7 @@ Furthermore, which tile to place the shape in is given as a tile-$x$ and $y$ coo
 ==== Formation Configuration <s.m.configuration.formation>
 The formation configuration is used to define how the robots are spawned in the environment. A great deal of care has gone into making this a highly flexible and declarative way to define new ways to spawn robots, and define their waypoints. The formation configuration is a list of formations, where each formation is a set of parameters for how to spawn the robots, and how to layout their waypoints.
 
-Formations are described with the concept of _distribution shapes_. These shapes are an abstract way of representing dynamically placed points, but within some constraints. Say the shape is a line from $(0,0)$ to $(1,0)$, and we want this line to describe how to place 5 points. To know where to place these points, we need a technique to define where along the line, the points should be placed. Two techniques have been implemented; `random` and `even`. These two strategies inform whether to place the points with even spacing as in @f.m.formation-shapes#text(accent, "A"), or randomly as in @f.m.formation-shapes#text(accent, "B"). Note, that with the `random` strategy, each robot's size is taken into account, as, when spawned they cannot be intersecting with each other.
+Formations are described with the concept of _distribution shapes_. These shapes are an abstract way of representing dynamically placed points, but within some constraints. Say the shape is a line from $(0,0)$ to $(1,0)$, and we want this line to describe how to place 5 points. To know where to place these points, we need a technique to define where along the line, the points should be placed. Two techniques have been implemented; `random` and `even`. These two strategies inform whether to place the points with even spacing as in @f.m.formation-shapes#text(accent, "A"), or randomly as in @f.m.formation-shapes#text(accent, "B"). Note, that with both strategies, each robot's size is taken into account, as, when spawned they cannot be intersecting with each other. If this invariant is not possible to satisfy an error is reported.
 
 #figure(
   {
@@ -335,7 +335,7 @@ Lastly, some timing options are available; `repeat-every` and `delay`. The `repe
 )<f.m.formation-config>
 
 
-#par(first-line-indent: 0pt)[For a complete example of each configuration format see the three files; #configs.config, #configs.environment, and #configs.formation used in the _Environment Obstacles_ scenario,experimented with later on in @s.r.scenarios.environment-obstacles.]
+#par(first-line-indent: 0pt)[For a complete example of each configuration format see the three files; #configs.config, #configs.environment, and #configs.formation used in the _Environment Obstacles_ scenario, experimented with later on in @s.r.scenarios.environment-obstacles.]
 
 // #source-link("https://github.com/aalpatya/gbpplanner/blob/fd719ce6b57c443bc0484fa6bb751867ed0c48f4/config/circle_cluttered.json", "config/circle_cluttered.json")
 
@@ -410,6 +410,6 @@ As shown in @f.m.sdf, the process of generating the #acr("SDF") image is done in
 
   where $r_t$ is the tile-resolution from `environment.yaml`, and $c$ and $r$ are the number of columns and rows in the environment matrix respectively. Now going through each pixel of the environment, it is determined whether to make it black if it is either a part of the environment from the character matrix, or if it is part of an obstacle from the `obstacles` list. See @f.m.sdf#text(accent, "A") for the resulting rasterisation of the `environment.yaml` written in @lst.env-obstacle-config, but without any expansion.
 
-+ *Expansion:* The expansion of the obstacles is done, not by simply dilating the black pixels, but by expanding the underlying data of each of the placeable shapes providing the obstacles. This method provides a more accurate representation of the obstacles as if they were bigger, where a dilation would round over corners that would otherwise be sharp, which is an important detail to retain. See @f.m.sdf#text(accent, "B") for an example of the same `environment.yaml`, but with an expansion of #todo[how much?].
++ *Expansion:* The expansion of the obstacles is done, not by simply dilating the black pixels, but by expanding the underlying data of each of the placeable shapes providing the obstacles. This method provides a more accurate representation of the obstacles as if they were bigger, where a dilation would round over corners that would otherwise be sharp, which is an important detail to retain. See @f.m.sdf#text(accent, "B") for an example of the same `environment.yaml`, but with an expansion applied.
 
 + *Blurring:* The final step is to blur the image, which is done using a Gaussian blur. This step provides the #acr("SDF") aspects of the result with a smooth black-to-white, obstacle-to-free transition #gradient-box(black, white, width: 2em). The result of the blurring can be seen in @f.m.sdf#text(accent, "C"). The blurring is usually done with a non-zero expansion, as this provides a buffer between the obstacles and the free space. However, one should note that the resulting #acr("SDF") is _not_ an accurate representation of euclidean distances, but rather a sufficient approximation for the purposes of the simulation. Furthermore, one could argue that and accurate #acr("SDF") would be harmful, as we do not want the robots to react to any obstacles that they are far away from either way. Currently, avoiding this is encoded into the image here, but if an accurate #acr("SDF") is desired this behaviour should be transferred to the measurement function of the obstacles factor.
