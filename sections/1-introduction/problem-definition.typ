@@ -23,9 +23,6 @@
 // #todo[formulate a strong and clear definition of what path planning is, and ensure it is consistent with the rest of the document]
 
 
-// #kristoffer[
-//  Enumerate what makes the Gaussian Belief Propagation algorithm attractive.
-// ]
 
 // - Peer to Peer based
 // - No need to synchronize the ordering of messages in time

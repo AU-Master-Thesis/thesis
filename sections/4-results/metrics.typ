@@ -18,7 +18,6 @@ To objectively compare our reimplementation with the original #gbpplanner, the s
 
 // Smoothness: Robot trajectories must be smooth, in order to be feasible with respect to real-world constraints such as those due to actuators. Since smoothness is intrinsically a geometric property of the path, it should not depend on time taken or velocity. We use the Log Dimensionless Jerk (LDJ), a smoothness metric first defined in [14]. This metric is a lognormalised value of the total squared jerk along the trajectory and is defined as LDJ ∆ = − ln ( (tfinal − tstart)3 v2 max ∫ tfinal tstart | ̈ v(t)|2 dt ) (22) where t ∈ [tstart, tfinal] is the time interval over which the metric is considered, v(t) is the robot velocity at time t, and vmax is the maximum velocity along the trajectory. The LDJ metric was shown to be a better indicator of smoothness than other dimensionless metrics, and values that are more positive represent ‘smoother’ paths.
 
-// #kristoffer[use same citation as them]
 
 // dimensionless metric #note.k[higher is better?]
 
@@ -71,7 +70,6 @@ In addition to the metrics used by by Patwardhan _et al._@gbpplanner the followi
 //   ]
 ]
 
-// #kristoffer[improve figure and layout]
 #grid(
   columns: (5fr, 5fr),
   column-gutter: 1em,

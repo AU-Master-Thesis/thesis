@@ -190,7 +190,6 @@ Finally each factorgraph is stored as a component in the ECS world associated wi
 
 
 
-// use additional memory to store additional indices arrays. Each factorgraph store a vector of indices for variable nodes, one for factor nodes, and then one for each distinct factor variant. This is done as an cheap optimisation  ... given the memory footprint is low, see above to speed up to speed up iteration for queries only requiring access to the variables or factors. #kristoffer[Refer to the steps in the theory section ] #kristoffer[Another example to refer to is the section about visualization systems.]
 
 // In terms of space complexity all five candidates are close to equivalent, with four of them using $O(|V| + |E|)$ space, and the `MatrixGraph` using $O(|V|^2)$. Lack of sufficient/enough memory were not deemed and issue for the simulation. To support this claim let:
 //
@@ -219,7 +218,6 @@ Finally each factorgraph is stored as a component in the ECS world associated wi
 //
 // $ B("FactorGraph") = 200 "bytes" $
 //
-// #kristoffer[explain functions and meaning of variable names]
 //
 // #let size_of_graph = 200
 //
@@ -319,7 +317,6 @@ Finally each factorgraph is stored as a component in the ECS world associated wi
 // Lower estimate as some of the fields are heap allocated, and only the auxiliary data like the pointer to the data and the size of it is counted by the $B$ function.
 
 
-// #kristoffer[do some napkin math for the size of the graph to justify why the memory of the chosen structure is not very important]
 
 // https://github.com/indexmap-rs/indexmap/blob/3f0fffb85b99a2a37bbee363703f8509dd03e2d7/src/map/core.rs#L32
 
@@ -344,7 +341,6 @@ Finally each factorgraph is stored as a component in the ECS world associated wi
 // / GraphMap: asd
 
 
-// #kristoffer[Another added benefit of using a singular owning factorgraph structure is that is both feasible and more straightforward to extend the implementation to work with separate hosts, running with their own factorgraph. See discussion for more in depth discussion about the what would have to change to realize a real life implementation.]
 
 // - Too summarize memory consumption should not be a limiting factor of simulating the system.
 

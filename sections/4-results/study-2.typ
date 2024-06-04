@@ -1,14 +1,22 @@
 #import "../../lib/mod.typ": *
 == #study.H-2.full.n <s.r.study-2>
 
-#todo[talk about this section not as enhancement but as ablation study]
+// This section presents all results pertaining to the ﬁrst contribution, that is the MAGICS sim-
+// ulator, along with it’s capabilities to reproduce the results of the GBP planner[8]. Sections
+// 5.3.1-5.3.4 present the results of the experiments conducted in scenarios S-1 to S-5 respec-
+// tively. For a description of these scenarios see the previous section 5.2. Scenarios.
+
+This section presents results related to the second contribution around studying the effects of internal and external iteration on the factorgraphs joint optimization. @s.r.iteration-amount-plots presents the results of the _Iteration Amount_ experiment carried out in #boxed[*S-8*]. Followed by  @s.r.schedules which deliberates the results of the _Iterations Schedules_ experiment described in #boxed[*S-9*].
+
+
+// #todo[talk about this section not as enhancement but as ablation study]
 
 // #k[
 //   Construct experiment that test the effect of varying the number of variables.
 //   Especially for sharp corners like 90 degree turns in the junction.
 // ]
 
-#pagebreak(weak: true)
+// #pagebreak(weak: true)
 
 
 === Iteration Amount <s.r.iteration-amount-plots>

@@ -143,10 +143,3 @@ A thorough argument for this method of placing variables is not provided in the 
 // #k[describe as an algorithm]
 
 #par(first-line-indent: 0pt)[The Settings Panel @s.m.simulation-tool provide slider widgets to manipulate both $t_(K-1)$ and $l_m$. With this a user of the simulation can quickly experiment with the parameters and find a combination that suit the complexity of the simulated scenario.]
-
-
-
-
-// #kristoffer[
-//   Explain how we have added a setting to decouple the number of variables from the velocity and time horizon of the robot.
-// ]

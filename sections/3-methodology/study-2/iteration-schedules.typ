@@ -289,9 +289,6 @@ Five different iteration schedules are experimented with. Each schedule is liste
   external: 10,
 )
 
-// #kristoffer[
-  // Talk about how the paper make a distuinguishon about that internal and external iteration can be varied in amount per algorithm step. But does not mention how they are ordered relative to each other i.e. what schedule they use.
-// ]
 
 // #let cmap = (red.lighten(20%), blue.lighten(20%))
 // #let cmap = (internal: theme.maroon.lighten(30%), external: theme.blue.lighten(30%))

@@ -29,9 +29,3 @@ All software developed in this thesis is released under the MIT license, and is 
 // Sign off
 Enjoy reading, \
 #a.jens & #a.kristoffer \
-
-
-// #kristoffer[make a statement about how we release our software for others to use .e.g license and terms. I think either MIT or Apache]
-//
-//
-// #kristoffer[check all libraries we use are in accordance with our terms]
