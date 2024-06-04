@@ -32,7 +32,7 @@ $<eq-exponential-energy>
 
 // Then describe the two ways of representing Gaussian models in the exponential energy form
 // A Gaussian model can be written in two ways; the _moments form_ and the _canonical form_.
-In the exponential energy form, a Gaussian model can be represented in two ways; the _moments form_ and the _canonical form_. The moments form is defined by the mean vector, $mu$, and the covariance matrix, $Sigma$.@gbp-visual-introduction The canonical form is defined by the information vector, $eta$, and the precision matrix, $Lambda$. The energy parameters, energy equations, and computational efficiency for certain aspects of the two forms are compared in @f.gaussian-models.
+In the exponential energy form, a Gaussian model can be represented in two ways; the _moments form_ and the _canonical form_. The moments form is defined by the mean vector, $mu$, and the covariance matrix, $Sigma$@gbp-visual-introduction. The canonical form is defined by the information vector, $eta$, and the precision matrix, $Lambda$. The energy parameters, energy equations, and computational efficiency for certain aspects of the two forms are compared in @f.gaussian-models.
 
 #{
   let title(content) = text(black, weight: 400, content + ":", style: "italic")
@@ -103,13 +103,13 @@ In the exponential energy form, a Gaussian model can be represented in two ways;
   ]
 }
 
-As outlined in @f.gaussian-models the #gaussian.canonical is much more computationally efficient when it comes to conditioning and taking products, while the #gaussian.moments excels at marginalisation. This is due to the fact that the canonical form is closed under conditioning and taking products, while the moments form is closed under marginalisation.@gbp-visual-introduction In the context of factor graphs in software, the #gaussian.moments is often preferred due to its efficiency in marginalisation, which is a common operation in factor graph inference.@gbp-visual-introduction Furthermore, the #gaussian.moments is unable to represent unconstrained distributions, as would be yielded by an unanchored factor graph. However, this is not a problem encountered in practice for this thesis, as the factor graphs are anchored. More detail on this in @s.m.factor-graph.
+As outlined in @f.gaussian-models the #gaussian.canonical is much more computationally efficient when it comes to conditioning and taking products, while the #gaussian.moments excels at marginalisation. This is due to the fact that the canonical form is closed under conditioning and taking products, while the moments form is closed under marginalisation@gbp-visual-introduction. In the context of factor graphs in software, the #gaussian.moments is often preferred due to its efficiency in marginalisation, which is a common operation in factor graph inference@gbp-visual-introduction. Furthermore, the #gaussian.moments is unable to represent unconstrained distributions, as would be yielded by an unanchored factor graph. However, this is not a problem encountered in practice for this thesis, as the factor graphs are anchored. More detail on this in @s.m.factor-graph.
 
 // why is that?
 
 == Probabilistic Inference <s.b.probabilistic-inference>
 
-To contextualize factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $#m.Xb$, given some observed or known quantities, $#m.D$. This is done by combining prior knowledge with $#m.D$, to infer the most likely distribution of the variables.@gbp-visual-introduction See @ex.probabilistic-inference.
+To contextualize factor graph inference, the underlying probabilistic inference theory is introduced. The goal of probabilistic inference is to estimate the probability distribution of a set of unknown variables, $#m.Xb$, given some observed or known quantities, $#m.D$. This is done by combining prior knowledge with $#m.D$, to infer the most likely distribution of the variables@gbp-visual-introduction. See @ex.probabilistic-inference.
 
 #example(
   caption: [Probabilistic Inference in Meteorology]
@@ -128,7 +128,7 @@ $
   p(#m.Xb|#m.D) = (p(#m.D|#m.Xb)p(#m.Xb)) / (p(#m.D))
 $<eq-bayes-theorom>
 
-This posterior distribution describes our belief of $#m.Xb$, after observing $#m.D$, which can then be used for decision making about possible future states.@gbp-visual-introduction Furthermore, when we have the posterior, properties about $#m.Xb$ can be computed:
+This posterior distribution describes our belief of $#m.Xb$, after observing $#m.D$, which can then be used for decision making about possible future states@gbp-visual-introduction. Furthermore, when we have the posterior, properties about $#m.Xb$ can be computed:
 
 #set enum(numbering: req-enum.with(prefix: "Property ", color: theme.green))
 + The most likely state of $#m.Xb $, the #acr("MAP") estimate $#m.Xb _"MAP"$, is the state with the highest probability in the posterior distribution. See @eq-map-estimate@gbp-visual-introduction:
@@ -140,7 +140,7 @@ This posterior distribution describes our belief of $#m.Xb$, after observing $#m
 + The marginal posteriors, summarising our beliefs of individual variables in $#m.Xb $, can be computed by marginalising the posterior distribution, see @eq-marginal-posterior@gbp-visual-introduction, where $#m.Xb \\#m.x _i$ denotes the set difference operation:
 
   $
-    p(#m.Xb _i|D) = sum_(#m.Xb \\ x_i) p(#m.Xb|D)
+    p(#m.Xb _i|D) = sum_(#m.Xb \\ #m.x _i) p(#m.Xb|D)
   $<eq-marginal-posterior>
 
 // The most common methods for probabilistic inference are exact inference and approximate inference.

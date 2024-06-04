@@ -30,12 +30,12 @@ This thesis poses the following three hypotheses:
 // Updated with Jonas feedback
 + The original work can be enhanced through specific modifications without interfering with the original work's functionality. Specifically, we introduce and rigorously test various GBP iteration schedules, and strategically enhance the system by advancing towards a more distributed approach. These targeted improvements are expected to optimize flexibility and move towards a closer-to-reality system.
 
-+ Extending the original #acr("GBP") Planner software with a global planning layer, will extend the actors' capability to move in complex environments without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance. Furthermore, to this end, a new type of factor can be added to the #acr("GBP") factor graphs to aid in path-following.
++ Extending the original #acr("GBP") Planner software with a global planning layer, will extend the actors' capability to move in complex environments without degradation to the reproduced local cooperative collision avoidance, while maintaining a competitive level of performance. To this end, a new type of factor can be added to the #acr("GBP") factor graphs to aid in path-following.
 
 // Previous fourth hypothesis, merged with the first one
 // + Extensive tooling will create a great environment for others to understand the software and extend it further. Furthermore, such tooling will make it easier to reproduce and engage with the developed solution software.
 
-From this point on, anything pertaining to the context of #H(1) will be referred to as #study.H-1.full.s, #H(2) will be #study.H-2.full.s, #H(3) will be covered by #study.H-3.full.s.#note.ke[I would have liked to have been told each of these before reading each point.]
+From this point on, anything pertaining to the context of #H(1) will be referred to as #study.H-1.full.s, #H(2) will be #study.H-2.full.s, #H(3) will be covered by #study.H-3.full.s.
 <marker.end-of-hypothesis>
 
 == Research Questions <intro-research-questions>

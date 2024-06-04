@@ -30,7 +30,7 @@ $
   p(#m.Xb ) = product_{i} f_i (#m.Xb _i)
 $<eq.factor-product>
 
-Interpreting this, the factors are not necessarily in themselves probabilities, but rather the functions that determine the probabilities of the variables.@loeliger_introduction_2004@alevizos_factor_2012 Additionally, it can be useful to present factor graphs as energy-based models@energy-based-models, where, as seen in @eq.factor-energy@gbp-visual-introduction, each factor $f_i$ is associated with an energy $E_i > 0$:
+Interpreting this, the factors are not necessarily in themselves probabilities, but rather the functions that determine the probabilities of the variables@loeliger_introduction_2004@alevizos_factor_2012. Additionally, it can be useful to present factor graphs as energy-based models@energy-based-models, where, as seen in @eq.factor-energy@gbp-visual-introduction, each factor $f_i$ is associated with an energy $E_i > 0$:
 
 $
   f_i(#m.Xb _i) = exp(-E_i(#m.Xb _i))
@@ -50,8 +50,7 @@ $<eq.map-energy>
     An example factor graph is visualized in @fig.factor-graph, with variables #text(theme.green, ${v_1, dots, v_4}$) and factors #text(theme.lavender, ${f_1, dots, f_4}$). Writing out the visualized factor graph produces @eq.example.factor-graph.
 
     $
-      p(v_1,v_2,v_3,v_4) = 1/Z &f_1(v_1,v_2,v_3) f_2(v_3,v_4) \
-      &f_3(v_3,v_4) f_4(v_4)
+      p(v_1,v_2,v_3,v_4) = 1/Z f_1(v_1,v_2,v_3) f_2(v_3,v_4) f_3(v_3,v_4) f_4(v_4)
     $<eq.example.factor-graph>
     Where $Z$ is the amount of factors in the graph. As such, the joint distribution also functions as a weighting of the different factors' influence.
   ]
@@ -73,7 +72,7 @@ $<eq.map-energy>
   // )
 ]<ex.factor-graph>
 
-The factor graph is a generalisation of constraint graphs, and can represent any joint function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm.@loeliger_introduction_2004@alevizos_factor_2012 The sum-product algorithm is detailed in @s.b.belief-propagation.
+The factor graph is a generalisation of constraint graphs, and can represent any joint function. Moreover, the factor graph structure enables efficient computation of marginal distributions through the sum-product algorithm@loeliger_introduction_2004@alevizos_factor_2012. The sum-product algorithm is detailed in @s.b.belief-propagation.
 
 #figure(
   image("../../figures/out/robot-factor-graph.svg", width: 70%),
@@ -81,7 +80,7 @@ The factor graph is a generalisation of constraint graphs, and can represent any
 )<fig-robot-factor-graph>
 
 // Below is factor graph notions in terms of the multi-agent robotic system we have developed
-In @fig-robot-factor-graph two joint factor graphs are visualized in the context of multi-agent robotics. The first variables in each factor graph $v_1$, represent the location of a green#sg and purple#sp robot respectively. Each robot has a corresponding factorgraph, where the figure shows how the two factor graphs are connected with interrobot factors $f_i$ when they are close enough to each other. Variables $v_2, dots, v_n$ represent the future predicted states of the robot respectively at timesteps $t_2, dots, t_n$, where $t_1$ is the current time.
+In @fig-robot-factor-graph two joint factor graphs are visualized in the context of multi-agent robotics. The first variables in each factor graph $v_1$, represent the location of a green#sg and purple#sp robot respectively. Each robot has a corresponding factorgraph, where the figure shows how the two factor graphs are connected with interrobot factors $f_i$ when they are close enough to each other. Variables $v_2, dots, v_n$ represent the future predicted states of each robot respectively at timesteps $t_2, dots, t_n$, where $t_1$ is the current time.
 
 == Belief Propagation <s.b.belief-propagation> // The Sum-Product Algorithm <background-sum-product-algorithm>
 
@@ -146,26 +145,26 @@ Loopy #acr("BP") is derived via the Bethe free energy, which is a constrained mi
 
 // #jens[do this #emoji.face.smile]
 
-Having introduced both Gaussian models, and #acr("BP"), #acr("GBP") can now be looked at. It is a variant of #acr("BP"), where, due to the closure properties#jens[cite] of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form, #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$). As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"), exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guarantee.@gbp-visual-introduction
+Having introduced both Gaussian models, and #acr("BP"), #acr("GBP") can now be looked at. It is a variant of #acr("BP"), where, due to the closure properties of Gaussians, the messages and beliefs are represented by Gaussian distributions. In its base form, #acr("GBP") works by passing Gaussians around in the #gaussian.canonical, i.e. the messages and beliefs contain the precision matrix #text(theme.mauve, $Lambda$), and the information vector #text(theme.mauve, $eta$). As mentioned earlier, general #acr("BP") is not guaranteed to compute exact marginals, however, for #acr("GBP"), exact marginal means are guaranteed, and even though the variances often converge to the true marginals, there exists no such guarantee.@gbp-visual-introduction
 
 In a factor graph, where all factors are Gaussian, and since all energy terms are additive in the #gaussian.canonical, the energy of the factor graph is also Gaussian, which means that one can represent it as a single multivariate Gaussian. See the equation for this joint distribution in @eq.gaussian-joint@gbp-visual-introduction:
 
 $
-  p(X) prop exp(-1/2 X^top #m.Lambda X + #m.eta^top X)
+  p(#m.Xb) prop exp(-1/2 #m.Xb^top #m.Lambda #m.Xb + #m.eta^top #m.Xb)
 $<eq.gaussian-joint>
 
 ==== MAP Inference <s.b.gbp.map-inference>
 
-In the context of #acr("GBP"), the #acr("MAP") estimate can be found by the parameters $X_"MAP"$ that maximizes the joint distribution in @eq.gaussian-joint. The total energy can then be written as @eq.gaussian-energy-total@gbp-visual-introduction:
+In the context of #acr("GBP"), the #acr("MAP") estimate can be found by the parameters $#m.Xb _"MAP"$ that maximizes the joint distribution in @eq.gaussian-joint. The total energy can then be written as @eq.gaussian-energy-total@gbp-visual-introduction:
 
 $
-  nabla_X E(X) = nabla_X log P(X) = -#m.Lambda X + #m.eta
+  nabla_#m.Xb E(#m.Xb) = nabla_#m.Xb log P(#m.Xb) = -#m.Lambda #m.Xb + #m.eta
 $<eq.gaussian-energy-total>
 
-which is the gradient of the log-probability, and can be set to zero, $nabla_X E = 0$, to find the #acr("MAP") estimate, which, in #acr("GBP"), is reduced to the mean #m.mu, as seen in @eq.gaussian-map@gbp-visual-introduction:
+which is the gradient of the log-probability, and can be set to zero, $nabla_#m.Xb E = 0$, to find the #acr("MAP") estimate, which, in #acr("GBP"), is reduced to the mean #m.mu, as seen in @eq.gaussian-map@gbp-visual-introduction:
 
 $
-  X_"MAP" = #m.Lambda^(-1) #m.eta = #m.mu
+  #m.Xb _"MAP" = #m.Lambda^(-1) #m.eta = #m.mu
 $<eq.gaussian-map>
 
 ==== Marginal Inference <s.b.gbp.marginal-inference>
@@ -173,11 +172,11 @@ $<eq.gaussian-map>
 The goal of marginal inference in #acr("GBP") is to find the per variable marginal posterior distributions. In the #gaussian.moments this looks like @eq.gaussian-marginal-moments@gbp-visual-introduction:
 
 $
-  p(x_i) &= integral p(X) #h(0.25em) d X_(-i) \
-         &prop exp(-1/2 (x_i - #m.mu _i)^top #m.Sigma _(i i)^(-1) (x_i - #m.mu _i))
+  p(#m.x _i) &= integral p(#m.Xb) #h(0.25em) d #m.Xb _(-i) \
+         &prop exp(-1/2 (#m.x _i - #m.mu _i)^top #m.Sigma _(i i)^(-1) (#m.x _i - #m.mu _i))
 $<eq.gaussian-marginal-moments>
 
-where $X_{-i}$ is the set of all variables except $x_i$, and $#m.Sigma _(i i)$ is the $i^"th"$ diagonal element of the covariance matrix $#m.Sigma = #m.Lambda$. The marginal posterior distribution is then a Gaussian with mean $#m.mu _i$ and variance $#m.Sigma _(i i)$. Furthermore, $#m.mu _i$ is the $i^"th"$ element of the joint mean vector $#m.mu$, as in @eq.gaussian-joint.
+where $#m.Xb _{-i}$ is the set of all variables except $#m.x _i$, and $#m.Sigma _(i i)$ is the $i^"th"$ diagonal element of the covariance matrix $#m.Sigma = #m.Lambda^(-1)$. The marginal posterior distribution is then a Gaussian with mean $#m.mu _i$ and variance $#m.Sigma _(i i)$. Furthermore, $#m.mu _i$ is the $i^"th"$ element of the joint mean vector $#m.mu$, as in @eq.gaussian-joint.
 
 With the understanding from #numref(<s.b.gbp.map-inference>) and #numref(<s.b.gbp.marginal-inference>), inference in #acr("GBP") ends up being a matter of solving the linear system of equations @eq.gaussian-linear-system@gbp-visual-introduction:
 
@@ -242,17 +241,17 @@ This step is not detailed in @gbpplanner, as it is not a regular step involving 
   + *Measurement & Jacobian:* The measurement residual is computed as the difference between the measurement at the initial linearisation point, $h(#m.Xb _0)$, and the current measurement, $h(#m.Xb _n)$, see @eq.factor-measurement@gbp-visual-introduction:
 
     $
-      h_i = h(#m.Xb _0) - h(#m.Xb _n)
+      h_r = h(#m.Xb _0) - h(#m.Xb _n)
     $<eq.factor-measurement>
 
-    Where $X_0$ is the configuration at $t_0$, and $X_n$ is the configuration at the current timestep $t_n$.
+    Where $#m.Xb _0$ is the configuration at $t_0$, and $#m.Xb _n$ is the configuration at the current timestep $t_n$.
 
   + *Factor Potential Update:* The factor potential is updated by computing the precision matrix and information vector of the factor potential, as seen in @eq.factor-potential@gbp-visual-introduction:
 
     $
       #m.Lambda _p = jacobian^top #m.Lambda _M jacobian
       #h(1em)"and"#h(1em)
-      #m.eta _p = jacobian^top #m.Lambda _M (jacobian l_p + m_r)
+      #m.eta _p = jacobian^top #m.Lambda _M (jacobian #m.Xb _0 + h_r)
     $<eq.factor-potential>
 
     Where $#m.Lambda _p$ and $#m.eta _p$ denotes the measurement precision matrix and information vector of the factor potential, respectively. Lastly, $#m.Lambda _M$ is the measurement precision matrix.
@@ -262,7 +261,7 @@ This step is not detailed in @gbpplanner, as it is not a regular step involving 
 
 As the factor has been updated, it is now possible to pass messages to neighboring variables. The messages to each neighboring variables has to be marginalized with respect to all other variables, that is; to find the message to variable $x_i$, margininalize out its own contribution to the aggregated message. This is best described through an example, see @ex.factor-to-variable@gbp-visual-introduction.
 
-#example(caption: [Factor Message Marginalisation])[
+#example(caption: [Factor Message Marginalisation@gbp-visual-introduction])[
   Consider a factor $f$ connected to 3 variables; $x_1,x_2,x_3$, and we want to compute the message to be passed to variable $x_1$. Write the factor out as a Gaussian distribution, see @eq.ex.factor@gbp-visual-introduction:
 
   $
@@ -344,7 +343,8 @@ $<eq.gaussian-energy>
 In case of a linear factor, the measurement function is quadratic and can be written as $h(#m.Xb _n) = jacobian #m.Xb _n + c$, where $jacobian$ is the Jacobian. This allows us to rearrange the energy onto #gaussian.canonical @eq.gaussian-canonical@gbp-visual-introduction:
 
 $
-  E(#m.Xb _n) = 1/2 #m.Xb _n^top #text(theme.yellow, $Lambda$) #m.Xb _n - #text(theme.yellow, $eta$)^top #m.Xb _n#h(1em), "where" #text(theme.yellow, $eta$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) (#m.d - c) "and" #text(theme.yellow, $Lambda$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) jacobian
+  E(#m.Xb _n) &= 1/2 #m.Xb _n^top #text(theme.yellow, $Lambda$) #m.Xb _n - #text(theme.yellow, $eta$)^top #m.Xb _n \
+  &"where" #text(theme.yellow, $eta$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) (#m.d - c) "and" #text(theme.yellow, $Lambda$) = jacobian^top #text(theme.mauve, $Sigma_n$)^(-1) jacobian
 $<eq.gaussian-canonical>
 
 However, in case of a non-linearity in $h$, the energy is also not quadratic in $#m.Xb _n$, which in turn means that the factor is not Gaussian. To achieve a Gaussian distribution for the factor in this case, it is necessary to linearize around a current estimate $#m.Xb _0$, which is from here called the #factor.lp. This linearisation takes place by @eq.factor-linearisation@gbp-visual-introduction:
