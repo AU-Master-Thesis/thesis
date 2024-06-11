@@ -535,7 +535,7 @@ rmse: float = np.sqrt(error / len(positions))
 //
 
 // == Perpendicular Path Deviation Metric Code <appendix.perpendicular-path-deviation-metric-code>
-== Visualisation Modules <appendix.visualisation-modules>
+// == Visualisation Modules <appendix.visualisation-modules>
 
 A screenshot of each visualization module presented in @s.m.visualization is listed below. See @table.simulation-visualizations for a detailed description of each module.
 
@@ -589,7 +589,7 @@ A screenshot of each visualization module presented in @s.m.visualization is lis
 
 #figure(
   scale(x: x, y: y, image("../figures/img/visualizer-robots.png")),
-  // caption: [#todo[]]
+  caption: [A sphere visualization for each robot.]
 ) <appendix.visualizer-robots>
 
 #pagebreak()

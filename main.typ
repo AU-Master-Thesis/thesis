@@ -257,9 +257,9 @@
 #init-acronyms(acrostiche-acronyms)
 
 // This is important! Call it whenever your page is reconfigured.
-#if not release {
-  set-page-properties()
-}
+// #if not release {
+//   set-page-properties()
+// }
 
 // #if "release" in sys.inputs and sys.inputs.release == "true" {
 //   set-margin-note-defaults(hidden: true)

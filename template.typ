@@ -28,6 +28,7 @@
     outline(
       title: none,
       indent: auto,
+      depth: 2,
       target: heading.where(numbering: "A.1:"),
     )
   }
